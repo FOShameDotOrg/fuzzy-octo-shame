@@ -13,56 +13,58 @@ public class MenuState extends GameState {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuState.class);
 
-	private UnicodeFont font;
-	
-	private String daString;
-	private Vector coords;
-	
-	public MenuState(GameStateManager manager) {
-		super(manager);
-	}
+    private UnicodeFont font;
 
-	public String getDaString() {
-		return daString;
-	}
+    private String daString;
+    private Vector coords;
 
-	public void setDaString(String daString) {
-		this.daString = daString;
-	}
+    public MenuState(GameStateManager manager) {
+        super(manager);
+    }
 
-	public Vector getCoords() {
-		return coords;
-	}
+    public String getDaString() {
+        return daString;
+    }
 
-	public void setCoords(Vector coords) {
-		this.coords = coords;
-	}
+    public void setDaString(String daString) {
+        this.daString = daString;
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public void entered() {
-		java.awt.Font awtFont = new java.awt.Font("Arial", java.awt.Font.PLAIN, 24);
-		font = new UnicodeFont(awtFont);
-		font.getEffects().add(new ColorEffect(java.awt.Color.RED));
-	    font.addAsciiGlyphs();
-	    try {
-			font.loadGlyphs();
-		} catch (SlickException e) {
-			LOGGER.error("Failed to load Font!",e);
-		}
-	}
+    public Vector getCoords() {
+        return coords;
+    }
 
-	@Override
-	public void leaving() {}
+    public void setCoords(Vector coords) {
+        this.coords = coords;
+    }
 
-	@Override
-	public void update() {}
+    @SuppressWarnings("unchecked")
+    @Override
+    public void entered() {
+        java.awt.Font awtFont = new java.awt.Font("Arial", java.awt.Font.PLAIN, 24);
+        font = new UnicodeFont(awtFont);
+        font.getEffects().add(new ColorEffect(java.awt.Color.RED));
+        font.addAsciiGlyphs();
+        try {
+            font.loadGlyphs();
+        } catch (SlickException e) {
+            LOGGER.error("Failed to load Font!", e);
+        }
+    }
 
-	@Override
-	public void draw() {
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		font.drawString(coords.x, coords.y, daString);    
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
-	}
+    @Override
+    public void leaving() {
+    }
+
+    @Override
+    public void update() {
+    }
+
+    @Override
+    public void draw() {
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        font.drawString(coords.x, coords.y, daString);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+    }
 
 }

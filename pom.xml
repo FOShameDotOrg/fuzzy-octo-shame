@@ -1,8 +1,7 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <!-- TODO Externalize properties from all elements -->
-  
   <!-- See: http://maven.apache.org/pom.html#Developers -->
   <developers>
     <developer>
@@ -27,43 +26,39 @@
       <timezone>-6</timezone>
     </developer>
   </developers>
-
   <groupId>com.jed</groupId>
   <artifactId>fuzzy-octo-shame</artifactId>
   <version>0.1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
-
   <name>fuzzy-octo-shame</name>
   <url>https://github.com/virtuoushub/fuzzy-octo-shame</url>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-
   <dependencies>
     <dependency>
-        <groupId>org.lwjgl.lwjgl</groupId>
-        <artifactId>lwjgl</artifactId>
-        <version>2.9.1</version>
-        <exclusions>
-          <!-- START Unecessary explict exclusion. Only here for verbosity. -->
-          <exclusion>
-            <groupId>net.java.jinput</groupId>
-            <artifactId>jinput</artifactId>
-          </exclusion>
-          <!-- END Unecessary explict exclusion. Only here for verbosity. -->
-        </exclusions>
+      <groupId>org.lwjgl.lwjgl</groupId>
+      <artifactId>lwjgl</artifactId>
+      <version>2.9.1</version>
+      <exclusions>
+        <!-- START Unecessary explict exclusion. Only here for verbosity. -->
+        <exclusion>
+          <groupId>net.java.jinput</groupId>
+          <artifactId>jinput</artifactId>
+        </exclusion>
+        <!-- END Unecessary explict exclusion. Only here for verbosity. -->
+      </exclusions>
     </dependency>
     <dependency>
-        <groupId>org.slick2d</groupId>
-        <artifactId>slick2d-core</artifactId>
-        <version>1.0.1</version>
+      <groupId>org.slick2d</groupId>
+      <artifactId>slick2d-core</artifactId>
+      <version>1.0.1</version>
     </dependency>
     <!-- Start Overriding transitive version from lwjgl artifact -->
     <dependency>
-        <groupId>net.java.jinput</groupId>
-        <artifactId>jinput</artifactId>
-        <version>2.0.6</version>
+      <groupId>net.java.jinput</groupId>
+      <artifactId>jinput</artifactId>
+      <version>2.0.6</version>
     </dependency>
     <!-- End Overriding transitive version from lwjgl artifact -->
     <dependency>
@@ -88,7 +83,6 @@
       <version>1.0.2</version>
     </dependency>
   </dependencies>
-  
   <build>
     <plugins>
       <plugin>
@@ -130,16 +124,16 @@
               <configLocation>${project.build.resources[0].directory}/checkstyle.xml</configLocation>
               <encoding>UTF-8</encoding>
               <consoleOutput>true</consoleOutput>
-<!-- pc 2014-10-31: if i were to set failOnViolation to true, its over 9000!!! well 2000... or it stops reporting after that many...:
-...
-[INFO] BUILD FAILURE
-...
-[INFO] Total time: 1.795s
-[INFO] Finished at: Fri Oct 31 01:22:28 CDT 2014
-[INFO] Final Memory: 9M/224M
-...
-[ERROR] Failed to execute goal org.apache.maven.plugins:maven-checkstyle-plugin:2.13:check (validate) on project fuzzy-octo-shame: Failed during checkstyle execution: There are 2000 checkstyle errors. -> [Help 1]
-              -->
+              <!-- pc 2014-10-31: if i were to set failOnViolation to true, its over 9000!!! well 2000... or it stops reporting after that many...:
+                            ...
+                            [INFO] BUILD FAILURE
+                            ...
+                            [INFO] Total time: 1.795s
+                            [INFO] Finished at: Fri Oct 31 01:22:28 CDT 2014
+                            [INFO] Final Memory: 9M/224M
+                            ...
+                            [ERROR] Failed to execute goal org.apache.maven.plugins:maven-checkstyle-plugin:2.13:check (validate) on project fuzzy-octo-shame: Failed during checkstyle execution: There are 2000 checkstyle errors. -> [Help 1]
+                                          -->
               <failOnViolation>false</failOnViolation>
               <failsOnError>false</failsOnError>
               <!-- pc: find out why IntelliJ doesn't like linkXRef element. -->
@@ -151,27 +145,26 @@
           </execution>
         </executions>
       </plugin>
-        <plugin>
-            <!-- see: https://code.google.com/p/mavennatives/ and http://www.lwjgl.org/wiki/index.php?title=LWJGL_use_in_Maven -->
-            <groupId>com.googlecode.mavennatives</groupId>
-            <artifactId>maven-nativedependencies-plugin</artifactId>
-            <version>0.0.7</version>
-            <executions>
-                <execution>
-                    <id>unpacknatives</id>
-                    <goals>
-                        <goal>copy</goal>
-                    </goals>
-                </execution>
-            </executions>
-            <configuration>
-                <nativesTargetDir>target/natives</nativesTargetDir>
-                <separateDirs>false</separateDirs>
-            </configuration>
-        </plugin>
+      <plugin>
+        <!-- see: https://code.google.com/p/mavennatives/ and http://www.lwjgl.org/wiki/index.php?title=LWJGL_use_in_Maven -->
+        <groupId>com.googlecode.mavennatives</groupId>
+        <artifactId>maven-nativedependencies-plugin</artifactId>
+        <version>0.0.7</version>
+        <executions>
+          <execution>
+            <id>unpacknatives</id>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <nativesTargetDir>target/natives</nativesTargetDir>
+          <separateDirs>false</separateDirs>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
-  
   <profiles>
     <profile>
       <repositories>
@@ -198,11 +191,11 @@
     </profile>
   </profiles>
   <!-- TODO Add to settings file, see https://bintray.com/bintray/jcenter
-<?xml version='1.0' encoding='UTF-8'?>
-<settings xsi:schemaLocation='http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd' xmlns='http://maven.apache.org/SETTINGS/1.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
-  <activeProfiles>
-    <activeProfile>bintray</activeProfile>
-  </activeProfiles>
-</settings>
-  -->
+  <?xml version='1.0' encoding='UTF-8'?>
+  <settings xsi:schemaLocation='http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd' xmlns='http://maven.apache.org/SETTINGS/1.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+    <activeProfiles>
+      <activeProfile>bintray</activeProfile>
+    </activeProfiles>
+  </settings>
+    -->
 </project>

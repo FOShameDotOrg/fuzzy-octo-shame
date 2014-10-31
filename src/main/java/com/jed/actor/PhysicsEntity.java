@@ -4,10 +4,10 @@ import com.jed.util.Vector;
 
 public abstract class PhysicsEntity extends Entity {
 
-	public PhysicsEntity(Vector position, Vector movement, Boundary bounds) {
-		super(position, movement, bounds);
-	}
+    public PhysicsEntity(Vector position, Vector movement, Boundary bounds) {
+        super(position, movement, bounds);
+    }
 
-	public abstract double mass();
+    public abstract double mass();
 
 }
