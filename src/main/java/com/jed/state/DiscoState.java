@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.jed.actor.Ball;
 import com.jed.actor.CircleBoundary;
 import com.jed.actor.Entity;
@@ -12,8 +15,6 @@ import com.jed.core.MotherBrain;
 import com.jed.core.QuadTree;
 import com.jed.util.Rectangle;
 import com.jed.util.Vector;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DiscoState extends GameState {
 
