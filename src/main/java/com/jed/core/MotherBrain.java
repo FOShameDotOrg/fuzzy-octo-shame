@@ -9,6 +9,7 @@ import org.lwjgl.opengl.GL11;
 import com.jed.state.DiscoState;
 import com.jed.state.GameStateManager;
 import com.jed.state.PlayState;
+import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
 
 /**
  * @author jlinde
@@ -31,7 +32,12 @@ public class MotherBrain {
 		return instance;
 	}
 
+    /**
+     * @see <a href="http://projects.lidalia.org.uk/sysout-over-slf4j/quickstart.html">System Out and Err redirected to SLF4J</a>
+     * @param args
+     */
 	public static void main(String[] args) {
+        SysOutOverSLF4J.sendSystemOutAndErrToSLF4J();
 		instance = new MotherBrain();
 		instance.start();
 	}
