@@ -125,7 +125,8 @@
 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-checkstyle-plugin:2.13:check (validate) on project fuzzy-octo-shame: Failed during checkstyle execution: There are 2000 checkstyle errors. -> [Help 1]
               -->
               <failOnViolation>false</failOnViolation>
-              <failsOnError>flase</failsOnError>
+              <failsOnError>false</failsOnError>
+              <!-- pc: find out why IntelliJ doesn't like linkXRef element. -->
               <linkXRef>false</linkXRef>
             </configuration>
             <goals>
