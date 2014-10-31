@@ -124,18 +124,8 @@
               <configLocation>${project.build.resources[0].directory}/checkstyle.xml</configLocation>
               <encoding>UTF-8</encoding>
               <consoleOutput>true</consoleOutput>
-              <!-- pc 2014-10-31: if i were to set failOnViolation to true, its over 9000!!! well 2000... or it stops reporting after that many...:
-                            ...
-                            [INFO] BUILD FAILURE
-                            ...
-                            [INFO] Total time: 1.795s
-                            [INFO] Finished at: Fri Oct 31 01:22:28 CDT 2014
-                            [INFO] Final Memory: 9M/224M
-                            ...
-                            [ERROR] Failed to execute goal org.apache.maven.plugins:maven-checkstyle-plugin:2.13:check (validate) on project fuzzy-octo-shame: Failed during checkstyle execution: There are 2000 checkstyle errors. -> [Help 1]
-                                          -->
-              <failOnViolation>false</failOnViolation>
-              <failsOnError>false</failsOnError>
+              <failOnViolation>true</failOnViolation>
+              <failsOnError>true</failsOnError>
               <!-- pc: find out why IntelliJ doesn't like linkXRef element. -->
               <linkXRef>false</linkXRef>
             </configuration>
