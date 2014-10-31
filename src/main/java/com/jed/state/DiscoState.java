@@ -192,9 +192,6 @@ public class DiscoState extends GameState {
                 each.position.x = each.getRadius();
             }
         }
-        if (collide) {
-            LOGGER.debug("\n");//FIXME
-        }
     }
 
     private boolean detectCollision(Ball p1, Ball p2) {
