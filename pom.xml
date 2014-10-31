@@ -99,6 +99,7 @@
           <!-- I found usedDependencies to be poorly documented. For getting it working, thanks goes to: http://stackoverflow.com/a/13605782 -->
           <usedDependencies>
             <usedDependencies>net.java.jinput:jinput</usedDependencies>
+            <usedDependency>org.slf4j:slf4j-simple</usedDependency>
           </usedDependencies>
         </configuration>
       </plugin>
