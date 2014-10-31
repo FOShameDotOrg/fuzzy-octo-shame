@@ -6,8 +6,8 @@ public class Rectangle {
     /**
      * width, height
      *
-     * @param width
-     * @param height
+     * @param width Width of the Rectangle.
+     * @param height Height of the Rectangle.
      */
 
     public Rectangle(int width, int height) {

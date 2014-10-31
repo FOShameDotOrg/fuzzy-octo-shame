@@ -36,7 +36,7 @@ public class MotherBrain {
     }
 
     /**
-     * @param args
+     * @param args Command-line arguments
      * @see <a href="http://projects.lidalia.org.uk/sysout-over-slf4j/quickstart.html">System Out and Err redirected to SLF4J</a>
      */
     public static void main(String[] args) {
