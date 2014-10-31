@@ -1,5 +1,6 @@
 package com.jed.actor;
 
+import com.jed.util.MapLoader;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
@@ -17,7 +18,7 @@ public class Player extends Entity implements StateManager {
 	public int xDir;
 	
 	//Texture(s)
-	private final String TEXTURE_PATH = "assets/MEGA_MAN_SH.png";
+	private final String TEXTURE_PATH = MapLoader.RESOURCES_DIRECTORY + "MEGA_MAN_SH.png";
 	private Texture texture;
 	
 	//Player Direction

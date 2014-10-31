@@ -11,8 +11,11 @@ import com.jed.util.MapLoader;
 import com.jed.util.Vector;
 
 public class PlayState extends GameState implements StateManager  {
-	
-	public static final String LEVEL_ONE_PATH = "assets/POC_MAP.tmx";
+
+    /**
+     * FIXME Make relative to classpath
+     */
+	public static final String LEVEL_ONE_PATH = MapLoader.RESOURCES_DIRECTORY + "POC_MAP.tmx";
 	
 	private Stack<Entity> scene;
 	

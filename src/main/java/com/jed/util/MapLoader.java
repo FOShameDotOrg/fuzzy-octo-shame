@@ -13,7 +13,13 @@ import com.jed.state.GameMap;
 import com.jed.state.MapTile;
 
 public class MapLoader {
-	public static GameMap loadMap(String path){
+
+    /**
+     * TODO refactor location of constant in Java source code.
+     */
+    public static final String RESOURCES_DIRECTORY = "src/main/resources/";
+
+    public static GameMap loadMap(String path){
 		GameMap map = new GameMap();
 		
 		Document doc = null;
@@ -70,9 +76,10 @@ public class MapLoader {
 		for(int i = 0; i<imageNodes.getLength(); i++){
 			Node eachImageNode = imageNodes.item(i);
 			if(eachImageNode.getNodeType() == Node.ELEMENT_NODE){
-				map.tileSetPath = 
-					"assets/"+eachImageNode.getAttributes()
-						.getNamedItem("source").getTextContent();
+				//TODO Make asset location relative
+                map.setTileSetPath(
+					RESOURCES_DIRECTORY +eachImageNode.getAttributes()
+						.getNamedItem("source").getTextContent());
 				
 				tileImageWidth = 
 					Integer.parseInt(eachImageNode.getAttributes().getNamedItem("width").getTextContent());
