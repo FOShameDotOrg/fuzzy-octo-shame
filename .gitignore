@@ -1,1 +1,109 @@
-bin
+# see https://github.com/github/gitignore
+
+# START FROM: https://github.com/github/gitignore/blob/3244810432d214f85791b5dced07d3ab0aca7435/Maven.gitignore
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+# END FROM: https://github.com/github/gitignore/blob/3244810432d214f85791b5dced07d3ab0aca7435/Maven.gitignore
+# START FROM: https://github.com/github/gitignore/blob/ca4a3db967a3bd4070a1b7ff2a58f88e406afc24/Global/Eclipse.gitignore
+*.pydevproject
+.metadata
+.gradle
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
+
+# sbteclipse plugin
+.target
+
+# TeXlipse plugin
+.texlipse
+# END FROM: https://github.com/github/gitignore/blob/ca4a3db967a3bd4070a1b7ff2a58f88e406afc24/Global/Eclipse.gitignore
+# START FROM: https://github.com/github/gitignore/blob/61422490d3f51f4b62868acfcfe52a01a8c41b6e/Java.gitignore
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+# END FROM: https://github.com/github/gitignore/blob/61422490d3f51f4b62868acfcfe52a01a8c41b6e/Java.gitignore
+# START FROM: https://github.com/github/gitignore/blob/408c616ae0ad8f4b8101d8e876b9b67ac6b14059/Global/JetBrains.gitignore
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
+
+*.iml
+
+## Directory-based project format:
+.idea/
+# if you remove the above rule, at least ignore the following:
+
+# User-specific stuff:
+# .idea/workspace.xml
+# .idea/tasks.xml
+# .idea/dictionaries
+
+# Sensitive or high-churn files:
+# .idea/dataSources.ids
+# .idea/dataSources.xml
+# .idea/sqlDataSources.xml
+# .idea/dynamic.xml
+# .idea/uiDesigner.xml
+
+# Gradle:
+# .idea/gradle.xml
+# .idea/libraries
+
+# Mongo Explorer plugin:
+# .idea/mongoSettings.xml
+
+## File-based project format:
+*.ipr
+*.iws
+
+## Plugin-specific files:
+
+# IntelliJ
+out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+# END FROM: https://github.com/github/gitignore/blob/408c616ae0ad8f4b8101d8e876b9b67ac6b14059/Global/JetBrains.gitignore
+# Start from pc rando
+.gradle/
+gradle/
+build/
+# End from pc rando
