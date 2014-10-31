@@ -101,6 +101,39 @@
         <artifactId>maven-resources-plugin</artifactId>
         <version>2.7</version>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.13</version>
+        <executions>
+          <execution>
+            <id>validate</id>
+            <phase>validate</phase>
+            <configuration>
+              <!-- dear god, the kludge. http://stackoverflow.com/a/15004792 -->
+              <configLocation>${project.build.resources[0].directory}/checkstyle.xml</configLocation>
+              <encoding>UTF-8</encoding>
+              <consoleOutput>true</consoleOutput>
+<!-- pc 2014-10-31: if i were to set failOnViolation to true, its over 9000!!! well 2000... or it stops reporting after that many...:
+...
+[INFO] BUILD FAILURE
+...
+[INFO] Total time: 1.795s
+[INFO] Finished at: Fri Oct 31 01:22:28 CDT 2014
+[INFO] Final Memory: 9M/224M
+...
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-checkstyle-plugin:2.13:check (validate) on project fuzzy-octo-shame: Failed during checkstyle execution: There are 2000 checkstyle errors. -> [Help 1]
+              -->
+              <failOnViolation>false</failOnViolation>
+              <failsOnError>flase</failsOnError>
+              <linkXRef>false</linkXRef>
+            </configuration>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
   
