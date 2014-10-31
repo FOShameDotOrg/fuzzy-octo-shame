@@ -318,7 +318,7 @@ public class DiscoState extends GameState {
         double a1 = p1.movement.dotProduct(n);
         double a2 = p2.movement.dotProduct(n);
 
-        double optimizedP = (double) (2.0 * (a1 - a2)) / (p1.mass() + p2.mass());
+        double optimizedP = (2.0 * (a1 - a2)) / (p1.mass() + p2.mass());
 
         // Calculate v1', the new movement vector of circle1
         // v1' = v1 - optimizedP * m2 * n
