@@ -13,6 +13,12 @@ import com.jed.state.GameMap;
 import com.jed.state.MapTile;
 
 public class MapLoader {
+
+    /**
+     * TODO refactor location of constant in Java source code.
+     */
+    public static final String RESOURCES_DIRECTORY = "src/main/resources/";
+
 	public static GameMap loadMap(String path){
 		GameMap map = new GameMap();
 		
