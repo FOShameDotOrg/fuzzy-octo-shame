@@ -91,8 +91,12 @@ public class QuadTree implements Displayable {
     }
 
     private void split() {
-        int subWidth = Math.round(rectangle.getWidth() / 2);
-        int subHeight = Math.round(rectangle.getHeight() / 2);
+    	//TODO START pc 2014-10-31: Test me
+        float halfWidth = Float.valueOf(rectangle.getWidth()) / 2.0f;
+        int subWidth = Math.round(halfWidth);
+        float halfHeight = Float.valueOf(rectangle.getHeight()) / 2.0f;
+        int subHeight = Math.round(halfHeight);
+        //TODO END pc 2014-10-31: Test me
         int x = Math.round(position.x);
         int y = Math.round(position.y);
 
