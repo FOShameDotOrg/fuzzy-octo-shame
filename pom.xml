@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <!-- TODO Externalize properties from all elements -->
+  <!-- See: http://maven.apache.org/pom.html#Developers -->
+  <developers>
+    <developer>
+      <id>Hornswaggler</id>
+      <name>Hornswaggler</name>
+      <url>https://github.com/Hornswaggler</url>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>-5</timezone>
+    </developer>
+    <developer>
+      <id>pc</id>
+      <name>Peter Colapietro</name>
+      <email>petercolapietro@gmail.com</email>
+      <url>https://github.com/virtuoushub</url>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>-6</timezone>
+    </developer>
+  </developers>
+  <groupId>com.jed</groupId>
+  <artifactId>fuzzy-octo-shame</artifactId>
+  <version>0.1.0</version>
+  <packaging>jar</packaging>
+  <name>fuzzy-octo-shame</name>
+  <url>https://github.com/virtuoushub/fuzzy-octo-shame</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.lwjgl.lwjgl</groupId>
+      <artifactId>lwjgl</artifactId>
+      <version>2.9.1</version>
+      <exclusions>
+        <!-- START Unecessary explict exclusion. Only here for verbosity. -->
+        <exclusion>
+          <groupId>net.java.jinput</groupId>
+          <artifactId>jinput</artifactId>
+        </exclusion>
+        <!-- END Unecessary explict exclusion. Only here for verbosity. -->
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.slick2d</groupId>
+      <artifactId>slick2d-core</artifactId>
+      <version>1.0.1</version>
+    </dependency>
+    <!-- Start Overriding transitive version from lwjgl artifact -->
+    <dependency>
+      <groupId>net.java.jinput</groupId>
+      <artifactId>jinput</artifactId>
+      <version>2.0.6</version>
+    </dependency>
+    <!-- End Overriding transitive version from lwjgl artifact -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>1.7.7</version>
+    </dependency>
+    <dependency>
+      <groupId>uk.org.lidalia</groupId>
+      <artifactId>sysout-over-slf4j</artifactId>
+      <version>1.0.2</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.9</version>
+        <configuration>
+          <!-- I found usedDependencies to be poorly documented. For getting it working, thanks goes to: http://stackoverflow.com/a/13605782 -->
+          <usedDependencies>
+            <usedDependency>net.java.jinput:jinput</usedDependency>
+            <usedDependency>org.slf4j:slf4j-simple</usedDependency>
+          </usedDependencies>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.2</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <!-- pc 2014-10-31 start: see http://stackoverflow.com/a/17948010 -->
+          <useIncrementalCompilation>false</useIncrementalCompilation>
+          <!-- pc 2014-10-31 end: see http://stackoverflow.com/a/17948010 -->
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.7</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.13</version>
+        <executions>
+          <execution>
+            <id>validate</id>
+            <phase>validate</phase>
+            <configuration>
+              <!-- dear god, the kludge. http://stackoverflow.com/a/15004792 -->
+              <configLocation>${project.build.resources[0].directory}/checkstyle.xml</configLocation>
+              <encoding>UTF-8</encoding>
+              <consoleOutput>true</consoleOutput>
+              <failOnViolation>true</failOnViolation>
+              <failsOnError>true</failsOnError>
+              <!-- pc: find out why IntelliJ doesn't like linkXRef element. -->
+              <linkXRef>false</linkXRef>
+            </configuration>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <!-- see: https://code.google.com/p/mavennatives/ and http://www.lwjgl.org/wiki/index.php?title=LWJGL_use_in_Maven -->
+        <groupId>com.googlecode.mavennatives</groupId>
+        <artifactId>maven-nativedependencies-plugin</artifactId>
+        <version>0.0.7</version>
+        <executions>
+          <execution>
+            <id>unpacknatives</id>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <nativesTargetDir>target/natives</nativesTargetDir>
+          <separateDirs>false</separateDirs>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <profiles>
+    <profile>
+      <repositories>
+        <repository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>central</id>
+          <name>bintray</name>
+          <url>http://jcenter.bintray.com</url>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>central</id>
+          <name>bintray-plugins</name>
+          <url>http://jcenter.bintray.com</url>
+        </pluginRepository>
+      </pluginRepositories>
+      <id>bintray</id>
+    </profile>
+  </profiles>
+  <!-- TODO Add to settings file, see https://bintray.com/bintray/jcenter
+  <?xml version='1.0' encoding='UTF-8'?>
+  <settings xsi:schemaLocation='http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd' xmlns='http://maven.apache.org/SETTINGS/1.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+    <activeProfiles>
+      <activeProfile>bintray</activeProfile>
+    </activeProfiles>
+  </settings>
+    -->
+</project>
