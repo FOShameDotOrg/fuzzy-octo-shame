@@ -1,6 +1,5 @@
 package com.jed.actor;
 
-import com.jed.util.MapLoader;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
@@ -9,6 +8,7 @@ import org.newdawn.slick.opengl.Texture;
 import com.jed.state.GameMap;
 import com.jed.state.State;
 import com.jed.state.StateManager;
+import com.jed.util.MapLoader;
 import com.jed.util.Util;
 import com.jed.util.Vector;
 

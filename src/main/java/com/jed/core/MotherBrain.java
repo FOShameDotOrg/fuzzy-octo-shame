@@ -5,13 +5,14 @@ import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
 
 import com.jed.state.DiscoState;
 import com.jed.state.GameStateManager;
 import com.jed.state.PlayState;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
 
 /**
  * @author jlinde
