@@ -4,7 +4,7 @@ import com.jed.core.Displayable;
 import com.jed.state.State;
 import com.jed.util.Vector;
 
-public class Entity implements Displayable, State {
+public abstract class Entity implements Displayable, State {
 
     public Vector position;
     public Boundary bounds;
