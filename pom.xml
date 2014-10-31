@@ -2,13 +2,38 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <!-- See: http://maven.apache.org/pom.html#Developers -->
+  <developers>
+    <developer>
+      <id>Hornswaggler</id>
+      <name>Hornswaggler</name>
+      <url>https://github.com/Hornswaggler</url>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>-6</timezone>
+    </developer>
+    <developer>
+      <id>pc</id>
+      <name>Peter Colapietro</name>
+      <email>petercolapietro@gmail.com</email>
+      <url>https://github.com/virtuoushub</url>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>-5</timezone>
+    </developer>
+  </developers>
+
   <groupId>com.jed</groupId>
   <artifactId>fuzzy-octo-shame</artifactId>
   <version>0.1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>fuzzy-octo-shame</name>
-  <url>http://maven.apache.org</url>
+  <url>https://github.com/virtuoushub/fuzzy-octo-shame</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
