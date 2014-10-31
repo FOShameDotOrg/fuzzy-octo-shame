@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
+  
   <!-- See: http://maven.apache.org/pom.html#Developers -->
   <developers>
     <developer>
@@ -57,4 +57,38 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  
+  <profiles>
+    <profile>
+      <repositories>
+        <repository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>central</id>
+          <name>bintray</name>
+          <url>http://jcenter.bintray.com</url>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>central</id>
+          <name>bintray-plugins</name>
+          <url>http://jcenter.bintray.com</url>
+        </pluginRepository>
+      </pluginRepositories>
+      <id>bintray</id>
+    </profile>
+  </profiles>
+  <!-- TODO Add to settings file, see https://bintray.com/bintray/jcenter
+<?xml version='1.0' encoding='UTF-8'?>
+<settings xsi:schemaLocation='http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd' xmlns='http://maven.apache.org/SETTINGS/1.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+  <activeProfiles>
+    <activeProfile>bintray</activeProfile>
+  </activeProfiles>
+</settings>
+  -->
 </project>
