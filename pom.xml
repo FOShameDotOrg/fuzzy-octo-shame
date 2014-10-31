@@ -104,6 +104,9 @@
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <!-- pc 2014-10-31 start: see http://stackoverflow.com/a/17948010 -->
+          <useIncrementalCompilation>false</useIncrementalCompilation>
+          <!-- pc 2014-10-31 end: see http://stackoverflow.com/a/17948010 -->
         </configuration>
       </plugin>
       <plugin>
