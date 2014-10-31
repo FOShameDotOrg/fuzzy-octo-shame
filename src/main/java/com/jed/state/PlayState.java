@@ -5,10 +5,7 @@ import java.util.Stack;
 import org.lwjgl.input.Keyboard;
 
 import com.jed.actor.Entity;
-import com.jed.actor.Player;
-import com.jed.core.MotherBrain;
 import com.jed.util.MapLoader;
-import com.jed.util.Vector;
 
 public class PlayState extends GameState implements StateManager  {
 
