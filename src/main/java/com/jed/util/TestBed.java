@@ -7,14 +7,14 @@ public class TestBed {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TestBed.class);
 
-	public static void main(String[] args){
-		double value = 3d;
-		test(value);
-		LOGGER.debug(String.valueOf(value));
-	}
-	
-	public static void test(Double value){
-		value = 5d;
-	}
-	
+    public static void main(String[] args) {
+        double value = 3d;
+        test(value);
+        LOGGER.debug(String.valueOf(value));
+    }
+
+    public static void test(Double value) {
+        value = 5d;
+    }
+
 }
