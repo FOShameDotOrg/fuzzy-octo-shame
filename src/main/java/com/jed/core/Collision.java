@@ -160,8 +160,9 @@ public class Collision implements Comparable<Collision> {
             max = boundary.verticies[0].add(boundary.getWorldPosition()).dotProduct(axis);
             min = boundary.verticies[0].add(boundary.getWorldPosition()).dotProduct(axis);
 
+            double current;
             for (int i = 1; i < boundary.verticies.length; i++) {
-                double current = boundary.verticies[i].add(boundary.getWorldPosition()).dotProduct(axis);
+            	current = boundary.verticies[i].add(boundary.getWorldPosition()).dotProduct(axis);
                 if (min > current) {
                     min = current;
                 }
