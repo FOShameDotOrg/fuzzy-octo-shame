@@ -106,4 +106,6 @@ crashlytics-build.properties
 .gradle/
 gradle/
 build/
+.classpath
+.project
 # End from pc rando
