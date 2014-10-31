@@ -24,7 +24,7 @@ public class GameMap implements State {
 
 	public int width, height, tileWidth, tileHeight;
 	public float glTexX, glTexY;
-	public String tileSetPath;
+	private String tileSetPath;
 	
 	//TODO: this should be set when the map loads...
 	public Vector position = new Vector(0,0);
@@ -225,4 +225,7 @@ public class GameMap implements State {
 		GL11.glVertex2f(x-position.x,y-position.y);
 	}
 
+    public void setTileSetPath(String tileSetPath) {
+        this.tileSetPath = tileSetPath;
+    }
 }
