@@ -96,7 +96,7 @@ public class Collision implements Comparable<Collision> {
                  * if the x axis overlap is smaller push out
                  */
 
-            	//FIXME test
+                //FIXME test
                 if (Doubles.compareDoubles(minXDistance, a.acceleration) || minXDistance < minYDistance) {
                     if (xEntityMinMax.min > xSEntityMinMax.min) {
                         a.position.x += minXDistance;
@@ -164,7 +164,7 @@ public class Collision implements Comparable<Collision> {
 
             double current;
             for (int i = 1; i < boundary.verticies.length; i++) {
-            	current = boundary.verticies[i].add(boundary.getWorldPosition()).dotProduct(axis);
+                current = boundary.verticies[i].add(boundary.getWorldPosition()).dotProduct(axis);
                 if (min > current) {
                     min = current;
                 }
@@ -202,7 +202,7 @@ public class Collision implements Comparable<Collision> {
                 return -1;
             } else {
                 return
-                		Doubles.compareDoubles(minYDistance,c.minYDistance) ? 0 :
+                        Doubles.compareDoubles(minYDistance,c.minYDistance) ? 0 :
                                 minYDistance < c.minYDistance ? -1 : 1;//FIXME test
             }
         } else if (collisionType == SWEPT_X) {
@@ -210,7 +210,7 @@ public class Collision implements Comparable<Collision> {
                 return 1;
             } else {
                 return
-                		Doubles.compareDoubles(minXDistance,c.minXDistance) ? 0 :
+                        Doubles.compareDoubles(minXDistance,c.minXDistance) ? 0 :
                                 minXDistance < c.minXDistance ? -1 : 1; //FIXME test
             }
 

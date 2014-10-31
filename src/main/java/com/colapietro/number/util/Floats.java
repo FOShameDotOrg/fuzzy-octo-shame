@@ -10,18 +10,18 @@ import java.math.BigDecimal;
  *
  */
 public class Floats {
-	private static final int epsilon = new BigDecimal("5.96e-08").intValue();
+    private static final int epsilon = new BigDecimal("5.96e-08").intValue();
 
-	/**
-	 * If floating point numbers are close enough in value
-	 * 
-	 * @see <a href="http://stackoverflow.com/a/6837237">comparing float/double values using == operator</a>
-	 * 
-	 * @param a floating point number
-	 * @param b floating point number
-	 * @return
-	 */
-	public static boolean compareFloats(float a, float b) {
-		 return(Math.abs(a/b - 1) < epsilon);
-	}
+    /**
+     * If floating point numbers are close enough in value
+     * 
+     * @see <a href="http://stackoverflow.com/a/6837237">comparing float/double values using == operator</a>
+     * 
+     * @param a floating point number
+     * @param b floating point number
+     * @return
+     */
+    public static boolean compareFloats(float a, float b) {
+         return(Math.abs(a/b - 1) < epsilon);
+    }
 }

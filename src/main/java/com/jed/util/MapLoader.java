@@ -101,11 +101,11 @@ public class MapLoader {
         int textureHeight = Util.getClosestPowerOfTwo(tileImageHeight);
         //TODO START pc 2014-10-31 test me
         float textureWidthOverMapTileWidth = (float) textureWidth / map.tileWidth;
-		float glWidth = 1 / textureWidthOverMapTileWidth;
+        float glWidth = 1 / textureWidthOverMapTileWidth;
         float textureHeightOverMapTileHeight = (float) textureHeight / map.tileHeight;
-		float glHeight = 1 / textureHeightOverMapTileHeight;
+        float glHeight = 1 / textureHeightOverMapTileHeight;
         //TODO END pc 2014-10-31 test me
-		int tilesAcross = tileImageWidth / map.tileWidth;
+        int tilesAcross = tileImageWidth / map.tileWidth;
 
         for (int i = 0; i < dataNodes.getLength(); i++) {
             Node eachDataNode = dataNodes.item(i);
