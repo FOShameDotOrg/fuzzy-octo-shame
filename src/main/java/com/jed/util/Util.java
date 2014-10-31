@@ -5,8 +5,12 @@ import java.io.IOException;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Util {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Util.class);
 
 	public static Texture loadTexture(String path){
 		Texture texture = null;
@@ -15,16 +19,15 @@ public class Util {
 		
 		try {
 			texture = TextureLoader.getTexture(type, ResourceLoader.getResourceAsStream(path));
-			System.out.println("Texture loaded: "+texture);
-			System.out.println(">> Image width: "+texture.getImageWidth());
-			System.out.println(">> Image height: "+texture.getImageHeight());
-			System.out.println(">> Texture width: "+texture.getTextureWidth());
-			System.out.println(">> Texture height: "+texture.getTextureHeight());
-			System.out.println(">> Texture ID: "+texture.getTextureID());
-			System.out.println(">> Texture Alpha: " +texture.hasAlpha());
+			LOGGER.debug("Texture loaded: " + texture);
+			LOGGER.debug(">> Image width: " + texture.getImageWidth());
+			LOGGER.debug(">> Image height: " + texture.getImageHeight());
+			LOGGER.debug(">> Texture width: " + texture.getTextureWidth());
+			LOGGER.debug(">> Texture height: " + texture.getTextureHeight());
+			LOGGER.debug(">> Texture ID: " + texture.getTextureID());
+			LOGGER.debug(">> Texture Alpha: " + texture.hasAlpha());
 		} catch (IOException e) {
-			System.out.println("An error occurred while loading texture");
-			e.printStackTrace();
+			LOGGER.error("An error occurred while loading texture", e);
 			System.exit(1);
 		}
 		return texture;

@@ -6,8 +6,12 @@ import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.font.effects.ColorEffect;
 
 import com.jed.util.Vector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MenuState extends GameState {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MenuState.class);
 
 	private UnicodeFont font;
 	
@@ -44,8 +48,7 @@ public class MenuState extends GameState {
 	    try {
 			font.loadGlyphs();
 		} catch (SlickException e) {
-			System.out.println("Failed to load Font!");
-			e.printStackTrace();
+			LOGGER.error("Failed to load Font!",e);
 		}
 	}
 
