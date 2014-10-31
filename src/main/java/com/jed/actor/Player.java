@@ -91,7 +91,9 @@ public class Player extends Entity implements StateManager {
     //Key press events
     public void keyPressEvent() {
         if (Keyboard.getEventKey() == Keyboard.KEY_SPACE && Keyboard.getEventKeyState()) {
-            if (jumpCount < 2 || position.y + height == map.height * map.tileHeight) {
+            boolean isJumpCountLessThanTwo = jumpCount < 2;
+            int heightOffsetWithYPostion = Math.round(position.y) + height; //TODO Test me.
+            if (isJumpCountLessThanTwo || heightOffsetWithYPostion == map.height * map.tileHeight) {
                 movement.y = -8;
                 jumpCount++;
                 changeState(jumpingState);

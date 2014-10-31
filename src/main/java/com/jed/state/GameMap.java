@@ -144,10 +144,10 @@ public class GameMap implements State {
 
             for (int j = 0; j < returnObjects.size(); j++) {
 
-                if (returnObjects.get(j) == scene.get(i)) {
+                if (returnObjects.get(j).equals(scene.get(i))) {
                     continue;
                 } else {
-                    Entity sEntity = (Entity) returnObjects.get(j);
+                    Entity sEntity = returnObjects.get(j);
 
                     Collision collision = new Collision(entity, sEntity);
 
@@ -203,8 +203,8 @@ public class GameMap implements State {
 
         int tileIndex = (int) (width * (Math.floor(tileOffsetY)) + tileOffsetX);
 
-        int rows = (int) (MotherBrain.getInstance().HEIGHT / tileHeight + (pixelOffsetY == 0 ? 0 : 1));
-        int columns = (int) (MotherBrain.getInstance().WIDTH / tileWidth + (pixelOffsetX == 0 ? 0 : 1));
+        int rows = (MotherBrain.getInstance().HEIGHT / tileHeight + (pixelOffsetY == 0 ? 0 : 1));
+        int columns = (MotherBrain.getInstance().WIDTH / tileWidth + (pixelOffsetX == 0 ? 0 : 1));
         int nextRow = width - columns;
 
         for (int rowIndex = 0; rowIndex < rows; rowIndex++) {

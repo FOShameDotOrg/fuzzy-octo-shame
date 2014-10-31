@@ -1,5 +1,6 @@
 package com.jed.core;
 
+import com.colapietro.number.util.Doubles;
 import com.jed.actor.Boundary;
 import com.jed.actor.Entity;
 import com.jed.state.MapTile;
@@ -95,7 +96,8 @@ public class Collision implements Comparable<Collision> {
                  * if the x axis overlap is smaller push out
                  */
 
-                if (minXDistance == a.acceleration || minXDistance < minYDistance) {
+                //FIXME test
+                if (Doubles.compareDoubles(minXDistance, a.acceleration) || minXDistance < minYDistance) {
                     if (xEntityMinMax.min > xSEntityMinMax.min) {
                         a.position.x += minXDistance;
                     } else {
@@ -160,8 +162,9 @@ public class Collision implements Comparable<Collision> {
             max = boundary.verticies[0].add(boundary.getWorldPosition()).dotProduct(axis);
             min = boundary.verticies[0].add(boundary.getWorldPosition()).dotProduct(axis);
 
+            double current;
             for (int i = 1; i < boundary.verticies.length; i++) {
-                double current = boundary.verticies[i].add(boundary.getWorldPosition()).dotProduct(axis);
+                current = boundary.verticies[i].add(boundary.getWorldPosition()).dotProduct(axis);
                 if (min > current) {
                     min = current;
                 }
@@ -189,8 +192,8 @@ public class Collision implements Comparable<Collision> {
                 return -1;
             } else {
                 return
-                        smallestDisplacement == c.smallestDisplacement ? 0 :
-                                smallestDisplacement < c.smallestDisplacement ? -1 : 1;
+                        Doubles.compareDoubles(smallestDisplacement, c.smallestDisplacement) ? 0 :
+                                smallestDisplacement < c.smallestDisplacement ? -1 : 1;//FIXME test
             }
         } else if (collisionType == SWEPT_Y) {
             if (c.collisionType == SAT) {
@@ -199,16 +202,16 @@ public class Collision implements Comparable<Collision> {
                 return -1;
             } else {
                 return
-                        minYDistance == c.minYDistance ? 0 :
-                                minYDistance < c.minYDistance ? -1 : 1;
+                        Doubles.compareDoubles(minYDistance,c.minYDistance) ? 0 :
+                                minYDistance < c.minYDistance ? -1 : 1;//FIXME test
             }
         } else if (collisionType == SWEPT_X) {
             if (c.collisionType != SWEPT_X) {
                 return 1;
             } else {
                 return
-                        minXDistance == c.minXDistance ? 0 :
-                                minXDistance < c.minXDistance ? -1 : 1;
+                        Doubles.compareDoubles(minXDistance,c.minXDistance) ? 0 :
+                                minXDistance < c.minXDistance ? -1 : 1; //FIXME test
             }
 
         }

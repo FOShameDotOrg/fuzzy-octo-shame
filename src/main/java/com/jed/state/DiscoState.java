@@ -149,7 +149,7 @@ public class DiscoState extends GameState {
             quadTree.retrieve(returnObjects, scene.get(i));
 
             for (int j = 0; j < returnObjects.size(); j++) {
-                if (returnObjects.get(j) == scene.get(i)) {
+                if (returnObjects.get(j).equals(scene.get(i))) {
                     continue;
                 } else {
                     Ball p1 = scene.get(i);
@@ -191,9 +191,6 @@ public class DiscoState extends GameState {
                 each.movement.x = each.movement.x * -1;
                 each.position.x = each.getRadius();
             }
-        }
-        if (collide) {
-            LOGGER.debug("\n");//FIXME
         }
     }
 
@@ -321,7 +318,7 @@ public class DiscoState extends GameState {
         double a1 = p1.movement.dotProduct(n);
         double a2 = p2.movement.dotProduct(n);
 
-        double optimizedP = (double) (2.0 * (a1 - a2)) / (p1.mass() + p2.mass());
+        double optimizedP = (2.0 * (a1 - a2)) / (p1.mass() + p2.mass());
 
         // Calculate v1', the new movement vector of circle1
         // v1' = v1 - optimizedP * m2 * n
