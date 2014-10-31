@@ -1,4 +1,8 @@
 fuzzy-octo-shame
 ================
 
-LJWJGL 2d platformer skeleton
+2D Platformer skeleton built with LJWJGL and Slick2D
+
+        mvn nativedependencies:copy
+
+        -Djava.library.path=/path/to/project/root/target/natives
