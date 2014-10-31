@@ -1,7 +1,7 @@
 fuzzy-octo-shame
 ================
 
-2D Platformer skeleton built with LJWJGL and Slick2D
+2D Platformer skeleton built with LWJGL and Slick2D
 
         mvn nativedependencies:copy
 
