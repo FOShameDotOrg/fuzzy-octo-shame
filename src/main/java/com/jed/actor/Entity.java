@@ -49,4 +49,6 @@ public abstract class Entity implements Displayable, State {
     @Override
     public void draw() {
     }
+    
+    //TODO Implement Equals/hashCode
 }

@@ -144,7 +144,7 @@ public class GameMap implements State {
 
             for (int j = 0; j < returnObjects.size(); j++) {
 
-                if (returnObjects.get(j) == scene.get(i)) {
+                if (returnObjects.get(j).equals(scene.get(i))) {
                     continue;
                 } else {
                     Entity sEntity = (Entity) returnObjects.get(j);
