@@ -3,6 +3,8 @@ package com.jed.util;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -14,9 +16,11 @@ import com.jed.state.MapTile;
 
 public class MapLoader {
 
-    /**
-     * TODO refactor location of constant in Java source code.
-     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(MapLoader.class);
+
+            /**
+             * TODO refactor location of constant in Java source code.
+             */
     public static final String RESOURCES_DIRECTORY = "src/main/resources/";
 
     public static GameMap loadMap(String path){
@@ -29,8 +33,7 @@ public class MapLoader {
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			doc = dBuilder.parse(path);
 		}catch(Exception e){
-			System.out.println("Failed to load map file: " + path);
-			e.printStackTrace();
+			LOGGER.error("Failed to load map file: " + path, e);
 			System.exit(1);
 		} 
 		

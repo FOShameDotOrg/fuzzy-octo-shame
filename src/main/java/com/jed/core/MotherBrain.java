@@ -9,12 +9,17 @@ import org.lwjgl.opengl.GL11;
 import com.jed.state.DiscoState;
 import com.jed.state.GameStateManager;
 import com.jed.state.PlayState;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
 
 /**
  * @author jlinde
  * 
  */
 public class MotherBrain {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MotherBrain.class);
 
 	private static MotherBrain instance;
 
@@ -31,8 +36,13 @@ public class MotherBrain {
 		return instance;
 	}
 
-	public static void main(String[] args) {
-		instance = new MotherBrain();
+    /**
+     * @see <a href="http://projects.lidalia.org.uk/sysout-over-slf4j/quickstart.html">System Out and Err redirected to SLF4J</a>
+     * @param args
+     */
+    public static void main(String[] args) {
+        SysOutOverSLF4J.sendSystemOutAndErrToSLF4J();
+        instance = new MotherBrain();
 		instance.start();
 	}
 
@@ -68,8 +78,7 @@ public class MotherBrain {
 			Display.create();
 
 		} catch (LWJGLException e) {
-			System.out.println("An exception occurred while creating the display");
-			e.printStackTrace();
+			LOGGER.error("An exception occurred while creating the display",e);
 			System.exit(1);
 		}
 

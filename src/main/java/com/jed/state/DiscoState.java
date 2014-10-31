@@ -12,8 +12,12 @@ import com.jed.core.MotherBrain;
 import com.jed.core.QuadTree;
 import com.jed.util.Rectangle;
 import com.jed.util.Vector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DiscoState extends GameState {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DiscoState.class);
 
 	private QuadTree quadTree;
 	
@@ -150,7 +154,7 @@ public class DiscoState extends GameState {
 					Ball p2 = (Ball) returnObjects.get(j);
 					if(detectCollision(p1, p2)){
 						if(!collide){
-							System.out.println("Handling Collisions");
+							LOGGER.debug("Handling Collisions");
 							collide = true;
 						}
 
@@ -188,7 +192,7 @@ public class DiscoState extends GameState {
 			}
 		}
 		if(collide){
-			System.out.println();
+			LOGGER.debug("\n");//FIXME
 		}
 	}
 	
@@ -294,12 +298,12 @@ public class DiscoState extends GameState {
 //		p1.setDisplacement(new Vector(0,0));
 //		p2.setDisplacement(p2.position.add(p2.movement.scale(blarg)));
 //		
-//		System.out.println("p1 mag = " + p1.movement.magnitude());
-//		System.out.println(d);
-//		System.out.println("SQRT T = " + Math.sqrt(t));
-//		System.out.println("distance to move " + mvDistance);
-		System.out.println("result = " + mv.magnitude() / p1.movement.magnitude());
-//		System.out.println("");
+//		LOGGER.debug("p1 mag = " + p1.movement.magnitude());
+//		LOGGER.debug(d);
+//		LOGGER.debug("SQRT T = " + Math.sqrt(t));
+//		LOGGER.debug("distance to move " + mvDistance);
+		LOGGER.debug("result = " + mv.magnitude() / p1.movement.magnitude());
+//		LOGGER.debug("");
 		
 		return true;
 	}
