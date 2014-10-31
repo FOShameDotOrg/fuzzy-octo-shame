@@ -15,6 +15,7 @@ public class TestBed {
 
     public static void test(Double value) {
         value = 5d;
+        LOGGER.debug(String.valueOf(value));//FIXME
     }
 
 }
