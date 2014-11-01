@@ -1,6 +1,5 @@
 package com.jed.actor;
 
-import com.jed.util.MapLoader;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
@@ -9,6 +8,7 @@ import org.newdawn.slick.opengl.Texture;
 import com.jed.state.GameMap;
 import com.jed.state.State;
 import com.jed.state.StateManager;
+import com.jed.util.MapLoader;
 import com.jed.util.Util;
 import com.jed.util.Vector;
 
@@ -91,7 +91,9 @@ public class Player extends Entity implements StateManager {
     //Key press events
     public void keyPressEvent() {
         if (Keyboard.getEventKey() == Keyboard.KEY_SPACE && Keyboard.getEventKeyState()) {
-            if (jumpCount < 2 || position.y + height == map.height * map.tileHeight) {
+            boolean isJumpCountLessThanTwo = jumpCount < 2;
+            int heightOffsetWithYPostion = Math.round(position.y) + height; //TODO Test me.
+            if (isJumpCountLessThanTwo || heightOffsetWithYPostion == map.height * map.tileHeight) {
                 movement.y = -8;
                 jumpCount++;
                 changeState(jumpingState);
