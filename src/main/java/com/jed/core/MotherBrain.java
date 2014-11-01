@@ -21,8 +21,6 @@ public class MotherBrain {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MotherBrain.class);
 
-    private static MotherBrain instance;
-
     public static final int WIDTH = 1024;
     public static final int HEIGHT = 768;
 
@@ -32,23 +30,16 @@ public class MotherBrain {
 
     private GameStateManager stateManager;
 
-    public static MotherBrain getInstance() {
-        return instance;
-    }
-
     /**
      * @param args
      * @see <a href="http://projects.lidalia.org.uk/sysout-over-slf4j/quickstart.html">System Out and Err redirected to SLF4J</a>
      */
     public static void main(String[] args) {
         SysOutOverSLF4J.sendSystemOutAndErrToSLF4J();
-        instance = new MotherBrain();
-        instance.start();
     }
 
     private void init() {
         stateManager = new GameStateManager();
-
         stateManager.push(new DiscoState(stateManager));
         stateManager.push(new DiscoState(stateManager));
         stateManager.push(new DiscoState(stateManager));
