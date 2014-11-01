@@ -104,18 +104,18 @@ public class MotherBrain {
         Display.destroy();
     }
 
-    public int getDelta() {
+    private int getDelta() {
         long time = getTime();
         int delta = (int) (time - lastFrame);
         lastFrame = time;
         return delta;
     }
 
-    public long getTime() {
+    private long getTime() {
         return (Sys.getTime() * 1000) / Sys.getTimerResolution();
     }
 
-    public void updateFPS() {
+    private void updateFPS() {
         if (getTime() - lastFPS > 1000) {
             Display.setTitle("FPS: " + fps);
             fps = 0;
