@@ -23,8 +23,8 @@ public class MotherBrain {
 
     private static MotherBrain instance;
 
-    public int WIDTH = 1024;
-    public int HEIGHT = 768;
+    public static final int WIDTH = 1024;
+    public static final int HEIGHT = 768;
 
     private long lastFrame;
     private int fps;
