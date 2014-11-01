@@ -33,8 +33,8 @@ public class DiscoState extends GameState {
 
     @Override
     public void entered() {
-        WIDTH = MotherBrain.getInstance().WIDTH;
-        HEIGHT = MotherBrain.getInstance().HEIGHT;
+        WIDTH = MotherBrain.WIDTH;
+        HEIGHT = MotherBrain.HEIGHT;
 
         scene = new Stack<Ball>();
         quadTree = new QuadTree(new Vector(0, 0), 0, new Rectangle(WIDTH, HEIGHT), this);
