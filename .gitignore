@@ -108,4 +108,5 @@ gradle/
 build/
 .classpath
 .project
+*.orig
 # End from pc rando
