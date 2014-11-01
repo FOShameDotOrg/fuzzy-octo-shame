@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.jed.actor.Ball;
 import com.jed.actor.CircleBoundary;
 import com.jed.actor.Entity;
@@ -12,8 +15,6 @@ import com.jed.core.MotherBrain;
 import com.jed.core.QuadTree;
 import com.jed.util.Rectangle;
 import com.jed.util.Vector;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DiscoState extends GameState {
 
@@ -32,8 +33,8 @@ public class DiscoState extends GameState {
 
     @Override
     public void entered() {
-        WIDTH = MotherBrain.getInstance().WIDTH;
-        HEIGHT = MotherBrain.getInstance().HEIGHT;
+        WIDTH = MotherBrain.WIDTH;
+        HEIGHT = MotherBrain.HEIGHT;
 
         scene = new Stack<Ball>();
         quadTree = new QuadTree(new Vector(0, 0), 0, new Rectangle(WIDTH, HEIGHT), this);
@@ -148,7 +149,7 @@ public class DiscoState extends GameState {
             quadTree.retrieve(returnObjects, scene.get(i));
 
             for (int j = 0; j < returnObjects.size(); j++) {
-                if (returnObjects.get(j) == scene.get(i)) {
+                if (returnObjects.get(j).equals(scene.get(i))) {
                     continue;
                 } else {
                     Ball p1 = scene.get(i);
@@ -190,9 +191,6 @@ public class DiscoState extends GameState {
                 each.movement.x = each.movement.x * -1;
                 each.position.x = each.getRadius();
             }
-        }
-        if (collide) {
-            LOGGER.debug("\n");//FIXME
         }
     }
 
@@ -320,7 +318,7 @@ public class DiscoState extends GameState {
         double a1 = p1.movement.dotProduct(n);
         double a2 = p2.movement.dotProduct(n);
 
-        double optimizedP = (double) (2.0 * (a1 - a2)) / (p1.mass() + p2.mass());
+        double optimizedP = (2.0 * (a1 - a2)) / (p1.mass() + p2.mass());
 
         // Calculate v1', the new movement vector of circle1
         // v1' = v1 - optimizedP * m2 * n
