@@ -1,5 +1,5 @@
 # fuzzy-octo-shame
-[![Build Status](https://travis-ci.org/virtuoushub/fuzzy-octo-shame.svg?branch=master)](https://travis-ci.org/virtuoushub/fuzzy-octo-shame)
+[![Build Status](https://travis-ci.org/virtuoushub/fuzzy-octo-shame.svg?branch=feature/javadoc)](https://travis-ci.org/virtuoushub/fuzzy-octo-shame)
 ### 2D Platformer skeleton built with LWJGL and Slick2D
 
 #### Useful stuff:
