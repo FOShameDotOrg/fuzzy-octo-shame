@@ -1,29 +1,31 @@
 package com.jed.core;
 
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
 
 import com.jed.state.DiscoState;
 import com.jed.state.GameStateManager;
 import com.jed.state.PlayState;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
 
 /**
- * @author jlinde
+ * @author jlinde, Peter Colapietro
  */
-public class MotherBrain {
+public final class MotherBrain implements Startable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MotherBrain.class);
 
-    private static MotherBrain instance;
-
-    public int WIDTH = 1024;
-    public int HEIGHT = 768;
+    public static final int WIDTH = 1024;
+    public static final int HEIGHT = 768;
 
     private long lastFrame;
     private int fps;
@@ -31,23 +33,19 @@ public class MotherBrain {
 
     private GameStateManager stateManager;
 
-    public static MotherBrain getInstance() {
-        return instance;
-    }
-
     /**
      * @param args
      * @see <a href="http://projects.lidalia.org.uk/sysout-over-slf4j/quickstart.html">System Out and Err redirected to SLF4J</a>
      */
     public static void main(String[] args) {
         SysOutOverSLF4J.sendSystemOutAndErrToSLF4J();
-        instance = new MotherBrain();
-        instance.start();
+        Injector injector = Guice.createInjector();
+        final MotherBrain motherBrain = injector.getInstance(MotherBrain.class);
+        motherBrain.start();
     }
 
     private void init() {
         stateManager = new GameStateManager();
-
         stateManager.push(new DiscoState(stateManager));
         stateManager.push(new DiscoState(stateManager));
         stateManager.push(new DiscoState(stateManager));
@@ -112,18 +110,18 @@ public class MotherBrain {
         Display.destroy();
     }
 
-    public int getDelta() {
+    private int getDelta() {
         long time = getTime();
         int delta = (int) (time - lastFrame);
         lastFrame = time;
         return delta;
     }
 
-    public long getTime() {
+    private long getTime() {
         return (Sys.getTime() * 1000) / Sys.getTimerResolution();
     }
 
-    public void updateFPS() {
+    private void updateFPS() {
         if (getTime() - lastFPS > 1000) {
             Display.setTitle("FPS: " + fps);
             fps = 0;

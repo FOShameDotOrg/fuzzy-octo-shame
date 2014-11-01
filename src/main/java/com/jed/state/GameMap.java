@@ -96,15 +96,15 @@ public class GameMap implements State {
 
     private void scrollMap() {
         if (player.movement.y > 0) {
-            if ((player.position.y + (player.height / 2) - position.y) > MotherBrain.getInstance().HEIGHT / 2) {
-                if (position.y + player.movement.y > height * tileHeight - MotherBrain.getInstance().HEIGHT) {
-                    position.y = height * tileHeight - MotherBrain.getInstance().HEIGHT;
+            if ((player.position.y + (player.height / 2) - position.y) > MotherBrain.HEIGHT / 2) {
+                if (position.y + player.movement.y > height * tileHeight - MotherBrain.HEIGHT) {
+                    position.y = height * tileHeight - MotherBrain.HEIGHT;
                 } else {
                     position.y += player.movement.y;
                 }
             }
         } else if (player.movement.y < 0) {
-            if ((player.position.y + (player.height / 2) - position.y) < MotherBrain.getInstance().HEIGHT / 2) {
+            if ((player.position.y + (player.height / 2) - position.y) < MotherBrain.HEIGHT / 2) {
                 if (player.movement.y + position.y < 0) {
                     position.y = 0;
                 } else {
@@ -114,15 +114,15 @@ public class GameMap implements State {
         }
 
         if (player.movement.x > 0) {
-            if ((player.position.x + (player.width / 2) - position.x) > MotherBrain.getInstance().WIDTH / 2) {
-                if (position.x + player.movement.x > width * tileWidth - MotherBrain.getInstance().WIDTH) {
-                    position.x = width * tileWidth - MotherBrain.getInstance().WIDTH;
+            if ((player.position.x + (player.width / 2) - position.x) > MotherBrain.WIDTH / 2) {
+                if (position.x + player.movement.x > width * tileWidth - MotherBrain.WIDTH) {
+                    position.x = width * tileWidth - MotherBrain.WIDTH;
                 } else {
                     position.x += player.movement.x;
                 }
             }
         } else if (player.movement.x < 0) {
-            if ((player.position.x + (player.width / 2) - position.x) < MotherBrain.getInstance().WIDTH / 2) {
+            if ((player.position.x + (player.width / 2) - position.x) < MotherBrain.WIDTH / 2) {
                 if (player.movement.x + position.x < 0) {
                     position.x = 0;
                 } else {
@@ -144,10 +144,10 @@ public class GameMap implements State {
 
             for (int j = 0; j < returnObjects.size(); j++) {
 
-                if (returnObjects.get(j) == scene.get(i)) {
+                if (returnObjects.get(j).equals(scene.get(i))) {
                     continue;
                 } else {
-                    Entity sEntity = (Entity) returnObjects.get(j);
+                    Entity sEntity = returnObjects.get(j);
 
                     Collision collision = new Collision(entity, sEntity);
 
@@ -203,8 +203,8 @@ public class GameMap implements State {
 
         int tileIndex = (int) (width * (Math.floor(tileOffsetY)) + tileOffsetX);
 
-        int rows = (int) (MotherBrain.getInstance().HEIGHT / tileHeight + (pixelOffsetY == 0 ? 0 : 1));
-        int columns = (int) (MotherBrain.getInstance().WIDTH / tileWidth + (pixelOffsetX == 0 ? 0 : 1));
+        int rows = (MotherBrain.HEIGHT / tileHeight + (pixelOffsetY == 0 ? 0 : 1));
+        int columns = (MotherBrain.WIDTH / tileWidth + (pixelOffsetX == 0 ? 0 : 1));
         int nextRow = width - columns;
 
         for (int rowIndex = 0; rowIndex < rows; rowIndex++) {

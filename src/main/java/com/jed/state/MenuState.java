@@ -4,10 +4,10 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.font.effects.ColorEffect;
-
-import com.jed.util.Vector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.jed.util.Vector;
 
 public class MenuState extends GameState {
 

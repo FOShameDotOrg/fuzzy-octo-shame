@@ -48,7 +48,11 @@ public class GameStateManager {
             return o;
         }
 
-        public E pop() {
+        /**
+         * TODO Test me after adding synchronized.
+         */
+        @Override
+        public synchronized E pop() {
             E o = super.pop();
             ((GameState) o).leaving();
             return o;
