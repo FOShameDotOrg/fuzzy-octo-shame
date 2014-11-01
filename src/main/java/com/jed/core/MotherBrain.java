@@ -1,5 +1,8 @@
 package com.jed.core;
 
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
@@ -15,9 +18,9 @@ import com.jed.state.GameStateManager;
 import com.jed.state.PlayState;
 
 /**
- * @author jlinde
+ * @author jlinde, Peter Colapietro
  */
-public class MotherBrain {
+public final class MotherBrain implements Startable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MotherBrain.class);
 
@@ -36,6 +39,9 @@ public class MotherBrain {
      */
     public static void main(String[] args) {
         SysOutOverSLF4J.sendSystemOutAndErrToSLF4J();
+        Injector injector = Guice.createInjector();
+        final MotherBrain motherBrain = injector.getInstance(MotherBrain.class);
+        motherBrain.start();
     }
 
     private void init() {
