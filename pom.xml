@@ -83,9 +83,9 @@
       <version>1.0.2</version>
     </dependency>
     <dependency>
-        <groupId>javax.inject</groupId>
-        <artifactId>javax.inject</artifactId>
-        <version>1</version>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+      <version>1</version>
     </dependency>
     <dependency>
       <groupId>com.google.inject</groupId>
@@ -238,6 +238,26 @@
         </pluginRepository>
       </pluginRepositories>
       <id>bintray</id>
+    </profile>
+    <profile>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>2.6</version>
+            <configuration>
+              <filesets>
+                <fileset>
+                  <directory>${basedir}/bin</directory>
+                  <followSymlinks>true</followSymlinks>
+                </fileset>
+              </filesets>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+      <id>eclipse</id>
     </profile>
   </profiles>
   <!-- TODO Add to settings file, see https://bintray.com/bintray/jcenter
