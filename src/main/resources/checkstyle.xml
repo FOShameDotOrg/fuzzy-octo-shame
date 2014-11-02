@@ -3,6 +3,8 @@
 <module name="Checker">
   <module name="JavadocPackage"/>
   <module name="TreeWalker">
+    <property name="cacheFile" value="${checkstyle.cache.file}"/>
+    
     <module name="GenericWhitespace"/>
     <!-- Checks for Size Violations.                    -->
     <!-- See http://checkstyle.sf.net/config_sizes.html -->
