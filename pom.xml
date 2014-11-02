@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <!-- TODO Externalize properties from all elements -->
+
   <!-- See: http://maven.apache.org/pom.html#Developers -->
   <developers>
     <developer>
@@ -26,27 +27,30 @@
       <timezone>-6</timezone>
     </developer>
   </developers>
+
   <groupId>com.jed</groupId>
   <artifactId>fuzzy-octo-shame</artifactId>
   <version>0.1.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>fuzzy-octo-shame</name>
   <url>https://github.com/virtuoushub/fuzzy-octo-shame</url>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.lwjgl.lwjgl</groupId>
       <artifactId>lwjgl</artifactId>
       <version>2.9.1</version>
       <exclusions>
-        <!-- START Unecessary explict exclusion. Only here for verbosity. -->
+        <!-- START Unnecessary explicit exclusion. Only here for verbosity. -->
         <exclusion>
           <groupId>net.java.jinput</groupId>
           <artifactId>jinput</artifactId>
         </exclusion>
-        <!-- END Unecessary explict exclusion. Only here for verbosity. -->
+        <!-- END Unnecessary explicit exclusion. Only here for verbosity. -->
       </exclusions>
     </dependency>
     <dependency>
@@ -93,6 +97,7 @@
       <version>4.0-beta5</version>
     </dependency>
   </dependencies>
+
   <build>
     <plugins>
       <plugin>
@@ -288,6 +293,7 @@
       <id>eclipse</id>
     </profile>
   </profiles>
+
   <!-- TODO Add to settings file, see https://bintray.com/bintray/jcenter
   <?xml version='1.0' encoding='UTF-8'?>
   <settings xsi:schemaLocation='http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd' xmlns='http://maven.apache.org/SETTINGS/1.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
@@ -296,4 +302,5 @@
     </activeProfiles>
   </settings>
     -->
+
 </project>
