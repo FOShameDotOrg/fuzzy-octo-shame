@@ -44,7 +44,7 @@ public class GameMap implements State {
     public void entered() {
         texture = Util.loadTexture(tileSetPath);
 
-        //TODO: this should be initialized by some data contained in the map i.e. start position or something like that...
+        //TODO: initialize scene Stack by some data contained in the map i.e. start position or something like that...
         scene = new Stack<Entity>();
         player = new Player(new Vector(50, 200), 256, 256, this);
         scene.push(player);

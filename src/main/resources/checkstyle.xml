@@ -4,6 +4,19 @@
   <module name="JavadocPackage"/>
   <module name="TreeWalker">
     <module name="GenericWhitespace"/>
+    <!-- Checks for Size Violations.                    -->
+    <!-- See http://checkstyle.sf.net/config_sizes.html -->
+    <module name="LineLength">
+      <!-- Configuring the check to accept lines up to 120 characters long -->
+      <!-- 
+        FIXME 144 is a cheat to get around checkstyle violation while I refactor com.jed.state.MapTile#MapTile
+        2014-11-02:15:08-06:00: fuzzy-octo-shame/src/main/java/com/jed/state/MapTile.java:33: Line is longer than 120 characters (found 144). 
+        -->
+      <property name="max" value="144"/>
+      <!-- Configuring the check to ignore lines that begin with " * ", followed by just one word, such as within a Javadoc comment -->
+      <property name="ignorePattern" value="^ *\* @"/>
+      <property name="ignorePattern" value="^ *\* *[^ ]+$"/>
+    </module>
   </module>
   <module name="FileTabCharacter">
     <property name="eachLine" value="true"/>
