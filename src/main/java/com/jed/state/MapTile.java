@@ -21,14 +21,14 @@ public class MapTile extends Entity {
 
     /**
      * FIXME, the parameters are too damn many.
-     * @param position
-     * @param bounds
-     * @param glTexX
-     * @param glTexY
-     * @param glTexWidth
-     * @param glTexHeight
-     * @param tileId
-     * @param map
+     * @param position FIXME Javadoc
+     * @param bounds FIXME Javadoc
+     * @param glTexX FIXME Javadoc
+     * @param glTexY FIXME Javadoc
+     * @param glTexWidth FIXME Javadoc
+     * @param glTexHeight FIXME Javadoc
+     * @param tileId FIXME Javadoc
+     * @param map FIXME Javadoc
      */
     public MapTile(Vector position, Boundary bounds, float glTexX, float glTexY, float glTexWidth, float glTexHeight, int tileId, GameMap map) {
         super(position, new Vector(0, 0), bounds);
