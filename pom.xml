@@ -41,12 +41,12 @@
       <artifactId>lwjgl</artifactId>
       <version>2.9.1</version>
       <exclusions>
-        <!-- START Unecessary explict exclusion. Only here for verbosity. -->
+        <!-- START Unnecessary explicit exclusion. Only here for verbosity. -->
         <exclusion>
           <groupId>net.java.jinput</groupId>
           <artifactId>jinput</artifactId>
         </exclusion>
-        <!-- END Unecessary explict exclusion. Only here for verbosity. -->
+        <!-- END Unnecessary explicit exclusion. Only here for verbosity. -->
       </exclusions>
     </dependency>
     <dependency>
