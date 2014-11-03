@@ -29,4 +29,6 @@
 *.dll binary
 *.jar binary
 
+# See http://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes#Merge-Strategies and http://stackoverflow.com/a/15233458
+src/main/resources/checkstyle.xml merge=ours
 .gitignore merge=ours
