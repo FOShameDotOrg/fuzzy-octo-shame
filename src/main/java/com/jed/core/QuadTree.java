@@ -9,20 +9,60 @@ import com.jed.actor.Entity;
 import com.jed.util.Rectangle;
 import com.jed.util.Vector;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class QuadTree implements Displayable {
 
+    /**
+     * 
+     */
     private final int MAX_OBJECTS = 2;
+    
+    /**
+     * 
+     */
     private final int MAX_LEVELS = 5;
 
+    /**
+     * 
+     */
     private int level;
+    
+    /**
+     * 
+     */
     private List<Entity> objects;
+    
+    /**
+     * 
+     */
     private Rectangle rectangle;
+    
+    /**
+     * 
+     */
     private QuadTree[] nodes;
 
+    /**
+     * 
+     */
     private Displayable parent;
 
+    /**
+     * 
+     */
     private Vector position;
 
+    /**
+     * 
+     * @param position position vector
+     * @param level level or quad tree
+     * @param rectangle rectangle
+     * @param parent parent
+     */
     public QuadTree(Vector position, int level, Rectangle rectangle, Displayable parent) {
         this.position = position;
         this.level = level;
@@ -32,6 +72,9 @@ public class QuadTree implements Displayable {
         this.parent = parent;
     }
 
+    /**
+     * 
+     */
     public void clear() {
         objects.clear();
         for (int i = 0; i < nodes.length; i++) {
@@ -42,6 +85,11 @@ public class QuadTree implements Displayable {
         }
     }
 
+    /**
+     * 
+     * @param returnObjects list of entities
+     * @param o other entity
+     */
     public void retrieve(List<Entity> returnObjects, Entity o) {
         int index = getIndex(o);
         if (index != -1) {
@@ -54,6 +102,10 @@ public class QuadTree implements Displayable {
         }
     }
 
+    /**
+     * 
+     * @return ret
+     */
     public List<Entity> getObjects() {
         List<Entity> ret = new ArrayList<Entity>();
         ret.addAll(objects);
@@ -66,6 +118,11 @@ public class QuadTree implements Displayable {
         return ret;
     }
 
+    /**
+     * 
+     * @param o other entity
+     * @return index in quad tree, range is 0-3 inclusive.
+     */
     private int getIndex(Entity o) {
         int verticalMidpoint = (int) (position.x + (rectangle.getWidth() / 2));
         int horizontalMidpoint = (int) (position.y + (rectangle.getHeight() / 2));
@@ -90,6 +147,9 @@ public class QuadTree implements Displayable {
         return -1;
     }
 
+    /**
+     * 
+     */
     private void split() {
         //TODO START pc 2014-10-31: Test me
         float halfWidth = Float.valueOf(rectangle.getWidth()) / 2.0f;
@@ -108,6 +168,10 @@ public class QuadTree implements Displayable {
         this.nodes[3] = new QuadTree(new Vector(x + subWidth, y + subHeight), this.level + 1, rect, parent);
     }
 
+    /**
+     * 
+     * @param o other entity to insert
+     */
     public void insert(Entity o) {
         if (nodes[0] != null) {
             int index = getIndex(o);

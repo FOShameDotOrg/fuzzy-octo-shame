@@ -8,10 +8,23 @@ import org.newdawn.slick.util.ResourceLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class Util {
 
+    /**
+     * 
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(Util.class);
 
+    /**
+     * 
+     * @param path path to texture file
+     * @return texture object loaded from file
+     */
     public static Texture loadTexture(String path) {
         Texture texture = null;
 
@@ -33,6 +46,11 @@ public class Util {
         return texture;
     }
 
+    /**
+     * 
+     * @param value vale to get closes power of two to
+     * @return closest power of two to parameter
+     */
     public static int getClosestPowerOfTwo(int value) {
         int power = 2;
         while (true) {

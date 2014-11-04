@@ -30,3 +30,4 @@
 *.jar binary
 
 .gitignore merge=ours
+README.md  merge=ours
