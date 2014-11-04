@@ -3,11 +3,11 @@
 
 #### Useful stuff:
 
-* `mvn nativedependencies:copy`
+* 'mvn nativedependencies:copy'
 
-* `-Djava.library.path=/path/to/project/root/target/natives`
+* '-Djava.library.path=/path/to/project/root/target/natives'
         
-* `-Dorg.slf4j.simpleLogger.defaultLogLevel=debug`
+* '-Dorg.slf4j.simpleLogger.defaultLogLevel=debug'
 
 #### "How to configure slf4j-simple"
 * http://stackoverflow.com/a/14545138
