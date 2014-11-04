@@ -75,7 +75,7 @@ public class Vector {
     }
 
     /**
-     * @see {@link java.lang.Math#atan2(double y, double x)}
+     * @see java.lang.Math#atan2(double y, double x)
      * 
      * @return theta.
      */
