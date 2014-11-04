@@ -9,7 +9,6 @@ public class Rectangle {
     private int width, height;
 
     /**
-     * width, height
      *
      * @param width Width of the Rectangle.
      * @param height Height of the Rectangle.
