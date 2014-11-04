@@ -127,7 +127,7 @@ public class Player extends Entity implements StateManager {
         this.height = height;
         this.width = width;
         this.map = map;
-        entered();
+        entered(); // FIXME See: http://stackoverflow.com/a/3404369
     }
 
     /**
@@ -260,8 +260,7 @@ public class Player extends Entity implements StateManager {
         public abstract void handleInput();
 
         @Override
-        public void drawChildVertex2f(float x, float y) {
-        }
+        public void drawChildVertex2f(final float x, final float y) {}
     }
 
     /**

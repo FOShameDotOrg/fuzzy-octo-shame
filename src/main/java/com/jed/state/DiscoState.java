@@ -41,12 +41,12 @@ public class DiscoState extends GameState {
     /**
      * 
      */
-    private int WIDTH;
+    private int width;
     
     /**
      * 
      */
-    private int HEIGHT;
+    private int height;
 
     /**
      * 
@@ -58,11 +58,11 @@ public class DiscoState extends GameState {
 
     @Override
     public void entered() {
-        WIDTH = MotherBrain.WIDTH;
-        HEIGHT = MotherBrain.HEIGHT;
+        width = MotherBrain.WIDTH;
+        height = MotherBrain.HEIGHT;
 
         scene = new Stack<Ball>();
-        quadTree = new QuadTree(new Vector(0, 0), 0, new Rectangle(WIDTH, HEIGHT), this);
+        quadTree = new QuadTree(new Vector(0, 0), 0, new Rectangle(width, height), this);
 
         Random rand = new Random();
 
@@ -204,17 +204,17 @@ public class DiscoState extends GameState {
             //direction, then
             //Adjust the position vector so that the ball
             //does not get stuck in the wall
-            if (yPosition + radius >= HEIGHT) {
+            if (yPosition + radius >= height) {
                 each.movement.y = each.movement.y * -1;
-                each.position.y = HEIGHT - each.getRadius();
+                each.position.y = height - each.getRadius();
             } else if (yPosition - radius <= 0) {
                 each.movement.y = each.movement.y * -1;
                 each.position.y = each.getRadius();
             }
 
-            if (xPosition + radius >= WIDTH) {
+            if (xPosition + radius >= width) {
                 each.movement.x = each.movement.x * -1;
-                each.position.x = WIDTH - each.getRadius();
+                each.position.x = width - each.getRadius();
             } else if (xPosition - radius <= 0) {
                 each.movement.x = each.movement.x * -1;
                 each.position.x = each.getRadius();
