@@ -273,8 +273,6 @@
           <configLocation>${project.build.resources[0].directory}/checkstyle.xml</configLocation>
           <encoding>UTF-8</encoding>
           <consoleOutput>true</consoleOutput>
-          <failOnViolation>true</failOnViolation>
-          <failsOnError>true</failsOnError>
           <!-- pc: find out why IntelliJ doesn't like linkXRef element under build>plugins>plugin -->
           <linkXRef>false</linkXRef>
         </configuration>

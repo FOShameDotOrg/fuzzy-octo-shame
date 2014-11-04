@@ -9,31 +9,69 @@ import org.slf4j.LoggerFactory;
 
 import com.jed.util.Vector;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class MenuState extends GameState {
 
+    /**
+     * 
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuState.class);
 
+    /**
+     * 
+     */
     private UnicodeFont font;
 
+    /**
+     * 
+     */
     private String daString;
+    
+    /**
+     * 
+     */
     private Vector coords;
 
+    /**
+     * 
+     * @param manager game state manager
+     */
     public MenuState(GameStateManager manager) {
         super(manager);
     }
 
+    /**
+     * 
+     * @return daString
+     */
     public String getDaString() {
         return daString;
     }
 
+    /**
+     * 
+     * @param daString daString
+     */
     public void setDaString(String daString) {
         this.daString = daString;
     }
 
+    /**
+     * 
+     * @return coords
+     */
     public Vector getCoords() {
         return coords;
     }
 
+    /**
+     * 
+     * @param coords coords
+     */
     public void setCoords(Vector coords) {
         this.coords = coords;
     }

@@ -110,4 +110,5 @@ build/
 .project
 *.orig
 *.diff
+.checkstyle
 # End from pc rando
