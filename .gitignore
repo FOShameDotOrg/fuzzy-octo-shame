@@ -109,4 +109,5 @@ build/
 .classpath
 .project
 *.orig
+.checkstyle
 # End from pc rando

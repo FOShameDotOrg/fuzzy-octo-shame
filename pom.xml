@@ -133,6 +133,8 @@
             <id>validate</id>
             <phase>validate</phase>
             <configuration>
+              <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+              <testSourceDirectory>${project.build.testSourceDirectory}</testSourceDirectory>
               <!-- dear god, the kludge. http://stackoverflow.com/a/15004792 -->
               <configLocation>${project.build.resources[0].directory}/checkstyle.xml</configLocation>
               <encoding>UTF-8</encoding>
