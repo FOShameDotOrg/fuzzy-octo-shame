@@ -12,35 +12,100 @@ import com.jed.util.MapLoader;
 import com.jed.util.Util;
 import com.jed.util.Vector;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class Player extends Entity implements StateManager {
 
+    /**
+     * 
+     */
     public int height, width;
+    
+    /**
+     * 
+     */
     public int xDir;
 
+    /**
+     * 
+     */
     //Texture(s)
     private final String TEXTURE_PATH = MapLoader.RESOURCES_DIRECTORY + "MEGA_MAN_SH.png";
+    
+    /**
+     * 
+     */
     private Texture texture;
 
+    /**
+     * 
+     */
     //Player Direction
     public final int PLAYER_RIGHT = 1;
+    
+    /**
+     * 
+     */
     public final int PLAYER_LEFT = 0;
 
+    /**
+     * 
+     */
     //Player States
     private PlayerState currentState;
+    
+    /**
+     * 
+     */
     private PlayerState fallingState;
+    
+    /**
+     * 
+     */
     private PlayerState idleState;
+    
+    /**
+     * 
+     */
     private PlayerState walkingState;
+    
+    /**
+     * 
+     */
     private PlayerState jumpingState;
 
+    /**
+     * 
+     */
     //Indicates the player is currently colliding with a map tile below it
     private boolean collideDown = false;
 
+    /**
+     * 
+     */
     //TODO: Friction should come from the individual map tiles or from the tileset
     private float friction = .046875f;
+    
+    /**
+     * 
+     */
     private int jumpCount = 0;
 
+    /**
+     * 
+     */
     private GameMap map;
 
+    /**
+     * 
+     * @param position position vector
+     * @param height height
+     * @param width width
+     * @param map game map
+     */
     public Player(Vector position, int height, int width, GameMap map) {
 
         //TODO: The Bounds should be scaled to the size of the player sprite so that
@@ -65,7 +130,9 @@ public class Player extends Entity implements StateManager {
         entered();
     }
 
-
+    /**
+     * @param state state to change current player to.
+     */
     public void changeState(State state) {
         currentState = (PlayerState) state;
         currentState.entered();
@@ -88,7 +155,9 @@ public class Player extends Entity implements StateManager {
     public void leaving() {
     }
 
-    //Key press events
+    /**
+     * Key press events.
+     */
     public void keyPressEvent() {
         if (Keyboard.getEventKey() == Keyboard.KEY_SPACE && Keyboard.getEventKeyState()) {
             boolean isJumpCountLessThanTwo = jumpCount < 2;
@@ -101,7 +170,9 @@ public class Player extends Entity implements StateManager {
         }
     }
 
-    //Key Hold Events (walking etc)
+    /**
+     * Key Hold Events (walking etc).
+     */
     private void keyHoldEvent() {
 
         //Constant key "hold" events
@@ -164,13 +235,28 @@ public class Player extends Entity implements StateManager {
         }
     }
 
+    /**
+     * 
+     * @author jlinde, Peter Colapietro
+     *
+     */
     private abstract class PlayerState implements State {
+        
+        /**
+         * 
+         */
         protected boolean falling;
 
+        /**
+         * 
+         */
         public PlayerState() {
             falling = false;
         }
 
+        /**
+         * 
+         */
         public abstract void handleInput();
 
         @Override
@@ -178,8 +264,16 @@ public class Player extends Entity implements StateManager {
         }
     }
 
+    /**
+     * 
+     * @author jlinde, Peter Colapietro
+     *
+     */
     private class Falling extends PlayerState {
 
+        /**
+         * 
+         */
         public Falling() {
             this.falling = true;
         }
@@ -241,12 +335,31 @@ public class Player extends Entity implements StateManager {
 
     }
 
+    /**
+     * 
+     * @author jlinde, Peter Colapietro
+     *
+     */
     private class Jumping extends Falling {
 
+        /**
+         * 
+         */
         float[] animation = {.0625f, .125f, .1875f, .25f, .3125f, .375f, .4375f};
+        
+        /**
+         * 
+         */
         float frameWidth = .0625f;
+        
+        /**
+         * 
+         */
         int frame, ticks;
 
+        /**
+         * 
+         */
         public Jumping() {
             this.falling = true;
         }
@@ -299,6 +412,11 @@ public class Player extends Entity implements StateManager {
 
     }
 
+    /**
+     * 
+     * @author jlinde, Peter Colapietro
+     *
+     */
     private class Idle extends PlayerState {
 
         @Override
@@ -355,10 +473,26 @@ public class Player extends Entity implements StateManager {
 
     }
 
+    /**
+     * 
+     * @author jlinde, Peter Colapietro
+     *
+     */
     private class Walking extends PlayerState {
 
+        /**
+         * 
+         */
         float[] animation = {.125f, .1875f, .25f, .3125f, .375f, .4375f, .5f, .5625f, .625f, .6875f, .75f};
+        
+        /**
+         * 
+         */
         float frameWidth = .0625f;
+        
+        /**
+         * 
+         */
         int frame, ticks;
 
         @Override

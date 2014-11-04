@@ -14,8 +14,16 @@ import com.jed.actor.PolygonBoundary;
 import com.jed.state.GameMap;
 import com.jed.state.MapTile;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class MapLoader {
 
+    /**
+     * 
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(MapLoader.class);
 
     /**
@@ -23,6 +31,11 @@ public class MapLoader {
      */
     public static final String RESOURCES_DIRECTORY = "src/main/resources/";
 
+    /**
+     * 
+     * @param path path to game map file
+     * @return gameMap
+     */
     public static GameMap loadMap(String path) {
         GameMap map = new GameMap();
 
@@ -50,6 +63,8 @@ public class MapLoader {
 
         //Load Map properties
         NodeList mapNodes = docElement.getChildNodes();
+        String nameNodeTextContent = null;//TODO once loop is refactored get rid of nameNodeTextContent
+        //FIXME this loop needs refactoring.
         for (int i = 0; i < mapNodes.getLength(); i++) {
             Node eachMapNode = mapNodes.item(i);
             if (eachMapNode.getNodeType() == Node.ELEMENT_NODE &&
@@ -60,7 +75,8 @@ public class MapLoader {
                     if (eachPropertyNode.getNodeType() == Node.ELEMENT_NODE &&
                             eachPropertyNode.getNodeName().equals("property")) {
                         Node nameNode = eachPropertyNode.getAttributes().getNamedItem("name");
-                        if (nameNode != null && nameNode.getTextContent() != null && nameNode.getTextContent().equals("gravity")) {
+                        nameNodeTextContent  = nameNode.getTextContent();
+                        if (nameNode != null && nameNodeTextContent != null && nameNodeTextContent.equals("gravity")) {
                             Node valueNode = eachPropertyNode.getAttributes().getNamedItem("value");
                             if (valueNode != null && valueNode.getTextContent() != null) {
                                 map.gravity = Float.valueOf(valueNode.getTextContent());

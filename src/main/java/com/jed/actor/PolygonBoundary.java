@@ -4,13 +4,38 @@ import org.lwjgl.opengl.GL11;
 
 import com.jed.util.Vector;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class PolygonBoundary extends Boundary {
 
+    /**
+     * 
+     */
     private double rightBound = 0;
+    
+    /**
+     * 
+     */
     private double leftBound = 0;
+    
+    /**
+     * 
+     */
     private double upperBound = 0;
+    
+    /**
+     * 
+     */
     private double lowerBound = 0;
 
+    /**
+     * 
+     * @param position position vector
+     * @param verticies array of verticies
+     */
     public PolygonBoundary(Vector position, Vector[] verticies) {
         super(position, verticies);
 

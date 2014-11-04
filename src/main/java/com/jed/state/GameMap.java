@@ -20,31 +20,69 @@ import com.jed.util.Util;
 import com.jed.util.Vector;
 
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class GameMap implements State {
 
+    /**
+     * 
+     */
     public int width, height, tileWidth, tileHeight;
+    
+    /**
+     * 
+     */
     public float glTexX, glTexY;
+    
+    /**
+     * 
+     */
     private String tileSetPath;
 
+    /**
+     * 
+     */
     //TODO: this should be set when the map loads...
     public Vector position = new Vector(0, 0);
 
+    /**
+     * 
+     */
     public MapTile[] tiles;
 
+    /**
+     * 
+     */
     private Texture texture;
 
+    /**
+     * 
+     */
     private Player player;
+    
+    /**
+     * 
+     */
     private Stack<Entity> scene;
 
+    /**
+     * 
+     */
     private QuadTree quadTree;
 
+    /**
+     * 
+     */
     public float gravity = 0.21875f;
 
     @Override
     public void entered() {
         texture = Util.loadTexture(tileSetPath);
 
-        //TODO: this should be initialized by some data contained in the map i.e. start position or something like that...
+        //TODO: initialize scene Stack by some data contained in the map i.e. start position or something like that...
         scene = new Stack<Entity>();
         player = new Player(new Vector(50, 200), 256, 256, this);
         scene.push(player);
@@ -68,6 +106,9 @@ public class GameMap implements State {
     public void leaving() {
     }
 
+    /**
+     * 
+     */
     public void keyPress() {
         player.keyPressEvent();
     }
@@ -94,6 +135,9 @@ public class GameMap implements State {
         scrollMap();
     }
 
+    /**
+     * 
+     */
     private void scrollMap() {
         if (player.movement.y > 0) {
             if ((player.position.y + (player.height / 2) - position.y) > MotherBrain.HEIGHT / 2) {
@@ -132,6 +176,9 @@ public class GameMap implements State {
         }
     }
 
+    /**
+     * 
+     */
     private void detectCollisions() {
 
         for (int i = 0; i < scene.size(); i++) {
@@ -190,6 +237,9 @@ public class GameMap implements State {
         }
     }
 
+    /**
+     * 
+     */
     private void drawMap() {
         Color.white.bind();
         texture.bind();
@@ -220,11 +270,19 @@ public class GameMap implements State {
 
         GL11.glDisable(GL11.GL_TEXTURE_2D);
     }
-
+    
+    /**
+     * @param x x
+     * @param y y
+     */
     public void drawChildVertex2f(float x, float y) {
         GL11.glVertex2f(x - position.x, y - position.y);
     }
 
+    /**
+     * @param tileSetPath path to tile set 
+     * 
+     */
     public void setTileSetPath(String tileSetPath) {
         this.tileSetPath = tileSetPath;
     }

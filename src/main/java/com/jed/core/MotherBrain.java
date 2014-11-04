@@ -22,19 +22,43 @@ import com.jed.state.PlayState;
  */
 public final class MotherBrain implements Startable {
 
+    /**
+     * 
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(MotherBrain.class);
 
+    /**
+     * 
+     */
     public static final int WIDTH = 1024;
+    
+    /**
+     * 
+     */
     public static final int HEIGHT = 768;
 
+    /**
+     * 
+     */
     private long lastFrame;
+    
+    /**
+     * 
+     */
     private int fps;
+    
+    /**
+     * 
+     */
     private long lastFPS;
 
+    /**
+     * 
+     */
     private GameStateManager stateManager;
 
     /**
-     * @param args
+     * @param args Command-line arguments
      * @see <a href="http://projects.lidalia.org.uk/sysout-over-slf4j/quickstart.html">System Out and Err redirected to SLF4J</a>
      */
     public static void main(String[] args) {
@@ -44,6 +68,9 @@ public final class MotherBrain implements Startable {
         motherBrain.start();
     }
 
+    /**
+     * 
+     */
     private void init() {
         stateManager = new GameStateManager();
         stateManager.push(new DiscoState(stateManager));
@@ -63,6 +90,9 @@ public final class MotherBrain implements Startable {
         lastFPS = getTime();
     }
 
+    /**
+     * 
+     */
     public void start() {
         try {
 
@@ -110,6 +140,10 @@ public final class MotherBrain implements Startable {
         Display.destroy();
     }
 
+    /**
+     * 
+     * @return delta
+     */
     private int getDelta() {
         long time = getTime();
         int delta = (int) (time - lastFrame);
@@ -117,10 +151,17 @@ public final class MotherBrain implements Startable {
         return delta;
     }
 
+    /**
+     * 
+     * @return time
+     */
     private long getTime() {
         return (Sys.getTime() * 1000) / Sys.getTimerResolution();
     }
 
+    /**
+     * 
+     */
     private void updateFPS() {
         if (getTime() - lastFPS > 1000) {
             Display.setTitle("FPS: " + fps);
