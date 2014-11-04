@@ -19,31 +19,84 @@ import com.jed.util.Vector;
  */
 public class Player extends Entity implements StateManager {
 
+    /**
+     * 
+     */
     public int height, width;
+    
+    /**
+     * 
+     */
     public int xDir;
 
+    /**
+     * 
+     */
     //Texture(s)
     private final String TEXTURE_PATH = MapLoader.RESOURCES_DIRECTORY + "MEGA_MAN_SH.png";
+    
+    /**
+     * 
+     */
     private Texture texture;
 
+    /**
+     * 
+     */
     //Player Direction
     public final int PLAYER_RIGHT = 1;
+    
+    /**
+     * 
+     */
     public final int PLAYER_LEFT = 0;
 
+    /**
+     * 
+     */
     //Player States
     private PlayerState currentState;
+    
+    /**
+     * 
+     */
     private PlayerState fallingState;
+    
+    /**
+     * 
+     */
     private PlayerState idleState;
+    
+    /**
+     * 
+     */
     private PlayerState walkingState;
+    
+    /**
+     * 
+     */
     private PlayerState jumpingState;
 
+    /**
+     * 
+     */
     //Indicates the player is currently colliding with a map tile below it
     private boolean collideDown = false;
 
+    /**
+     * 
+     */
     //TODO: Friction should come from the individual map tiles or from the tileset
     private float friction = .046875f;
+    
+    /**
+     * 
+     */
     private int jumpCount = 0;
 
+    /**
+     * 
+     */
     private GameMap map;
 
     /**
@@ -188,6 +241,10 @@ public class Player extends Entity implements StateManager {
      *
      */
     private abstract class PlayerState implements State {
+        
+        /**
+         * 
+         */
         protected boolean falling;
 
         /**
@@ -285,8 +342,19 @@ public class Player extends Entity implements StateManager {
      */
     private class Jumping extends Falling {
 
+        /**
+         * 
+         */
         float[] animation = {.0625f, .125f, .1875f, .25f, .3125f, .375f, .4375f};
+        
+        /**
+         * 
+         */
         float frameWidth = .0625f;
+        
+        /**
+         * 
+         */
         int frame, ticks;
 
         /**
@@ -412,8 +480,19 @@ public class Player extends Entity implements StateManager {
      */
     private class Walking extends PlayerState {
 
+        /**
+         * 
+         */
         float[] animation = {.125f, .1875f, .25f, .3125f, .375f, .4375f, .5f, .5625f, .625f, .6875f, .75f};
+        
+        /**
+         * 
+         */
         float frameWidth = .0625f;
+        
+        /**
+         * 
+         */
         int frame, ticks;
 
         @Override

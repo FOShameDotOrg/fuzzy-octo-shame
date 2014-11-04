@@ -7,6 +7,9 @@ package com.jed.state;
  */
 public abstract class GameState implements State {
 
+    /**
+     * 
+     */
     protected GameStateManager manager;
 
     /**

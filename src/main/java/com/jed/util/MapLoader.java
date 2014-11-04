@@ -21,6 +21,9 @@ import com.jed.state.MapTile;
  */
 public class MapLoader {
 
+    /**
+     * 
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(MapLoader.class);
 
     /**

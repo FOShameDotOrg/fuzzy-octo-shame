@@ -16,11 +16,24 @@ import com.jed.util.Vector;
  */
 public class MenuState extends GameState {
 
+    /**
+     * 
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuState.class);
 
+    /**
+     * 
+     */
     private UnicodeFont font;
 
+    /**
+     * 
+     */
     private String daString;
+    
+    /**
+     * 
+     */
     private Vector coords;
 
     /**

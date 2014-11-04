@@ -9,6 +9,9 @@ import java.util.Stack;
  */
 public class GameStateManager {
 
+    /**
+     * 
+     */
     Stack<GameState> states = new GameStateStack<GameState>();
 
     /**
@@ -70,6 +73,9 @@ public class GameStateManager {
      */
     private class GameStateStack<E> extends Stack<E> {
 
+        /**
+         * 
+         */
         private static final long serialVersionUID = 1L;
 
         @Override

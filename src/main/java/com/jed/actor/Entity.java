@@ -11,9 +11,24 @@ import com.jed.util.Vector;
  */
 public abstract class Entity implements Displayable, State {
 
+    /**
+     * 
+     */
     public Vector position;
+    
+    /**
+     * 
+     */
     public Boundary bounds;
+    
+    /**
+     * 
+     */
     public Vector movement;
+    
+    /**
+     * 
+     */
     public float acceleration = 0;
 
     /**

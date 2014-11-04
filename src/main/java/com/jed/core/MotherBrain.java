@@ -22,15 +22,39 @@ import com.jed.state.PlayState;
  */
 public final class MotherBrain implements Startable {
 
+    /**
+     * 
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(MotherBrain.class);
 
+    /**
+     * 
+     */
     public static final int WIDTH = 1024;
+    
+    /**
+     * 
+     */
     public static final int HEIGHT = 768;
 
+    /**
+     * 
+     */
     private long lastFrame;
+    
+    /**
+     * 
+     */
     private int fps;
+    
+    /**
+     * 
+     */
     private long lastFPS;
 
+    /**
+     * 
+     */
     private GameStateManager stateManager;
 
     /**

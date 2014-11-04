@@ -10,9 +10,25 @@ import com.jed.util.Vector;
  */
 public class Ball extends PhysicsEntity {
 
+    /**
+     * 
+     */
     private int segments;
-    float r, g, b;
+    
+    /**
+     * 
+     */
+    private float g;
 
+    /**
+     * 
+     */
+    private float r;
+    
+    /**
+     * 
+     */
+    private float b;
 
     /**
      * 

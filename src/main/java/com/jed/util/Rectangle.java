@@ -6,7 +6,16 @@ package com.jed.util;
  *
  */
 public class Rectangle {
-    private int width, height;
+    
+    /**
+     * 
+     */
+    private int width;
+    
+    /**
+     * 
+     */
+    private int height;
 
     /**
      *

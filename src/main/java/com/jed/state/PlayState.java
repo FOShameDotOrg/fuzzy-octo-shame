@@ -16,9 +16,19 @@ public class PlayState extends GameState implements StateManager {
      */
     public static final String LEVEL_ONE_PATH = MapLoader.RESOURCES_DIRECTORY + "POC_MAP.tmx";
 
+    /**
+     * 
+     */
     private GameMap currentMap;
 
+    /**
+     * 
+     */
     private boolean paused = true;
+    
+    /**
+     * 
+     */
     private boolean stepFrame = false;
 
     /**

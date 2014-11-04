@@ -10,8 +10,19 @@ import com.jed.util.Vector;
  */
 public abstract class Boundary implements Displayable {
 
+    /**
+     * 
+     */
     public Entity owner;
+    
+    /**
+     * 
+     */
     public Vector position;
+    
+    /**
+     * 
+     */
     public Vector[] verticies;
 
     /**

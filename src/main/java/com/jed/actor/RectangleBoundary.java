@@ -12,6 +12,9 @@ import com.jed.util.Vector;
  */
 public class RectangleBoundary extends Boundary {
 
+    /**
+     * 
+     */
     private Rectangle rectangle;
 
     /**

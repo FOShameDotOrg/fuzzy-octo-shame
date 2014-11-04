@@ -11,9 +11,24 @@ import com.jed.util.Vector;
  */
 public class PolygonBoundary extends Boundary {
 
+    /**
+     * 
+     */
     private double rightBound = 0;
+    
+    /**
+     * 
+     */
     private double leftBound = 0;
+    
+    /**
+     * 
+     */
     private double upperBound = 0;
+    
+    /**
+     * 
+     */
     private double lowerBound = 0;
 
     /**

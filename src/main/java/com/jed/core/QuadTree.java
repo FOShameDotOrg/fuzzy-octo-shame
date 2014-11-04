@@ -16,16 +16,44 @@ import com.jed.util.Vector;
  */
 public class QuadTree implements Displayable {
 
+    /**
+     * 
+     */
     private final int MAX_OBJECTS = 2;
+    
+    /**
+     * 
+     */
     private final int MAX_LEVELS = 5;
 
+    /**
+     * 
+     */
     private int level;
+    
+    /**
+     * 
+     */
     private List<Entity> objects;
+    
+    /**
+     * 
+     */
     private Rectangle rectangle;
+    
+    /**
+     * 
+     */
     private QuadTree[] nodes;
 
+    /**
+     * 
+     */
     private Displayable parent;
 
+    /**
+     * 
+     */
     private Vector position;
 
     /**

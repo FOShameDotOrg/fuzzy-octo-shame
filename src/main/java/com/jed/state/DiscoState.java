@@ -23,13 +23,29 @@ import com.jed.util.Vector;
  */
 public class DiscoState extends GameState {
 
+    /**
+     * 
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(DiscoState.class);
 
+    /**
+     * 
+     */
     private QuadTree quadTree;
 
+    /**
+     * 
+     */
     private Stack<Ball> scene;
 
+    /**
+     * 
+     */
     private int WIDTH;
+    
+    /**
+     * 
+     */
     private int HEIGHT;
 
     /**

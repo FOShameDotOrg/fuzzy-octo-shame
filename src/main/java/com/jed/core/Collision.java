@@ -13,16 +13,49 @@ import com.jed.util.Vector;
  */
 public class Collision implements Comparable<Collision> {
 
+    /**
+     * 
+     */
     public static final int NONE = 0;
+    
+    /**
+     * 
+     */
     public static final int SAT = 1;
+    
+    /**
+     * 
+     */
     public static final int SWEPT_X = 2;
+    
+    /**
+     * 
+     */
     public static final int SWEPT_Y = 3;
 
+    /**
+     * 
+     */
     public int collisionType = NONE;
 
+    /**
+     * 
+     */
     public Entity a, b;
+    
+    /**
+     * 
+     */
     private double minXDistance, minYDistance;
+    
+    /**
+     * 
+     */
     private double smallestDisplacement;
+    
+    /**
+     * 
+     */
     private MinMax xEntityMinMax, xSEntityMinMax, yEntityMinMax, ySEntityMinMax;
 
     /**
@@ -182,6 +215,9 @@ public class Collision implements Comparable<Collision> {
      */
     private class MinMax {
 
+        /**
+         * 
+         */
         public double min, max;
 
         /**

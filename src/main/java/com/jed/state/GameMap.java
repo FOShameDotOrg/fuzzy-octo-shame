@@ -27,22 +27,55 @@ import com.jed.util.Vector;
  */
 public class GameMap implements State {
 
+    /**
+     * 
+     */
     public int width, height, tileWidth, tileHeight;
+    
+    /**
+     * 
+     */
     public float glTexX, glTexY;
+    
+    /**
+     * 
+     */
     private String tileSetPath;
 
+    /**
+     * 
+     */
     //TODO: this should be set when the map loads...
     public Vector position = new Vector(0, 0);
 
+    /**
+     * 
+     */
     public MapTile[] tiles;
 
+    /**
+     * 
+     */
     private Texture texture;
 
+    /**
+     * 
+     */
     private Player player;
+    
+    /**
+     * 
+     */
     private Stack<Entity> scene;
 
+    /**
+     * 
+     */
     private QuadTree quadTree;
 
+    /**
+     * 
+     */
     public float gravity = 0.21875f;
 
     @Override

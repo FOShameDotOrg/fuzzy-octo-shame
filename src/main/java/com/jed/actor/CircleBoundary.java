@@ -18,6 +18,9 @@ public class CircleBoundary extends Boundary {
         this.radius = radius;
     }
 
+    /**
+     * 
+     */
     public int radius;
 
     /**

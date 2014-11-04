@@ -7,7 +7,14 @@ package com.jed.util;
  */
 public class Vector {
 
+    /**
+     * 
+     */
     public float x;
+    
+    /**
+     * 
+     */
     public float y;
 
     /**

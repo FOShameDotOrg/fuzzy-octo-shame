@@ -13,15 +13,35 @@ import com.jed.util.Vector;
  */
 public class MapTile extends Entity {
 
+    /**
+     * 
+     */
     public static final int NO_TILE = 0;
 
+    /**
+     * 
+     */
     float glTexX, glTexY, glTexWidth, glTexHeight;
+    
+    /**
+     * 
+     */
     int tileId;
 
+    /**
+     * 
+     */
     GameMap map;
 
+    /**
+     * 
+     */
     //TODO: TEMPORARY!
     public boolean colliding;
+    
+    /**
+     * 
+     */
     public boolean evaluating;
 
     /**
