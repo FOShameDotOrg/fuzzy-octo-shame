@@ -32,6 +32,10 @@ public class DiscoState extends GameState {
     private int WIDTH;
     private int HEIGHT;
 
+    /**
+     * 
+     * @param manager game state manager
+     */
     public DiscoState(GameStateManager manager) {
         super(manager);
     }
@@ -146,6 +150,9 @@ public class DiscoState extends GameState {
         }
     }
 
+    /**
+     * 
+     */
     private void handleCollisions() {
         boolean collide = false;
         for (int i = 0; i < scene.size(); i++) {
@@ -199,6 +206,12 @@ public class DiscoState extends GameState {
         }
     }
 
+    /**
+     * 
+     * @param p1 ball one
+     * @param p2 ball two
+     * @return if ball one and two collided or not
+     */
     private boolean detectCollision(Ball p1, Ball p2) {
         /**
          * Subtract p2's movement vector from p1 the resultant vector
@@ -311,6 +324,11 @@ public class DiscoState extends GameState {
         return true;
     }
 
+    /**
+     * 
+     * @param p1 ball one
+     * @param p2 ball two
+     */
     private void collide(Ball p1, Ball p2) {
         // First, find the normalized vector n from the center of
         // circle1 to the center of circle2

@@ -16,18 +16,40 @@ public abstract class Entity implements Displayable, State {
     public Vector movement;
     public float acceleration = 0;
 
+    /**
+     * 
+     * @param entity to collide down with.
+     */
     public void collideDown(Entity entity) {
     }
 
+    /**
+     * 
+     * @param entity to collide down with.
+     */
     public void collideUp(Entity entity) {
     }
 
+    /**
+     * 
+     * @param entity to collide down with.
+     */
     public void collideLeft(Entity entity) {
     }
 
+    /**
+     * 
+     * @param entity to collide down with.
+     */
     public void collideRight(Entity entity) {
     }
 
+    /**
+     * 
+     * @param position position vector.
+     * @param movement movement vector.
+     * @param bounds entitiy's bounds.
+     */
     public Entity(Vector position, Vector movement, Boundary bounds) {
         this.position = position;
         this.bounds = bounds;

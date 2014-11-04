@@ -48,26 +48,50 @@ public class MapTile extends Entity {
         this.map = map;
     }
 
+    /**
+     * 
+     * @return glTexX
+     */
     public float getGlTexX() {
         return glTexX;
     }
 
+    /**
+     * 
+     * @param glTexX glTexX
+     */
     public void setGlTexX(float glTexX) {
         this.glTexX = glTexX;
     }
 
+    /**
+     * 
+     * @return glTexY
+     */
     public float getGlTexY() {
         return glTexY;
     }
 
+    /**
+     * 
+     * @param glTexY glTexY
+     */
     public void setGlTexY(float glTexY) {
         this.glTexY = glTexY;
     }
 
+    /**
+     * 
+     * @return tileId
+     */
     public int getTileId() {
         return tileId;
     }
 
+    /**
+     * 
+     * @param tileId tileId
+     */
     public void setTileId(int tileId) {
         this.tileId = tileId;
     }

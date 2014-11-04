@@ -73,6 +73,9 @@ public class GameMap implements State {
     public void leaving() {
     }
 
+    /**
+     * 
+     */
     public void keyPress() {
         player.keyPressEvent();
     }
@@ -99,6 +102,9 @@ public class GameMap implements State {
         scrollMap();
     }
 
+    /**
+     * 
+     */
     private void scrollMap() {
         if (player.movement.y > 0) {
             if ((player.position.y + (player.height / 2) - position.y) > MotherBrain.HEIGHT / 2) {
@@ -137,6 +143,9 @@ public class GameMap implements State {
         }
     }
 
+    /**
+     * 
+     */
     private void detectCollisions() {
 
         for (int i = 0; i < scene.size(); i++) {
@@ -195,6 +204,9 @@ public class GameMap implements State {
         }
     }
 
+    /**
+     * 
+     */
     private void drawMap() {
         Color.white.bind();
         texture.bind();
@@ -225,11 +237,19 @@ public class GameMap implements State {
 
         GL11.glDisable(GL11.GL_TEXTURE_2D);
     }
-
+    
+    /**
+     * @param x x
+     * @param y y
+     */
     public void drawChildVertex2f(float x, float y) {
         GL11.glVertex2f(x - position.x, y - position.y);
     }
 
+    /**
+     * @param tileSetPath path to tile set 
+     * 
+     */
     public void setTileSetPath(String tileSetPath) {
         this.tileSetPath = tileSetPath;
     }

@@ -9,6 +9,16 @@ import org.lwjgl.opengl.GL11;
  */
 public class BasicShapeRenderer {
 
+    /**
+     * 
+     * @param cx center x.
+     * @param cy center y.
+     * @param r radius.
+     * @param segments segments.
+     * @param red red.
+     * @param g green.
+     * @param b blue.
+     */
     public static void drawFilledCircle(float cx, float cy, float r, int segments, float red, float g, float b) {
         double theta = 2 * 3.1415926 / (double) segments;
         double c = Math.cos(theta);

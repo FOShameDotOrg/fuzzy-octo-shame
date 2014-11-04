@@ -44,6 +44,9 @@ public final class MotherBrain implements Startable {
         motherBrain.start();
     }
 
+    /**
+     * 
+     */
     private void init() {
         stateManager = new GameStateManager();
         stateManager.push(new DiscoState(stateManager));
@@ -63,6 +66,9 @@ public final class MotherBrain implements Startable {
         lastFPS = getTime();
     }
 
+    /**
+     * 
+     */
     public void start() {
         try {
 
@@ -110,6 +116,10 @@ public final class MotherBrain implements Startable {
         Display.destroy();
     }
 
+    /**
+     * 
+     * @return delta
+     */
     private int getDelta() {
         long time = getTime();
         int delta = (int) (time - lastFrame);
@@ -117,10 +127,17 @@ public final class MotherBrain implements Startable {
         return delta;
     }
 
+    /**
+     * 
+     * @return time
+     */
     private long getTime() {
         return (Sys.getTime() * 1000) / Sys.getTimerResolution();
     }
 
+    /**
+     * 
+     */
     private void updateFPS() {
         if (getTime() - lastFPS > 1000) {
             Display.setTitle("FPS: " + fps);

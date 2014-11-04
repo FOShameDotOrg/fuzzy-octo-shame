@@ -46,6 +46,13 @@ public class Player extends Entity implements StateManager {
 
     private GameMap map;
 
+    /**
+     * 
+     * @param position position vector
+     * @param height height
+     * @param width width
+     * @param map game map
+     */
     public Player(Vector position, int height, int width, GameMap map) {
 
         //TODO: The Bounds should be scaled to the size of the player sprite so that
@@ -70,7 +77,9 @@ public class Player extends Entity implements StateManager {
         entered();
     }
 
-
+    /**
+     * @param state state to change current player to.
+     */
     public void changeState(State state) {
         currentState = (PlayerState) state;
         currentState.entered();
@@ -93,7 +102,9 @@ public class Player extends Entity implements StateManager {
     public void leaving() {
     }
 
-    //Key press events
+    /**
+     * Key press events.
+     */
     public void keyPressEvent() {
         if (Keyboard.getEventKey() == Keyboard.KEY_SPACE && Keyboard.getEventKeyState()) {
             boolean isJumpCountLessThanTwo = jumpCount < 2;
@@ -106,7 +117,9 @@ public class Player extends Entity implements StateManager {
         }
     }
 
-    //Key Hold Events (walking etc)
+    /**
+     * Key Hold Events (walking etc).
+     */
     private void keyHoldEvent() {
 
         //Constant key "hold" events
@@ -177,10 +190,16 @@ public class Player extends Entity implements StateManager {
     private abstract class PlayerState implements State {
         protected boolean falling;
 
+        /**
+         * 
+         */
         public PlayerState() {
             falling = false;
         }
 
+        /**
+         * 
+         */
         public abstract void handleInput();
 
         @Override
@@ -195,6 +214,9 @@ public class Player extends Entity implements StateManager {
      */
     private class Falling extends PlayerState {
 
+        /**
+         * 
+         */
         public Falling() {
             this.falling = true;
         }
@@ -267,6 +289,9 @@ public class Player extends Entity implements StateManager {
         float frameWidth = .0625f;
         int frame, ticks;
 
+        /**
+         * 
+         */
         public Jumping() {
             this.falling = true;
         }

@@ -13,6 +13,17 @@ public class Ball extends PhysicsEntity {
     private int segments;
     float r, g, b;
 
+
+    /**
+     * 
+     * @param displacement displacement.
+     * @param movement movement.
+     * @param bounds bounds.
+     * @param segments segments.
+     * @param r red.
+     * @param g green.
+     * @param b blue.
+     */
     public Ball(Vector displacement, Vector movement, Boundary bounds, int segments, float r, float g, float b) {
         super(displacement, movement, bounds);
 
@@ -28,6 +39,10 @@ public class Ball extends PhysicsEntity {
         return getRadius();
     }
 
+    /**
+     * 
+     * @return radius of ball.
+     */
     public int getRadius() {
         return ((CircleBoundary) bounds).radius;
     }

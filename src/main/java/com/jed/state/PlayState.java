@@ -21,6 +21,10 @@ public class PlayState extends GameState implements StateManager {
     private boolean paused = true;
     private boolean stepFrame = false;
 
+    /**
+     * 
+     * @param manager game state manager
+     */
     public PlayState(GameStateManager manager) {
         super(manager);
     }
@@ -49,6 +53,9 @@ public class PlayState extends GameState implements StateManager {
         stepFrame = false;
     }
 
+    /**
+     * 
+     */
     private void getInput() {
         while (Keyboard.next()) {
             currentMap.keyPress();

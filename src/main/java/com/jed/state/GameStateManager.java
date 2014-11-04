@@ -11,31 +11,52 @@ public class GameStateManager {
 
     Stack<GameState> states = new GameStateStack<GameState>();
 
+    /**
+     * 
+     * @param state to change to
+     */
     public void changeState(GameState state) {
         clear();
         states.push(state);
     }
 
+    /**
+     * 
+     * @param state state to push onto stack
+     */
     public void push(GameState state) {
         states.push(state);
     }
 
+    /**
+     * 
+     * @return state from top of stack
+     */
     public GameState pop() {
         return states.pop();
     }
 
+    /**
+     * 
+     */
     public void clear() {
         while (!states.isEmpty()) {
             states.pop();
         }
     }
 
+    /**
+     * 
+     */
     public void update() {
         for (GameState eachState : states) {
             eachState.update();
         }
     }
 
+    /**
+     * 
+     */
     public void draw() {
         for (GameState eachState : states) {
             eachState.draw();
@@ -58,9 +79,6 @@ public class GameStateManager {
             return o;
         }
 
-        /**
-         * TODO Test me after adding synchronized.
-         */
         @Override
         public synchronized E pop() {
             E o = super.pop();

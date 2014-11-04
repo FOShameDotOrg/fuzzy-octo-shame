@@ -28,6 +28,11 @@ public class MapLoader {
      */
     public static final String RESOURCES_DIRECTORY = "src/main/resources/";
 
+    /**
+     * 
+     * @param path path to game map file
+     * @return gameMap
+     */
     public static GameMap loadMap(String path) {
         GameMap map = new GameMap();
 

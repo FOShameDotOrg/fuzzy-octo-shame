@@ -16,6 +16,11 @@ public class PolygonBoundary extends Boundary {
     private double upperBound = 0;
     private double lowerBound = 0;
 
+    /**
+     * 
+     * @param position position vector
+     * @param verticies array of verticies
+     */
     public PolygonBoundary(Vector position, Vector[] verticies) {
         super(position, verticies);
 

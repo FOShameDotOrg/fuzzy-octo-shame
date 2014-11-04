@@ -25,15 +25,28 @@ public class Collision implements Comparable<Collision> {
     private double smallestDisplacement;
     private MinMax xEntityMinMax, xSEntityMinMax, yEntityMinMax, ySEntityMinMax;
 
+    /**
+     * 
+     * @param a entity a.
+     * @param b entity b.
+     */
     public Collision(Entity a, Entity b) {
         this.a = a;
         this.b = b;
     }
 
+    /**
+     * 
+     * @return the smallest displacement.
+     */
     public double smallestDisplacement() {
         return smallestDisplacement;
     }
 
+    /**
+     * 
+     * @return if a collision was detected.
+     */
     public boolean detectCollision() {
 
         //TODO: must take into account relative motion vector when dealing w/ 2 moving objects for swept test!!!
@@ -88,6 +101,9 @@ public class Collision implements Comparable<Collision> {
 
     }
 
+    /**
+     * 
+     */
     public void resolveCollision() {
 
         //OVERLAPS
@@ -168,6 +184,11 @@ public class Collision implements Comparable<Collision> {
 
         public double min, max;
 
+        /**
+         * 
+         * @param boundary boundary
+         * @param axis axis
+         */
         public MinMax(Boundary boundary, Vector axis) {
             max = boundary.verticies[0].add(boundary.getWorldPosition()).dotProduct(axis);
             min = boundary.verticies[0].add(boundary.getWorldPosition()).dotProduct(axis);
@@ -185,6 +206,11 @@ public class Collision implements Comparable<Collision> {
             }
         }
 
+        /**
+         * 
+         * @param b another minmax
+         * @return interval distance
+         */
         public double getIntervalDistance(MinMax b) {
             if (this.min < b.min) {
                 return b.min - this.max;

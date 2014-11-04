@@ -14,6 +14,11 @@ public class RectangleBoundary extends Boundary {
 
     private Rectangle rectangle;
 
+    /**
+     * 
+     * @param rectangle rectangle
+     * @param position position of rectangle boundary
+     */
     public RectangleBoundary(Rectangle rectangle, Vector position) {
         super(position, new Vector[]{});
         this.rectangle = rectangle;

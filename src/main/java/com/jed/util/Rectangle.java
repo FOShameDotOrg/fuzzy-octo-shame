@@ -19,18 +19,34 @@ public class Rectangle {
         this.height = height;
     }
 
+    /**
+     * 
+     * @return width
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     * 
+     * @param width width
+     */
     public void setWidth(int width) {
         this.width = width;
     }
 
+    /**
+     * 
+     * @return height
+     */
     public int getHeight() {
         return height;
     }
 
+    /**
+     * 
+     * @param height height
+     */
     public void setHeight(int height) {
         this.height = height;
     }
