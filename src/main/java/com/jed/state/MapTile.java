@@ -6,6 +6,11 @@ import com.jed.actor.Boundary;
 import com.jed.actor.Entity;
 import com.jed.util.Vector;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class MapTile extends Entity {
 
     public static final int NO_TILE = 0;

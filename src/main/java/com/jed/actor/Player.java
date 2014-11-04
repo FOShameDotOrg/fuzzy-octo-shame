@@ -12,6 +12,11 @@ import com.jed.util.MapLoader;
 import com.jed.util.Util;
 import com.jed.util.Vector;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class Player extends Entity implements StateManager {
 
     public int height, width;
@@ -164,6 +169,11 @@ public class Player extends Entity implements StateManager {
         }
     }
 
+    /**
+     * 
+     * @author jlinde, Peter Colapietro
+     *
+     */
     private abstract class PlayerState implements State {
         protected boolean falling;
 
@@ -178,6 +188,11 @@ public class Player extends Entity implements StateManager {
         }
     }
 
+    /**
+     * 
+     * @author jlinde, Peter Colapietro
+     *
+     */
     private class Falling extends PlayerState {
 
         public Falling() {
@@ -241,6 +256,11 @@ public class Player extends Entity implements StateManager {
 
     }
 
+    /**
+     * 
+     * @author jlinde, Peter Colapietro
+     *
+     */
     private class Jumping extends Falling {
 
         float[] animation = {.0625f, .125f, .1875f, .25f, .3125f, .375f, .4375f};
@@ -299,6 +319,11 @@ public class Player extends Entity implements StateManager {
 
     }
 
+    /**
+     * 
+     * @author jlinde, Peter Colapietro
+     *
+     */
     private class Idle extends PlayerState {
 
         @Override
@@ -355,6 +380,11 @@ public class Player extends Entity implements StateManager {
 
     }
 
+    /**
+     * 
+     * @author jlinde, Peter Colapietro
+     *
+     */
     private class Walking extends PlayerState {
 
         float[] animation = {.125f, .1875f, .25f, .3125f, .375f, .4375f, .5f, .5625f, .625f, .6875f, .75f};

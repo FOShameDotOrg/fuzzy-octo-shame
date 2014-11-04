@@ -1,5 +1,10 @@
 package com.jed.util;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class Rectangle {
     private int width, height;
 

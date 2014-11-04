@@ -6,6 +6,11 @@ import com.jed.actor.Entity;
 import com.jed.state.MapTile;
 import com.jed.util.Vector;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class Collision implements Comparable<Collision> {
 
     public static final int NONE = 0;
@@ -154,6 +159,11 @@ public class Collision implements Comparable<Collision> {
 
     }
 
+    /**
+     * 
+     * @author jlinde, Peter Colapietro
+     *
+     */
     private class MinMax {
 
         public double min, max;

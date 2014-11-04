@@ -4,6 +4,11 @@ import org.lwjgl.input.Keyboard;
 
 import com.jed.util.MapLoader;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class PlayState extends GameState implements StateManager {
 
     /**

@@ -3,6 +3,11 @@ package com.jed.actor;
 import com.jed.util.BasicShapeRenderer;
 import com.jed.util.Vector;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class Ball extends PhysicsEntity {
 
     private int segments;

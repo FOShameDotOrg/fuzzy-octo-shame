@@ -3,6 +3,11 @@ package com.jed.actor;
 import com.jed.core.Displayable;
 import com.jed.util.Vector;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ * 
+ */
 public abstract class Boundary implements Displayable {
 
     public Entity owner;

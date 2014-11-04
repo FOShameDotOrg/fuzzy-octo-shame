@@ -2,6 +2,11 @@ package com.jed.util;
 
 import org.lwjgl.opengl.GL11;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class BasicShapeRenderer {
 
     public static void drawFilledCircle(float cx, float cy, float r, int segments, float red, float g, float b) {

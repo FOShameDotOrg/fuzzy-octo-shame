@@ -4,6 +4,11 @@ import org.lwjgl.opengl.GL11;
 
 import com.jed.util.Vector;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class PolygonBoundary extends Boundary {
 
     private double rightBound = 0;

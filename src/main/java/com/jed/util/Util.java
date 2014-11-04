@@ -8,6 +8,11 @@ import org.newdawn.slick.util.ResourceLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class Util {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Util.class);

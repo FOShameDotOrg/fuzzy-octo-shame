@@ -9,6 +9,11 @@ import com.jed.actor.Entity;
 import com.jed.util.Rectangle;
 import com.jed.util.Vector;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class QuadTree implements Displayable {
 
     private final int MAX_OBJECTS = 2;

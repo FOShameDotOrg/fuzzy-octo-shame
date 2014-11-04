@@ -5,6 +5,11 @@ import org.lwjgl.opengl.GL11;
 import com.jed.util.Rectangle;
 import com.jed.util.Vector;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class RectangleBoundary extends Boundary {
 
     private Rectangle rectangle;

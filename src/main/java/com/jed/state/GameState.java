@@ -1,5 +1,10 @@
 package com.jed.state;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public abstract class GameState implements State {
 
     protected GameStateManager manager;

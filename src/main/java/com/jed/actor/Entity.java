@@ -4,6 +4,11 @@ import com.jed.core.Displayable;
 import com.jed.state.State;
 import com.jed.util.Vector;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public abstract class Entity implements Displayable, State {
 
     public Vector position;

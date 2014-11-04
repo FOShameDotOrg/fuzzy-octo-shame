@@ -9,6 +9,11 @@ import org.slf4j.LoggerFactory;
 
 import com.jed.util.Vector;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class MenuState extends GameState {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuState.class);

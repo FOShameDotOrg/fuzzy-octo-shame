@@ -20,6 +20,11 @@ import com.jed.util.Util;
 import com.jed.util.Vector;
 
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class GameMap implements State {
 
     public int width, height, tileWidth, tileHeight;

@@ -14,6 +14,11 @@ import com.jed.actor.PolygonBoundary;
 import com.jed.state.GameMap;
 import com.jed.state.MapTile;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class MapLoader {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MapLoader.class);

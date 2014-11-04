@@ -2,6 +2,11 @@ package com.jed.state;
 
 import java.util.Stack;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class GameStateManager {
 
     Stack<GameState> states = new GameStateStack<GameState>();
@@ -37,6 +42,11 @@ public class GameStateManager {
         }
     }
 
+    /**
+     * 
+     * @author jlinde, Peter Colapietro
+     *
+     */
     private class GameStateStack<E> extends Stack<E> {
 
         private static final long serialVersionUID = 1L;

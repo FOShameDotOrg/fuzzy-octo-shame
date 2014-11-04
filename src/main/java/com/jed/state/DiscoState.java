@@ -16,6 +16,11 @@ import com.jed.core.QuadTree;
 import com.jed.util.Rectangle;
 import com.jed.util.Vector;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class DiscoState extends GameState {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DiscoState.class);
