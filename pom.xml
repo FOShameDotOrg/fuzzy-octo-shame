@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <!-- TODO Externalize properties from all elements -->
+
   <!-- See: http://maven.apache.org/pom.html#Developers -->
   <developers>
     <developer>
@@ -26,27 +27,30 @@
       <timezone>-6</timezone>
     </developer>
   </developers>
+
   <groupId>com.jed</groupId>
   <artifactId>fuzzy-octo-shame</artifactId>
-  <version>0.1.1</version>
+  <version>0.1.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>fuzzy-octo-shame</name>
   <url>https://github.com/virtuoushub/fuzzy-octo-shame</url>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.lwjgl.lwjgl</groupId>
       <artifactId>lwjgl</artifactId>
       <version>2.9.1</version>
       <exclusions>
-        <!-- START Unecessary explict exclusion. Only here for verbosity. -->
+        <!-- START Unnecessary explicit exclusion. Only here for verbosity. -->
         <exclusion>
           <groupId>net.java.jinput</groupId>
           <artifactId>jinput</artifactId>
         </exclusion>
-        <!-- END Unecessary explict exclusion. Only here for verbosity. -->
+        <!-- END Unnecessary explicit exclusion. Only here for verbosity. -->
       </exclusions>
     </dependency>
     <dependency>
@@ -83,9 +87,9 @@
       <version>1.0.2</version>
     </dependency>
     <dependency>
-        <groupId>javax.inject</groupId>
-        <artifactId>javax.inject</artifactId>
-        <version>1</version>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+      <version>1</version>
     </dependency>
     <dependency>
       <groupId>com.google.inject</groupId>
@@ -93,6 +97,7 @@
       <version>4.0-beta5</version>
     </dependency>
   </dependencies>
+
   <build>
     <plugins>
       <plugin>
@@ -139,8 +144,6 @@
               <consoleOutput>true</consoleOutput>
               <failOnViolation>true</failOnViolation>
               <failsOnError>true</failsOnError>
-              <!-- pc: find out why IntelliJ doesn't like linkXRef element. -->
-              <linkXRef>false</linkXRef>
             </configuration>
             <goals>
               <goal>check</goal>
@@ -208,8 +211,93 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>2.6</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.4</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.17</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <version>2.5.2</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>2.8.2</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.2</version>
+        <configuration>
+          <linkXref>true</linkXref>
+          <sourceEncoding>utf-8</sourceEncoding>
+          <minimumTokens>100</minimumTokens>
+          <targetJdk>1.8</targetJdk>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>2.4</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>2.7</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.13</version>
+        <configuration>
+          <!-- dear god, the kludge. http://stackoverflow.com/a/15004792 -->
+          <configLocation>${project.build.resources[0].directory}/checkstyle.xml</configLocation>
+          <encoding>UTF-8</encoding>
+          <consoleOutput>true</consoleOutput>
+          <failOnViolation>true</failOnViolation>
+          <failsOnError>true</failsOnError>
+          <!-- pc: find out why IntelliJ doesn't like linkXRef element under build>plugins>plugin -->
+          <linkXRef>false</linkXRef>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>checkstyle</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.2</version>
+        <configuration>
+          <linkXref>true</linkXref>
+          <sourceEncoding>utf-8</sourceEncoding>
+          <minimumTokens>100</minimumTokens>
+          <targetJdk>1.8</targetJdk>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+
   <profiles>
     <profile>
       <repositories>
@@ -234,7 +322,28 @@
       </pluginRepositories>
       <id>bintray</id>
     </profile>
+    <profile>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>2.6</version>
+            <configuration>
+              <filesets>
+                <fileset>
+                  <directory>${basedir}/bin</directory>
+                  <followSymlinks>true</followSymlinks>
+                </fileset>
+              </filesets>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+      <id>eclipse</id>
+    </profile>
   </profiles>
+
   <!-- TODO Add to settings file, see https://bintray.com/bintray/jcenter
   <?xml version='1.0' encoding='UTF-8'?>
   <settings xsi:schemaLocation='http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd' xmlns='http://maven.apache.org/SETTINGS/1.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
@@ -243,4 +352,5 @@
     </activeProfiles>
   </settings>
     -->
+
 </project>

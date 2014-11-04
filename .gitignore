@@ -109,4 +109,5 @@ build/
 .classpath
 .project
 *.orig
+*.diff
 # End from pc rando
