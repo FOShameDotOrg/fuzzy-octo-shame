@@ -19,6 +19,6 @@ public class Doubles implements MachineEpsilonable  {
      * @return true if a is close enough to b
      */
     public static boolean compareDoubles(double a, double b) {
-         return(Math.abs(a/b - 1) < EPSILON);
+         return Math.abs(a/b - 1) < EPSILON;
     }
 }

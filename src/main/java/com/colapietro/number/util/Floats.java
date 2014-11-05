@@ -21,6 +21,6 @@ public class Floats implements MachineEpsilonable {
      * @return if a is close enough to b
      */
     public static boolean compareFloats(float a, float b) {
-         return(Math.abs(a/b - 1) < EPSILON);
+         return Math.abs(a/b - 1) < EPSILON;
     }
 }
