@@ -11,5 +11,5 @@ public interface MachineEpsilonable {
      * Machine epsilon gives an upper bound on the relative error due to rounding in floating point arithmetic.
      * @see <a href="http://en.wikipedia.org/wiki/Machine_epsilon#Values_for_standard_hardware_floating_point_arithmetics"></a>
      */
-    static final int EPSILON = new BigDecimal("5.96e-08").intValue();
+    int EPSILON = new BigDecimal("5.96e-08").intValue();
 }
