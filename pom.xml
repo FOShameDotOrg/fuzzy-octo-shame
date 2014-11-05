@@ -99,6 +99,38 @@
   </dependencies>
 
   <build>
+
+    <pluginManagement>
+      <plugins>
+        <!--This plugin's configuration is used to store Eclipse m2e settings 
+          only. It has no influence on the Maven build itself. -->
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <versionRange>[2.13,)</versionRange>
+                    <goals>
+                                            <goal>check</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -134,6 +166,7 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>2.13</version>
         <executions>
+          <!-- See: http://stackoverflow.com/a/6372575 and http://stackoverflow.com/a/6475103 -->
           <execution>
             <id>validate</id>
             <phase>validate</phase>
@@ -344,7 +377,7 @@
     </profile>
   </profiles>
 
-  <!-- TODO Add to settings file, see https://bintray.com/bintray/jcenter
+  <!-- TODO Add to settings file, see https://bintray.com/bintray/jcenter 
   <?xml version='1.0' encoding='UTF-8'?>
   <settings xsi:schemaLocation='http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd' xmlns='http://maven.apache.org/SETTINGS/1.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
     <activeProfiles>
