@@ -34,7 +34,7 @@ public class PolygonBoundary extends Boundary {
     /**
      * 
      * @param position position vector
-     * @param verticies array of verticies
+     * @param verticies array of vertices
      */
     public PolygonBoundary(Vector position, Vector[] verticies) {
         super(position, verticies);
