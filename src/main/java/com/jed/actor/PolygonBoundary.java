@@ -36,7 +36,7 @@ public class PolygonBoundary extends Boundary {
      * @param position position vector
      * @param verticies array of vertices
      */
-    public PolygonBoundary(Vector position, Vector[] verticies) {
+    public PolygonBoundary(final Vector position, final Vector[] verticies) {
         super(position, verticies);
 
         //Find Max Bounds for quad tree
