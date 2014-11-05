@@ -3,7 +3,7 @@ package com.colapietro.number.util;
 import java.math.BigDecimal;
 
 /**
- * Created by Peter Colapietro on 11/2/14.
+ * Created by Peter Colapietro on 11/2/14. FIXME See: http://stackoverflow.com/a/320642
  */
 public interface MachineEpsilonable {
 
