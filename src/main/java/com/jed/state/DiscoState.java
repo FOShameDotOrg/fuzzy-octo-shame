@@ -177,9 +177,7 @@ public class DiscoState extends GameState {
             quadTree.retrieve(returnObjects, scene.get(i));
 
             for (int j = 0; j < returnObjects.size(); j++) {
-                if (returnObjects.get(j).equals(scene.get(i))) {
-                    continue;
-                } else {
+                if (!returnObjects.get(j).equals(scene.get(i))) {
                     Ball p1 = scene.get(i);
                     Ball p2 = (Ball) returnObjects.get(j);
                     if (detectCollision(p1, p2)) {

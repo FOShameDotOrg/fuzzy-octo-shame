@@ -191,9 +191,7 @@ public class GameMap implements State {
 
             for (int j = 0; j < returnObjects.size(); j++) {
 
-                if (returnObjects.get(j).equals(scene.get(i))) {
-                    continue;
-                } else {
+                if (!returnObjects.get(j).equals(scene.get(i))) {
                     Entity sEntity = returnObjects.get(j);
 
                     Collision collision = new Collision(entity, sEntity);
