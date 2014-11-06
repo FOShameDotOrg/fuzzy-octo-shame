@@ -275,7 +275,7 @@ public class DiscoState extends GameState {
          * will never touch
          */
         double lengthC = c.magnitude();
-        double f = (lengthC * lengthC) - (d * d);
+        double f = lengthC * lengthC - d * d;
 
         double sumRadiiSquared = sumRadii * sumRadii;
         if (f >= sumRadiiSquared) {
@@ -345,7 +345,7 @@ public class DiscoState extends GameState {
     private void collide(Ball p1, Ball p2) {
         // First, find the normalized vector n from the center of
         // circle1 to the center of circle2
-        Vector n = (p1.position.subtract(p2.position)).normalize();
+        Vector n = p1.position.subtract(p2.position).normalize();
 
         // Find the length of the component of each of the movement
         // vectors along n.

@@ -124,8 +124,8 @@ public class QuadTree implements Displayable {
      * @return index in quad tree, range is 0-3 inclusive.
      */
     private int getIndex(Entity o) {
-        int verticalMidpoint = (int) (position.x + (rectangle.getWidth() / 2));
-        int horizontalMidpoint = (int) (position.y + (rectangle.getHeight() / 2));
+        int verticalMidpoint = (int) position.x + rectangle.getWidth() / 2;
+        int horizontalMidpoint = (int) position.y + rectangle.getHeight() / 2;
 
         boolean topQuadrant = o.bounds.getNextWorldPosition().y + o.bounds.getHeight() < horizontalMidpoint;
         boolean bottomQuadrant = o.bounds.getNextWorldPosition().y > horizontalMidpoint;

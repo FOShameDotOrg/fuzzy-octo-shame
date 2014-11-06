@@ -42,7 +42,7 @@ public class Vector {
     public double distance(final Vector o) {
         double axBx = x - o.x;
         axBx *= axBx;
-        double ayBy = (y - o.y);
+        double ayBy = y - o.y;
         ayBy *= ayBy;
 
         return Math.sqrt(axBx + ayBy);
@@ -71,7 +71,7 @@ public class Vector {
      * @return magnitude.
      */
     public double magnitude() {
-        return Math.sqrt((this.x * this.x) + (this.y * this.y));
+        return Math.sqrt(this.x * this.x + this.y * this.y);
     }
 
     /**
