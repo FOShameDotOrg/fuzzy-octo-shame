@@ -122,7 +122,14 @@
 
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
-        <module name="LineLength"/>
+        <module name="LineLength">
+          <!-- Configuring the check to accept lines up to 120 characters long -->
+          <property name="max" value="120"/>
+          <!-- Configuring the check to ignore lines that begin with " * ", followed by just one word, such as within a Javadoc comment -->
+          <property name="ignorePattern" value="^ *\* @"/>
+          <property name="ignorePattern" value="^ *\* *[^ ]+$"/>
+        </module>
+
         <module name="MethodLength"/>
         <module name="ParameterNumber"/>
 
