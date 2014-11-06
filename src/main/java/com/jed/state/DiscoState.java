@@ -185,7 +185,6 @@ public class DiscoState extends GameState {
                             LOGGER.debug("Handling Collisions");
                             collide = true;
                         }
-
                         collide(p1, p2);
                     }
                 }
