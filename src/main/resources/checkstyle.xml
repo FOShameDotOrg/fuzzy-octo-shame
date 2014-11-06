@@ -125,9 +125,13 @@
         <module name="LineLength">
           <!-- Configuring the check to accept lines up to 120 characters long -->
           <property name="max" value="120"/>
-          <!-- Configuring the check to ignore lines that begin with " * ", followed by just one word, such as within a Javadoc comment -->
-          <property name="ignorePattern" value="^ *\* @"/>
-          <property name="ignorePattern" value="^ *\* *[^ ]+$"/>
+          <!--
+            Ignore Javadoc comments since references to other elements (@see
+            tag, etc.) may get rather long and should not be truncated.
+            
+            source: http://www.smartics.eu/config-smartics-checkstyle/checkstyle-documentation.html
+          -->
+          <property name="ignorePattern" value="^\s*\*\s*[^\s]+.+$"/>
         </module>
 
         <module name="MethodLength"/>
@@ -144,7 +148,9 @@
         <module name="ParenPad"/>
         <module name="TypecastParenPad"/>
         <module name="WhitespaceAfter"/>
-        <module name="WhitespaceAround"/>
+        <module name="WhitespaceAround">
+          <property name="allowEmptyConstructors" value="true" />
+        </module>
 
 
         <!-- Modifier Checks                                    -->
