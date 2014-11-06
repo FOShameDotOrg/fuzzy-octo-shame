@@ -8,20 +8,20 @@ import com.jed.util.Vector;
  *
  */
 public class CircleBoundary extends Boundary {
+    
+    /**
+     * 
+     */
+    public int radius;
 
     /**
      * 
      * @param radius initial radius.
      */
-    public CircleBoundary(int radius) {
+    public CircleBoundary(final int radius) {
         super(new Vector(0, 0), new Vector[]{});
         this.radius = radius;
     }
-
-    /**
-     * 
-     */
-    public int radius;
 
     /**
      * 
@@ -35,7 +35,7 @@ public class CircleBoundary extends Boundary {
      * 
      * @param radius radius to set.
      */
-    public void setRadius(int radius) {
+    public void setRadius(final int radius) {
         this.radius = radius;
     }
 

@@ -2,32 +2,32 @@
 <!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN" "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
 <module name="Checker">
   <module name="JavadocPackage"/>
-  <module name="TreeWalker">
-    <property name="cacheFile" value="${checkstyle.cache.file}"/>
+    <module name="TreeWalker">
+        <property name="cacheFile" value="${checkstyle.cache.file}"/>
 
-    <!-- Checks for Javadoc comments.                     -->
-    <!-- See http://checkstyle.sf.net/config_javadoc.html -->
-    <module name="JavadocMethod"/>
-    <module name="JavadocType"/>
-    <module name="JavadocVariable"/>
-    <module name="JavadocStyle"/>
-    
+        <!-- Checks for Javadoc comments.                     -->
+        <!-- See http://checkstyle.sf.net/config_javadoc.html -->
+        <module name="JavadocMethod"/>
+        <module name="JavadocType"/>
+        <module name="JavadocVariable"/>
+        <module name="JavadocStyle"/>
+
     <module name="GenericWhitespace"/>
-    <!-- Checks for Size Violations.                    -->
-    <!-- See http://checkstyle.sf.net/config_sizes.html -->
+        <!-- Checks for Size Violations.                    -->
+        <!-- See http://checkstyle.sf.net/config_sizes.html -->
     <module name="LineLength">
       <!-- Configuring the check to accept lines up to 120 characters long -->
+          <property name="max" value="120"/>
       <!-- 
-        FIXME 144 is a cheat to get around checkstyle violation while I refactor com.jed.state.MapTile#MapTile
-        2014-11-02:15:08-06:00: fuzzy-octo-shame/src/main/java/com/jed/state/MapTile.java:33: Line is longer than 120 characters (found 144). 
+            Ignore Javadoc comments since references to other elements (@see
+            tag, etc.) may get rather long and should not be truncated.
+            
+            source: http://www.smartics.eu/config-smartics-checkstyle/checkstyle-documentation.html
         -->
-      <property name="max" value="144"/>
-      <!-- Configuring the check to ignore lines that begin with " * ", followed by just one word, such as within a Javadoc comment -->
-      <property name="ignorePattern" value="^ *\* @"/>
-      <property name="ignorePattern" value="^ *\* *[^ ]+$"/>
+          <property name="ignorePattern" value="^\s*\*\s*[^\s]+.+$"/>
     </module>
   </module>
   <module name="FileTabCharacter">
     <property name="eachLine" value="true"/>
-  </module>
+    </module>
 </module>

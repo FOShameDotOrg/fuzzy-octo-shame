@@ -75,8 +75,8 @@ public class MapLoader {
                     if (eachPropertyNode.getNodeType() == Node.ELEMENT_NODE &&
                             eachPropertyNode.getNodeName().equals("property")) {
                         Node nameNode = eachPropertyNode.getAttributes().getNamedItem("name");
-                        nameNodeTextContent  = nameNode.getTextContent();
-                        if (nameNode != null && nameNodeTextContent != null && nameNodeTextContent.equals("gravity")) {
+                        nameNodeTextContent  = nameNode.getTextContent();//TODO see if nameNode != null is necessary.
+                        if (nameNodeTextContent != null && nameNodeTextContent.equals("gravity")) {
                             Node valueNode = eachPropertyNode.getAttributes().getNamedItem("value");
                             if (valueNode != null && valueNode.getTextContent() != null) {
                                 map.gravity = Float.valueOf(valueNode.getTextContent());
