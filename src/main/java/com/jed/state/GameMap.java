@@ -140,7 +140,7 @@ public class GameMap implements State {
      */
     private void scrollMap() {
         if (player.movement.y > 0) {
-            if (player.position.y + player.height / 2 - position.y > MotherBrain.HEIGHT / 2) {
+            if ((player.position.y + (player.height / 2) - position.y) > MotherBrain.HEIGHT / 2) {
                 if (position.y + player.movement.y > height * tileHeight - MotherBrain.HEIGHT) {
                     position.y = height * tileHeight - MotherBrain.HEIGHT;
                 } else {
@@ -148,7 +148,7 @@ public class GameMap implements State {
                 }
             }
         } else if (player.movement.y < 0) {
-            if (player.position.y + player.height / 2 - position.y < MotherBrain.HEIGHT / 2) {
+            if ((player.position.y + (player.height / 2) - position.y) < MotherBrain.HEIGHT / 2) {
                 if (player.movement.y + position.y < 0) {
                     position.y = 0;
                 } else {
@@ -158,7 +158,7 @@ public class GameMap implements State {
         }
 
         if (player.movement.x > 0) {
-            if (player.position.x + player.width / 2 - position.x > MotherBrain.WIDTH / 2) {
+            if ((player.position.x + (player.width / 2) - position.x) > MotherBrain.WIDTH / 2) {
                 if (position.x + player.movement.x > width * tileWidth - MotherBrain.WIDTH) {
                     position.x = width * tileWidth - MotherBrain.WIDTH;
                 } else {
@@ -166,7 +166,7 @@ public class GameMap implements State {
                 }
             }
         } else if (player.movement.x < 0) {
-            if (player.position.x + player.width / 2 - position.x < MotherBrain.WIDTH / 2) {
+            if ((player.position.x + (player.width / 2) - position.x) < MotherBrain.WIDTH / 2) {
                 if (player.movement.x + position.x < 0) {
                     position.x = 0;
                 } else {
@@ -250,8 +250,8 @@ public class GameMap implements State {
 
         int tileIndex = (int) (width * (Math.floor(tileOffsetY)) + tileOffsetX);
 
-        final int rows = MotherBrain.HEIGHT / tileHeight + pixelOffsetY == 0 ? 0 : 1;
-        final int columns = MotherBrain.WIDTH / tileWidth + pixelOffsetX == 0 ? 0 : 1;
+        final int rows = (MotherBrain.HEIGHT / tileHeight + (pixelOffsetY == 0 ? 0 : 1));
+        final int columns = (MotherBrain.WIDTH / tileWidth + (pixelOffsetX == 0 ? 0 : 1));
         final int nextRow = width - columns;
 
         for (int rowIndex = 0; rowIndex < rows; rowIndex++) {
