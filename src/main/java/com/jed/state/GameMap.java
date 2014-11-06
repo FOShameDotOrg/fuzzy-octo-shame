@@ -190,10 +190,7 @@ public class GameMap implements State {
             List<Collision> collisions = new ArrayList<Collision>();
 
             for (int j = 0; j < returnObjects.size(); j++) {
-
-                if (returnObjects.get(j).equals(scene.get(i))) {
-                    continue;
-                } else {
+                if (!returnObjects.get(j).equals(scene.get(i))) {
                     Entity sEntity = returnObjects.get(j);
 
                     Collision collision = new Collision(entity, sEntity);
@@ -245,17 +242,17 @@ public class GameMap implements State {
         texture.bind();
         GL11.glEnable(GL11.GL_TEXTURE_2D);
 
-        float tileOffsetY = position.y / tileHeight;
-        double pixelOffsetY = tileHeight * (tileOffsetY % 1);
+        final float tileOffsetY = position.y / tileHeight;
+        final double pixelOffsetY = tileHeight * (tileOffsetY % 1);
 
-        float tileOffsetX = position.x / tileWidth;
-        double pixelOffsetX = tileWidth * (tileOffsetX % 1);
+        final float tileOffsetX = position.x / tileWidth;
+        final double pixelOffsetX = tileWidth * (tileOffsetX % 1);
 
         int tileIndex = (int) (width * (Math.floor(tileOffsetY)) + tileOffsetX);
 
-        int rows = (MotherBrain.HEIGHT / tileHeight + (pixelOffsetY == 0 ? 0 : 1));
-        int columns = (MotherBrain.WIDTH / tileWidth + (pixelOffsetX == 0 ? 0 : 1));
-        int nextRow = width - columns;
+        final int rows = (MotherBrain.HEIGHT / tileHeight + (pixelOffsetY == 0 ? 0 : 1));
+        final int columns = (MotherBrain.WIDTH / tileWidth + (pixelOffsetX == 0 ? 0 : 1));
+        final int nextRow = width - columns;
 
         for (int rowIndex = 0; rowIndex < rows; rowIndex++) {
             for (int columnIndex = 0; columnIndex < columns; columnIndex++) {

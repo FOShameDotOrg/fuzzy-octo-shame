@@ -39,8 +39,8 @@ public class Vector {
      * @param o other vector
      * @return distance between the this and o.
      */
-    public double distance(Vector o) {
-        double axBx = (x - o.x);
+    public double distance(final Vector o) {
+        double axBx = x - o.x;
         axBx *= axBx;
         double ayBy = (y - o.y);
         ayBy *= ayBy;

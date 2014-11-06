@@ -34,21 +34,25 @@ public class PolygonBoundary extends Boundary {
     /**
      * 
      * @param position position vector
-     * @param verticies array of verticies
+     * @param verticies array of vertices
      */
-    public PolygonBoundary(Vector position, Vector[] verticies) {
+    public PolygonBoundary(final Vector position, final Vector[] verticies) {
         super(position, verticies);
 
         //Find Max Bounds for quad tree
-        for (Vector each : verticies) {
-            if (each.x > rightBound)
-                rightBound = each.x;
-            if (each.x < leftBound)
-                leftBound = each.x;
-            if (each.y < upperBound)
-                upperBound = each.y;
-            if (each.y > lowerBound)
-                lowerBound = each.y;
+        for (final Vector vertex: verticies) {
+            if (vertex.x > rightBound) {
+                rightBound = vertex.x;
+            }
+            if (vertex.x < leftBound) {
+                leftBound = vertex.x;
+            }
+            if (vertex.y < upperBound) {
+                upperBound = vertex.y;
+            }
+            if (vertex.y > lowerBound) {
+                lowerBound = vertex.y;
+            }
         }
     }
 
@@ -88,8 +92,8 @@ public class PolygonBoundary extends Boundary {
         GL11.glColor3f(1f, 0, 0);
 
         GL11.glBegin(GL11.GL_LINE_LOOP);
-        for (Vector each : verticies) {
-            owner.drawChildVertex2f(position.x + each.x, position.y + each.y);
+        for (final Vector vertex : verticies) {
+            owner.drawChildVertex2f(position.x + vertex.x, position.y + vertex.y);
         }
         GL11.glEnd();
     }
