@@ -21,5 +21,5 @@ public abstract class GameState implements State {
     }
 
     @Override
-    public void drawChildVertex2f(final float x, final float y) {};
+    public void drawChildVertex2f(final float x, final float y) {}
 }
