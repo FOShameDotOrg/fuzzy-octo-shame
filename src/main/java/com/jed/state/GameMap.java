@@ -140,7 +140,7 @@ public class GameMap implements State {
      */
     private void scrollMap() {
         if (player.movement.y > 0) {
-            if ((player.position.y + (player.height / 2) - position.y) > MotherBrain.HEIGHT / 2) {
+            if (player.position.y + player.height / 2 - position.y > MotherBrain.HEIGHT / 2) {
                 if (position.y + player.movement.y > height * tileHeight - MotherBrain.HEIGHT) {
                     position.y = height * tileHeight - MotherBrain.HEIGHT;
                 } else {
@@ -148,7 +148,7 @@ public class GameMap implements State {
                 }
             }
         } else if (player.movement.y < 0) {
-            if ((player.position.y + (player.height / 2) - position.y) < MotherBrain.HEIGHT / 2) {
+            if (player.position.y + player.height / 2 - position.y < MotherBrain.HEIGHT / 2) {
                 if (player.movement.y + position.y < 0) {
                     position.y = 0;
                 } else {
@@ -158,7 +158,7 @@ public class GameMap implements State {
         }
 
         if (player.movement.x > 0) {
-            if ((player.position.x + (player.width / 2) - position.x) > MotherBrain.WIDTH / 2) {
+            if (player.position.x + player.width / 2 - position.x > MotherBrain.WIDTH / 2) {
                 if (position.x + player.movement.x > width * tileWidth - MotherBrain.WIDTH) {
                     position.x = width * tileWidth - MotherBrain.WIDTH;
                 } else {
@@ -166,7 +166,7 @@ public class GameMap implements State {
                 }
             }
         } else if (player.movement.x < 0) {
-            if ((player.position.x + (player.width / 2) - position.x) < MotherBrain.WIDTH / 2) {
+            if (player.position.x + player.width / 2 - position.x < MotherBrain.WIDTH / 2) {
                 if (player.movement.x + position.x < 0) {
                     position.x = 0;
                 } else {
@@ -190,10 +190,7 @@ public class GameMap implements State {
             List<Collision> collisions = new ArrayList<Collision>();
 
             for (int j = 0; j < returnObjects.size(); j++) {
-
-                if (returnObjects.get(j).equals(scene.get(i))) {
-                    continue;
-                } else {
+                if (!returnObjects.get(j).equals(scene.get(i))) {
                     Entity sEntity = returnObjects.get(j);
 
                     Collision collision = new Collision(entity, sEntity);
@@ -245,17 +242,17 @@ public class GameMap implements State {
         texture.bind();
         GL11.glEnable(GL11.GL_TEXTURE_2D);
 
-        float tileOffsetY = position.y / tileHeight;
-        double pixelOffsetY = tileHeight * (tileOffsetY % 1);
+        final float tileOffsetY = position.y / tileHeight;
+        final double pixelOffsetY = tileHeight * (tileOffsetY % 1);
 
-        float tileOffsetX = position.x / tileWidth;
-        double pixelOffsetX = tileWidth * (tileOffsetX % 1);
+        final float tileOffsetX = position.x / tileWidth;
+        final double pixelOffsetX = tileWidth * (tileOffsetX % 1);
 
         int tileIndex = (int) (width * (Math.floor(tileOffsetY)) + tileOffsetX);
 
-        int rows = (MotherBrain.HEIGHT / tileHeight + (pixelOffsetY == 0 ? 0 : 1));
-        int columns = (MotherBrain.WIDTH / tileWidth + (pixelOffsetX == 0 ? 0 : 1));
-        int nextRow = width - columns;
+        final int rows = MotherBrain.HEIGHT / tileHeight + pixelOffsetY == 0 ? 0 : 1;
+        final int columns = MotherBrain.WIDTH / tileWidth + pixelOffsetX == 0 ? 0 : 1;
+        final int nextRow = width - columns;
 
         for (int rowIndex = 0; rowIndex < rows; rowIndex++) {
             for (int columnIndex = 0; columnIndex < columns; columnIndex++) {

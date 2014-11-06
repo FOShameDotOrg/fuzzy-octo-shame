@@ -16,5 +16,5 @@ public interface Displayable {
      * @param x x
      * @param y y
      */
-    public void drawChildVertex2f(float x, float y);
+     void drawChildVertex2f(float x, float y);
 }

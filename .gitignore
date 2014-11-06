@@ -111,4 +111,7 @@ build/
 *.orig
 *.diff
 .checkstyle
+.codepro/
+reports/
+.pmd
 # End from pc rando

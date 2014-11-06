@@ -12,15 +12,15 @@ public interface State extends Displayable {
     /**
      * 
      */
-    public void entered();
+    void entered();
 
     /**
      * 
      */
-    public void leaving();
+    void leaving();
 
     /**
      * 
      */
-    public void update();
+    void update();
 }
