@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <!-- TODO Externalize properties from all elements -->
+
   <!-- See: http://maven.apache.org/pom.html#Developers -->
   <developers>
     <developer>
@@ -28,7 +29,7 @@
   </developers>
   <groupId>com.jed</groupId>
   <artifactId>fuzzy-octo-shame</artifactId>
-  <version>0.1.1</version>
+  <version>0.1.2-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>fuzzy-octo-shame</name>
   <url>https://github.com/virtuoushub/fuzzy-octo-shame</url>
@@ -94,123 +95,190 @@
     </dependency>
   </dependencies>
   <build>
-	  <pluginManagement>
-	    <plugins>
-	      <plugin>
-	        <groupId>org.apache.maven.plugins</groupId>
-	        <artifactId>maven-dependency-plugin</artifactId>
-	        <version>2.9</version>
-	        <configuration>
-	          <!-- I found usedDependencies to be poorly documented. For getting it working, thanks goes to: http://stackoverflow.com/a/13605782 -->
-	          <usedDependencies>
-	            <usedDependency>net.java.jinput:jinput</usedDependency>
-	            <usedDependency>org.slf4j:slf4j-simple</usedDependency>
-	          </usedDependencies>
-	        </configuration>
-	      </plugin>
-	      <plugin>
-	        <groupId>org.apache.maven.plugins</groupId>
-	        <artifactId>maven-compiler-plugin</artifactId>
-	        <version>3.2</version>
-	        <configuration>
-	          <source>1.8</source>
-	          <target>1.8</target>
-	          <!-- pc 2014-10-31 start: see http://stackoverflow.com/a/17948010 -->
-	          <useIncrementalCompilation>false</useIncrementalCompilation>
-	          <!-- pc 2014-10-31 end: see http://stackoverflow.com/a/17948010 -->
-	        </configuration>
-	      </plugin>
-	      <plugin>
-	        <groupId>org.apache.maven.plugins</groupId>
-	        <artifactId>maven-resources-plugin</artifactId>
-	        <version>2.7</version>
-	      </plugin>
-	      <plugin>
-	        <groupId>org.apache.maven.plugins</groupId>
-	        <artifactId>maven-checkstyle-plugin</artifactId>
-	        <version>2.13</version>
-	        <executions>
-	          <execution>
-	            <id>validate</id>
-	            <phase>validate</phase>
-	            <configuration>
-	              <!-- dear god, the kludge. http://stackoverflow.com/a/15004792 -->
-	              <configLocation>${project.build.resources[0].directory}/checkstyle.xml</configLocation>
-	              <encoding>UTF-8</encoding>
-	              <consoleOutput>true</consoleOutput>
-	              <failOnViolation>true</failOnViolation>
-	              <failsOnError>true</failsOnError>
-	              <!-- pc: find out why IntelliJ doesn't like linkXRef element. -->
-	              <linkXRef>false</linkXRef>
-	            </configuration>
-	            <goals>
-	              <goal>check</goal>
-	            </goals>
-	          </execution>
-	        </executions>
-	      </plugin>
-	      <plugin>
-	        <!-- see: https://code.google.com/p/mavennatives/ and http://www.lwjgl.org/wiki/index.php?title=LWJGL_use_in_Maven -->
-	        <groupId>com.googlecode.mavennatives</groupId>
-	        <artifactId>maven-nativedependencies-plugin</artifactId>
-	        <version>0.0.7</version>
-	        <executions>
-	          <execution>
-	            <id>unpacknatives</id>
-	            <goals>
-	              <goal>copy</goal>
-	            </goals>
-	          </execution>
-	        </executions>
-	        <configuration>
-	          <nativesTargetDir>target/natives</nativesTargetDir>
-	          <separateDirs>false</separateDirs>
-	        </configuration>
-	      </plugin>
-	      <plugin>
-	        <groupId>org.apache.maven.plugins</groupId>
-	        <artifactId>maven-jar-plugin</artifactId>
-	        <version>2.5</version>
-	        <configuration>
-	          <archive>
-	            <index>true</index>
-	            <manifest>
-	              <addClasspath>true</addClasspath>
-	              <mainClass>com.jed.core.MotherBrain</mainClass>
-	            </manifest>
-	            <manifestEntries>
-	              <mode>development</mode>
-	              <url>${project.url}</url>
-	              <key>value</key>
-	            </manifestEntries>
-	          </archive>
-	        </configuration>
-	      </plugin>
-	      <plugin>
-	        <artifactId>maven-assembly-plugin</artifactId>
-	        <version>2.5</version>
-	        <configuration>
-	          <archive>
-	            <manifest>
-	              <mainClass>com.jed.core.MotherBrain</mainClass>
-	            </manifest>
-	          </archive>
-	          <descriptorRefs>
-	            <descriptorRef>jar-with-dependencies</descriptorRef>
-	          </descriptorRefs>
-	        </configuration>
-	        <executions>
-	          <execution>
-	            <id>make-assembly</id> <!-- this is used for inheritance merges -->
-	            <phase>package</phase> <!-- bind to the packaging phase -->
-	            <goals>
-	              <goal>single</goal>
-	            </goals>
-	          </execution>
-	        </executions>
-	      </plugin>
-	    </plugins>
-	  </pluginManagement>
+
+    <pluginManagement>
+      <plugins>
+        <!--This plugin's configuration is used to store Eclipse m2e settings 
+          only. It has no influence on the Maven build itself. -->
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <versionRange>[2.13,)</versionRange>
+                    <goals>
+                                            <goal>check</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.9</version>
+        <configuration>
+          <!-- I found usedDependencies to be poorly documented. For getting it working, thanks goes to: http://stackoverflow.com/a/13605782 -->
+          <usedDependencies>
+            <usedDependency>net.java.jinput:jinput</usedDependency>
+            <usedDependency>org.slf4j:slf4j-simple</usedDependency>
+          </usedDependencies>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.2</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <!-- pc 2014-10-31 start: see http://stackoverflow.com/a/17948010 -->
+          <useIncrementalCompilation>false</useIncrementalCompilation>
+          <!-- pc 2014-10-31 end: see http://stackoverflow.com/a/17948010 -->
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.7</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.13</version>
+        <executions>
+          <!-- See: http://stackoverflow.com/a/6372575 and http://stackoverflow.com/a/6475103 -->
+          <execution>
+            <id>validate</id>
+            <phase>validate</phase>
+            <configuration>
+              <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+              <testSourceDirectory>${project.build.testSourceDirectory}</testSourceDirectory>
+              <!-- dear god, the kludge. http://stackoverflow.com/a/15004792 -->
+              <configLocation>${project.build.resources[0].directory}/checkstyle.xml</configLocation>
+              <encoding>UTF-8</encoding>
+              <consoleOutput>true</consoleOutput>
+              <failOnViolation>true</failOnViolation>
+              <failsOnError>true</failsOnError>
+            </configuration>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <!-- see: https://code.google.com/p/mavennatives/ and http://www.lwjgl.org/wiki/index.php?title=LWJGL_use_in_Maven -->
+        <groupId>com.googlecode.mavennatives</groupId>
+        <artifactId>maven-nativedependencies-plugin</artifactId>
+        <version>0.0.7</version>
+        <executions>
+          <execution>
+            <id>unpacknatives</id>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <nativesTargetDir>target/natives</nativesTargetDir>
+          <separateDirs>false</separateDirs>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.5</version>
+        <configuration>
+          <archive>
+            <index>true</index>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <mainClass>com.jed.core.MotherBrain</mainClass>
+            </manifest>
+            <manifestEntries>
+              <mode>development</mode>
+              <url>${project.url}</url>
+              <key>value</key>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.5</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>com.jed.core.MotherBrain</mainClass>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id> <!-- this is used for inheritance merges -->
+            <phase>package</phase> <!-- bind to the packaging phase -->
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>2.6</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.4</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.17</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <version>2.5.2</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>2.8.2</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.2</version>
+        <configuration>
+          <linkXref>true</linkXref>
+          <sourceEncoding>utf-8</sourceEncoding>
+          <minimumTokens>100</minimumTokens>
+          <targetJdk>1.8</targetJdk>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 
   <reporting>
@@ -284,7 +352,8 @@
       <id>bintray</id>
     </profile>
   </profiles>
-  <!-- TODO Add to settings file, see https://bintray.com/bintray/jcenter
+
+  <!-- TODO Add to settings file, see https://bintray.com/bintray/jcenter 
   <?xml version='1.0' encoding='UTF-8'?>
   <settings xsi:schemaLocation='http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd' xmlns='http://maven.apache.org/SETTINGS/1.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
     <activeProfiles>
