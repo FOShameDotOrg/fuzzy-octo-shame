@@ -45,7 +45,7 @@ public class MapTile extends Entity {
     public boolean evaluating;
 
     /**
-     * FIXME, the parameters are too damn many.
+     * FIXME, the parameters is too damn high.
      * @param position FIXME Javadoc
      * @param bounds FIXME Javadoc
      * @param glTexX FIXME Javadoc
@@ -55,7 +55,13 @@ public class MapTile extends Entity {
      * @param tileId FIXME Javadoc
      * @param map FIXME Javadoc
      */
-    public MapTile(Vector position, Boundary bounds, float glTexX, float glTexY, float glTexWidth, float glTexHeight, int tileId, GameMap map) {
+    public MapTile( Vector position,
+                    Boundary bounds,
+                    float glTexX,float glTexY,
+                    float glTexWidth,
+                    float glTexHeight,
+                    int tileId,
+                    GameMap map) {
         super(position, new Vector(0, 0), bounds);
 
         this.glTexX = glTexX;
