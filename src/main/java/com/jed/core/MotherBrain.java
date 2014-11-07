@@ -37,7 +37,7 @@ public final class MotherBrain implements Startable {
     /**
      * 
      */
-    private static final int NUMBER_OF_DISCO_STATES = 5;
+    private static final int NUMBER_OF_DISCO_STATES = 0;
 
     /**
      * 
