@@ -270,9 +270,24 @@ public class Player extends Entity implements StateManager {
      */
     private class Falling extends PlayerState {
         
+        /**
+         * 
+         */
         private float bottomLeftX;
+        
+        /**
+         * 
+         */
         private float bottomRightX;
+        
+        /**
+         * 
+         */
         private float topRightX;
+        
+        /**
+         * 
+         */
         private float topLeftX;
 
         /**

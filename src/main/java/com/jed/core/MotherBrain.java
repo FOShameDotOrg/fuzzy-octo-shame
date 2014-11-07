@@ -117,7 +117,7 @@ public final class MotherBrain implements Startable {
 
     /**
      * 
-     * @param numberOfStates
+     * @param numberOfStates numberOfStates
      */
     private void pushDiscoStatesToStateManager(int numberOfStates) {
         for (int i = 0; i < numberOfStates; i++) {
