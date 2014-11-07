@@ -72,11 +72,7 @@ public final class MotherBrain implements Startable {
      */
     private void init() {
         stateManager = new GameStateManager();
-        stateManager.push(new DiscoState(stateManager));
-        stateManager.push(new DiscoState(stateManager));
-        stateManager.push(new DiscoState(stateManager));
-        stateManager.push(new DiscoState(stateManager));
-        stateManager.push(new DiscoState(stateManager));
+        pushDiscoStatesToStateManager(5);
         stateManager.push(new PlayState(stateManager));
 //
 //        MainMenu one = new MainMenu(stateManager);
@@ -87,6 +83,12 @@ public final class MotherBrain implements Startable {
 
         getDelta();
         lastFPS = getTime();
+    }
+
+    private void pushDiscoStatesToStateManager(int numberOfStates) {
+        for (int i = 0; i < numberOfStates; i++) {
+            stateManager.push(new DiscoState(stateManager));
+        }
     }
 
     /**
