@@ -57,6 +57,11 @@ public final class MotherBrain implements Startable {
     /**
      * 
      */
+    private static final boolean IS_MENU_STATE_SHOWN = false;
+
+    /**
+     * 
+     */
     private long lastFrame;
     
     /**
@@ -92,7 +97,10 @@ public final class MotherBrain implements Startable {
         stateManager = new GameStateManager();
         pushDiscoStatesToStateManager(NUMBER_OF_DISCO_STATES);
         stateManager.push(new PlayState(stateManager));
-        pushMenuStateToStateManager();
+        if (IS_MENU_STATE_SHOWN) {
+            pushMenuStateToStateManager();
+        }
+        
         getDelta();
         lastFPS = getTime();
     }
