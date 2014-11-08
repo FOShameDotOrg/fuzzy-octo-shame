@@ -113,9 +113,13 @@ public class GameMap implements State {
         player.keyPressEvent();
     }
 
+    /**
+     * TODO Test this method the most.
+     *
+     * @see https://github.com/Hornswaggler/fuzzy-octo-shame/issues/6
+     */
     @Override
     public void update() {
-
         //TODO: Temporary
         for (MapTile each : tiles) {
             each.colliding = false;
