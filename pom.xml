@@ -1,46 +1,17 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <!-- TODO Externalize properties from all elements -->
 
-  <!-- See: http://maven.apache.org/pom.html#Developers -->
-  <developers>
-    <developer>
-      <id>Hornswaggler</id>
-      <name>Hornswaggler</name>
-      <url>https://github.com/Hornswaggler</url>
-      <roles>
-        <role>architect</role>
-        <role>developer</role>
-      </roles>
-      <timezone>-5</timezone>
-    </developer>
-    <developer>
-      <id>pc</id>
-      <name>Peter Colapietro</name>
-      <email>petercolapietro@gmail.com</email>
-      <url>https://github.com/virtuoushub</url>
-      <roles>
-        <role>architect</role>
-        <role>developer</role>
-      </roles>
-      <timezone>-6</timezone>
-    </developer>
-  </developers>
+  <!-- START: The Basics -->
   <groupId>com.jed</groupId>
   <artifactId>fuzzy-octo-shame</artifactId>
-  <version>0.1.3-SNAPSHOT</version>
+  <version>0.1.4-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <name>fuzzy-octo-shame</name>
-  <url>https://github.com/virtuoushub/fuzzy-octo-shame</url>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
   <dependencies>
     <dependency>
       <groupId>org.lwjgl.lwjgl</groupId>
       <artifactId>lwjgl</artifactId>
-      <version>2.9.1</version>
+      <version>${lwjgl.version}</version>
       <exclusions>
         <!-- START Unecessary explict exclusion. Only here for verbosity. -->
         <exclusion>
@@ -53,85 +24,166 @@
     <dependency>
       <groupId>org.slick2d</groupId>
       <artifactId>slick2d-core</artifactId>
-      <version>1.0.1</version>
+      <version>${slick2d-core.version}</version>
     </dependency>
     <!-- Start Overriding transitive version from lwjgl artifact -->
     <dependency>
       <groupId>net.java.jinput</groupId>
       <artifactId>jinput</artifactId>
-      <version>2.0.6</version>
+      <version>${jinput.version}</version>
     </dependency>
     <!-- End Overriding transitive version from lwjgl artifact -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.12-beta-2</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.7</version>
+      <version>${slf4j.version}</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
-      <version>1.7.7</version>
+      <version>${slf4j.version}</version>
     </dependency>
     <dependency>
       <groupId>uk.org.lidalia</groupId>
       <artifactId>sysout-over-slf4j</artifactId>
-      <version>1.0.2</version>
-    </dependency>
-    <dependency>
-        <groupId>javax.inject</groupId>
-        <artifactId>javax.inject</artifactId>
-        <version>1</version>
+      <version>${sysout-over-slf4j.version}</version>
     </dependency>
     <dependency>
       <groupId>com.google.inject</groupId>
       <artifactId>guice</artifactId>
-      <version>4.0-beta5</version>
+      <version>${guice.version}</version>
     </dependency>
   </dependencies>
-  <build>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- START: Environment Requirements -->
+    <java.version>1.8</java.version>
+    <maven.version>2.2.1</maven.version>
+    <!-- END: Environment Requirements -->
+    <!-- START: Plugin Versions -->
+    <maven-assembly-plugin.version>2.5.1</maven-assembly-plugin.version>
+    <maven-jxr-plugin.version>2.5</maven-jxr-plugin.version>
+    <maven-surefire-plugin.version>2.18</maven-surefire-plugin.version>
+    <maven-clean-plugin.version>2.6.1</maven-clean-plugin.version>
+    <maven-dependency-plugin.version>2.9</maven-dependency-plugin.version>
+    <maven-enforcer-plugin.version>1.3.1</maven-enforcer-plugin.version>
+    <maven-release-plugin.version>2.5.1</maven-release-plugin.version>
+    <maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
+    <maven-site-plugin.version>3.4</maven-site-plugin.version>
+    <maven-install-plugin.version>2.5.2</maven-install-plugin.version>
+    <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
+    <maven-compiler-plugin.version>3.2</maven-compiler-plugin.version>
+    <maven-resources-plugin.version>2.7</maven-resources-plugin.version>
+    <maven-checkstyle-plugin.version>2.13</maven-checkstyle-plugin.version>
+    <maven-jar-plugin.version>2.5</maven-jar-plugin.version>
+    <maven-pmd-plugin.version>3.2</maven-pmd-plugin.version>
+    <maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
+    <maven-nativedependencies-plugin.version>0.0.7</maven-nativedependencies-plugin.version>
+    <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
+    <versions-maven-plugin.version>2.1</versions-maven-plugin.version>
+    <!-- END: Plugin Versions -->
+    <!-- START: Dependencies Versions -->
+    <junit.version>4.12-beta-3</junit.version>
+    <lwjgl.version>2.9.1</lwjgl.version>
+    <slick2d-core.version>1.0.1</slick2d-core.version>
+    <jinput.version>2.0.6</jinput.version>
+    <slf4j.version>1.7.7</slf4j.version>
+    <sysout-over-slf4j.version>1.0.2</sysout-over-slf4j.version>
+    <guice.version>4.0-beta5</guice.version>
+    <!-- END: Dependencies Versions -->
+  </properties>
+  <!-- END: The Basics -->
 
+  <!-- START: Build Settings -->
+  <build>
     <pluginManagement>
       <plugins>
-        <!--This plugin's configuration is used to store Eclipse m2e settings 
-          only. It has no influence on the Maven build itself. -->
+        <plugin>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>${maven-assembly-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>${maven-release-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>${maven-dependency-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <version>${maven-antrun-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>${maven-clean-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>${maven-site-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${maven-surefire-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>${maven-install-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>${maven-deploy-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven-compiler-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>${maven-resources-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <version>${maven-checkstyle-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>${maven-jar-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-pmd-plugin</artifactId>
+          <version>${maven-pmd-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>${maven-enforcer-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>versions-maven-plugin</artifactId>
+          <version>${versions-maven-plugin.version}</version>
+        </plugin>
         <plugin>
           <groupId>org.eclipse.m2e</groupId>
           <artifactId>lifecycle-mapping</artifactId>
-          <version>1.0.0</version>
-          <configuration>
-            <lifecycleMappingMetadata>
-              <pluginExecutions>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <versionRange>[2.13,)</versionRange>
-                    <goals>
-                                            <goal>check</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore />
-                  </action>
-                </pluginExecution>
-              </pluginExecutions>
-            </lifecycleMappingMetadata>
-          </configuration>
+          <version>${lifecycle-mapping.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>com.googlecode.mavennatives</groupId>
+          <artifactId>maven-nativedependencies-plugin</artifactId>
+          <version>${maven-nativedependencies-plugin.version}</version>
         </plugin>
       </plugins>
     </pluginManagement>
-
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>2.9</version>
         <configuration>
           <!-- I found usedDependencies to be poorly documented. For getting it working, thanks goes to: http://stackoverflow.com/a/13605782 -->
           <usedDependencies>
@@ -141,26 +193,17 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.2</version>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
           <!-- pc 2014-10-31 start: see http://stackoverflow.com/a/17948010 -->
           <useIncrementalCompilation>false</useIncrementalCompilation>
           <!-- pc 2014-10-31 end: see http://stackoverflow.com/a/17948010 -->
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>2.7</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.13</version>
         <executions>
           <!-- See: http://stackoverflow.com/a/6372575 and http://stackoverflow.com/a/6475103 -->
           <execution>
@@ -183,10 +226,40 @@
         </executions>
       </plugin>
       <plugin>
+        <!-- org.eclipse.m2e:lifecycle-mapping's configuration is used to store Eclipse m2e settings
+  only. It has no influence on the Maven build itself if run from the command line. Because there is no
+   m2e connector for maven-checkstyle-plugin we ignore it so that Eclipse does not show an error. If/Once a
+    connector is available, the org.eclipse.m2e:lifecycle-mapping plugin can be removed from the plugins
+     element. See: http://wiki.eclipse.org/M2E_plugin_execution_not_covered -->
+        <groupId>org.eclipse.m2e</groupId>
+        <artifactId>lifecycle-mapping</artifactId>
+        <configuration>
+          <lifecycleMappingMetadata>
+            <pluginExecutions>
+              <pluginExecution>
+                <pluginExecutionFilter>
+                  <!-- TEST ME AND REMOVE IF POSSIBLE
+                  <groupId>org.apache.maven.plugins</groupId>
+                  -->
+                  <artifactId>maven-checkstyle-plugin</artifactId>
+                  <versionRange>[2.13,)</versionRange>
+                  <goals>
+                    <goal>check</goal>
+                  </goals>
+                </pluginExecutionFilter>
+                <action>
+                  <ignore />
+                </action>
+              </pluginExecution>
+            </pluginExecutions>
+          </lifecycleMappingMetadata>
+        </configuration>
+
+      </plugin>
+      <plugin>
         <!-- see: https://code.google.com/p/mavennatives/ and http://www.lwjgl.org/wiki/index.php?title=LWJGL_use_in_Maven -->
         <groupId>com.googlecode.mavennatives</groupId>
         <artifactId>maven-nativedependencies-plugin</artifactId>
-        <version>0.0.7</version>
         <executions>
           <execution>
             <id>unpacknatives</id>
@@ -201,9 +274,7 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>2.5</version>
         <configuration>
           <archive>
             <index>true</index>
@@ -221,7 +292,6 @@
       </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.5</version>
         <configuration>
           <archive>
             <manifest>
@@ -243,66 +313,53 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-clean-plugin</artifactId>
-        <version>2.6</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-site-plugin</artifactId>
-        <version>3.4</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.17</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-install-plugin</artifactId>
-        <version>2.5.2</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <version>2.8.2</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.2</version>
         <configuration>
           <linkXref>true</linkXref>
           <sourceEncoding>utf-8</sourceEncoding>
           <minimumTokens>100</minimumTokens>
-          <targetJdk>1.8</targetJdk>
+          <targetJdk>${java.version}</targetJdk>
         </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>enforce-java</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireJavaVersion>
+                  <version>${java.version}</version>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
-
   <reporting>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
-        <version>2.4</version>
+        <version>${maven-jxr-plugin.version}</version>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.7</version>
+        <version>${maven-project-info-reports-plugin.version}</version>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.13</version>
+        <version>${maven-checkstyle-plugin.version}</version>
         <configuration>
           <!-- dear god, the kludge. http://stackoverflow.com/a/15004792 -->
           <configLocation>${project.build.resources[0].directory}/checkstyle.xml</configLocation>
-          <encoding>UTF-8</encoding>
+          <encoding>${project.build.sourceEncoding}</encoding>
           <consoleOutput>true</consoleOutput>
-          <!-- pc: find out why IntelliJ doesn't like linkXRef element under build>plugins>plugin -->
+          <!-- pc: find out why IntelliJ doesn't like linkXRef element under project/build/plugins/plugin -->
           <linkXRef>false</linkXRef>
         </configuration>
         <reportSets>
@@ -314,19 +371,80 @@
         </reportSets>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.2</version>
+        <version>${maven-pmd-plugin.version}</version>
         <configuration>
           <linkXref>true</linkXref>
-          <sourceEncoding>utf-8</sourceEncoding>
+          <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
           <minimumTokens>100</minimumTokens>
-          <targetJdk>1.8</targetJdk>
+          <targetJdk>${java.version}</targetJdk>
         </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>${maven-dependency-plugin.version}</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>analyze-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
       </plugin>
     </plugins>
   </reporting>
+  <!-- END: Build Settings -->
 
+  <!-- START: More Project Information -->
+  <name>fuzzy-octo-shame</name>
+  <description>2D platformer skeleton built with LWJGL and Slick2D.</description>
+  <url>https://github.com/virtuoushub/fuzzy-octo-shame</url>
+  <inceptionYear>2014</inceptionYear>
+
+  <!-- See: http://maven.apache.org/pom.html#Developers -->
+  <developers>
+    <developer>
+      <id>Hornswaggler</id>
+      <name>Hornswaggler</name>
+      <url>https://github.com/Hornswaggler</url>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>-5</timezone>
+    </developer>
+    <developer>
+      <id>pc</id>
+      <name>Peter Colapietro</name>
+      <email>petercolapietro@gmail.com</email>
+      <url>https://github.com/virtuoushub</url>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>-5</timezone>
+    </developer>
+  </developers>
+  <!-- END: More Project Information -->
+
+  <!-- START: Environment Settings -->
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/Hornswaggler/fuzzy-octo-shame/issues/</url>
+  </issueManagement>
+  <ciManagement>
+    <system>Travis CI</system>
+    <url>https://travis-ci.org/virtuoushub/fuzzy-octo-shame</url>
+  </ciManagement>
+  <scm>
+    <connection>scm:git:git@github.com:Hornswaggler/fuzzy-octo-shame.git</connection>
+    <developerConnection>scm:git:git@github.com:Hornswaggler/fuzzy-octo-shame.git</developerConnection>
+    <tag>develop</tag>
+    <url>scm:git:git@github.com:Hornswaggler/fuzzy-octo-shame.git</url>
+  </scm>
+  <prerequisites>
+    <maven>${maven.version}</maven>
+  </prerequisites>
   <profiles>
     <profile>
       <repositories>
@@ -351,14 +469,35 @@
       </pluginRepositories>
       <id>bintray</id>
     </profile>
+    <profile>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>${maven-clean-plugin.version}</version>
+            <configuration>
+              <filesets>
+                <fileset>
+                  <directory>${basedir}/bin</directory>
+                  <followSymlinks>true</followSymlinks>
+                </fileset>
+              </filesets>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+      <id>eclipse</id>
+    </profile>
   </profiles>
+  <!-- END: Environment Settings -->
 
-  <!-- TODO Add to settings file, see https://bintray.com/bintray/jcenter 
-  <?xml version='1.0' encoding='UTF-8'?>
-  <settings xsi:schemaLocation='http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd' xmlns='http://maven.apache.org/SETTINGS/1.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
-    <activeProfiles>
-      <activeProfile>bintray</activeProfile>
-    </activeProfiles>
-  </settings>
-    -->
 </project>
+
+<!-- TODO Add to settings file, see https://bintray.com/bintray/jcenter
+<?xml version='1.0' encoding='UTF-8'?>
+<settings xsi:schemaLocation='http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd' xmlns='http://maven.apache.org/SETTINGS/1.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+  <activeProfiles>
+    <activeProfile>bintray</activeProfile>
+  </activeProfiles>
+</settings>
+-->
