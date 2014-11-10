@@ -181,6 +181,11 @@
           <version>${versions-maven-plugin.version}</version>
         </plugin>
         <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>${lifecycle-mapping.version}</version>
+        </plugin>
+        <plugin>
           <groupId>com.googlecode.mavennatives</groupId>
           <artifactId>maven-nativedependencies-plugin</artifactId>
           <version>${maven-nativedependencies-plugin.version}</version>
@@ -244,7 +249,6 @@
      element. See: http://wiki.eclipse.org/M2E_plugin_execution_not_covered -->
         <groupId>org.eclipse.m2e</groupId>
         <artifactId>lifecycle-mapping</artifactId>
-        <version>${lifecycle-mapping.version}</version>
         <configuration>
           <lifecycleMappingMetadata>
             <pluginExecutions>
