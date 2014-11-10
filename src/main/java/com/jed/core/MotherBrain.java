@@ -11,8 +11,6 @@ import org.lwjgl.opengl.GL11;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
-
 import com.jed.state.DiscoState;
 import com.jed.state.GameStateManager;
 import com.jed.state.MenuState;
@@ -84,7 +82,6 @@ public final class MotherBrain implements Startable {
      * @see <a href="http://projects.lidalia.org.uk/sysout-over-slf4j/quickstart.html">System Out and Err redirected to SLF4J</a>
      */
     public static void main(String[] args) {
-        SysOutOverSLF4J.sendSystemOutAndErrToSLF4J();
         Injector injector = Guice.createInjector(new MotherBrainModule());
         final MotherBrain motherBrain = injector.getInstance(MotherBrain.class);
         motherBrain.start();
