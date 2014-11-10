@@ -34,3 +34,4 @@ src/main/resources/checkstyle.xml   merge=ours
 .gitignore                          merge=ours
 .gitattributes                      merge=ours
 README.md                           merge=ours
+POM.xml                             merge=theirs
