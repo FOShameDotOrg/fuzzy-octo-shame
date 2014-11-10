@@ -347,7 +347,6 @@
       </plugin>
       <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.13</version>
         <configuration>
           <!-- dear god, the kludge. http://stackoverflow.com/a/15004792 -->
           <configLocation>${project.build.resources[0].directory}/checkstyle.xml</configLocation>
@@ -366,7 +365,6 @@
       </plugin>
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.2</version>
         <configuration>
           <linkXref>true</linkXref>
           <sourceEncoding>utf-8</sourceEncoding>
@@ -376,7 +374,6 @@
       </plugin>
       <plugin>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>${maven-dependency-plugin.version}</version>
         <reportSets>
           <reportSet>
             <reports>
