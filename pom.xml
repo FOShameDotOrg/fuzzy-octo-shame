@@ -84,6 +84,8 @@
     <maven-jar-plugin.version>2.5</maven-jar-plugin.version>
     <maven-pmd-plugin.version>3.2</maven-pmd-plugin.version>
     <maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
+    <maven-source-plugin.version>2.4</maven-source-plugin.version>
+    <maven-javadoc-plugin.version>2.10.1</maven-javadoc-plugin.version>
     <maven-nativedependencies-plugin.version>0.0.7</maven-nativedependencies-plugin.version>
     <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
     <versions-maven-plugin.version>2.1</versions-maven-plugin.version>
@@ -164,6 +166,14 @@
         <plugin>
           <artifactId>maven-enforcer-plugin</artifactId>
           <version>${maven-enforcer-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>${maven-source-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${maven-javadoc-plugin.version}</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
