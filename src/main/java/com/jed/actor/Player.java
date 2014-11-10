@@ -269,6 +269,26 @@ public class Player extends Entity implements StateManager {
      *
      */
     private class Falling extends PlayerState {
+        
+        /**
+         * 
+         */
+        private float bottomLeftX;
+        
+        /**
+         * 
+         */
+        private float bottomRightX;
+        
+        /**
+         * 
+         */
+        private float topRightX;
+        
+        /**
+         * 
+         */
+        private float topLeftX;
 
         /**
          * 
@@ -309,25 +329,27 @@ public class Player extends Entity implements StateManager {
             texture.bind();
             GL11.glEnable(GL11.GL_TEXTURE_2D);
             GL11.glBegin(GL11.GL_QUADS);
+
             if (xDir == PLAYER_LEFT) {
-                GL11.glTexCoord2f(.25f, .5f);
-                map.drawChildVertex2f(position.x + width, position.y);
-                GL11.glTexCoord2f(.3125f, .5f);
-                map.drawChildVertex2f(position.x, position.y);
-                GL11.glTexCoord2f(.3125f, 1);
-                map.drawChildVertex2f(position.x, position.y + height);
-                GL11.glTexCoord2f(.25f, 1);
-                map.drawChildVertex2f(position.x + width, position.y + height);
+                bottomLeftX  = position.x + width;
+                bottomRightX = position.x;
+                topLeftX     = position.x;
+                topRightX    = position.x + width;
             } else {
-                GL11.glTexCoord2f(.25f, .5f);
-                map.drawChildVertex2f(position.x, position.y);
-                GL11.glTexCoord2f(.3125f, .5f);
-                map.drawChildVertex2f(position.x + width, position.y);
-                GL11.glTexCoord2f(.3125f, 1);
-                map.drawChildVertex2f(position.x + width, position.y + height);
-                GL11.glTexCoord2f(.25f, 1);
-                map.drawChildVertex2f(position.x, position.y + height);
+                bottomLeftX  = position.x;
+                bottomRightX = position.x + width;
+                topLeftX     = position.x + width;
+                topRightX    = position.x;
             }
+
+            GL11.glTexCoord2f(.25f, .5f);
+            map.drawChildVertex2f(bottomLeftX, position.y);
+            GL11.glTexCoord2f(.3125f, .5f);
+            map.drawChildVertex2f(bottomRightX, position.y);
+            GL11.glTexCoord2f(.3125f, 1);
+            map.drawChildVertex2f(topLeftX, position.y + height);
+            GL11.glTexCoord2f(.25f, 1);
+            map.drawChildVertex2f(topRightX, position.y + height);
             GL11.glEnd();
             GL11.glDisable(GL11.GL_TEXTURE_2D);
         }

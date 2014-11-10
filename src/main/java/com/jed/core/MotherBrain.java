@@ -2,6 +2,7 @@ package com.jed.core;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
@@ -14,12 +15,29 @@ import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
 
 import com.jed.state.DiscoState;
 import com.jed.state.GameStateManager;
+import com.jed.state.MenuState;
 import com.jed.state.PlayState;
+import com.jed.util.Vector;
 
 /**
  * @author jlinde, Peter Colapietro
  */
 public final class MotherBrain implements Startable {
+
+    /**
+     * 
+     */
+    private static final Vector MENU_STATE_COORDS = new Vector(20,20);
+
+    /**
+     * 
+     */
+    private static final String DA_STRING = "Hello there!";
+
+    /**
+     * 
+     */
+    private static final int NUMBER_OF_DISCO_STATES = 0;
 
     /**
      * 
@@ -35,6 +53,11 @@ public final class MotherBrain implements Startable {
      * 
      */
     public static final int HEIGHT = 768;
+
+    /**
+     * 
+     */
+    private static final boolean IS_MENU_STATE_SHOWN = false;
 
     /**
      * 
@@ -62,7 +85,7 @@ public final class MotherBrain implements Startable {
      */
     public static void main(String[] args) {
         SysOutOverSLF4J.sendSystemOutAndErrToSLF4J();
-        Injector injector = Guice.createInjector();
+        Injector injector = Guice.createInjector(new MotherBrainModule());
         final MotherBrain motherBrain = injector.getInstance(MotherBrain.class);
         motherBrain.start();
     }
@@ -72,19 +95,12 @@ public final class MotherBrain implements Startable {
      */
     private void init() {
         stateManager = new GameStateManager();
-        stateManager.push(new DiscoState(stateManager));
-        stateManager.push(new DiscoState(stateManager));
-        stateManager.push(new DiscoState(stateManager));
-        stateManager.push(new DiscoState(stateManager));
-        stateManager.push(new DiscoState(stateManager));
+        pushDiscoStatesToStateManager(NUMBER_OF_DISCO_STATES);
         stateManager.push(new PlayState(stateManager));
-//
-//        MainMenu one = new MainMenu(stateManager);
-//        one.setDaString("Hello there!");
-//        one.setCoords(new Vector(20,20));
-//
-//        stateManager.push(one);
-
+        if (IS_MENU_STATE_SHOWN) {
+            pushMenuStateToStateManager();
+        }
+        
         getDelta();
         lastFPS = getTime();
     }
@@ -92,17 +108,31 @@ public final class MotherBrain implements Startable {
     /**
      * 
      */
+    private void pushMenuStateToStateManager() {
+        final MenuState one = new MenuState(stateManager);
+        one.setDaString(DA_STRING);
+        one.setCoords(MENU_STATE_COORDS);
+        stateManager.push(one);
+    }
+
+    /**
+     * 
+     * @param numberOfStates numberOfStates
+     */
+    private void pushDiscoStatesToStateManager(int numberOfStates) {
+        for (int i = 0; i < numberOfStates; i++) {
+            stateManager.push(new DiscoState(stateManager));
+        }
+    }
+
+    /**
+     * 
+     */
     public void start() {
         try {
-
-            // DisplayMode displayMode = Display.getDesktopDisplayMode();
-            // HEIGHT = displayMode.getHeight();
-            // WIDTH = displayMode.getWidth();
-
             Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
             Display.setFullscreen(true);
             Display.create();
-
         } catch (LWJGLException e) {
             LOGGER.error("An exception occurred while creating the display", e);
             System.exit(1);
