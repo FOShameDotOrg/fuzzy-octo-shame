@@ -351,7 +351,7 @@
         <configuration>
           <!-- dear god, the kludge. http://stackoverflow.com/a/15004792 -->
           <configLocation>${project.build.resources[0].directory}/checkstyle.xml</configLocation>
-          <encoding>UTF-8</encoding>
+          <encoding>${project.build.sourceEncoding}</encoding>
           <consoleOutput>true</consoleOutput>
           <!-- pc: find out why IntelliJ doesn't like linkXRef element under project/build/plugins/plugin -->
           <linkXRef>false</linkXRef>
@@ -368,7 +368,7 @@
         <artifactId>maven-pmd-plugin</artifactId>
         <configuration>
           <linkXref>true</linkXref>
-          <sourceEncoding>utf-8</sourceEncoding>
+          <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
           <minimumTokens>100</minimumTokens>
           <targetJdk>${java.version}</targetJdk>
         </configuration>
