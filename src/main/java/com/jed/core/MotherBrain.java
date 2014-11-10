@@ -39,7 +39,7 @@ public final class MotherBrain implements Startable {
      */
     public static void main(String[] args) {
         SysOutOverSLF4J.sendSystemOutAndErrToSLF4J();
-        Injector injector = Guice.createInjector();
+        Injector injector = Guice.createInjector(new MotherBrainModule());
         final MotherBrain motherBrain = injector.getInstance(MotherBrain.class);
         motherBrain.start();
     }

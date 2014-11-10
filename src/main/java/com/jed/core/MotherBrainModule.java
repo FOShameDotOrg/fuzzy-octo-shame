@@ -11,6 +11,5 @@ public class MotherBrainModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(Startable.class).to(MotherBrain.class).in(Singleton.class);
-
     }
 }
