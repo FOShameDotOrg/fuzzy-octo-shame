@@ -358,6 +358,10 @@
     </plugins>
   </reporting>
 
+  <ciManagement>
+    <url>https://travis-ci.org/virtuoushub/fuzzy-octo-shame</url>
+  </ciManagement>
+
   <profiles>
     <profile>
       <repositories>
