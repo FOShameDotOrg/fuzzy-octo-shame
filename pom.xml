@@ -1,37 +1,12 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <!-- See: http://maven.apache.org/pom.html#Developers -->
-  <developers>
-    <developer>
-      <id>Hornswaggler</id>
-      <name>Hornswaggler</name>
-      <url>https://github.com/Hornswaggler</url>
-      <roles>
-        <role>architect</role>
-        <role>developer</role>
-      </roles>
-      <timezone>-5</timezone>
-    </developer>
-    <developer>
-      <id>pc</id>
-      <name>Peter Colapietro</name>
-      <email>petercolapietro@gmail.com</email>
-      <url>https://github.com/virtuoushub</url>
-      <roles>
-        <role>architect</role>
-        <role>developer</role>
-      </roles>
-      <timezone>-5</timezone>
-    </developer>
-  </developers>
 
+  <!-- START: The Basics -->
   <groupId>com.jed</groupId>
   <artifactId>fuzzy-octo-shame</artifactId>
   <version>0.1.3-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <name>fuzzy-octo-shame</name>
-  <url>https://github.com/virtuoushub/fuzzy-octo-shame</url>
 
   <prerequisites>
       <maven>${maven.version}</maven>
@@ -386,6 +361,38 @@
       </plugin>
     </plugins>
   </reporting>
+
+  <!-- START: More Project Information -->
+  <name>fuzzy-octo-shame</name>
+  <description>2D platformer skeleton built with LWJGL and Slick2D.</description>
+  <url>https://github.com/virtuoushub/fuzzy-octo-shame</url>
+
+
+  <!-- See: http://maven.apache.org/pom.html#Developers -->
+  <developers>
+    <developer>
+      <id>Hornswaggler</id>
+      <name>Hornswaggler</name>
+      <url>https://github.com/Hornswaggler</url>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>-5</timezone>
+    </developer>
+    <developer>
+      <id>pc</id>
+      <name>Peter Colapietro</name>
+      <email>petercolapietro@gmail.com</email>
+      <url>https://github.com/virtuoushub</url>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>-5</timezone>
+    </developer>
+  </developers>
+
 
   <ciManagement>
     <url>https://travis-ci.org/virtuoushub/fuzzy-octo-shame</url>
