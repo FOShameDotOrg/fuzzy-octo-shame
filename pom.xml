@@ -87,6 +87,7 @@
     <maven-nativedependencies-plugin.version>0.0.7</maven-nativedependencies-plugin.version>
     <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
     <versions-maven-plugin.version>2.1</versions-maven-plugin.version>
+    <jgitflow-maven-plugin.version>1.0-m4.3</jgitflow-maven-plugin.version>
     <!-- END: Plugin Versions -->
     <!-- START: Dependencies Versions -->
     <junit.version>4.12-beta-3</junit.version>
@@ -178,6 +179,11 @@
           <groupId>com.googlecode.mavennatives</groupId>
           <artifactId>maven-nativedependencies-plugin</artifactId>
           <version>${maven-nativedependencies-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>external.atlassian.jgitflow</groupId>
+          <artifactId>jgitflow-maven-plugin</artifactId>
+          <version>${jgitflow-maven-plugin.version}</version>
         </plugin>
       </plugins>
     </pluginManagement>
