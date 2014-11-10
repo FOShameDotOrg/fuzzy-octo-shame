@@ -28,7 +28,7 @@
   </developers>
   <groupId>com.jed</groupId>
   <artifactId>fuzzy-octo-shame</artifactId>
-  <version>0.1.1</version>
+  <version>0.1.20</version>
   <packaging>jar</packaging>
   <name>fuzzy-octo-shame</name>
   <url>https://github.com/virtuoushub/fuzzy-octo-shame</url>
