@@ -94,6 +94,9 @@
     <sysout-over-slf4j.version>1.0.2</sysout-over-slf4j.version>
     <guice.version>4.0-beta5</guice.version>
     <!-- END: Dependencies Versions -->
+    <!-- START: Build specific variables, probably should be associated with profiles.. -->
+    <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>false</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>
+    <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError>false</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError>
   </properties>
   <!-- END: The Basics -->
 
@@ -226,8 +229,8 @@
               <configLocation>${project.build.resources[0].directory}/checkstyle.xml</configLocation>
               <encoding>${project.build.sourceEncoding}</encoding>
               <consoleOutput>true</consoleOutput>
-              <failOnViolation>true</failOnViolation>
-              <failsOnError>true</failsOnError>
+              <failOnViolation>${build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation}</failOnViolation>
+              <failsOnError>${build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError}</failsOnError>
             </configuration>
             <goals>
               <goal>check</goal>
