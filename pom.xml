@@ -353,7 +353,7 @@
           <configLocation>${project.build.resources[0].directory}/checkstyle.xml</configLocation>
           <encoding>UTF-8</encoding>
           <consoleOutput>true</consoleOutput>
-          <!-- pc: find out why IntelliJ doesn't like linkXRef element under build>plugins>plugin -->
+          <!-- pc: find out why IntelliJ doesn't like linkXRef element under project/build/plugins/plugin -->
           <linkXRef>false</linkXRef>
         </configuration>
         <reportSets>
