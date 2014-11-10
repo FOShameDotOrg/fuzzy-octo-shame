@@ -82,6 +82,7 @@
     <maven-compiler-plugin.version>3.2</maven-compiler-plugin.version>
     <maven-resources-plugin.version>2.7</maven-resources-plugin.version>
     <maven-checkstyle-plugin.version>2.13</maven-checkstyle-plugin.version>
+    <maven-nativedependencies-plugin.version>0.0.7</maven-nativedependencies-plugin.version>
     <!-- END: Plugin Versions -->
   </properties>
   <!-- END: The Basics -->
@@ -142,6 +143,11 @@
           <groupId>org.eclipse.m2e</groupId>
           <artifactId>lifecycle-mapping</artifactId>
           <version>1.0.0</version>
+        </plugin>
+        <plugin>
+          <groupId>com.googlecode.mavennatives</groupId>
+          <artifactId>maven-nativedependencies-plugin</artifactId>
+          <version>${maven-nativedependencies-plugin.version}</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -224,7 +230,6 @@
         <!-- see: https://code.google.com/p/mavennatives/ and http://www.lwjgl.org/wiki/index.php?title=LWJGL_use_in_Maven -->
         <groupId>com.googlecode.mavennatives</groupId>
         <artifactId>maven-nativedependencies-plugin</artifactId>
-        <version>0.0.7</version>
         <executions>
           <execution>
             <id>unpacknatives</id>
