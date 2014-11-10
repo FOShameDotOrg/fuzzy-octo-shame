@@ -350,6 +350,7 @@
         <artifactId>jgitflow-maven-plugin</artifactId>
         <configuration>
           <allowSnapshots>true</allowSnapshots>
+          <noDeploy>true</noDeploy>
         </configuration>
       </plugin>
     </plugins>
