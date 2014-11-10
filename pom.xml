@@ -457,10 +457,10 @@
     <url>https://travis-ci.org/virtuoushub/fuzzy-octo-shame</url>
   </ciManagement>
   <scm>
-    <connection>scm:git:git@github.com:Hornswaggler/fuzzy-octo-shame.git</connection>
+    <connection>scm:git:git://github.com/Hornswaggler/fuzzy-octo-shame.git</connection>
     <developerConnection>scm:git:git@github.com:Hornswaggler/fuzzy-octo-shame.git</developerConnection>
     <tag>develop</tag>
-    <url>scm:git:git@github.com:Hornswaggler/fuzzy-octo-shame.git</url>
+    <url>scm:git:git://github.com/Hornswaggler/fuzzy-octo-shame.git</url>
   </scm>
   <prerequisites>
     <maven>${maven.version}</maven>
