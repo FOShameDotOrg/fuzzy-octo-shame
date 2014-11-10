@@ -46,6 +46,7 @@
     <maven-assembly-plugin.version>2.5.1</maven-assembly-plugin.version>
     <maven-jxr-plugin.version>2.5</maven-jxr-plugin.version>
     <maven-surefire-plugin.version>2.18</maven-surefire-plugin.version>
+    <maven-clean-plugin.version>2.6.1</maven-clean-plugin.version>
   </properties>
 
   <dependencies>
@@ -255,7 +256,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
-        <version>2.6</version>
+        <version>${maven-clean-plugin.version}</version>
       </plugin>
       <plugin>
         <artifactId>maven-site-plugin</artifactId>
@@ -357,7 +358,7 @@
         <plugins>
           <plugin>
             <artifactId>maven-clean-plugin</artifactId>
-            <version>2.6</version>
+            <version>${maven-clean-plugin.version}</version>
             <configuration>
               <filesets>
                 <fileset>
