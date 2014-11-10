@@ -199,6 +199,7 @@
               <goal>jar</goal>
             </goals>
             <configuration>
+              <!-- TODO Just ignore org.newdawn.slick.* packages as I want to fail fast for our Javadocs -->
               <additionalparam>-Xdoclint:none</additionalparam>
             </configuration>
           </execution>
