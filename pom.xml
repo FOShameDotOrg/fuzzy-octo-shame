@@ -21,11 +21,6 @@
         <!-- END Unnecessary explicit exclusion. Only here for verbosity. -->
       </exclusions>
     </dependency>
-    <dependency>
-      <groupId>org.slick2d</groupId>
-      <artifactId>slick2d-core</artifactId>
-      <version>${slick2d-core.version}</version>
-    </dependency>
     <!-- Start Overriding transitive version from lwjgl artifact -->
     <dependency>
       <groupId>net.java.jinput</groupId>
@@ -94,7 +89,6 @@
     <!-- START: Dependencies Versions -->
     <junit.version>4.12-beta-3</junit.version>
     <lwjgl.version>2.9.1</lwjgl.version>
-    <slick2d-core.version>1.0.1</slick2d-core.version>
     <jinput.version>2.0.6</jinput.version>
     <slf4j.version>1.7.7</slf4j.version>
     <sysout-over-slf4j.version>1.0.2</sysout-over-slf4j.version>
