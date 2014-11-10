@@ -345,6 +345,18 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>external.atlassian.jgitflow</groupId>
+        <artifactId>jgitflow-maven-plugin</artifactId>
+        <configuration>
+          <masterBranchName>master</masterBranchName>
+          <developBranchName>develop</developBranchName>
+          <featureBranchPrefix>feature</featureBranchPrefix>
+          <releaseBranchPrefix>release</releaseBranchPrefix>
+          <hotfixBranchPrefix>hotfix</hotfixBranchPrefix>
+          <versionTagPrefix></versionTagPrefix>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
   <reporting>
