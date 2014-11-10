@@ -89,8 +89,8 @@
     <guice.version>4.0-beta5</guice.version>
     <!-- END: Dependencies Versions -->
     <!-- START: Build specific variables, probably should be associated with profiles.. -->
-    <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>false</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>
-    <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError>false</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError>
+    <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>true</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>
+    <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError>true</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError>
   </properties>
   <!-- END: The Basics -->
 
@@ -221,6 +221,9 @@
               <testSourceDirectory>${project.build.testSourceDirectory}</testSourceDirectory>
               <!-- dear god, the kludge. http://stackoverflow.com/a/15004792 -->
               <configLocation>${project.build.resources[0].directory}/checkstyle.xml</configLocation>
+              <!-- see http://maven.apache.org/plugins/maven-checkstyle-plugin/examples/suppressions-filter.html -->
+              <suppressionsLocation>${project.build.resources[0].directory}/suppressions.xml</suppressionsLocation>
+              <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
               <encoding>${project.build.sourceEncoding}</encoding>
               <consoleOutput>true</consoleOutput>
               <failOnViolation>${build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation}</failOnViolation>
