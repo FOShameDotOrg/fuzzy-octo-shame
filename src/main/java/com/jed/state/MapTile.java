@@ -6,20 +6,62 @@ import com.jed.actor.Boundary;
 import com.jed.actor.Entity;
 import com.jed.util.Vector;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class MapTile extends Entity {
 
+    /**
+     * 
+     */
     public static final int NO_TILE = 0;
 
+    /**
+     * 
+     */
     float glTexX, glTexY, glTexWidth, glTexHeight;
+    
+    /**
+     * 
+     */
     int tileId;
 
+    /**
+     * 
+     */
     GameMap map;
 
+    /**
+     * 
+     */
     //TODO: TEMPORARY!
     public boolean colliding;
+    
+    /**
+     * 
+     */
     public boolean evaluating;
 
-    public MapTile(Vector position, Boundary bounds, float glTexX, float glTexY, float glTexWidth, float glTexHeight, int tileId, GameMap map) {
+    /**
+     * FIXME, the parameters is too damn high.
+     * @param position FIXME Javadoc
+     * @param bounds FIXME Javadoc
+     * @param glTexX FIXME Javadoc
+     * @param glTexY FIXME Javadoc
+     * @param glTexWidth FIXME Javadoc
+     * @param glTexHeight FIXME Javadoc
+     * @param tileId FIXME Javadoc
+     * @param map FIXME Javadoc
+     */
+    public MapTile( Vector position,
+                    Boundary bounds,
+                    float glTexX,float glTexY,
+                    float glTexWidth,
+                    float glTexHeight,
+                    int tileId,
+                    GameMap map) {
         super(position, new Vector(0, 0), bounds);
 
         this.glTexX = glTexX;
@@ -32,26 +74,50 @@ public class MapTile extends Entity {
         this.map = map;
     }
 
+    /**
+     * 
+     * @return glTexX
+     */
     public float getGlTexX() {
         return glTexX;
     }
 
+    /**
+     * 
+     * @param glTexX glTexX
+     */
     public void setGlTexX(float glTexX) {
         this.glTexX = glTexX;
     }
 
+    /**
+     * 
+     * @return glTexY
+     */
     public float getGlTexY() {
         return glTexY;
     }
 
+    /**
+     * 
+     * @param glTexY glTexY
+     */
     public void setGlTexY(float glTexY) {
         this.glTexY = glTexY;
     }
 
+    /**
+     * 
+     * @return tileId
+     */
     public int getTileId() {
         return tileId;
     }
 
+    /**
+     * 
+     * @param tileId tileId
+     */
     public void setTileId(int tileId) {
         this.tileId = tileId;
     }
