@@ -76,6 +76,7 @@
     <maven-release-plugin.version>2.5.1</maven-release-plugin.version>
     <junit.version>4.12-beta-3</junit.version>
     <maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
+    <maven-site-plugin.version>3.4</maven-site-plugin.version>
     <!-- END: Plugin Versions -->
   </properties>
   <!-- END: The Basics -->
@@ -112,7 +113,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-site-plugin</artifactId>
-          <version>3.4</version>
+          <version>${maven-site-plugin.version}</version>
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
