@@ -5,7 +5,7 @@
   <!-- START: The Basics -->
   <groupId>com.jed</groupId>
   <artifactId>fuzzy-octo-shame</artifactId>
-  <version>0.1.5-SNAPSHOT</version>
+  <version>0.1.6-SNAPSHOT</version>
   <packaging>jar</packaging>
   <dependencies>
     <dependency>
@@ -20,11 +20,6 @@
         </exclusion>
         <!-- END Unecessary explict exclusion. Only here for verbosity. -->
       </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.slick2d</groupId>
-      <artifactId>slick2d-core</artifactId>
-      <version>${slick2d-core.version}</version>
     </dependency>
     <!-- Start Overriding transitive version from lwjgl artifact -->
     <dependency>
@@ -48,11 +43,6 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
       <version>${slf4j.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>uk.org.lidalia</groupId>
-      <artifactId>sysout-over-slf4j</artifactId>
-      <version>${sysout-over-slf4j.version}</version>
     </dependency>
     <dependency>
       <groupId>com.google.inject</groupId>
@@ -94,12 +84,13 @@
     <!-- START: Dependencies Versions -->
     <junit.version>4.12-beta-3</junit.version>
     <lwjgl.version>2.9.1</lwjgl.version>
-    <slick2d-core.version>1.0.1</slick2d-core.version>
     <jinput.version>2.0.6</jinput.version>
     <slf4j.version>1.7.7</slf4j.version>
-    <sysout-over-slf4j.version>1.0.2</sysout-over-slf4j.version>
     <guice.version>4.0-beta5</guice.version>
     <!-- END: Dependencies Versions -->
+    <!-- START: Build specific variables, probably should be associated with profiles.. -->
+    <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>true</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>
+    <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError>true</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError>
   </properties>
   <!-- END: The Basics -->
 
@@ -198,6 +189,22 @@
       </plugins>
     </pluginManagement>
     <plugins>
+      <!-- see http://stackoverflow.com/a/16743137 -->
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <configuration>
+              <!-- TODO Just ignore org.newdawn.slick.* packages as I want to fail fast for our Javadocs -->
+              <additionalparam>-Xdoclint:none</additionalparam>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <artifactId>maven-dependency-plugin</artifactId>
         <configuration>
@@ -230,10 +237,13 @@
               <testSourceDirectory>${project.build.testSourceDirectory}</testSourceDirectory>
               <!-- dear god, the kludge. http://stackoverflow.com/a/15004792 -->
               <configLocation>${project.build.resources[0].directory}/checkstyle.xml</configLocation>
-              <encoding>UTF-8</encoding>
+              <!-- see http://maven.apache.org/plugins/maven-checkstyle-plugin/examples/suppressions-filter.html -->
+              <suppressionsLocation>${project.build.resources[0].directory}/suppressions.xml</suppressionsLocation>
+              <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
+              <encoding>${project.build.sourceEncoding}</encoding>
               <consoleOutput>true</consoleOutput>
-              <failOnViolation>true</failOnViolation>
-              <failsOnError>true</failsOnError>
+              <failOnViolation>${build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation}</failOnViolation>
+              <failsOnError>${build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError}</failsOnError>
             </configuration>
             <goals>
               <goal>check</goal>
@@ -332,7 +342,7 @@
         <artifactId>maven-pmd-plugin</artifactId>
         <configuration>
           <linkXref>true</linkXref>
-          <sourceEncoding>utf-8</sourceEncoding>
+          <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
           <minimumTokens>100</minimumTokens>
           <targetJdk>${java.version}</targetJdk>
         </configuration>
@@ -461,10 +471,10 @@
     <url>https://travis-ci.org/virtuoushub/fuzzy-octo-shame</url>
   </ciManagement>
   <scm>
-    <connection>scm:git:git@github.com:Hornswaggler/fuzzy-octo-shame.git</connection>
+    <connection>scm:git:git://github.com/Hornswaggler/fuzzy-octo-shame.git</connection>
     <developerConnection>scm:git:git@github.com:Hornswaggler/fuzzy-octo-shame.git</developerConnection>
     <tag>develop</tag>
-    <url>scm:git:git@github.com:Hornswaggler/fuzzy-octo-shame.git</url>
+    <url>scm:git:git://github.com/Hornswaggler/fuzzy-octo-shame.git</url>
   </scm>
   <prerequisites>
     <maven>${maven.version}</maven>
