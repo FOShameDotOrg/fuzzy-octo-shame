@@ -154,6 +154,10 @@
           <version>${maven-pmd-plugin.version}</version>
         </plugin>
         <plugin>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>${maven-enforcer-plugin.version}</version>
+        </plugin>
+        <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>versions-maven-plugin</artifactId>
           <version>${versions-maven-plugin.version}</version>
@@ -312,7 +316,6 @@
       </plugin>
       <plugin>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>${maven-enforcer-plugin.version}</version>
         <executions>
           <execution>
             <id>enforce-java</id>
