@@ -87,7 +87,6 @@
 
   <!-- START: Build Settings -->
   <build>
-
     <pluginManagement>
       <plugins>
         <plugin>
@@ -141,7 +140,6 @@
         </plugin>
       </plugins>
     </pluginManagement>
-
     <plugins>
       <plugin>
         <artifactId>maven-dependency-plugin</artifactId>
