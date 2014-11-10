@@ -83,6 +83,7 @@
     <maven-resources-plugin.version>2.7</maven-resources-plugin.version>
     <maven-checkstyle-plugin.version>2.13</maven-checkstyle-plugin.version>
     <maven-nativedependencies-plugin.version>0.0.7</maven-nativedependencies-plugin.version>
+    <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
     <!-- END: Plugin Versions -->
   </properties>
   <!-- END: The Basics -->
@@ -142,7 +143,7 @@
         <plugin>
           <groupId>org.eclipse.m2e</groupId>
           <artifactId>lifecycle-mapping</artifactId>
-          <version>1.0.0</version>
+          <version>${lifecycle-mapping.version}</version>
         </plugin>
         <plugin>
           <groupId>com.googlecode.mavennatives</groupId>
