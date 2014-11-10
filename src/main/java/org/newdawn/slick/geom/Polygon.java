@@ -2,6 +2,7 @@ package org.newdawn.slick.geom;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * A polygon implementation meeting the <code>Shape</code> contract. 
@@ -94,7 +95,7 @@ public class Polygon extends Shape {
     		return;
     	}
     	
-        ArrayList tempPoints = new ArrayList();
+        final List<Float> tempPoints = new ArrayList<>();
         for(int i=0;i<points.length;i++) {
             tempPoints.add(new Float(points[i]));
         }
@@ -103,7 +104,7 @@ public class Polygon extends Shape {
         int length = tempPoints.size();
         points = new float[length];
         for(int i=0;i<length;i++) {
-            points[i] = ((Float)tempPoints.get(i)).floatValue();
+            points[i] = tempPoints.get(i).floatValue();
         }
         if(x > maxX) {
             maxX = x;

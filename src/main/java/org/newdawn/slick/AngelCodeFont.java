@@ -66,7 +66,7 @@ public class AngelCodeFont implements Font {
 	private short leading; //TODO: fix leading, use for multi-line text
 	
 	/** The display list cache for rendered lines */
-	private final LinkedHashMap displayLists = new LinkedHashMap(DISPLAY_LIST_CACHE_SIZE, 1, true) {
+	private final Map<CharSequence, DisplayList> displayLists = new LinkedHashMap<CharSequence, DisplayList>(DISPLAY_LIST_CACHE_SIZE, 1, true) {
 		protected boolean removeEldestEntry(Entry eldest) {
 			eldestDisplayList = (DisplayList)eldest.getValue();
 			eldestDisplayListID = eldestDisplayList.id;

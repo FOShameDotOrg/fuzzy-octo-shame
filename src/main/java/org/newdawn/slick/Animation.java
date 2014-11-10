@@ -1,6 +1,7 @@
 package org.newdawn.slick;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.lwjgl.Sys;
 import org.newdawn.slick.util.Log;
@@ -13,7 +14,7 @@ import org.newdawn.slick.util.Log;
  */
 public class Animation implements Renderable {
 	/** The list of frames to render in this animation */
-	private ArrayList frames = new ArrayList();
+	private final List<Frame> frames = new ArrayList<>();
 	/** The frame currently being displayed */
 	private int currentFrame = -1;
 	/** The time the next frame change should take place */
@@ -740,7 +741,7 @@ public class Animation implements Renderable {
 		Animation copy = new Animation();
 		
 		copy.spriteSheet = spriteSheet;
-		copy.frames = frames;
+		copy.frames.addAll(frames);
 		copy.autoUpdate = autoUpdate;
 		copy.direction = direction;
 		copy.loop = loop;

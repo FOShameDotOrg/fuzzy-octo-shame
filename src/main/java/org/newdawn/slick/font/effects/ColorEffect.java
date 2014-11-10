@@ -72,8 +72,8 @@ public class ColorEffect implements ConfigurableEffect {
 	/**
 	 * @see org.newdawn.slick.font.effects.ConfigurableEffect#getValues()
 	 */
-	public List getValues() {
-		List values = new ArrayList();
+	public List<Value> getValues() {
+		final List<Value> values = new ArrayList<>();
 		values.add(EffectUtil.colorValue("Color", color));
 		return values;
 	}
@@ -81,9 +81,9 @@ public class ColorEffect implements ConfigurableEffect {
 	/**
 	 * @see org.newdawn.slick.font.effects.ConfigurableEffect#setValues(java.util.List)
 	 */
-	public void setValues(List values) {
-		for (Iterator iter = values.iterator(); iter.hasNext();) {
-			Value value = (Value)iter.next();
+	public void setValues(List<Value> values) {
+		for (Iterator<Value> iter = values.iterator(); iter.hasNext();) {
+			Value value = iter.next();
 			if (value.getName().equals("Color")) {
 				setColor((Color)value.getObject());
 			}

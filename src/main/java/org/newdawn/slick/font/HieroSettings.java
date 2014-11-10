@@ -16,6 +16,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.font.effects.ConfigurableEffect;
 import org.newdawn.slick.font.effects.ConfigurableEffect.Value;
+import org.newdawn.slick.font.effects.Effect;
 import org.newdawn.slick.util.ResourceLoader;
 
 /**
@@ -47,7 +48,7 @@ public class HieroSettings {
 	/** The height of the glyph page generated */
 	private int glyphPageHeight = 512;
 	/** The list of effects applied */
-	private final List effects = new ArrayList();
+	private final List<Effect> effects = new ArrayList<>();
 
 	/**
 	 * Default constructor for injection
@@ -106,16 +107,18 @@ public class HieroSettings {
 					glyphPageHeight = Integer.parseInt(value);
 				} else if (name.equals("effect.class")) {
 					try {
-						effects.add(Class.forName(value).newInstance());
-					} catch (Exception ex) {
+						effects.add((Effect) Class.forName(value).newInstance());
+					} catch (ClassNotFoundException e) {
+                        throw new SlickException("Unable to create effect instance: " + value, e);
+                    } catch (Exception ex) {
 						throw new SlickException("Unable to create effect instance: " + value, ex);
 					}
 				} else if (name.startsWith("effect.")) {
 					// Set an effect value on the last added effect.
 					name = name.substring(7);
 					ConfigurableEffect effect = (ConfigurableEffect)effects.get(effects.size() - 1);
-					List values = effect.getValues();
-					for (Iterator iter = values.iterator(); iter.hasNext();) {
+					List<Value> values = effect.getValues();
+					for (Iterator<Value> iter = values.iterator(); iter.hasNext();) {
 						Value effectValue = (Value)iter.next();
 						if (effectValue.getName().equals(name)) {
 							effectValue.setString(value);
@@ -340,7 +343,7 @@ public class HieroSettings {
 	 * 
 	 * @return The list of effects applied to the text
 	 */
-	public List getEffects() {
+	public List<Effect> getEffects() {
 		return effects;
 	}
 

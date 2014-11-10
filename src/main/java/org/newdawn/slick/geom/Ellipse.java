@@ -1,6 +1,7 @@
 package org.newdawn.slick.geom;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.newdawn.slick.util.FastTrig;
 
@@ -117,7 +118,7 @@ public class Ellipse extends Shape {
      *
      */
     protected void createPoints() {
-        ArrayList tempPoints = new ArrayList();
+        final List<Float> tempPoints = new ArrayList<>();
 
         maxX = -Float.MIN_VALUE;
         maxY = -Float.MIN_VALUE;

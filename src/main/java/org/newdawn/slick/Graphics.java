@@ -6,6 +6,8 @@ import java.nio.FloatBuffer;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.ArrayList;
+import java.util.List;
+
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.geom.Rectangle;
@@ -121,7 +123,7 @@ public class Graphics {
 	private float lineWidth = 1;
 	
 	/** The matrix stack */
-	private ArrayList stack = new ArrayList();
+	private final List<FloatBuffer> stack = new ArrayList<>();
 	/** The index into the stack we're using */
 	private int stackIndex;
 	
@@ -141,7 +143,7 @@ public class Graphics {
 	 */
 	public Graphics(int width, int height) {
 		if (DEFAULT_FONT == null) {
-			AccessController.doPrivileged(new PrivilegedAction() {
+			AccessController.doPrivileged( new PrivilegedAction<Object>() {
 				public Object run() {
 					try {
 						DEFAULT_FONT = new AngelCodeFont("org/newdawn/slick/data/defaultfont.fnt", "org/newdawn/slick/data/defaultfont.png");

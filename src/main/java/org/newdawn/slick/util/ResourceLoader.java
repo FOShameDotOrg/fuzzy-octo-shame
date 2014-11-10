@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple wrapper around resource loading should anyone decide to change
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  */
 public class ResourceLoader {
 	/** The list of locations to be searched */
-	private static ArrayList locations = new ArrayList();
+	private static final List<ResourceLocation> locations = new ArrayList<>();
 	
 	static {
 		locations.add(new ClasspathLocation());

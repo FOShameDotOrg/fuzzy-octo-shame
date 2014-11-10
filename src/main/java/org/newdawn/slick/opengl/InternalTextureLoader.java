@@ -11,6 +11,7 @@ import java.nio.ByteOrder;
 import java.nio.IntBuffer;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.ContextCapabilities;
@@ -140,9 +141,9 @@ public class InternalTextureLoader {
 	}
 	
     /** The table of textures that have been loaded in this loader */
-    private HashMap texturesLinear = new HashMap();
+    private HashMap<String, TextureImpl> texturesLinear = new HashMap<String, TextureImpl>();
     /** The table of textures that have been loaded in this loader */
-    private HashMap texturesNearest = new HashMap();
+    private HashMap<String, TextureImpl> texturesNearest = new HashMap<String, TextureImpl>();
     /** The destination pixel format */
     private int dstPixelFormat = SGL.GL_RGBA8;
     /** True if we're using deferred loading */
@@ -304,7 +305,7 @@ public class InternalTextureLoader {
 	    	return new DeferredTexture(in, resourceName, flipped, filter, transparent);
 	    }
     	
-    	HashMap hash = texturesLinear;
+    	Map<String, TextureImpl> hash = texturesLinear;
         if (filter == SGL.GL_NEAREST) {
         	hash = texturesNearest;
         }
@@ -321,7 +322,7 @@ public class InternalTextureLoader {
         		return tex;
         	}
         } else {
-	    	SoftReference ref = (SoftReference) hash.get(resName);
+            SoftReference<TextureImpl> ref = new SoftReference<>(hash.get(resName)); //FIXME Test
 	    	if (ref != null) {
 		    	TextureImpl tex = (TextureImpl) ref.get();
 		        if (tex != null) {
@@ -347,7 +348,8 @@ public class InternalTextureLoader {
         if (holdTextureData) {
         	hash.put(resName, tex);
         } else {
-        	hash.put(resName, new SoftReference(tex));
+            final SoftReference<TextureImpl> textureSoftReference = new SoftReference<TextureImpl>(tex);
+            hash.put(resName, textureSoftReference.get());
         }
         
         return tex;
@@ -683,13 +685,13 @@ public class InternalTextureLoader {
      * Reload all the textures loaded in this loader
      */
     public void reload() {
-    	Iterator texs = texturesLinear.values().iterator();
+    	Iterator<TextureImpl> texs = texturesLinear.values().iterator();
     	while (texs.hasNext()) {
-    		((TextureImpl) texs.next()).reload();
+    		(texs.next()).reload();
     	}
     	texs = texturesNearest.values().iterator();
     	while (texs.hasNext()) {
-    		((TextureImpl) texs.next()).reload();
+    		(texs.next()).reload();
     	}
     }
 

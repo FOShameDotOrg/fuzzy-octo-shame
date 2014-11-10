@@ -87,7 +87,7 @@ public class GlyphPage {
 	/** True if the glyphs are ordered */
 	private boolean orderAscending;
 	/** The list of glyphs on this page */
-	private final List pageGlyphs = new ArrayList(32);
+	private final List<Glyph> pageGlyphs = new ArrayList<>(32);
 
 	/**
 	 * Create a new page of glyphs

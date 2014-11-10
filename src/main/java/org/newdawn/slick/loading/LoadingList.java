@@ -1,6 +1,7 @@
 package org.newdawn.slick.loading;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.newdawn.slick.opengl.InternalTextureLoader;
 import org.newdawn.slick.util.Log;
@@ -49,7 +50,7 @@ public class LoadingList {
 	}
 	
 	/** The list of deferred resources to load */
-	private ArrayList deferred = new ArrayList();
+	private List<DeferredResource> deferred = new ArrayList<>();
 	/** The total number of elements that have been added - does not go down as elements are removed */
 	private int total;
 	

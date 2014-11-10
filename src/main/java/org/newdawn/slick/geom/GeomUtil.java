@@ -1,6 +1,7 @@
 package org.newdawn.slick.geom;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A set of utilities to play with geometry
@@ -155,8 +156,8 @@ public class GeomUtil {
 	 */
 	private Shape[] combine(Shape target, Shape other, boolean subtract) {
 		if (subtract) {
-			ArrayList shapes = new ArrayList();
-			ArrayList used = new ArrayList();
+			List<Shape> shapes = new ArrayList<>();
+			List<Vector2f> used = new ArrayList<>();
 			
 			// remove any points that are contianed in the shape we're removing, these
 			// are implicitly used

@@ -1,12 +1,14 @@
 package org.newdawn.slick.opengl.pbuffer;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.lwjgl.opengl.GLContext;
 import org.lwjgl.opengl.Pbuffer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.Log;
 
 /**
@@ -17,7 +19,7 @@ import org.newdawn.slick.util.Log;
  */
 public class GraphicsFactory {
 	/** The graphics list of graphics contexts created */
-	private static HashMap graphics = new HashMap();
+	private static final Map<Texture, Graphics> graphics = new HashMap<>();
 	/** True if pbuffers are supported */
 	private static boolean pbuffer = true;
 	/** True if pbuffer render to texture are supported */

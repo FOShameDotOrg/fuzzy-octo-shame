@@ -2,6 +2,7 @@ package org.newdawn.slick.opengl;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A collection of IOException that failed image data loading
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  */
 public class CompositeIOException extends IOException {
 	/** The list of exceptions causing this one */
-	private ArrayList exceptions = new ArrayList();
+	private List<Exception> exceptions = new ArrayList<>();
 	
 	/**
 	 * Create a new composite IO Exception

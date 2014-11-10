@@ -70,9 +70,9 @@ public class UnicodeFont implements org.newdawn.slick.Font {
 	/**
 	 * Sorts glyphs by height, tallest first.
 	 */
-	private static final Comparator heightComparator = new Comparator() {
-		public int compare (Object o1, Object o2) {
-			return ((Glyph)o1).getHeight() - ((Glyph)o2).getHeight();
+	private static final Comparator<Glyph> heightComparator = new Comparator<Glyph>() {
+		public int compare (Glyph o1, Glyph o2) {
+			return o1.getHeight() - o2.getHeight();
 		}
 	};
 	
@@ -128,7 +128,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
 	
 	
 	/** The map fo the display list generated and cached - modified to allow removal of the oldest entry */
-	private final LinkedHashMap displayLists = new LinkedHashMap(DISPLAY_LIST_CACHE_SIZE, 1, true) {
+	private final Map<CharSequence, DisplayList> displayLists = new LinkedHashMap<CharSequence, DisplayList>(DISPLAY_LIST_CACHE_SIZE, 1, true) {
 		protected boolean removeEldestEntry (Entry eldest) {
 			DisplayList displayList = (DisplayList)eldest.getValue();
 			if (displayList != null) eldestDisplayListID = displayList.id;
@@ -226,6 +226,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
 	 * @param bold True if the font should be rendered in bold typeface
 	 * @param italic True if the font should be rendered in bold typeface
 	 */
+    @SuppressWarnings("unchecked")
 	private void initializeFont(Font baseFont, int size, boolean bold, boolean italic) {
 		Map attributes = baseFont.getAttributes();
 		attributes.put(TextAttribute.SIZE, new Float(size));
@@ -368,8 +369,8 @@ public class UnicodeFont implements org.newdawn.slick.Font {
 		Collections.sort(queuedGlyphs, heightComparator);
 
 		// Add to existing pages.
-		for (Iterator iter = glyphPages.iterator(); iter.hasNext();) {
-			GlyphPage glyphPage = (GlyphPage)iter.next();
+		for (Iterator<GlyphPage> iter = glyphPages.iterator(); iter.hasNext();) {
+			GlyphPage glyphPage = iter.next();
 			maxGlyphsToLoad -= glyphPage.loadGlyphs(queuedGlyphs, maxGlyphsToLoad);
 			if (maxGlyphsToLoad == 0 || queuedGlyphs.isEmpty())
 				return true;

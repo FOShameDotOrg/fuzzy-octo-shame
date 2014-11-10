@@ -158,12 +158,12 @@ public class EffectUtil {
 		return new DefaultValue(name, currentValue.toString()) {
 			public void showDialog () {
 				int selectedIndex = -1;
-				DefaultComboBoxModel model = new DefaultComboBoxModel();
+				DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
 				for (int i = 0; i < options.length; i++) {
 					model.addElement(options[i][0]);
 					if (getValue(i).equals(currentValue)) selectedIndex = i;
 				}
-				JComboBox comboBox = new JComboBox(model);
+				JComboBox<String> comboBox = new JComboBox<>(model);
 				comboBox.setSelectedIndex(selectedIndex);
 				if (showValueDialog(comboBox, description)) value = getValue(comboBox.getSelectedIndex());
 			}
