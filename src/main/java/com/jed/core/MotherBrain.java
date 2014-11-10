@@ -1,8 +1,8 @@
 package com.jed.core;
 
-import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
@@ -15,26 +15,72 @@ import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
 
 import com.jed.state.DiscoState;
 import com.jed.state.GameStateManager;
+import com.jed.state.MenuState;
 import com.jed.state.PlayState;
+import com.jed.util.Vector;
 
 /**
  * @author jlinde, Peter Colapietro
  */
 public final class MotherBrain implements Startable {
 
+    /**
+     * 
+     */
+    private static final Vector MENU_STATE_COORDS = new Vector(20,20);
+
+    /**
+     * 
+     */
+    private static final String DA_STRING = "Hello there!";
+
+    /**
+     * 
+     */
+    private static final int NUMBER_OF_DISCO_STATES = 0;
+
+    /**
+     * 
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(MotherBrain.class);
 
+    /**
+     * 
+     */
     public static final int WIDTH = 1024;
+    
+    /**
+     * 
+     */
     public static final int HEIGHT = 768;
 
+    /**
+     * 
+     */
+    private static final boolean IS_MENU_STATE_SHOWN = false;
+
+    /**
+     * 
+     */
     private long lastFrame;
+    
+    /**
+     * 
+     */
     private int fps;
+    
+    /**
+     * 
+     */
     private long lastFPS;
 
+    /**
+     * 
+     */
     private GameStateManager stateManager;
 
     /**
-     * @param args
+     * @param args Command-line arguments
      * @see <a href="http://projects.lidalia.org.uk/sysout-over-slf4j/quickstart.html">System Out and Err redirected to SLF4J</a>
      */
     public static void main(String[] args) {
@@ -44,36 +90,49 @@ public final class MotherBrain implements Startable {
         motherBrain.start();
     }
 
+    /**
+     * 
+     */
     private void init() {
         stateManager = new GameStateManager();
-        stateManager.push(new DiscoState(stateManager));
-        stateManager.push(new DiscoState(stateManager));
-        stateManager.push(new DiscoState(stateManager));
-        stateManager.push(new DiscoState(stateManager));
-        stateManager.push(new DiscoState(stateManager));
+        pushDiscoStatesToStateManager(NUMBER_OF_DISCO_STATES);
         stateManager.push(new PlayState(stateManager));
-//
-//        MainMenu one = new MainMenu(stateManager);
-//        one.setDaString("Hello there!");
-//        one.setCoords(new Vector(20,20));
-//
-//        stateManager.push(one);
-
+        if (IS_MENU_STATE_SHOWN) {
+            pushMenuStateToStateManager();
+        }
+        
         getDelta();
         lastFPS = getTime();
     }
 
+    /**
+     * 
+     */
+    private void pushMenuStateToStateManager() {
+        final MenuState one = new MenuState(stateManager);
+        one.setDaString(DA_STRING);
+        one.setCoords(MENU_STATE_COORDS);
+        stateManager.push(one);
+    }
+
+    /**
+     * 
+     * @param numberOfStates numberOfStates
+     */
+    private void pushDiscoStatesToStateManager(int numberOfStates) {
+        for (int i = 0; i < numberOfStates; i++) {
+            stateManager.push(new DiscoState(stateManager));
+        }
+    }
+
+    /**
+     * 
+     */
     public void start() {
         try {
-
-            // DisplayMode displayMode = Display.getDesktopDisplayMode();
-            // HEIGHT = displayMode.getHeight();
-            // WIDTH = displayMode.getWidth();
-
             Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
             Display.setFullscreen(true);
             Display.create();
-
         } catch (LWJGLException e) {
             LOGGER.error("An exception occurred while creating the display", e);
             System.exit(1);
@@ -110,6 +169,10 @@ public final class MotherBrain implements Startable {
         Display.destroy();
     }
 
+    /**
+     * 
+     * @return delta
+     */
     private int getDelta() {
         long time = getTime();
         int delta = (int) (time - lastFrame);
@@ -117,10 +180,17 @@ public final class MotherBrain implements Startable {
         return delta;
     }
 
+    /**
+     * 
+     * @return time
+     */
     private long getTime() {
         return (Sys.getTime() * 1000) / Sys.getTimerResolution();
     }
 
+    /**
+     * 
+     */
     private void updateFPS() {
         if (getTime() - lastFPS > 1000) {
             Display.setTitle("FPS: " + fps);

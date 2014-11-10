@@ -5,6 +5,9 @@ package com.jed.core;
  */
 public interface Startable {
 
+    /**
+     * 
+     */
     void start();
 
 }

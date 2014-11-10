@@ -16,28 +16,53 @@ import com.jed.core.QuadTree;
 import com.jed.util.Rectangle;
 import com.jed.util.Vector;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class DiscoState extends GameState {
 
+    /**
+     * 
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(DiscoState.class);
 
+    /**
+     * 
+     */
     private QuadTree quadTree;
 
+    /**
+     * 
+     */
     private Stack<Ball> scene;
 
-    private int WIDTH;
-    private int HEIGHT;
+    /**
+     * 
+     */
+    private int width;
+    
+    /**
+     * 
+     */
+    private int height;
 
+    /**
+     * 
+     * @param manager game state manager
+     */
     public DiscoState(GameStateManager manager) {
         super(manager);
     }
 
     @Override
     public void entered() {
-        WIDTH = MotherBrain.WIDTH;
-        HEIGHT = MotherBrain.HEIGHT;
+        width = MotherBrain.WIDTH;
+        height = MotherBrain.HEIGHT;
 
         scene = new Stack<Ball>();
-        quadTree = new QuadTree(new Vector(0, 0), 0, new Rectangle(WIDTH, HEIGHT), this);
+        quadTree = new QuadTree(new Vector(0, 0), 0, new Rectangle(width, height), this);
 
         Random rand = new Random();
 
@@ -141,6 +166,9 @@ public class DiscoState extends GameState {
         }
     }
 
+    /**
+     * 
+     */
     private void handleCollisions() {
         boolean collide = false;
         for (int i = 0; i < scene.size(); i++) {
@@ -149,9 +177,7 @@ public class DiscoState extends GameState {
             quadTree.retrieve(returnObjects, scene.get(i));
 
             for (int j = 0; j < returnObjects.size(); j++) {
-                if (returnObjects.get(j).equals(scene.get(i))) {
-                    continue;
-                } else {
+                if (!returnObjects.get(j).equals(scene.get(i))) {
                     Ball p1 = scene.get(i);
                     Ball p2 = (Ball) returnObjects.get(j);
                     if (detectCollision(p1, p2)) {
@@ -159,7 +185,6 @@ public class DiscoState extends GameState {
                             LOGGER.debug("Handling Collisions");
                             collide = true;
                         }
-
                         collide(p1, p2);
                     }
                 }
@@ -176,17 +201,17 @@ public class DiscoState extends GameState {
             //direction, then
             //Adjust the position vector so that the ball
             //does not get stuck in the wall
-            if (yPosition + radius >= HEIGHT) {
+            if (yPosition + radius >= height) {
                 each.movement.y = each.movement.y * -1;
-                each.position.y = HEIGHT - each.getRadius();
+                each.position.y = height - each.getRadius();
             } else if (yPosition - radius <= 0) {
                 each.movement.y = each.movement.y * -1;
                 each.position.y = each.getRadius();
             }
 
-            if (xPosition + radius >= WIDTH) {
+            if (xPosition + radius >= width) {
                 each.movement.x = each.movement.x * -1;
-                each.position.x = WIDTH - each.getRadius();
+                each.position.x = width - each.getRadius();
             } else if (xPosition - radius <= 0) {
                 each.movement.x = each.movement.x * -1;
                 each.position.x = each.getRadius();
@@ -194,6 +219,12 @@ public class DiscoState extends GameState {
         }
     }
 
+    /**
+     * 
+     * @param p1 ball one
+     * @param p2 ball two
+     * @return if ball one and two collided or not
+     */
     private boolean detectCollision(Ball p1, Ball p2) {
         /**
          * Subtract p2's movement vector from p1 the resultant vector
@@ -306,6 +337,11 @@ public class DiscoState extends GameState {
         return true;
     }
 
+    /**
+     * 
+     * @param p1 ball one
+     * @param p2 ball two
+     */
     private void collide(Ball p1, Ball p2) {
         // First, find the normalized vector n from the center of
         // circle1 to the center of circle2

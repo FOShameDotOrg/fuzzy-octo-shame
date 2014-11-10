@@ -6,29 +6,80 @@ import com.jed.actor.Entity;
 import com.jed.state.MapTile;
 import com.jed.util.Vector;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class Collision implements Comparable<Collision> {
 
+    /**
+     * 
+     */
     public static final int NONE = 0;
+    
+    /**
+     * 
+     */
     public static final int SAT = 1;
+    
+    /**
+     * 
+     */
     public static final int SWEPT_X = 2;
+    
+    /**
+     * 
+     */
     public static final int SWEPT_Y = 3;
 
+    /**
+     * 
+     */
     public int collisionType = NONE;
 
+    /**
+     * 
+     */
     public Entity a, b;
+    
+    /**
+     * 
+     */
     private double minXDistance, minYDistance;
+    
+    /**
+     * 
+     */
     private double smallestDisplacement;
+    
+    /**
+     * 
+     */
     private MinMax xEntityMinMax, xSEntityMinMax, yEntityMinMax, ySEntityMinMax;
 
+    /**
+     * 
+     * @param a entity a.
+     * @param b entity b.
+     */
     public Collision(Entity a, Entity b) {
         this.a = a;
         this.b = b;
     }
 
+    /**
+     * 
+     * @return the smallest displacement.
+     */
     public double smallestDisplacement() {
         return smallestDisplacement;
     }
 
+    /**
+     * 
+     * @return if a collision was detected.
+     */
     public boolean detectCollision() {
 
         //TODO: must take into account relative motion vector when dealing w/ 2 moving objects for swept test!!!
@@ -83,6 +134,9 @@ public class Collision implements Comparable<Collision> {
 
     }
 
+    /**
+     * 
+     */
     public void resolveCollision() {
 
         //OVERLAPS
@@ -154,10 +208,23 @@ public class Collision implements Comparable<Collision> {
 
     }
 
+    /**
+     * 
+     * @author jlinde, Peter Colapietro
+     *
+     */
     private class MinMax {
 
+        /**
+         * 
+         */
         public double min, max;
 
+        /**
+         * 
+         * @param boundary boundary
+         * @param axis axis
+         */
         public MinMax(Boundary boundary, Vector axis) {
             max = boundary.verticies[0].add(boundary.getWorldPosition()).dotProduct(axis);
             min = boundary.verticies[0].add(boundary.getWorldPosition()).dotProduct(axis);
@@ -175,6 +242,11 @@ public class Collision implements Comparable<Collision> {
             }
         }
 
+        /**
+         * 
+         * @param b another minmax
+         * @return interval distance
+         */
         public double getIntervalDistance(MinMax b) {
             if (this.min < b.min) {
                 return b.min - this.max;

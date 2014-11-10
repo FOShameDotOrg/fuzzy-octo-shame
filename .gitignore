@@ -109,5 +109,9 @@ build/
 .classpath
 .project
 *.orig
+*.diff
 .checkstyle
+.codepro/
+reports/
+.pmd
 # End from pc rando

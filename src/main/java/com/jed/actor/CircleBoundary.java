@@ -2,20 +2,40 @@ package com.jed.actor;
 
 import com.jed.util.Vector;
 
+/**
+ * 
+ * @author jlinde, Peter Colapietro
+ *
+ */
 public class CircleBoundary extends Boundary {
+    
+    /**
+     * 
+     */
+    public int radius;
 
-    public CircleBoundary(int radius) {
+    /**
+     * 
+     * @param radius initial radius.
+     */
+    public CircleBoundary(final int radius) {
         super(new Vector(0, 0), new Vector[]{});
         this.radius = radius;
     }
 
-    public int radius;
-
+    /**
+     * 
+     * @return radius of circle boundary.
+     */
     public int getRadius() {
         return radius;
     }
 
-    public void setRadius(int radius) {
+    /**
+     * 
+     * @param radius radius to set.
+     */
+    public void setRadius(final int radius) {
         this.radius = radius;
     }
 
