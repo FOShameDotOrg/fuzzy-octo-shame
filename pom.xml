@@ -349,14 +349,7 @@
         <groupId>external.atlassian.jgitflow</groupId>
         <artifactId>jgitflow-maven-plugin</artifactId>
         <configuration>
-          <flowInitContext>
-            <masterBranchName>master</masterBranchName>
-            <developBranchName>develop</developBranchName>
-          <featureBranchPrefix>feature</featureBranchPrefix>
-            <releaseBranchPrefix>release</releaseBranchPrefix>
-            <hotfixBranchPrefix>hotfix</hotfixBranchPrefix>
-            <versionTagPrefix></versionTagPrefix>
-          </flowInitContext>
+          <allowSnapshots>true</allowSnapshots>
         </configuration>
       </plugin>
     </plugins>
