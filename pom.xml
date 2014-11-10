@@ -35,9 +35,14 @@
   <name>fuzzy-octo-shame</name>
   <url>https://github.com/virtuoushub/fuzzy-octo-shame</url>
 
+  <prerequisites>
+      <maven>${maven.version}</maven>
+  </prerequisites>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
+    <maven.version>2.2.1</maven.version>
   </properties>
 
   <dependencies>
