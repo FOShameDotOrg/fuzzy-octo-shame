@@ -88,9 +88,10 @@
     <slf4j.version>1.7.7</slf4j.version>
     <guice.version>4.0-beta5</guice.version>
     <!-- END: Dependencies Versions -->
-    <!-- START: Build specific variables, probably should be associated with profiles.. -->
+    <!-- START: Build specific variables, probably should be associated with profiles. -->
     <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>true</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>
     <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError>true</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError>
+    <!-- END: Build specific variables, probably should be associated with profiles. -->
   </properties>
   <!-- END: The Basics -->
 
