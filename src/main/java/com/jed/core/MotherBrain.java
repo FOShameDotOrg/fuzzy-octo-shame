@@ -132,8 +132,11 @@ public final class MotherBrain implements Startable {
      */
     public void start() {
         try {
-            Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
+            final DisplayMode displayMode = new DisplayMode(WIDTH, HEIGHT);
+            Display.setDisplayMode(displayMode);
+            if(displayMode.isFullscreenCapable()) {
             Display.setFullscreen(true);
+            }
             Display.create();
         } catch (LWJGLException e) {
             LOGGER.error("An exception occurred while creating the display", e);
