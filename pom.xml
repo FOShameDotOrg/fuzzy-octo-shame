@@ -252,10 +252,9 @@
             <configuration>
               <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
               <testSourceDirectory>${project.build.testSourceDirectory}</testSourceDirectory>
-              <!-- dear god, the kludge. http://stackoverflow.com/a/15004792 -->
-              <configLocation>${project.build.resources[0].directory}/checkstyle.xml</configLocation>
+              <configLocation>${checkstyle.configuration.file.location}</configLocation>
               <!-- see http://maven.apache.org/plugins/maven-checkstyle-plugin/examples/suppressions-filter.html -->
-              <suppressionsLocation>${project.build.resources[0].directory}/suppressions.xml</suppressionsLocation>
+              <suppressionsLocation>${checktyle.suppressions.file.location}</suppressionsLocation>
               <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
               <encoding>${project.build.sourceEncoding}</encoding>
               <consoleOutput>true</consoleOutput>
@@ -405,12 +404,12 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>${maven-checkstyle-plugin.version}</version>
         <configuration>
-          <!-- dear god, the kludge. http://stackoverflow.com/a/15004792 -->
-          <configLocation>${project.build.resources[0].directory}/checkstyle.xml</configLocation>
+          <configLocation>${checkstyle.configuration.file.location}</configLocation>
+          <suppressionsFile>${checktyle.suppressions.file.location}</suppressionsFile>
+          <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
           <encoding>${project.build.sourceEncoding}</encoding>
           <consoleOutput>true</consoleOutput>
-          <!-- pc: find out why IntelliJ doesn't like linkXRef element under project/build/plugins/plugin -->
-          <linkXRef>false</linkXRef>
+          <linkXRef>false</linkXRef><!-- pc: find out why IntelliJ doesn't like linkXRef element under project/build/plugins/plugin -->
         </configuration>
         <reportSets>
           <reportSet>
