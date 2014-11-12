@@ -92,11 +92,27 @@
     <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>true</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>
     <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError>true</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError>
     <!-- END: Build specific variables, probably should be associated with profiles. -->
+    <!-- START: miscellaneous -->
+    <main.resources.directory>src/main/resources</main.resources.directory><!-- ${project.build.resources[0].directory} dear god, the kludge. http://stackoverflow.com/a/15004792 -->
+    <checkstyle.configuration.file.name>checkstyle.xml</checkstyle.configuration.file.name>
+    <checkstyle.suppressions.file.name>suppressions.xml</checkstyle.suppressions.file.name>
+    <checkstyle.configuration.file.location>${main.resources.directory}/${checkstyle.configuration.file.name}</checkstyle.configuration.file.location>
+    <checktyle.suppressions.file.location>${main.resources.directory}/${checkstyle.suppressions.file.name}</checktyle.suppressions.file.location>
+    <!-- END: miscellaneous -->
   </properties>
   <!-- END: The Basics -->
 
   <!-- START: Build Settings -->
   <build>
+    <resources>
+      <resource>
+        <directory>${main.resources.directory}</directory>
+        <excludes>
+          <exclude>${checkstyle.configuration.file.name}</exclude>
+          <exclude>${checkstyle.suppressions.file.name}</exclude>
+        </excludes>
+      </resource>
+    </resources>
     <pluginManagement>
       <plugins>
         <plugin>
