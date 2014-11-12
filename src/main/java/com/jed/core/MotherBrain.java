@@ -58,6 +58,11 @@ public final class MotherBrain implements Startable {
     private static final boolean IS_MENU_STATE_SHOWN = false;
 
     /**
+     * Frames per second.
+     */
+    public static final int FPS = 120;
+
+    /**
      * 
      */
     private long lastFrame;
@@ -160,7 +165,7 @@ public final class MotherBrain implements Startable {
 
             Display.update();
 
-            Display.sync(120);
+            Display.sync(FPS);
         }
 
         Display.destroy();
