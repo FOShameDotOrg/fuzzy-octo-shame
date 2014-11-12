@@ -342,7 +342,6 @@
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
         <configuration>
-          <linkXref>true</linkXref>
           <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
           <minimumTokens>100</minimumTokens>
           <targetJdk>${java.version}</targetJdk>
@@ -409,7 +408,6 @@
         <artifactId>maven-pmd-plugin</artifactId>
         <version>${maven-pmd-plugin.version}</version>
         <configuration>
-          <linkXref>true</linkXref>
           <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
           <minimumTokens>100</minimumTokens>
           <targetJdk>${java.version}</targetJdk>
