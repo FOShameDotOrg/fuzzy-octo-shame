@@ -76,7 +76,7 @@
     <maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
     <maven-source-plugin.version>2.4</maven-source-plugin.version>
     <maven-javadoc-plugin.version>2.10.1</maven-javadoc-plugin.version>
-    <maven-nativedependencies-plugin.version>0.0.7</maven-nativedependencies-plugin.version>
+    <nativedependencies-maven-plugin.version>0.1.0-SNAPSHOT</nativedependencies-maven-plugin.version>
     <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
     <versions-maven-plugin.version>2.1</versions-maven-plugin.version>
     <jgitflow-maven-plugin.version>1.0-m4.3</jgitflow-maven-plugin.version>
@@ -177,9 +177,9 @@
           <version>${lifecycle-mapping.version}</version>
         </plugin>
         <plugin>
-          <groupId>com.googlecode.mavennatives</groupId>
-          <artifactId>maven-nativedependencies-plugin</artifactId>
-          <version>${maven-nativedependencies-plugin.version}</version>
+          <groupId>com.colapietro.maven.plugins</groupId>
+          <artifactId>nativedependencies-maven-plugin</artifactId>
+          <version>${nativedependencies-maven-plugin.version}</version>
         </plugin>
         <plugin>
           <groupId>external.atlassian.jgitflow</groupId>
@@ -283,9 +283,9 @@
 
       </plugin>
       <plugin>
-        <!-- see: https://code.google.com/p/mavennatives/ and http://www.lwjgl.org/wiki/index.php?title=LWJGL_use_in_Maven -->
-        <groupId>com.googlecode.mavennatives</groupId>
-        <artifactId>maven-nativedependencies-plugin</artifactId>
+        <!-- see: https://github.com/virtuoushub/mavennatives and https://code.google.com/p/mavennatives/ and http://www.lwjgl.org/wiki/index.php?title=LWJGL_use_in_Maven -->
+        <groupId>com.colapietro.maven.plugins</groupId>
+        <artifactId>nativedependencies-maven-plugin</artifactId>
         <executions>
           <execution>
             <id>unpacknatives</id>
@@ -297,6 +297,9 @@
         <configuration>
           <nativesTargetDir>target/natives</nativesTargetDir>
           <separateDirs>false</separateDirs>
+          <platforms>
+            <platform>osx</platform>
+          </platforms>
         </configuration>
       </plugin>
       <plugin>
