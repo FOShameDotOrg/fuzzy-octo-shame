@@ -280,7 +280,6 @@
             </pluginExecutions>
           </lifecycleMappingMetadata>
         </configuration>
-
       </plugin>
       <plugin>
         <!-- see: https://github.com/virtuoushub/mavennatives and https://code.google.com/p/mavennatives/ and http://www.lwjgl.org/wiki/index.php?title=LWJGL_use_in_Maven -->
@@ -295,8 +294,6 @@
           </execution>
         </executions>
         <configuration>
-          <nativesTargetDir>target/natives</nativesTargetDir>
-          <separateDirs>false</separateDirs>
           <platforms>
             <platform>osx</platform>
           </platforms>
