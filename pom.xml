@@ -293,11 +293,18 @@
             </goals>
           </execution>
         </executions>
+        <!--
         <configuration>
           <platforms>
             <platform>osx</platform>
           </platforms>
         </configuration>
+        <configuration>
+          <platforms>
+            <platform>windows</platform>
+          </platforms>
+        </configuration>
+        -->
       </plugin>
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
