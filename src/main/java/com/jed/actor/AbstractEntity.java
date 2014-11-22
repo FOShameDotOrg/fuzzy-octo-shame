@@ -5,13 +5,14 @@ import com.jed.state.State;
 import com.jed.util.Vector;
 import org.colapietro.lang.LangConstants;
 import org.colapietro.lang.NotImplementedException;
+import org.colapietro.lwjgl.physics.Collidable;
 
 /**
  * 
  * @author jlinde, Peter Colapietro
  *
  */
-public abstract class AbstractEntity implements Displayable, State {
+public abstract class AbstractEntity implements Displayable, State, Collidable {
 
     /**
      * 
@@ -71,34 +72,22 @@ public abstract class AbstractEntity implements Displayable, State {
         throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
     }
 
-    /**
-     *
-     * @param entity to collide down with.
-     */
+    @Override
     public void collideDown(AbstractEntity entity) throws NotImplementedException {
         throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
     }
 
-    /**
-     *
-     * @param entity to collide down with.
-     */
+    @Override
     public void collideUp(AbstractEntity entity) throws NotImplementedException {
         throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
     }
 
-    /**
-     *
-     * @param entity to collide down with.
-     */
+    @Override
     public void collideLeft(AbstractEntity entity) throws NotImplementedException {
         throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
     }
 
-    /**
-     *
-     * @param entity to collide down with.
-     */
+    @Override
     public void collideRight(AbstractEntity entity) throws NotImplementedException {
         throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
     }
