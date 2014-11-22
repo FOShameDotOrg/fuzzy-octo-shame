@@ -1,6 +1,6 @@
-package com.colapietro.number.util;
+package org.colapietro.number.util;
 
-import static com.colapietro.number.util.FloatingPointArithmeticConstants.MACHINE_EPSILON;
+import static org.colapietro.number.util.FloatingPointArithmeticConstants.MACHINE_EPSILON;
 
 /**
  * @author Peter Colapietro

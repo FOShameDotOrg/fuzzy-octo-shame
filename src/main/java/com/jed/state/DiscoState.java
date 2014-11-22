@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
+import com.jed.core.MotherBrainConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.jed.actor.Ball;
 import com.jed.actor.CircleBoundary;
 import com.jed.actor.Entity;
-import com.jed.core.MotherBrain;
 import com.jed.core.QuadTree;
 import com.jed.util.Rectangle;
 import com.jed.util.Vector;
@@ -19,6 +19,8 @@ import com.jed.util.Vector;
 /**
  * 
  * @author jlinde, Peter Colapietro
+ *
+ * TODO Decouple from com.jed.core.MotherBrain / com.jed.core.MotherBrainConstants
  *
  */
 public class DiscoState extends GameState {
@@ -58,8 +60,8 @@ public class DiscoState extends GameState {
 
     @Override
     public void entered() {
-        width = MotherBrain.WIDTH;
-        height = MotherBrain.HEIGHT;
+        width = MotherBrainConstants.WIDTH;
+        height = MotherBrainConstants.HEIGHT;
 
         scene = new Stack<Ball>();
         quadTree = new QuadTree(new Vector(0, 0), 0, new Rectangle(width, height), this);

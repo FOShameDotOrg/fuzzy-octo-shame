@@ -5,7 +5,7 @@
   <!-- START: The Basics -->
   <groupId>com.jed</groupId>
   <artifactId>fuzzy-octo-shame</artifactId>
-  <version>0.1.7-SNAPSHOT</version>
+  <version>0.1.7</version>
   <packaging>jar</packaging>
   <dependencies>
     <dependency>
@@ -235,10 +235,9 @@
             <configuration>
               <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
               <testSourceDirectory>${project.build.testSourceDirectory}</testSourceDirectory>
-              <!-- dear god, the kludge. http://stackoverflow.com/a/15004792 -->
-              <configLocation>${project.build.resources[0].directory}/checkstyle.xml</configLocation>
+              <configLocation>${project.basedir}/checkstyle.xml</configLocation>
               <!-- see http://maven.apache.org/plugins/maven-checkstyle-plugin/examples/suppressions-filter.html -->
-              <suppressionsLocation>${project.build.resources[0].directory}/suppressions.xml</suppressionsLocation>
+              <suppressionsLocation>${project.basedir}/suppressions.xml</suppressionsLocation>
               <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
               <encoding>${project.build.sourceEncoding}</encoding>
               <consoleOutput>true</consoleOutput>
@@ -346,9 +345,9 @@
         </executions>
       </plugin>
       <plugin>
+        <!-- pc: find out why IntelliJ doesn't like linkXRef element under project/build/plugins/plugin -->
         <artifactId>maven-pmd-plugin</artifactId>
         <configuration>
-          <linkXref>true</linkXref>
           <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
           <minimumTokens>100</minimumTokens>
           <targetJdk>${java.version}</targetJdk>
@@ -396,11 +395,10 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>${maven-checkstyle-plugin.version}</version>
         <configuration>
-          <!-- dear god, the kludge. http://stackoverflow.com/a/15004792 -->
-          <configLocation>${project.build.resources[0].directory}/checkstyle.xml</configLocation>
+          <configLocation>${project.basedir}/checkstyle.xml</configLocation>
+          <suppressionsLocation>${project.basedir}/suppressions.xml</suppressionsLocation>
           <encoding>${project.build.sourceEncoding}</encoding>
           <consoleOutput>true</consoleOutput>
-          <!-- pc: find out why IntelliJ doesn't like linkXRef element under project/build/plugins/plugin -->
           <linkXRef>false</linkXRef>
         </configuration>
         <reportSets>
@@ -415,9 +413,7 @@
         <artifactId>maven-pmd-plugin</artifactId>
         <version>${maven-pmd-plugin.version}</version>
         <configuration>
-          <linkXref>true</linkXref>
           <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
-          <minimumTokens>100</minimumTokens>
           <targetJdk>${java.version}</targetJdk>
         </configuration>
       </plugin>
