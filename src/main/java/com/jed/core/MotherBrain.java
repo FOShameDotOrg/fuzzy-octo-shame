@@ -1,7 +1,5 @@
 package com.jed.core;
 
-import static com.jed.core.MotherBrainConstants.*;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
@@ -149,16 +147,16 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
 
     @Override
     public void update() {
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
-        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
         updateFPS();
         stateManager.update();
     }
 
     @Override
     public void render() {
-        stateManager.draw();
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
+        stateManager.render();
         Display.update();
         Display.sync(MotherBrainConstants.DISPLAY_FPS);
     }
