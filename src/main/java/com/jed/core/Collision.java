@@ -1,8 +1,8 @@
 package com.jed.core;
 
+import com.jed.actor.AbstractEntity;
 import org.colapietro.number.util.Doubles;
 import com.jed.actor.Boundary;
-import com.jed.actor.Entity;
 import com.jed.state.MapTile;
 import com.jed.util.Vector;
 
@@ -41,7 +41,7 @@ public class Collision implements Comparable<Collision> {
     /**
      * 
      */
-    public Entity a, b;
+    public AbstractEntity a, b;
     
     /**
      * 
@@ -63,7 +63,7 @@ public class Collision implements Comparable<Collision> {
      * @param a entity a.
      * @param b entity b.
      */
-    public Collision(Entity a, Entity b) {
+    public Collision(AbstractEntity a, AbstractEntity b) {
         this.a = a;
         this.b = b;
     }

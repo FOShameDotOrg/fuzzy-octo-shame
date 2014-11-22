@@ -3,9 +3,9 @@ package com.jed.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jed.actor.AbstractEntity;
 import org.lwjgl.opengl.GL11;
 
-import com.jed.actor.Entity;
 import com.jed.util.Rectangle;
 import com.jed.util.Vector;
 
@@ -34,7 +34,7 @@ public class QuadTree implements Displayable {
     /**
      * 
      */
-    private List<Entity> objects;
+    private List<AbstractEntity> objects;
     
     /**
      * 
@@ -66,7 +66,7 @@ public class QuadTree implements Displayable {
     public QuadTree(Vector position, int level, Rectangle rectangle, Displayable parent) {
         this.position = position;
         this.level = level;
-        this.objects = new ArrayList<Entity>();
+        this.objects = new ArrayList<AbstractEntity>();
         this.rectangle = rectangle;
         this.nodes = new QuadTree[4];
         this.parent = parent;
@@ -90,7 +90,7 @@ public class QuadTree implements Displayable {
      * @param returnObjects list of entities
      * @param o other entity
      */
-    public void retrieve(List<Entity> returnObjects, Entity o) {
+    public void retrieve(List<AbstractEntity> returnObjects, AbstractEntity o) {
         int index = getIndex(o);
         if (index != -1) {
             if (nodes[0] != null) {
@@ -106,8 +106,8 @@ public class QuadTree implements Displayable {
      * 
      * @return ret
      */
-    public List<Entity> getObjects() {
-        List<Entity> ret = new ArrayList<Entity>();
+    public List<AbstractEntity> getObjects() {
+        List<AbstractEntity> ret = new ArrayList<AbstractEntity>();
         ret.addAll(objects);
         if (nodes[0] != null) {
             ret.addAll(nodes[0].getObjects());
@@ -123,7 +123,7 @@ public class QuadTree implements Displayable {
      * @param o other entity
      * @return index in quad tree, range is 0-3 inclusive.
      */
-    private int getIndex(Entity o) {
+    private int getIndex(AbstractEntity o) {
         int verticalMidpoint = (int) (position.x + (rectangle.getWidth() / 2));
         int horizontalMidpoint = (int) (position.y + (rectangle.getHeight() / 2));
 
@@ -172,7 +172,7 @@ public class QuadTree implements Displayable {
      * 
      * @param o other entity to insert
      */
-    public void insert(Entity o) {
+    public void insert(AbstractEntity o) {
         if (nodes[0] != null) {
             int index = getIndex(o);
 

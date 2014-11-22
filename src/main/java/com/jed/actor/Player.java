@@ -17,7 +17,7 @@ import com.jed.util.Vector;
  * @author jlinde, Peter Colapietro
  *
  */
-public class Player extends Entity implements StateManager {
+public class Player extends AbstractEntity implements StateManager {
 
     /**
      * 
@@ -227,7 +227,7 @@ public class Player extends Entity implements StateManager {
     //TODO: Name this something else or refactor... indicates player has just landed on a tile
     //and to stop "Falling" (changes animation)
     @Override
-    public void collideDown(Entity sEntity) {
+    public void collideDown(AbstractEntity sEntity) {
         collideDown = true;
 
         if (currentState.falling) {

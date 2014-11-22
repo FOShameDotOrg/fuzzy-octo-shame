@@ -11,7 +11,7 @@ import org.colapietro.lang.NotImplementedException;
  * @author jlinde, Peter Colapietro
  *
  */
-public abstract class Entity implements Displayable, State {
+public abstract class AbstractEntity implements Displayable, State {
 
     /**
      * 
@@ -39,7 +39,7 @@ public abstract class Entity implements Displayable, State {
      * @param movement movement vector.
      * @param bounds entitiy's bounds.
      */
-    public Entity(Vector position, Vector movement, Boundary bounds) {
+    public AbstractEntity(Vector position, Vector movement, Boundary bounds) {
         this.position = position;
         this.bounds = bounds;
         bounds.owner = this;
@@ -75,7 +75,7 @@ public abstract class Entity implements Displayable, State {
      *
      * @param entity to collide down with.
      */
-    public void collideDown(Entity entity) throws NotImplementedException {
+    public void collideDown(AbstractEntity entity) throws NotImplementedException {
         throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
     }
 
@@ -83,7 +83,7 @@ public abstract class Entity implements Displayable, State {
      *
      * @param entity to collide down with.
      */
-    public void collideUp(Entity entity) throws NotImplementedException {
+    public void collideUp(AbstractEntity entity) throws NotImplementedException {
         throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
     }
 
@@ -91,7 +91,7 @@ public abstract class Entity implements Displayable, State {
      *
      * @param entity to collide down with.
      */
-    public void collideLeft(Entity entity) throws NotImplementedException {
+    public void collideLeft(AbstractEntity entity) throws NotImplementedException {
         throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
     }
 
@@ -99,7 +99,7 @@ public abstract class Entity implements Displayable, State {
      *
      * @param entity to collide down with.
      */
-    public void collideRight(Entity entity) throws NotImplementedException {
+    public void collideRight(AbstractEntity entity) throws NotImplementedException {
         throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
     }
     

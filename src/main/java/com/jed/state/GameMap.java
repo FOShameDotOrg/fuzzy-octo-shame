@@ -6,12 +6,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
+import com.jed.actor.AbstractEntity;
 import com.jed.core.MotherBrainConstants;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
-import com.jed.actor.Entity;
 import com.jed.actor.Player;
 import com.jed.core.Collision;
 import com.jed.core.QuadTree;
@@ -68,7 +68,7 @@ public class GameMap implements State {
     /**
      * 
      */
-    private Stack<Entity> scene;
+    private Stack<AbstractEntity> scene;
 
     /**
      * 
@@ -85,7 +85,7 @@ public class GameMap implements State {
         texture = Util.loadTexture(tileSetPath);
 
         //TODO: initialize scene Stack by some data contained in the map i.e. start position or something like that...
-        scene = new Stack<Entity>();
+        scene = new Stack<AbstractEntity>();
         player = new Player(new Vector(50, 200), 256, 256, this);
         scene.push(player);
 
@@ -117,20 +117,18 @@ public class GameMap implements State {
 
     @Override
     public void update() {
-
-        //TODO: Temporary
         for (MapTile each : tiles) {
             each.colliding = false;
             each.evaluating = false;
         }
 
-        for (Entity each : scene) {
+        for (AbstractEntity each : scene) {
             quadTree.insert(each);
         }
 
         detectCollisions();
 
-        for (Entity each : scene) {
+        for (AbstractEntity each : scene) {
             each.update();
         }
 
@@ -184,8 +182,8 @@ public class GameMap implements State {
     private void detectCollisions() {
 
         for (int i = 0; i < scene.size(); i++) {
-            List<Entity> returnObjects = new ArrayList<Entity>();
-            Entity entity = scene.get(i);
+            List<AbstractEntity> returnObjects = new ArrayList<AbstractEntity>();
+            AbstractEntity entity = scene.get(i);
 
             quadTree.retrieve(returnObjects, entity);
 
@@ -193,7 +191,7 @@ public class GameMap implements State {
 
             for (int j = 0; j < returnObjects.size(); j++) {
                 if (!returnObjects.get(j).equals(scene.get(i))) {
-                    Entity sEntity = returnObjects.get(j);
+                    AbstractEntity sEntity = returnObjects.get(j);
 
                     Collision collision = new Collision(entity, sEntity);
 
@@ -231,7 +229,7 @@ public class GameMap implements State {
         quadTree.clear();
         drawMap();
         quadTree.render();
-        for (Entity each : scene) {
+        for (AbstractEntity each : scene) {
             each.render();
         }
     }

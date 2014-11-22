@@ -7,7 +7,7 @@ import com.jed.util.Vector;
  * @author jlinde, Peter Colapietro
  *
  */
-public abstract class PhysicsEntity extends Entity {
+public abstract class PhysicsEntity extends AbstractEntity {
 
     /**
      * 

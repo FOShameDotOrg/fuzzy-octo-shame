@@ -13,7 +13,7 @@ public abstract class Boundary implements Displayable {
     /**
      * 
      */
-    public Entity owner;
+    public AbstractEntity owner;
     
     /**
      * 

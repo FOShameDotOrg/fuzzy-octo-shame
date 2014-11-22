@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
+import com.jed.actor.AbstractEntity;
 import com.jed.core.MotherBrainConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.jed.actor.Ball;
 import com.jed.actor.CircleBoundary;
-import com.jed.actor.Entity;
 import com.jed.core.QuadTree;
 import com.jed.util.Rectangle;
 import com.jed.util.Vector;
@@ -153,7 +153,7 @@ public class DiscoState extends GameState {
     @Override
     public void update() {
         quadTree.clear();
-        for (Entity each : scene) {
+        for (AbstractEntity each : scene) {
             quadTree.insert(each);
         }
 
@@ -163,7 +163,7 @@ public class DiscoState extends GameState {
     @Override
     public void render() {
         quadTree.render();
-        for (Entity each : scene) {
+        for (AbstractEntity each : scene) {
             each.render();
         }
     }
@@ -174,7 +174,7 @@ public class DiscoState extends GameState {
     private void handleCollisions() {
         boolean collide = false;
         for (int i = 0; i < scene.size(); i++) {
-            List<Entity> returnObjects = new ArrayList<Entity>();
+            List<AbstractEntity> returnObjects = new ArrayList<AbstractEntity>();
 
             quadTree.retrieve(returnObjects, scene.get(i));
 

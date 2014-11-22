@@ -1,9 +1,9 @@
 package com.jed.state;
 
+import com.jed.actor.AbstractEntity;
 import org.lwjgl.opengl.GL11;
 
 import com.jed.actor.Boundary;
-import com.jed.actor.Entity;
 import com.jed.util.Vector;
 
 /**
@@ -11,7 +11,7 @@ import com.jed.util.Vector;
  * @author jlinde, Peter Colapietro
  *
  */
-public class MapTile extends Entity {
+public class MapTile extends AbstractEntity {
 
     /**
      * 
