@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.jed.actor.AbstractEntity;
 import com.jed.core.MotherBrainConstants;
@@ -30,9 +31,24 @@ import com.jed.util.Vector;
 public class GameMap extends AbstractDisplayableState {
 
     /**
-     * 
+     *
      */
-    public int width, height, tileWidth, tileHeight;
+    private int width;
+
+    /**
+     *
+     */
+    private int height;
+
+    /**
+     *
+     */
+    private int tileWidth;
+
+    /**
+     *
+     */
+    private int tileHeight;
 
     /**
      * 
@@ -43,12 +59,12 @@ public class GameMap extends AbstractDisplayableState {
      * 
      */
     //TODO: this should be set when the map loads...
-    public Vector position = new Vector(0, 0);
+    private Vector position = new Vector(0, 0);
 
     /**
      * 
      */
-    public MapTile[] tiles;
+    private List<MapTile> tiles;
 
     /**
      * 
@@ -73,7 +89,7 @@ public class GameMap extends AbstractDisplayableState {
     /**
      * 
      */
-    public float gravity = 0.21875f;
+    private float gravity = 0.21875f;
 
     @Override
     public void entered() {
@@ -108,21 +124,10 @@ public class GameMap extends AbstractDisplayableState {
 
     @Override
     public void update() {
-        for (MapTile each : tiles) {
-            each.setColliding(false);
-            each.setEvaluating(false);
-        }
-
-        for (AbstractEntity each : scene) {
-            quadTree.insert(each);
-        }
-
+        tiles.forEach(each -> { each.setColliding(false); each.setEvaluating(false); });
+        scene.forEach(quadTree::insert);
         detectCollisions();
-
-        for (AbstractEntity each : scene) {
-            each.update();
-        }
-
+        scene.forEach(AbstractEntity::update);
         scrollMap();
     }
 
@@ -171,20 +176,19 @@ public class GameMap extends AbstractDisplayableState {
      * 
      */
     private void detectCollisions() {
-
+        final List<AbstractEntity> returnObjects = new ArrayList<>(scene.size());
+        final List<Collision> collisions = new CopyOnWriteArrayList<>();
         for (int i = 0; i < scene.size(); i++) {
-            List<AbstractEntity> returnObjects = new ArrayList<AbstractEntity>();
-            AbstractEntity entity = scene.get(i);
+            final AbstractEntity entity = scene.get(i);
 
             quadTree.retrieve(returnObjects, entity);
 
-            List<Collision> collisions = new ArrayList<Collision>();
 
             for (int j = 0; j < returnObjects.size(); j++) {
                 if (!returnObjects.get(j).equals(scene.get(i))) {
-                    AbstractEntity sEntity = returnObjects.get(j);
+                    final AbstractEntity sEntity = returnObjects.get(j);
 
-                    Collision collision = new Collision(entity, sEntity);
+                    final Collision collision = new Collision(entity, sEntity);
 
                     //Detect all collisions that might occur this frame
                     if (collision.detectCollision()) {
@@ -197,14 +201,13 @@ public class GameMap extends AbstractDisplayableState {
             //    OVERLAPS
             //    SWEPT Y
             //    SWEPT X
+            final Iterator<Collision> it = collisions.iterator();
             while (collisions.size() > 0) {
                 Collections.sort(collisions);
                 collisions.get(0).resolveCollision();
                 collisions.remove(0);
-
-                Iterator<Collision> it = collisions.iterator();
                 while (it.hasNext()) {
-                    Collision each = it.next();
+                    final Collision each = it.next();
                     if (!each.detectCollision()) {
                         collisions.remove(each);
                     }
@@ -245,11 +248,13 @@ public class GameMap extends AbstractDisplayableState {
         final int columns = (MotherBrainConstants.WIDTH / tileWidth + (pixelOffsetX == 0 ? 0 : 1));
         final int nextRow = width - columns;
 
+        MapTile mapTile = null;
         for (int rowIndex = 0; rowIndex < rows; rowIndex++) {
             for (int columnIndex = 0; columnIndex < columns; columnIndex++) {
-                if (tiles[tileIndex].getTileId() != 0) {
-                    tiles[tileIndex].render();
-                    quadTree.insert(tiles[tileIndex]);
+                mapTile = tiles.get(tileIndex);
+                if (mapTile.getTileId() != 0) {
+                    mapTile.render();
+                    quadTree.insert(mapTile);
                 }
                 tileIndex++;
             }
@@ -273,5 +278,53 @@ public class GameMap extends AbstractDisplayableState {
      */
     public void setTileSetPath(String tileSetPath) {
         this.tileSetPath = tileSetPath;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public float getGravity() {
+        return gravity;
+    }
+
+    public int getTileWidth() {
+        return tileWidth;
+    }
+
+    public void setTileWidth(int tileWidth) {
+        this.tileWidth = tileWidth;
+    }
+
+    public int getTileHeight() {
+        return tileHeight;
+    }
+
+    public void setTileHeight(int tileHeight) {
+        this.tileHeight = tileHeight;
+    }
+
+    public void setGravity(Float gravity) {
+        this.gravity = gravity;
+    }
+
+    public void setTiles(final List<MapTile> tiles) {
+        this.tiles = tiles;
+    }
+
+    public List<MapTile> getTiles() {
+        return tiles;
     }
 }

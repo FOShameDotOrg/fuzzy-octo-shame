@@ -7,7 +7,6 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
-import com.jed.util.MapLoader;
 import com.jed.util.Util;
 import com.jed.util.Vector;
 import org.slf4j.Logger;
@@ -87,7 +86,7 @@ public class Player extends AbstractEntity implements StateManager {
      * 
      */
     //TODO: Friction should come from the individual map tiles or from the tileset
-    private float friction = .046875f;
+    private static final float FRICTION = .046875f;
     
     /**
      * 
@@ -162,7 +161,7 @@ public class Player extends AbstractEntity implements StateManager {
         if (Keyboard.getEventKey() == Keyboard.KEY_SPACE && Keyboard.getEventKeyState()) {
             boolean isJumpCountLessThanTwo = jumpCount < 2;
             int heightOffsetWithYPostion = Math.round(position.y) + height; //TODO Test me.
-            if (isJumpCountLessThanTwo || heightOffsetWithYPostion == map.height * map.tileHeight) {
+            if (isJumpCountLessThanTwo || heightOffsetWithYPostion == map.getHeight() * map.getTileHeight()) {
                 movement.y = -8;
                 jumpCount++;
                 changeState(jumpingState);
@@ -191,7 +190,7 @@ public class Player extends AbstractEntity implements StateManager {
                 xDir = PLAYER_LEFT;
             }
         } else if (movement.x != 0) {
-            movement.x = movement.x - Math.min(Math.abs(movement.x), friction) * Math.signum(movement.x);
+            movement.x = movement.x - Math.min(Math.abs(movement.x), FRICTION) * Math.signum(movement.x);
         }
 
         if (!Keyboard.isKeyDown(Keyboard.KEY_SPACE) && !currentState.falling) {
@@ -209,7 +208,7 @@ public class Player extends AbstractEntity implements StateManager {
         collideDown = false;
 
         if (currentState.falling) {
-            movement.y += map.gravity;
+            movement.y += map.getGravity();
         }
 
         position.x = this.position.x + movement.x;

@@ -15,6 +15,7 @@ import com.jed.state.GameMap;
 import com.jed.state.MapTile;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 /**
  * 
@@ -51,15 +52,15 @@ public class MapLoader {
         }
 
         final Element docElement = doc.getDocumentElement();
-        map.width = Integer.parseInt(docElement.getAttribute("width"));
-        map.height = Integer.parseInt(docElement.getAttribute("height"));
+        map.setWidth(Integer.parseInt(docElement.getAttribute("width")));
+        map.setHeight(Integer.parseInt(docElement.getAttribute("height")));
 
         int tileImageWidth = 0;
         int tileImageHeight = 0;
-        map.tileHeight = Integer.parseInt(docElement.getAttribute("tileheight"));
-        map.tileWidth = Integer.parseInt(docElement.getAttribute("tilewidth"));
+        map.setTileHeight(Integer.parseInt(docElement.getAttribute("tileheight")));
+        map.setTileWidth(Integer.parseInt(docElement.getAttribute("tilewidth")));
 
-        map.tiles = new MapTile[map.width * map.height];
+        map.setTiles(new ArrayList<>());//FIXME
 
         //Load Map properties
         final NodeList mapNodes = docElement.getChildNodes();
@@ -79,7 +80,7 @@ public class MapLoader {
                         if (nameNodeTextContent != null && nameNodeTextContent.equals("gravity")) {
                             Node valueNode = eachPropertyNode.getAttributes().getNamedItem("value");
                             if (valueNode != null && valueNode.getTextContent() != null) {
-                                map.gravity = Float.valueOf(valueNode.getTextContent());
+                                map.setGravity(Float.valueOf(valueNode.getTextContent()));
                             }
                         }
                     }
@@ -116,12 +117,12 @@ public class MapLoader {
         final int textureWidth = Util.getClosestPowerOfTwo(tileImageWidth);
         final int textureHeight = Util.getClosestPowerOfTwo(tileImageHeight);
         //TODO START pc 2014-10-31 test me
-        final float textureWidthOverMapTileWidth = (float) textureWidth / map.tileWidth;
+        final float textureWidthOverMapTileWidth = (float) textureWidth / map.getTileWidth();
         final float glWidth = 1 / textureWidthOverMapTileWidth;
-        final float textureHeightOverMapTileHeight = (float) textureHeight / map.tileHeight;
+        final float textureHeightOverMapTileHeight = (float) textureHeight / map.getTileHeight();
         final float glHeight = 1 / textureHeightOverMapTileHeight;
         //TODO END pc 2014-10-31 test me
-        final int tilesAcross = tileImageWidth / map.tileWidth;
+        final int tilesAcross = tileImageWidth / map.getTileWidth();
 
         for (int i = 0; i < dataNodes.getLength(); i++) {
             Node eachDataNode = dataNodes.item(i);
@@ -140,24 +141,24 @@ public class MapLoader {
                         float glX = glWidth * tileColumn;
                         float glY = glHeight * tileRow;
 
-                        map.tiles[tileCount++] = new MapTile(
-                                new Vector(columnIndex * map.tileHeight, rowIndex * map.tileWidth),
+                        map.getTiles().add(new MapTile(
+                                new Vector(columnIndex * map.getTileHeight(), rowIndex * map.getTileWidth()),
 
                                 new PolygonBoundary(
                                         new Vector(0, 0),
                                         new Vector[]{
                                                 new Vector(0, 0),
-                                                new Vector(map.tileWidth, 0),
-                                                new Vector(map.tileWidth, map.tileHeight),
-                                                new Vector(0, map.tileHeight)
+                                                new Vector(map.getTileWidth(), 0),
+                                                new Vector(map.getTileWidth(), map.getTileHeight()),
+                                                new Vector(0, map.getTileHeight())
                                         })
                                 ,
                                 glX, glY, glWidth, glHeight,
                                 tileId,
                                 map
-                        );
+                        ));
 
-                        if (columnIndex == map.width - 1) {
+                        if (columnIndex == map.getWidth() - 1) {
                             columnIndex = 0;
                             rowIndex++;
                         } else {
