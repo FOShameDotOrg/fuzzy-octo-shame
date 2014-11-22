@@ -1,5 +1,7 @@
 package com.jed.core;
 
+import static com.jed.core.MotherBrainConstants.*;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
@@ -15,7 +17,6 @@ import com.jed.state.DiscoState;
 import com.jed.state.GameStateManager;
 import com.jed.state.MenuState;
 import com.jed.state.PlayState;
-import com.jed.util.Vector;
 
 /**
  * @author jlinde, Peter Colapietro
@@ -25,37 +26,7 @@ public final class MotherBrain implements Startable {
     /**
      * 
      */
-    private static final Vector MENU_STATE_COORDS = new Vector(20,20);
-
-    /**
-     * 
-     */
-    private static final String DA_STRING = "Hello there!";
-
-    /**
-     * 
-     */
-    private static final int NUMBER_OF_DISCO_STATES = 0;
-
-    /**
-     * 
-     */
     private static final Logger LOGGER = LoggerFactory.getLogger(MotherBrain.class);
-
-    /**
-     * 
-     */
-    public static final int WIDTH = 1024;
-    
-    /**
-     * 
-     */
-    public static final int HEIGHT = 768;
-
-    /**
-     * 
-     */
-    private static final boolean IS_MENU_STATE_SHOWN = false;
 
     /**
      * 
@@ -108,7 +79,7 @@ public final class MotherBrain implements Startable {
     private void pushMenuStateToStateManager() {
         final MenuState one = new MenuState(stateManager);
         one.setDaString(DA_STRING);
-        one.setCoords(MENU_STATE_COORDS);
+        one.setCoords(MENU_STATE_COORDINATES);
         stateManager.push(one);
     }
 
