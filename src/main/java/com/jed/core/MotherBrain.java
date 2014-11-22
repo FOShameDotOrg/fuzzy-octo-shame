@@ -5,6 +5,7 @@ import static com.jed.core.MotherBrainConstants.*;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
+import org.colapietro.lwjgl.AbstractLwjglGameLoopable;
 import org.colapietro.lwjgl.LwjglGameLoopable;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
@@ -22,7 +23,7 @@ import com.jed.state.PlayState;
 /**
  * @author jlinde, Peter Colapietro
  */
-public final class MotherBrain implements Startable, LwjglGameLoopable {
+public final class MotherBrain extends AbstractLwjglGameLoopable implements Startable {
 
     /**
      * 
