@@ -3,6 +3,8 @@ package com.jed.actor;
 import com.jed.core.Displayable;
 import com.jed.state.State;
 import com.jed.util.Vector;
+import org.colapietro.lang.LangConstants;
+import org.colapietro.lang.NotImplementedException;
 
 /**
  * 
@@ -32,35 +34,7 @@ public abstract class Entity implements Displayable, State {
     public float acceleration = 0;
 
     /**
-     * 
-     * @param entity to collide down with.
-     */
-    public void collideDown(Entity entity) {
-    }
-
-    /**
-     * 
-     * @param entity to collide down with.
-     */
-    public void collideUp(Entity entity) {
-    }
-
-    /**
-     * 
-     * @param entity to collide down with.
-     */
-    public void collideLeft(Entity entity) {
-    }
-
-    /**
-     * 
-     * @param entity to collide down with.
-     */
-    public void collideRight(Entity entity) {
-    }
-
-    /**
-     * 
+     *
      * @param position position vector.
      * @param movement movement vector.
      * @param bounds entitiy's bounds.
@@ -73,23 +47,60 @@ public abstract class Entity implements Displayable, State {
     }
 
     @Override
-    public void drawChildVertex2f(float x, float y) {
+    public void drawChildVertex2f(float x, float y) throws NotImplementedException {
+        throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
     }
 
     @Override
-    public void entered() {
+    public void entered() throws NotImplementedException {
+        throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
     }
 
     @Override
-    public void leaving() {
+    public void leaving() throws NotImplementedException {
+        throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
     }
 
     @Override
-    public void update() {
+    public void update() throws NotImplementedException {
+        throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
     }
 
     @Override
-    public void render() {
+    public void render() throws NotImplementedException {
+        throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
+    }
+
+    /**
+     *
+     * @param entity to collide down with.
+     */
+    public void collideDown(Entity entity) throws NotImplementedException {
+        throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
+    }
+
+    /**
+     *
+     * @param entity to collide down with.
+     */
+    public void collideUp(Entity entity) throws NotImplementedException {
+        throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
+    }
+
+    /**
+     *
+     * @param entity to collide down with.
+     */
+    public void collideLeft(Entity entity) throws NotImplementedException {
+        throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
+    }
+
+    /**
+     *
+     * @param entity to collide down with.
+     */
+    public void collideRight(Entity entity) throws NotImplementedException {
+        throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
     }
     
     //TODO Implement Equals/hashCode
