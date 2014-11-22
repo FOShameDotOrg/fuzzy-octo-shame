@@ -3,4 +3,4 @@
  * package-info.java stub Created by Peter Colapietro on 10/31/14.
  *
  */
-package com.colapietro.number.util;
+package org.colapietro.number.util;
