@@ -6,7 +6,6 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import org.colapietro.lwjgl.AbstractLwjglGameLoopable;
-import org.colapietro.lwjgl.LwjglGameLoopable;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
@@ -33,8 +32,7 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
     /**
      * 
      */
-    private long lastFrame;
-    
+
     /**
      * 
      */
@@ -52,7 +50,6 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
 
     /**
      * @param args Command-line arguments
-     * @see <a href="http://projects.lidalia.org.uk/sysout-over-slf4j/quickstart.html">System Out and Err redirected to SLF4J</a>
      */
     public static void main(String[] args) {
         final Injector injector = Guice.createInjector(new MotherBrainModule());
@@ -65,6 +62,47 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
      */
     @Override
     public void initialize() {
+        initializeDisplay();
+        initializeOpenGl();
+        initializeStateManager();
+        initializeFrames();
+    }
+
+    /**
+     *
+     */
+    private void initializeStateManager() {
+        stateManager = new GameStateManager();
+        pushDiscoStatesToStateManager(MotherBrainConstants.NUMBER_OF_DISCO_STATES);
+        stateManager.push(new PlayState(stateManager));
+        if (MotherBrainConstants.IS_MENU_STATE_SHOWN) {
+            pushMenuStateToStateManager();
+        }
+    }
+
+    /**
+     *
+     */
+    private void initializeFrames() {
+        lastFPS = getTime();
+    }
+
+    /**
+     *
+     */
+    private void initializeOpenGl() {
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glMatrixMode(GL11.GL_PROJECTION);
+        GL11.glLoadIdentity();
+        GL11.glOrtho(0, MotherBrainConstants.WIDTH, MotherBrainConstants.HEIGHT, 0, -1, 1);
+        GL11.glMatrixMode(GL11.GL_MODELVIEW);
+    }
+
+    /**
+     *
+     */
+    private void initializeDisplay() {
         try {
             Display.setDisplayMode(new DisplayMode(MotherBrainConstants.WIDTH, MotherBrainConstants.HEIGHT));
             Display.setFullscreen(MotherBrainConstants.IS_DISPLAY_FULLSCREEN);
@@ -73,24 +111,6 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
             LOGGER.error("An exception occurred while creating the display", e);
             System.exit(1);
         }
-
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-
-        GL11.glMatrixMode(GL11.GL_PROJECTION);
-        GL11.glLoadIdentity();
-        GL11.glOrtho(0, MotherBrainConstants.WIDTH, MotherBrainConstants.HEIGHT, 0, -1, 1);
-        GL11.glMatrixMode(GL11.GL_MODELVIEW);
-
-        stateManager = new GameStateManager();
-        pushDiscoStatesToStateManager(MotherBrainConstants.NUMBER_OF_DISCO_STATES);
-        stateManager.push(new PlayState(stateManager));
-        if (MotherBrainConstants.IS_MENU_STATE_SHOWN) {
-            pushMenuStateToStateManager();
-        }
-        
-        getDelta();
-        lastFPS = getTime();
     }
 
     /**
@@ -145,17 +165,6 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
 
     /**
      * 
-     * @return delta
-     */
-    private int getDelta() {
-        long time = getTime();
-        int delta = (int) (time - lastFrame);
-        lastFrame = time;
-        return delta;
-    }
-
-    /**
-     * 
      * @return time
      */
     private long getTime() {
@@ -171,7 +180,6 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
             fps = 0;
             lastFPS += MotherBrainConstants.HI_RESOLUTION_TIMER_TICKS_SCALAR;
         }
-
         fps++;
     }
 
