@@ -12,7 +12,7 @@ public class GameStateManager {
     /**
      * 
      */
-    Stack<GameState> states = new GameStateStack<GameState>();
+    Stack<GameState> states = new GameStateStack();
 
     /**
      * 
@@ -71,7 +71,7 @@ public class GameStateManager {
      * @author jlinde, Peter Colapietro
      *
      */
-    private class GameStateStack<E> extends Stack<E> {
+    private final class GameStateStack extends Stack<GameState> {
 
         /**
          * 
@@ -79,16 +79,16 @@ public class GameStateManager {
         private static final long serialVersionUID = 1L;
 
         @Override
-        public E push(E o) {
+        public GameState push(GameState o) {
             super.push(o);
-            ((GameState) o).entered();
+            o.entered();
             return o;
         }
 
         @Override
-        public synchronized E pop() {
-            E o = super.pop();
-            ((GameState) o).leaving();
+        public synchronized GameState pop() {
+            GameState o = super.pop();
+            o.leaving();
             return o;
         }
 
