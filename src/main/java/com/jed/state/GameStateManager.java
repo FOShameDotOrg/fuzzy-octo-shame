@@ -12,7 +12,7 @@ public class GameStateManager {
     /**
      * 
      */
-    Stack<GameState> states = new GameStateStack();
+    private final Stack<GameState> states = new GameStateStack();
 
     /**
      * 
