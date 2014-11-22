@@ -12,11 +12,6 @@ import com.jed.util.MapLoader;
 public class PlayState extends GameState implements StateManager {
 
     /**
-     * FIXME Make relative to classpath.
-     */
-    public static final String LEVEL_ONE_PATH = MapLoader.RESOURCES_DIRECTORY + "POC_MAP.tmx";
-
-    /**
      * 
      */
     private GameMap currentMap;
@@ -46,7 +41,7 @@ public class PlayState extends GameState implements StateManager {
 
     @Override
     public void entered() {
-        currentMap = MapLoader.loadMap(LEVEL_ONE_PATH);
+        currentMap = MapLoader.loadMap();
         changeState(currentMap);
     }
 

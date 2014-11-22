@@ -14,6 +14,8 @@ import com.jed.actor.PolygonBoundary;
 import com.jed.state.GameMap;
 import com.jed.state.MapTile;
 
+import java.io.InputStream;
+
 /**
  * 
  * @author jlinde, Peter Colapietro
@@ -27,30 +29,28 @@ public class MapLoader {
     private static final Logger LOGGER = LoggerFactory.getLogger(MapLoader.class);
 
     /**
-     * TODO refactor location of constant in Java source code.
+     *
      */
-    public static final String RESOURCES_DIRECTORY = "src/main/resources/";
+    private static final String LEVEL_ONE_PATH = "/POC_MAP.tmx";
 
     /**
      * 
-     * @param path path to game map file
-     * @return gameMap
+\     * @return gameMap
      */
-    public static GameMap loadMap(String path) {
-        GameMap map = new GameMap();
+    public static GameMap loadMap() {
+        final GameMap map = new GameMap();
 
         Document doc = null;
-
-        try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            doc = dBuilder.parse(path);
+        try (final InputStream resourceAsStream = MapLoader.class.getResourceAsStream(LEVEL_ONE_PATH)) {
+            final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            doc = dBuilder.parse(resourceAsStream);
         } catch (Exception e) {
-            LOGGER.error("Failed to load map file: " + path, e);
+            LOGGER.error("{}", e);
             System.exit(1);
         }
 
-        Element docElement = doc.getDocumentElement();
+        final Element docElement = doc.getDocumentElement();
         map.width = Integer.parseInt(docElement.getAttribute("width"));
         map.height = Integer.parseInt(docElement.getAttribute("height"));
 
@@ -62,7 +62,7 @@ public class MapLoader {
         map.tiles = new MapTile[map.width * map.height];
 
         //Load Map properties
-        NodeList mapNodes = docElement.getChildNodes();
+        final NodeList mapNodes = docElement.getChildNodes();
         String nameNodeTextContent = null;//TODO once loop is refactored get rid of nameNodeTextContent
         //FIXME this loop needs refactoring.
         for (int i = 0; i < mapNodes.getLength(); i++) {
@@ -91,13 +91,13 @@ public class MapLoader {
         //TODO: Must ultimately be updated to handle multiple layers and tilesets...
 
         //Get the tileset file location
-        NodeList imageNodes = docElement.getElementsByTagName("image");
+        final NodeList imageNodes = docElement.getElementsByTagName("image");
         for (int i = 0; i < imageNodes.getLength(); i++) {
             Node eachImageNode = imageNodes.item(i);
             if (eachImageNode.getNodeType() == Node.ELEMENT_NODE) {
                 //TODO Make asset location relative
                 map.setTileSetPath(
-                        RESOURCES_DIRECTORY + eachImageNode.getAttributes()
+                        eachImageNode.getAttributes()
                                 .getNamedItem("source").getTextContent());
 
                 tileImageWidth =
@@ -111,17 +111,17 @@ public class MapLoader {
 
 
         //Get the tile layout data
-        NodeList dataNodes = docElement.getElementsByTagName("data");
+        final NodeList dataNodes = docElement.getElementsByTagName("data");
         int rowIndex = 0, columnIndex = 0, tileCount = 0;
-        int textureWidth = Util.getClosestPowerOfTwo(tileImageWidth);
-        int textureHeight = Util.getClosestPowerOfTwo(tileImageHeight);
+        final int textureWidth = Util.getClosestPowerOfTwo(tileImageWidth);
+        final int textureHeight = Util.getClosestPowerOfTwo(tileImageHeight);
         //TODO START pc 2014-10-31 test me
-        float textureWidthOverMapTileWidth = (float) textureWidth / map.tileWidth;
-        float glWidth = 1 / textureWidthOverMapTileWidth;
-        float textureHeightOverMapTileHeight = (float) textureHeight / map.tileHeight;
-        float glHeight = 1 / textureHeightOverMapTileHeight;
+        final float textureWidthOverMapTileWidth = (float) textureWidth / map.tileWidth;
+        final float glWidth = 1 / textureWidthOverMapTileWidth;
+        final float textureHeightOverMapTileHeight = (float) textureHeight / map.tileHeight;
+        final float glHeight = 1 / textureHeightOverMapTileHeight;
         //TODO END pc 2014-10-31 test me
-        int tilesAcross = tileImageWidth / map.tileWidth;
+        final int tilesAcross = tileImageWidth / map.tileWidth;
 
         for (int i = 0; i < dataNodes.getLength(); i++) {
             Node eachDataNode = dataNodes.item(i);

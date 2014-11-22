@@ -31,10 +31,9 @@ public class Player extends AbstractEntity implements StateManager {
     public int xDir;
 
     /**
-     * 
+     * TODO Refactor location of constant variable
      */
-    //Texture(s)
-    private final String TEXTURE_PATH = MapLoader.RESOURCES_DIRECTORY + "MEGA_MAN_SH.png";
+    private static final String TEXTURE_PATH = "MEGA_MAN_SH.png";
     
     /**
      * 
