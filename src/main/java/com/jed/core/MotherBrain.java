@@ -82,7 +82,7 @@ public final class MotherBrain implements Startable {
      * @see <a href="http://projects.lidalia.org.uk/sysout-over-slf4j/quickstart.html">System Out and Err redirected to SLF4J</a>
      */
     public static void main(String[] args) {
-        Injector injector = Guice.createInjector(new MotherBrainModule());
+        final Injector injector = Guice.createInjector(new MotherBrainModule());
         final MotherBrain motherBrain = injector.getInstance(MotherBrain.class);
         motherBrain.start();
     }
