@@ -161,10 +161,10 @@ public class DiscoState extends GameState {
     }
 
     @Override
-    public void draw() {
-        quadTree.draw();
+    public void render() {
+        quadTree.render();
         for (Entity each : scene) {
-            each.draw();
+            each.render();
         }
     }
 

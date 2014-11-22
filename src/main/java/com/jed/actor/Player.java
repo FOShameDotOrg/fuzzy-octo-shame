@@ -219,9 +219,9 @@ public class Player extends Entity implements StateManager {
     }
 
     @Override
-    public void draw() {
-        currentState.draw();
-        bounds.draw();
+    public void render() {
+        currentState.render();
+        bounds.render();
     }
 
     //TODO: Name this something else or refactor... indicates player has just landed on a tile
@@ -324,7 +324,7 @@ public class Player extends Entity implements StateManager {
         }
 
         @Override
-        public void draw() {
+        public void render() {
             Color.white.bind();
             texture.bind();
             GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -402,7 +402,7 @@ public class Player extends Entity implements StateManager {
         }
 
         @Override
-        public void draw() {
+        public void render() {
             Color.white.bind();
             texture.bind();
             GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -463,7 +463,7 @@ public class Player extends Entity implements StateManager {
         }
 
         @Override
-        public void draw() {
+        public void render() {
             Color.white.bind();
             texture.bind();
             GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -544,7 +544,7 @@ public class Player extends Entity implements StateManager {
         }
 
         @Override
-        public void draw() {
+        public void render() {
             Color.white.bind();
             texture.bind();
             GL11.glEnable(GL11.GL_TEXTURE_2D);

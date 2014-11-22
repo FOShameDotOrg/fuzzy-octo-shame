@@ -88,7 +88,7 @@ public abstract class Boundary implements Displayable {
     }
 
     @Override
-    public void draw() {
+    public void render() {
     }
 
     @Override

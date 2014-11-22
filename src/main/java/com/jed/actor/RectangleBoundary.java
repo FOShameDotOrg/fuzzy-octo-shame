@@ -58,7 +58,7 @@ public class RectangleBoundary extends Boundary {
     }
 
     @Override
-    public void draw() {
+    public void render() {
         //Bounding Box
         GL11.glColor3f(1f, 0, 0);
 

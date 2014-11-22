@@ -127,7 +127,7 @@ public class MapTile extends Entity {
     }
 
     @Override
-    public void draw() {
+    public void render() {
         //TODO: Tile collision coloring is temporary...
         if (colliding) {
             GL11.glColor3f(0, 0, 1f);

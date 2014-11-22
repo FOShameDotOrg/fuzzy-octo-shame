@@ -82,7 +82,7 @@ public class PlayState extends GameState implements StateManager {
     }
 
     @Override
-    public void draw() {
-        currentMap.draw();
+    public void render() {
+        currentMap.render();
     }
 }

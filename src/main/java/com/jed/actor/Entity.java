@@ -89,7 +89,7 @@ public abstract class Entity implements Displayable, State {
     }
 
     @Override
-    public void draw() {
+    public void render() {
     }
     
     //TODO Implement Equals/hashCode

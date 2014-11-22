@@ -62,7 +62,7 @@ public class GameStateManager {
      */
     public void render() {
         for (GameState eachState : states) {
-            eachState.draw();
+            eachState.render();
         }
     }
 

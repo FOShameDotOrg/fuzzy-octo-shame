@@ -64,7 +64,7 @@ public class Ball extends PhysicsEntity {
     }
 
     @Override
-    public void draw() {
+    public void render() {
         position = position.add(movement);
         BasicShapeRenderer.drawFilledCircle(
                 position.x,

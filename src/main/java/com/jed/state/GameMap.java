@@ -227,12 +227,12 @@ public class GameMap implements State {
 
 
     @Override
-    public void draw() {
+    public void render() {
         quadTree.clear();
         drawMap();
-        quadTree.draw();
+        quadTree.render();
         for (Entity each : scene) {
-            each.draw();
+            each.render();
         }
     }
 
@@ -259,7 +259,7 @@ public class GameMap implements State {
         for (int rowIndex = 0; rowIndex < rows; rowIndex++) {
             for (int columnIndex = 0; columnIndex < columns; columnIndex++) {
                 if (tiles[tileIndex].getTileId() != 0) {
-                    tiles[tileIndex].draw();
+                    tiles[tileIndex].render();
                     quadTree.insert(tiles[tileIndex]);
                 }
                 tileIndex++;

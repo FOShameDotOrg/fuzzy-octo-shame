@@ -202,7 +202,7 @@ public class QuadTree implements Displayable {
     }
 
     @Override
-    public void draw() {
+    public void render() {
         GL11.glColor3f(0.5f, 0.5f, 1.0f);
 
         GL11.glBegin(GL11.GL_LINE_LOOP);
@@ -217,7 +217,7 @@ public class QuadTree implements Displayable {
 
         if (nodes[0] != null) {
             for (QuadTree eachNode : nodes) {
-                eachNode.draw();
+                eachNode.render();
             }
         }
     }

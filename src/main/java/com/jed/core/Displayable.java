@@ -9,7 +9,7 @@ public interface Displayable {
     /**
      * 
      */
-    void draw();
+    void render();
 
     /**
      * 

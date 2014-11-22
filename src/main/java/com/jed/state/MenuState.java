@@ -99,7 +99,7 @@ public class MenuState extends GameState {
     }
 
     @Override
-    public void draw() {
+    public void render() {
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         font.drawString(coords.x, coords.y, daString);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
