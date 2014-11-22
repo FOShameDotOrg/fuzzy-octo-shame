@@ -39,3 +39,5 @@ POM.xml                             merge=theirs
 # See: http://git-scm.com/docs/gitattributes#__code_ident_code
 *.java  ident
 
+# See: https://www.kernel.org/pub/software/scm/git/docs/gitattributes.html#_defining_a_custom_hunk_header
+*.java diff=java
