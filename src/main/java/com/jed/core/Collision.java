@@ -125,9 +125,9 @@ public class Collision implements Comparable<Collision> {
 
         //TODO: Temporary!
         if (collisionType != NONE) {
-            ((MapTile) b).colliding = true;
+            ((MapTile) b).setColliding(true);
         } else {
-            ((MapTile) b).evaluating = true;
+            ((MapTile) b).setEvaluating(true);
         }
 
         return collisionType != NONE;

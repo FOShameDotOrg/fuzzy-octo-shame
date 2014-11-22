@@ -109,8 +109,8 @@ public class GameMap extends AbstractDisplayableState {
     @Override
     public void update() {
         for (MapTile each : tiles) {
-            each.colliding = false;
-            each.evaluating = false;
+            each.setColliding(false);
+            each.setEvaluating(false);
         }
 
         for (AbstractEntity each : scene) {

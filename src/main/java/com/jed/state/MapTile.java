@@ -16,33 +16,28 @@ public class MapTile extends AbstractEntity {
     /**
      * 
      */
-    public static final int NO_TILE = 0;
-
-    /**
-     * 
-     */
-    float glTexX, glTexY, glTexWidth, glTexHeight;
+    private float glTexX, glTexY, glTexWidth, glTexHeight;
     
     /**
      * 
      */
-    int tileId;
+    private int tileId;
 
     /**
      * 
      */
-    GameMap map;
+    private GameMap map;
 
     /**
      * 
      */
     //TODO: TEMPORARY!
-    public boolean colliding;
+    private boolean colliding;
     
     /**
      * 
      */
-    public boolean evaluating;
+    private boolean evaluating;
 
     /**
      * FIXME, the parameters is too damn high.
@@ -156,4 +151,11 @@ public class MapTile extends AbstractEntity {
 //        }
     }
 
+    public void setColliding(boolean colliding) {
+        this.colliding = colliding;
+    }
+
+    public void setEvaluating(boolean evaluating) {
+        this.evaluating = evaluating;
+    }
 }
