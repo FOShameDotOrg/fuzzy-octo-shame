@@ -33,12 +33,7 @@ public class GameMap extends AbstractDisplayableState {
      * 
      */
     public int width, height, tileWidth, tileHeight;
-    
-    /**
-     * 
-     */
-    public float glTexX, glTexY;
-    
+
     /**
      * 
      */
@@ -85,7 +80,7 @@ public class GameMap extends AbstractDisplayableState {
         texture = Util.loadTexture(tileSetPath);
 
         //TODO: initialize scene Stack by some data contained in the map i.e. start position or something like that...
-        scene = new Stack<AbstractEntity>();
+        scene = new Stack<>();
         player = new Player(new Vector(50, 200), 256, 256, this);
         scene.push(player);
 
