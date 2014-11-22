@@ -1,6 +1,6 @@
 package com.jed.core;
 
-import com.colapietro.number.util.Doubles;
+import org.colapietro.number.util.Doubles;
 import com.jed.actor.Boundary;
 import com.jed.actor.Entity;
 import com.jed.state.MapTile;

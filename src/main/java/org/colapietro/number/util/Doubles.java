@@ -1,6 +1,4 @@
-package com.colapietro.number.util;
-
-import static com.colapietro.number.util.FloatingPointArithmeticConstants.MACHINE_EPSILON;
+package org.colapietro.number.util;
 
 /**
  * @author Peter Colapietro
@@ -22,6 +20,6 @@ public final class Doubles {
      * @see <a href="http://stackoverflow.com/a/6837237">comparing float/double values using == operator</a>
      */
     public static boolean compareDoubles(final double a, final double b) {
-        return Math.abs(a / b - 1) < MACHINE_EPSILON;
+        return Math.abs(a / b - 1) < FloatingPointArithmeticConstants.MACHINE_EPSILON;
     }
 }

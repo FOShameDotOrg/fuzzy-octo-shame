@@ -1,4 +1,4 @@
-package com.colapietro.number.util;
+package org.colapietro.number.util;
 
 import java.math.BigDecimal;
 
