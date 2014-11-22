@@ -5,6 +5,7 @@ import static com.jed.core.MotherBrainConstants.*;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
+import org.colapietro.lwjgl.LwjglGameLoopable;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
@@ -21,7 +22,7 @@ import com.jed.state.PlayState;
 /**
  * @author jlinde, Peter Colapietro
  */
-public final class MotherBrain implements Startable {
+public final class MotherBrain implements Startable, LwjglGameLoopable {
 
     /**
      * 
@@ -61,11 +62,29 @@ public final class MotherBrain implements Startable {
     /**
      * 
      */
-    private void init() {
+    @Override
+    public void initialize() {
+        try {
+            Display.setDisplayMode(new DisplayMode(MotherBrainConstants.WIDTH, MotherBrainConstants.HEIGHT));
+            Display.setFullscreen(MotherBrainConstants.IS_DISPLAY_FULLSCREEN);
+            Display.create();
+        } catch (LWJGLException e) {
+            LOGGER.error("An exception occurred while creating the display", e);
+            System.exit(1);
+        }
+
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+        GL11.glMatrixMode(GL11.GL_PROJECTION);
+        GL11.glLoadIdentity();
+        GL11.glOrtho(0, MotherBrainConstants.WIDTH, MotherBrainConstants.HEIGHT, 0, -1, 1);
+        GL11.glMatrixMode(GL11.GL_MODELVIEW);
+
         stateManager = new GameStateManager();
-        pushDiscoStatesToStateManager(NUMBER_OF_DISCO_STATES);
+        pushDiscoStatesToStateManager(MotherBrainConstants.NUMBER_OF_DISCO_STATES);
         stateManager.push(new PlayState(stateManager));
-        if (IS_MENU_STATE_SHOWN) {
+        if (MotherBrainConstants.IS_MENU_STATE_SHOWN) {
             pushMenuStateToStateManager();
         }
         
@@ -78,8 +97,8 @@ public final class MotherBrain implements Startable {
      */
     private void pushMenuStateToStateManager() {
         final MenuState one = new MenuState(stateManager);
-        one.setDaString(DA_STRING);
-        one.setCoords(MENU_STATE_COORDINATES);
+        one.setDaString(MotherBrainConstants.DA_STRING);
+        one.setCoords(MotherBrainConstants.MENU_STATE_COORDINATES);
         stateManager.push(one);
     }
 
@@ -96,45 +115,31 @@ public final class MotherBrain implements Startable {
     /**
      * 
      */
+    @Override
     public void start() {
-        try {
-            Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
-            Display.setFullscreen(true);
-            Display.create();
-        } catch (LWJGLException e) {
-            LOGGER.error("An exception occurred while creating the display", e);
-            System.exit(1);
-        }
-
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-
-        GL11.glMatrixMode(GL11.GL_PROJECTION);
-        GL11.glLoadIdentity();
-        GL11.glOrtho(0, WIDTH, HEIGHT, 0, -1, 1);
-        GL11.glMatrixMode(GL11.GL_MODELVIEW);
-
-        init();
-
+        initialize();
         while (!Display.isCloseRequested()) {
-            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-
-            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
-            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
-
-            //int delta = getDelta();
-
-            updateFPS();
-
-            stateManager.update();
-            stateManager.draw();
-
-            Display.update();
-
-            Display.sync(120);
+            update();
+            render();
         }
 
         Display.destroy();
+    }
+
+    @Override
+    public void update() {
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
+        updateFPS();
+        stateManager.update();
+    }
+
+    @Override
+    public void render() {
+        stateManager.draw();
+        Display.update();
+        Display.sync(MotherBrainConstants.DISPLAY_FPS);
     }
 
     /**
@@ -153,17 +158,17 @@ public final class MotherBrain implements Startable {
      * @return time
      */
     private long getTime() {
-        return (Sys.getTime() * 1000) / Sys.getTimerResolution();
+        return (Sys.getTime() * MotherBrainConstants.HI_RESOLUTION_TIMER_TICKS_SCALAR) / Sys.getTimerResolution();
     }
 
     /**
      * 
      */
     private void updateFPS() {
-        if (getTime() - lastFPS > 1000) {
+        if (getTime() - lastFPS > MotherBrainConstants.HI_RESOLUTION_TIMER_TICKS_SCALAR) {
             Display.setTitle("FPS: " + fps);
             fps = 0;
-            lastFPS += 1000;
+            lastFPS += MotherBrainConstants.HI_RESOLUTION_TIMER_TICKS_SCALAR;
         }
 
         fps++;

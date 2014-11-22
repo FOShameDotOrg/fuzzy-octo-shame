@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
+import com.jed.core.MotherBrainConstants;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
@@ -13,7 +14,6 @@ import org.newdawn.slick.opengl.Texture;
 import com.jed.actor.Entity;
 import com.jed.actor.Player;
 import com.jed.core.Collision;
-import com.jed.core.MotherBrain;
 import com.jed.core.QuadTree;
 import com.jed.util.Rectangle;
 import com.jed.util.Util;
@@ -23,6 +23,8 @@ import com.jed.util.Vector;
 /**
  * 
  * @author jlinde, Peter Colapietro
+ *
+ * TODO Decouple from com.jed.core.MotherBrain / com.jed.core.MotherBrainConstants
  *
  */
 public class GameMap implements State {
@@ -140,15 +142,15 @@ public class GameMap implements State {
      */
     private void scrollMap() {
         if (player.movement.y > 0) {
-            if ((player.position.y + (player.height / 2) - position.y) > MotherBrain.HEIGHT / 2) {
-                if (position.y + player.movement.y > height * tileHeight - MotherBrain.HEIGHT) {
-                    position.y = height * tileHeight - MotherBrain.HEIGHT;
+            if ((player.position.y + (player.height / 2) - position.y) > MotherBrainConstants.HEIGHT / 2) {
+                if (position.y + player.movement.y > height * tileHeight - MotherBrainConstants.HEIGHT) {
+                    position.y = height * tileHeight - MotherBrainConstants.HEIGHT;
                 } else {
                     position.y += player.movement.y;
                 }
             }
         } else if (player.movement.y < 0) {
-            if ((player.position.y + (player.height / 2) - position.y) < MotherBrain.HEIGHT / 2) {
+            if ((player.position.y + (player.height / 2) - position.y) < MotherBrainConstants.HEIGHT / 2) {
                 if (player.movement.y + position.y < 0) {
                     position.y = 0;
                 } else {
@@ -158,15 +160,15 @@ public class GameMap implements State {
         }
 
         if (player.movement.x > 0) {
-            if ((player.position.x + (player.width / 2) - position.x) > MotherBrain.WIDTH / 2) {
-                if (position.x + player.movement.x > width * tileWidth - MotherBrain.WIDTH) {
-                    position.x = width * tileWidth - MotherBrain.WIDTH;
+            if ((player.position.x + (player.width / 2) - position.x) > MotherBrainConstants.WIDTH / 2) {
+                if (position.x + player.movement.x > width * tileWidth - MotherBrainConstants.WIDTH) {
+                    position.x = width * tileWidth - MotherBrainConstants.WIDTH;
                 } else {
                     position.x += player.movement.x;
                 }
             }
         } else if (player.movement.x < 0) {
-            if ((player.position.x + (player.width / 2) - position.x) < MotherBrain.WIDTH / 2) {
+            if ((player.position.x + (player.width / 2) - position.x) < MotherBrainConstants.WIDTH / 2) {
                 if (player.movement.x + position.x < 0) {
                     position.x = 0;
                 } else {
@@ -250,8 +252,8 @@ public class GameMap implements State {
 
         int tileIndex = (int) (width * (Math.floor(tileOffsetY)) + tileOffsetX);
 
-        final int rows = (MotherBrain.HEIGHT / tileHeight + (pixelOffsetY == 0 ? 0 : 1));
-        final int columns = (MotherBrain.WIDTH / tileWidth + (pixelOffsetX == 0 ? 0 : 1));
+        final int rows = (MotherBrainConstants.HEIGHT / tileHeight + (pixelOffsetY == 0 ? 0 : 1));
+        final int columns = (MotherBrainConstants.WIDTH / tileWidth + (pixelOffsetX == 0 ? 0 : 1));
         final int nextRow = width - columns;
 
         for (int rowIndex = 0; rowIndex < rows; rowIndex++) {
