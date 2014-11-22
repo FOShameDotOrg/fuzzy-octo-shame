@@ -99,10 +99,6 @@ public class GameMap extends AbstractDisplayableState {
         drawMap();
     }
 
-    @Override
-    public void leaving() {
-    }
-
     /**
      * 
      */
