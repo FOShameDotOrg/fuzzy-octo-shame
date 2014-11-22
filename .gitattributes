@@ -35,3 +35,7 @@ src/main/resources/checkstyle.xml   merge=ours
 .gitattributes                      merge=ours
 README.md                           merge=ours
 POM.xml                             merge=theirs
+
+# See: http://git-scm.com/docs/gitattributes#__code_ident_code
+*.java  ident
+
