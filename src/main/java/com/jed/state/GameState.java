@@ -5,7 +5,7 @@ package com.jed.state;
  * @author jlinde, Peter Colapietro
  *
  */
-public abstract class GameState implements State {
+public abstract class GameState extends AbstractDisplayableState  {
 
     /**
      * 
@@ -20,6 +20,4 @@ public abstract class GameState implements State {
         this.manager = manager;
     }
 
-    @Override
-    public void drawChildVertex2f(final float x, final float y) {}
 }

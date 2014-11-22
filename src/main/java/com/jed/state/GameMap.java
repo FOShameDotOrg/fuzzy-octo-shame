@@ -27,7 +27,7 @@ import com.jed.util.Vector;
  * TODO Decouple from com.jed.core.MotherBrain / com.jed.core.MotherBrainConstants
  *
  */
-public class GameMap implements State {
+public class GameMap extends AbstractDisplayableState {
 
     /**
      * 

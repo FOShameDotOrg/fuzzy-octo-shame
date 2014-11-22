@@ -1,16 +1,17 @@
 package com.jed.actor;
 
+import com.jed.state.*;
+import org.colapietro.lang.NotImplementedException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
-import com.jed.state.GameMap;
-import com.jed.state.State;
-import com.jed.state.StateManager;
 import com.jed.util.MapLoader;
 import com.jed.util.Util;
 import com.jed.util.Vector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 
@@ -55,27 +56,27 @@ public class Player extends AbstractEntity implements StateManager {
      * 
      */
     //Player States
-    private PlayerState currentState;
+    private AbstractPlayerState currentState;
     
     /**
      * 
      */
-    private PlayerState fallingState;
+    private AbstractPlayerState fallingState;
     
     /**
      * 
      */
-    private PlayerState idleState;
+    private AbstractPlayerState idleState;
     
     /**
      * 
      */
-    private PlayerState walkingState;
+    private AbstractPlayerState walkingState;
     
     /**
      * 
      */
-    private PlayerState jumpingState;
+    private AbstractPlayerState jumpingState;
 
     /**
      * 
@@ -134,7 +135,7 @@ public class Player extends AbstractEntity implements StateManager {
      * @param state state to change current player to.
      */
     public void changeState(State state) {
-        currentState = (PlayerState) state;
+        currentState = (AbstractPlayerState) state;
         currentState.entered();
     }
 
@@ -229,7 +230,6 @@ public class Player extends AbstractEntity implements StateManager {
     @Override
     public void collideDown(AbstractEntity sEntity) {
         collideDown = true;
-
         if (currentState.falling) {
             changeState(idleState);
         }
@@ -240,7 +240,7 @@ public class Player extends AbstractEntity implements StateManager {
      * @author jlinde, Peter Colapietro
      *
      */
-    private abstract class PlayerState implements State {
+    private abstract class AbstractPlayerState extends AbstractDisplayableState {
         
         /**
          * 
@@ -250,7 +250,7 @@ public class Player extends AbstractEntity implements StateManager {
         /**
          * 
          */
-        public PlayerState() {
+        public AbstractPlayerState() {
             falling = false;
         }
 
@@ -258,9 +258,20 @@ public class Player extends AbstractEntity implements StateManager {
          * 
          */
         public abstract void handleInput();
+    }
+
+    private abstract class AbstractNonEnterablePlayerState extends AbstractPlayerState {
+
+        protected final Logger LOGGER = LoggerFactory.getLogger(AbstractNonEnterablePlayerState.class);
 
         @Override
-        public void drawChildVertex2f(final float x, final float y) {}
+        public void entered() {
+            try {
+                super.entered();
+            } catch (NotImplementedException e) {
+                LOGGER.debug("{}", e);
+            }
+        }
     }
 
     /**
@@ -268,7 +279,7 @@ public class Player extends AbstractEntity implements StateManager {
      * @author jlinde, Peter Colapietro
      *
      */
-    private class Falling extends PlayerState {
+    private class Falling extends AbstractNonEnterablePlayerState {
         
         /**
          * 
@@ -298,10 +309,6 @@ public class Player extends AbstractEntity implements StateManager {
         }
 
         @Override
-        public void entered() {
-        }
-
-        @Override
         public void update() {
             //Player Landed on something
             if (movement.y == 0) {
@@ -312,11 +319,6 @@ public class Player extends AbstractEntity implements StateManager {
                 }
             }
         }
-
-        @Override
-        public void leaving() {
-        }
-
 
         @Override
         public void handleInput() {
@@ -361,7 +363,7 @@ public class Player extends AbstractEntity implements StateManager {
      * @author jlinde, Peter Colapietro
      *
      */
-    private class Jumping extends Falling {
+    private final class Jumping extends Falling {
 
         /**
          * 
@@ -438,11 +440,7 @@ public class Player extends AbstractEntity implements StateManager {
      * @author jlinde, Peter Colapietro
      *
      */
-    private class Idle extends PlayerState {
-
-        @Override
-        public void entered() {
-        }
+    private final class Idle extends AbstractNonEnterablePlayerState {
 
         @Override
         public void update() {
@@ -451,10 +449,6 @@ public class Player extends AbstractEntity implements StateManager {
             } else if (movement.x != 0) {
                 changeState(walkingState);
             }
-        }
-
-        @Override
-        public void leaving() {
         }
 
         @Override
@@ -499,7 +493,7 @@ public class Player extends AbstractEntity implements StateManager {
      * @author jlinde, Peter Colapietro
      *
      */
-    private class Walking extends PlayerState {
+    private final class Walking extends AbstractPlayerState {
 
         /**
          * 
@@ -520,10 +514,6 @@ public class Player extends AbstractEntity implements StateManager {
         public void entered() {
             frame = 0;
             ticks = 0;
-        }
-
-        @Override
-        public void leaving() {
         }
 
         @Override
