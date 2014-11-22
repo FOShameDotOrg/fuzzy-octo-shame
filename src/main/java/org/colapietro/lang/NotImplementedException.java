@@ -48,8 +48,14 @@ package org.colapietro.lang;
  */
 public class NotImplementedException extends UnsupportedOperationException {
 
+    /**
+     *
+     */
     private static final long serialVersionUID = 20141122L;
 
+    /**
+     *
+     */
     private final String code;
 
     /**
