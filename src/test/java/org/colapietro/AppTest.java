@@ -1,4 +1,4 @@
-package com.colapietro;
+package org.colapietro;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
