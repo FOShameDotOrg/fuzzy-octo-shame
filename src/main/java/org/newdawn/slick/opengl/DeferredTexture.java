@@ -63,7 +63,6 @@ public class DeferredTexture extends TextureImpl implements DeferredResource {
             try {
                 load();
                 LoadingList.get().remove(this);
-                return;
             } catch (IOException e) {
                 throw new RuntimeException("Attempt to use deferred texture before loading and resource not found: "+resourceName);
             }

@@ -160,7 +160,6 @@ public class VAOGLRenderer extends ImmediateModeOGLRenderer {
 
         if (listMode > 0) {
             super.glColor4f(r,g,b,a);
-            return;
         }
     }
 
@@ -170,7 +169,6 @@ public class VAOGLRenderer extends ImmediateModeOGLRenderer {
     public void glEnd() {
         if (listMode > 0) {
             super.glEnd();
-            return;
         }
     }
 

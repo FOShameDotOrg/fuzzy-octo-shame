@@ -154,7 +154,6 @@ public class NeatTriangulator implements Triangulator
         } else
         {
             edges[k].suspect = flag;
-            return;
         }
     }
 
