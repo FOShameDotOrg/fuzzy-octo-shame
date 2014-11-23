@@ -17,7 +17,7 @@ public class DefaultLogSystem implements LogSystem {
     /**
      * The Logger for dumping the log out on
      */
-    public static final Logger out = LoggerFactory.getLogger(DefaultLogSystem.class);
+    private static final Logger out = LoggerFactory.getLogger(DefaultLogSystem.class);
 
     /**
      * Log an error

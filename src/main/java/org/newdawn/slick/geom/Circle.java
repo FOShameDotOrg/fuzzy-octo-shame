@@ -13,7 +13,7 @@ public strictfp class Circle extends Ellipse {
      */
     private static final long serialVersionUID = 1L;
     /** The radius of the circle */
-    public float radius;
+    private float radius;
 
     /**
      * Create a new circle based on its radius
@@ -34,7 +34,7 @@ public strictfp class Circle extends Ellipse {
      * @param radius The radius of the circle
      * @param segmentCount The number of segments to build the circle out of
      */
-    public Circle(float centerPointX, float centerPointY, float radius, int segmentCount) {
+    private Circle(float centerPointX, float centerPointY, float radius, int segmentCount) {
         super(centerPointX, centerPointY, radius, radius, segmentCount);
         this.x = centerPointX - radius;
         this.y = centerPointY - radius;
@@ -78,7 +78,7 @@ public strictfp class Circle extends Ellipse {
      *
      * @return The radius of the circle
      */
-    public float getRadius() {
+    float getRadius() {
         return radius;
     }
 

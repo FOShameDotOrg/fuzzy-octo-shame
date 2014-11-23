@@ -8,7 +8,7 @@ import java.net.URL;
  * 
  * @author kevin
  */
-public interface ResourceLocation {
+interface ResourceLocation {
 
     /**
      * Get a resource as an input stream

@@ -27,11 +27,11 @@ import javax.annotation.Nullable;
  */
 public class TextureImpl implements Texture {
     /** The renderer to use for all GL operations */
-    protected static SGL GL = Renderer.get();
+    private static SGL GL = Renderer.get();
 
     /** The last texture that was bound to */
     @Nullable
-    static Texture lastBind;
+    private static Texture lastBind;
 
     /**
      * Retrieve the last texture bound through the texture interface
@@ -72,7 +72,7 @@ public class TextureImpl implements Texture {
     /**
      * For subclasses to utilise
      */
-    protected TextureImpl() {
+    TextureImpl() {
     }
     
     /**
@@ -287,7 +287,7 @@ public class TextureImpl implements Texture {
      * 
      * @param textureID The OpenGL texture ID
      */
-    public void setTextureID(int textureID) {
+    void setTextureID(int textureID) {
         this.textureID = textureID;
     }
     

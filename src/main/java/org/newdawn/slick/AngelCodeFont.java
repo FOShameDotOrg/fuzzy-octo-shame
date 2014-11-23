@@ -626,8 +626,7 @@ public class AngelCodeFont implements Font {
      * @param c the desired character
      * @return the CharDef with glyph info
      */
-    @Nullable
-    public Glyph getGlyph(char c) {
+    @Nullable Glyph getGlyph(char c) {
         Glyph g = c<0 || c>= chars.length ? null : chars[c];
         if (g!=null)
             return g;
@@ -668,9 +667,9 @@ public class AngelCodeFont implements Font {
         /** The display list index for this character */
         protected short dlIndex;
         /** The kerning info for this character */
-        protected short[] kerning;
+        short[] kerning;
 
-        protected Glyph(short id, short x, short y, short width, short height,
+        Glyph(short id, short x, short y, short width, short height,
                 short xoffset, short yoffset, short xadvance, Image image) {
             this.id = id;
             this.x = x;

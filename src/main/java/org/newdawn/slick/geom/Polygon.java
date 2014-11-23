@@ -26,7 +26,7 @@ public class Polygon extends Shape {
      * 
      * @param points An array of points in x, y order.
      */
-    public Polygon(@Nonnull float points[]) {
+    private Polygon(@Nonnull float points[]) {
         int length = points.length;
         
         this.points = new float[length];

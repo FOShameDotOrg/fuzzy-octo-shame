@@ -87,7 +87,7 @@ public final class Log {
      * Only be called when system property "org.newdawn.slick.forceVerboseLog" is set to true.
      * You must not call this method directly.
      */
-    public static void setForcedVerboseOn() {
+    private static void setForcedVerboseOn() {
         forcedVerbose = true;
         verbose = true;
     }

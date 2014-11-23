@@ -13,9 +13,9 @@ public class Rectangle extends Shape {
      */
     private static final long serialVersionUID = 1L;
     /** The width of the box */
-    protected float width;
+    private float width;
     /** The height of the box */
-    protected float height;
+    private float height;
 
     /**
      * Create a new bounding box
@@ -88,7 +88,7 @@ public class Rectangle extends Shape {
      * @param width The width to set in this rectangle
      * @param height The height to set in this rectangle
      */
-    public void setSize(float width, float height) {
+    void setSize(float width, float height) {
         setWidth(width);
         setHeight(height);
     }
@@ -119,7 +119,7 @@ public class Rectangle extends Shape {
      * @param h The amount to adjust horizontally
      * @param v The amount to ajust vertically
      */
-    public void grow(float h, float v) {
+    void grow(float h, float v) {
         setX(getX() - h);
         setY(getY() - v);
         setWidth(getWidth() + (h*2));
@@ -141,7 +141,7 @@ public class Rectangle extends Shape {
      *
      * @param width The new width of this box
      */
-    public void setWidth(float width) {
+    void setWidth(float width) {
         if (width != this.width) {
             pointsDirty = true;
             this.width = width;
@@ -154,7 +154,7 @@ public class Rectangle extends Shape {
      *
      * @param height The height of this box
      */
-    public void setHeight(float height) {
+    void setHeight(float height) {
         if (height != this.height) {
             pointsDirty = true;
             this.height = height;

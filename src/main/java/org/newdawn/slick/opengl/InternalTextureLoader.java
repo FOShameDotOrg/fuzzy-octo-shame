@@ -38,7 +38,7 @@ import javax.annotation.Nullable;
 public class InternalTextureLoader {
 
     /** Useful for debugging; keeps track of the current number of active textures. */
-    static int textureCount = 0;
+    private static int textureCount = 0;
     
     private static boolean forcePOT = true;
     
@@ -54,7 +54,7 @@ public class InternalTextureLoader {
      *   
      * @return true if we should ensure POT sized textures, flase if we should attempt to use NPOT if supported
      */
-    public static boolean isForcePOT() {
+    private static boolean isForcePOT() {
         return forcePOT;
     }
     
@@ -85,7 +85,7 @@ public class InternalTextureLoader {
      *
      * @return A new texture ID
      */
-    public static int createTextureID() { 
+    private static int createTextureID() {
        IntBuffer tmp = createIntBuffer(1); 
        GL.glGenTextures(tmp);
        textureCount++;
@@ -112,7 +112,7 @@ public class InternalTextureLoader {
      *
      * @return whether the version is >= 1.4 or GL_EXT_framebuffer_object extension exists
      */
-    public static boolean isGenerateMipmapSupported() {
+    private static boolean isGenerateMipmapSupported() {
         return GLContext.getCapabilities().OpenGL14 || GLContext.getCapabilities().GL_EXT_framebuffer_object;
     }
 
@@ -123,14 +123,14 @@ public class InternalTextureLoader {
      *
      * @return true if the extension is listed
      */
-    public static boolean isNPOTSupported() {
+    private static boolean isNPOTSupported() {
         //don't check GL20, nvidia/ATI usually don't advertise this extension
         //if it means requiring software fallback
         return GLContext.getCapabilities().GL_ARB_texture_non_power_of_two;
     }
 
     /** The renderer to use for all GL operations */
-    protected static SGL GL = Renderer.get();
+    private static SGL GL = Renderer.get();
     /** The standard texture loaded used everywhere */
     private static final InternalTextureLoader loader = new InternalTextureLoader();
 
@@ -688,7 +688,7 @@ public class InternalTextureLoader {
      * @return created IntBuffer
      */
     @Nonnull
-    public static IntBuffer createIntBuffer(int size) {
+    private static IntBuffer createIntBuffer(int size) {
       ByteBuffer temp = ByteBuffer.allocateDirect(4 * size);
       temp.order(ByteOrder.nativeOrder());
 

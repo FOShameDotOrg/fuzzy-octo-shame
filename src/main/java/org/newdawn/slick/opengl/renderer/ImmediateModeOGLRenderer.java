@@ -25,7 +25,7 @@ public class ImmediateModeOGLRenderer implements SGL {
     @Nonnull
     private float[] current = new float[] {1,1,1,1};
     /** The global colour scale */
-    protected float alphaScale = 1;
+    float alphaScale = 1;
 
     /**
      * Initializes default states (texturing, shade model, disable depth test, etc).

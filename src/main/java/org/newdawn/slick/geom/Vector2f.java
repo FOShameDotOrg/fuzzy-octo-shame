@@ -52,7 +52,7 @@ public strictfp class Vector2f implements Serializable {
      *
      * @param theta The angle to calculate the components from (in degrees)
      */
-    public void setTheta(double theta) {
+    void setTheta(double theta) {
         // Next lines are to prevent numbers like -1.8369701E-16
         // when working with negative numbers
         if ((theta < -360) || (theta > 360)) {
@@ -112,7 +112,7 @@ public strictfp class Vector2f implements Serializable {
      *
      * @return The angle this vector is at (in degrees)
      */
-    public double getTheta() {
+    double getTheta() {
         double theta = StrictMath.toDegrees(StrictMath.atan2(y, x));
         if ((theta < -360) || (theta > 360)) {
             theta = theta % 360;
@@ -291,7 +291,7 @@ public strictfp class Vector2f implements Serializable {
      * @return This vector - useful for chaning operations
      */
     @Nonnull
-    public Vector2f normalise() {
+    Vector2f normalise() {
         float l = length();
 
         if (l == 0) {
@@ -354,7 +354,7 @@ public strictfp class Vector2f implements Serializable {
      * @return The new instance that copies this vector
      */
     @Nonnull
-    public Vector2f copy() {
+    Vector2f copy() {
         return new Vector2f(x,y);
     }
 
@@ -384,7 +384,7 @@ public strictfp class Vector2f implements Serializable {
      * @param other The other point we're measuring to
      * @return The distance to the other point squared
      */
-    public float distanceSquared(@Nonnull Vector2f other) {
+    float distanceSquared(@Nonnull Vector2f other) {
         float dx = other.getX() - getX();
         float dy = other.getY() - getY();
 

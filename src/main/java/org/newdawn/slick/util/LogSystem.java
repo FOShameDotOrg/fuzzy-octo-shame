@@ -5,7 +5,7 @@ package org.newdawn.slick.util;
  * 
  * @author kevin
  */
-public interface LogSystem {
+interface LogSystem {
 
     /**
      * Log an error

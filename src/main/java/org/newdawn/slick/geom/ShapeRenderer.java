@@ -93,7 +93,7 @@ public final class ShapeRenderer {
      * @param shape THe shape we're drawing
      * @return True if the fill is valid
      */
-    public static boolean validFill(@Nonnull Shape shape) {
+    private static boolean validFill(@Nonnull Shape shape) {
         if (shape.getTriangles() == null) {
             return false;
         }

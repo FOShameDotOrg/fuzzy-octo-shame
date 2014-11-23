@@ -39,7 +39,7 @@ public class Line extends Shape {
      * @param outer
      *            True if this line blocks on it's outer edge
      */
-    public Line(float x, float y, boolean inner, boolean outer) {
+    private Line(float x, float y, boolean inner, boolean outer) {
         this(0, 0, x, y);
     }
 
@@ -111,7 +111,7 @@ public class Line extends Shape {
      * @param end
      *            The end point
      */
-    public Line(Vector2f start, Vector2f end) {
+    private Line(Vector2f start, Vector2f end) {
         super();
 
         set(start, end);
@@ -125,7 +125,7 @@ public class Line extends Shape {
      * @param end
      *            The end point of the line
      */
-    public void set(float[] start, float[] end) {
+    void set(float[] start, float[] end) {
         set(start[0], start[1], end[0], end[1]);
     }
 
@@ -173,7 +173,7 @@ public class Line extends Shape {
      * @param end
      *            The end point of the line
      */
-    public void set(Vector2f start, Vector2f end) {
+    void set(Vector2f start, Vector2f end) {
         super.pointsDirty = true;
         if (this.start == null) {
             this.start = new Vector2f();
@@ -249,7 +249,7 @@ public class Line extends Shape {
      *
      * @return The x coordinate of the start point
      */
-    public float getX1() {
+    float getX1() {
         return start.getX();
     }
 
@@ -258,7 +258,7 @@ public class Line extends Shape {
      *
      * @return The y coordinate of the start point
      */
-    public float getY1() {
+    float getY1() {
         return start.getY();
     }
 
@@ -267,7 +267,7 @@ public class Line extends Shape {
      *
      * @return The x coordinate of the end point
      */
-    public float getX2() {
+    float getX2() {
         return end.getX();
     }
 
@@ -276,7 +276,7 @@ public class Line extends Shape {
      *
      * @return The y coordinate of the end point
      */
-    public float getY2() {
+    float getY2() {
         return end.getY();
     }
 
@@ -328,7 +328,7 @@ public class Line extends Shape {
      * @param result
      *            The point on the line closest to the given point
      */
-    public void getClosestPoint(Vector2f point, @Nonnull Vector2f result) {
+    void getClosestPoint(Vector2f point, @Nonnull Vector2f result) {
         loc.set(point);
         loc.sub(start);
 
@@ -400,7 +400,7 @@ public class Line extends Shape {
      *            The resulting intersection point if any
      * @return True if the lines intersect
      */
-    public boolean intersect(@Nonnull Line other, boolean limit, @Nonnull Vector2f result) {
+    boolean intersect(@Nonnull Line other, boolean limit, @Nonnull Vector2f result) {
         float dx1 = end.getX() - start.getX();
         float dx2 = other.end.getX() - other.start.getX();
         float dy1 = end.getY() - start.getY();

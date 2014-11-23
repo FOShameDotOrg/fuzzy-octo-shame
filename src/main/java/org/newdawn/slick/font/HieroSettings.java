@@ -74,7 +74,7 @@ public class HieroSettings {
      * @param in The stream from which to read the settings from
      * @throws SlickException if the file could not be read.
      */
-    public HieroSettings(@Nonnull InputStream in) throws SlickException {
+    private HieroSettings(@Nonnull InputStream in) throws SlickException {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             while (true) {

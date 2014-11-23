@@ -51,7 +51,7 @@ public class Animation implements Renderable {
     /**
      * Create an empty animation
      */
-    public Animation() {
+    private Animation() {
         this(true);
     }
 
@@ -81,7 +81,7 @@ public class Animation implements Renderable {
      * @param autoUpdate True if this animation should automatically update. This means that the
      * current frame will be caculated based on the time between renders
      */
-    public Animation(boolean autoUpdate) {
+    private Animation(boolean autoUpdate) {
         currentFrame = 0;
         this.autoUpdate = autoUpdate;
     }
@@ -94,7 +94,7 @@ public class Animation implements Renderable {
      * @param autoUpdate True if this animation should automatically update. This means that the
      * current frame will be caculated based on the time between renders
      */
-    public Animation(@Nonnull Image[] frames, int duration, boolean autoUpdate) {
+    private Animation(@Nonnull Image[] frames, int duration, boolean autoUpdate) {
         for (int i=0;i<frames.length;i++) {
             addFrame(frames[i], duration);
         }
@@ -110,7 +110,7 @@ public class Animation implements Renderable {
      * @param autoUpdate True if this animation should automatically update. This means that the
      * current frame will be caculated based on the time between renders
      */
-    public Animation(@Nonnull Image[] frames, @Nonnull int[] durations, boolean autoUpdate) {
+    private Animation(@Nonnull Image[] frames, @Nonnull int[] durations, boolean autoUpdate) {
         this.autoUpdate = autoUpdate;
         if (frames.length != durations.length) {
             throw new RuntimeException("There must be one duration per frame");
@@ -147,7 +147,7 @@ public class Animation implements Renderable {
      * @param duration The duration each frame should be displayed for
      * @param autoUpdate True if this animation should automatically update based on the render times
      */
-    public Animation(@Nullable SpriteSheet frames, int x1, int y1, int x2, int y2, boolean horizontalScan, int duration, boolean autoUpdate) {
+    private Animation(@Nullable SpriteSheet frames, int x1, int y1, int x2, int y2, boolean horizontalScan, int duration, boolean autoUpdate) {
         this.spriteSheet = frames;
         this.autoUpdate = autoUpdate;
 
@@ -192,7 +192,7 @@ public class Animation implements Renderable {
      * @param x The x location of the frame on the <tt>SpriteSheet</tt>
      * @param y The y location of the frame on the <tt>spriteSheet</tt>
      */
-    public void addFrame(int duration, int x, int y){
+    void addFrame(int duration, int x, int y){
        if (duration == 0) {
           Log.error("Invalid duration: "+duration);
           throw new RuntimeException("Invalid duration: "+duration);
@@ -305,7 +305,7 @@ public class Animation implements Renderable {
      * @param frame The image to display for the frame
      * @param duration The duration to display the frame for
      */
-    public void addFrame(Image frame, int duration) {
+    void addFrame(Image frame, int duration) {
         if (duration == 0) {
             Log.error("Invalid duration: "+duration);
             throw new RuntimeException("Invalid duration: "+duration);
@@ -355,7 +355,7 @@ public class Animation implements Renderable {
      * @param width The width to draw the animation at
      * @param height The height to draw the animation at
      */
-    public void draw(float x,float y,float width,float height) {
+    void draw(float x,float y,float width,float height) {
         draw(x,y,width,height,Color.white);
     }
 
@@ -368,7 +368,7 @@ public class Animation implements Renderable {
      * @param height The height to draw the animation at
      * @param col The colour filter to use
      */
-    public void draw(float x,float y,float width,float height, Color col) {
+    void draw(float x,float y,float width,float height, Color col) {
         if (frames.size() == 0) {
             return;
         }
@@ -447,7 +447,7 @@ public class Animation implements Renderable {
      *
      * @return The width of the current frame
      */
-    public int getWidth() {
+    int getWidth() {
         return frames.get(currentFrame).image.getWidth();
     }
 
@@ -456,7 +456,7 @@ public class Animation implements Renderable {
      *
      * @return The height of the current frame
      */
-    public int getHeight() {
+    int getHeight() {
         return frames.get(currentFrame).image.getHeight();
     }
 
@@ -481,7 +481,7 @@ public class Animation implements Renderable {
      * @param height The height to draw the animation at
      * @param col The colour for the flash
      */
-    public void drawFlash(float x,float y,float width,float height, @Nonnull Color col) {
+    void drawFlash(float x,float y,float width,float height, @Nonnull Color col) {
         if (frames.size() == 0) {
             return;
         }
@@ -664,7 +664,7 @@ public class Animation implements Renderable {
      * @param index The index of the given frame
      * @return The duration in (ms) of the given frame
      */
-    public int getDuration(int index) {
+    int getDuration(int index) {
         return frames.get(index).duration;
     }
 

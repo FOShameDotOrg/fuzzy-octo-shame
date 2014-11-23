@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
  *
  * @author kevin
  */
-public class ImageDataFactory {
+class ImageDataFactory {
     /** True if we're going to use the native PNG loader - cached so it doesn't have
      *  the security check repeatedly
      */

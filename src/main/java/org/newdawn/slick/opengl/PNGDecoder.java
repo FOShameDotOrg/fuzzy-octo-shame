@@ -148,7 +148,7 @@ public class PNGDecoder {
      * @return true if the image has an alpha channel
      * @see #hasAlpha()
      */
-    public boolean hasAlphaChannel() {
+    boolean hasAlphaChannel() {
         return colorType == COLOR_TRUEALPHA || colorType == COLOR_GREYALPHA;
     }
 

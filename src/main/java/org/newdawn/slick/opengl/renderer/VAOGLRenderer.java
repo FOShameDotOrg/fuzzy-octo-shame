@@ -18,9 +18,9 @@ public class VAOGLRenderer extends ImmediateModeOGLRenderer {
     /** The tolerance to rendering immediate */
     private static final int TOLERANCE = 20;
     /** Indicates there is no current geometry buffer */
-    public static final int NONE = -1;
+    private static final int NONE = -1;
     /** The maximum number of vertices draw in one batch */
-    public static final int MAX_VERTS = 5000;
+    private static final int MAX_VERTS = 5000;
 
     /** The type of the geometry array currently being built - i.e. GL_QUADS */
     private int currentType = NONE;

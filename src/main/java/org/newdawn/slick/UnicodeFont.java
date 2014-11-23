@@ -160,7 +160,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      * @param settings The settings configured via the Hiero tool
      * @throws SlickException if the UnicodeFont could not be initialized.
      */
-    public UnicodeFont (String ttfFileRef, @Nonnull HieroSettings settings) throws SlickException {
+    private UnicodeFont(String ttfFileRef, @Nonnull HieroSettings settings) throws SlickException {
         this.ttfFileRef = ttfFileRef;
         Font font = createFont(ttfFileRef);
         initializeFont(font, settings.getFontSize(), settings.isBold(), settings.isItalic());
@@ -198,7 +198,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      * @param font The AWT font to render
      * @param settings The settings configured via the Hiero tool
      */
-    public UnicodeFont (@Nonnull Font font, @Nonnull HieroSettings settings) {
+    private UnicodeFont(@Nonnull Font font, @Nonnull HieroSettings settings) {
         initializeFont(font, settings.getFontSize(), settings.isBold(), settings.isItalic());
         loadSettings(settings);
     }
@@ -284,7 +284,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      * @param startCodePoint The code point of the first glyph to add
      * @param endCodePoint The code point of the last glyph to add
      */
-    public void addGlyphs(int startCodePoint, int endCodePoint) {
+    void addGlyphs(int startCodePoint, int endCodePoint) {
         for (int codePoint = startCodePoint; codePoint <= endCodePoint; codePoint++)
             addGlyphs(new String(Character.toChars(codePoint)));
     }
@@ -295,7 +295,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      *
      * @param text The text containing the glyphs to be added
      */
-    public void addGlyphs(@Nullable String text) {
+    void addGlyphs(@Nullable String text) {
         if (text == null) throw new IllegalArgumentException("text cannot be null.");
 
         char[] chars = text.toCharArray();
@@ -346,7 +346,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      * @return True if the glyphs were loaded entirely
      * @throws SlickException if the glyphs could not be loaded.
      */
-    public boolean loadGlyphs (int maxGlyphsToLoad) throws SlickException {
+    boolean loadGlyphs(int maxGlyphsToLoad) throws SlickException {
         if (queuedGlyphs.isEmpty()) return false;
 
         if (effects.isEmpty())
@@ -396,7 +396,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
     /**
      * Clears all loaded and queued glyphs.
      */
-    public void clearGlyphs () {
+    void clearGlyphs() {
         for (int i = 0; i < PAGES; i++)
             glyphs[i] = null;
 
@@ -440,7 +440,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      * @return The reference to the display list that was drawn and potentiall ygenerated
      */
     @Nullable
-    public DisplayList drawDisplayList (float x, float y, @Nullable CharSequence text, @Nullable Color color, int startIndex, int endIndex) {
+    DisplayList drawDisplayList(float x, float y, @Nullable CharSequence text, @Nullable Color color, int startIndex, int endIndex) {
         if (text == null) throw new IllegalArgumentException("text cannot be null.");
         if (text.length() == 0) return EMPTY_DISPLAY_LIST;
         if (color == null) throw new IllegalArgumentException("color cannot be null.");
@@ -658,7 +658,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
         return width;
     }
 
-    static int indexOf(@Nonnull CharSequence cs, char chr) {
+    private static int indexOf(@Nonnull CharSequence cs, char chr) {
         for (int i=0; i<cs.length(); i++) {
             if (cs.charAt(i)==chr)
                 return i;
@@ -668,7 +668,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
 
     //instead of subSequence().toString().toCharArray()
     @Nonnull
-    static char[] toCharArray(@Nonnull CharSequence cs, int startIndex, int endIndex) {
+    private static char[] toCharArray(@Nonnull CharSequence cs, int startIndex, int endIndex) {
         if (startIndex==0 && endIndex==cs.length() && cs instanceof String)
             return ((String)cs).toCharArray();
         int s = endIndex-startIndex;

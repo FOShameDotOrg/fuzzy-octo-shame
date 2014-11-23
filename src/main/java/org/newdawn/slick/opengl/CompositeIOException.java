@@ -10,7 +10,7 @@ import java.util.List;
  * 
  * @author kevin
  */
-public class CompositeIOException extends IOException {
+class CompositeIOException extends IOException {
     /**
      * 
      */

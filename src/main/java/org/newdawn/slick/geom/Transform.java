@@ -32,7 +32,7 @@ public class Transform {
      * 
      * @param other The other transform to copy
      */   
-    public Transform(@Nonnull Transform other) {
+    private Transform(@Nonnull Transform other) {
         matrixPosition = new float[9];
         System.arraycopy(other.matrixPosition, 0, matrixPosition, 0, 9);
     }   
@@ -73,7 +73,7 @@ public class Transform {
      * @param point11 float for the fifth position   
      * @param point12 float for the sixth position   
      */   
-    public Transform(float point00, float point01, float point02, float point10, float point11, float point12) {   
+    private Transform(float point00, float point01, float point02, float point10, float point11, float point12) {
         matrixPosition = new float[]{point00, point01, point02, point10, point11, point12, 0, 0, 1};   
     }   
        
@@ -114,8 +114,7 @@ public class Transform {
      * @param tx The Transfrom to concatenate to this one.   
      * @return The resulting Transform   
      */   
-    @Nonnull
-    public Transform concatenate(@Nonnull Transform tx) {
+    @Nonnull Transform concatenate(@Nonnull Transform tx) {
         float[] mp = new float[9];
         float n00 = matrixPosition[0] * tx.matrixPosition[0] + matrixPosition[1] * tx.matrixPosition[3];
         float n01 = matrixPosition[0] * tx.matrixPosition[1] + matrixPosition[1] * tx.matrixPosition[4];
@@ -172,7 +171,7 @@ public class Transform {
      * @return The resulting Transform   
      */   
     @Nonnull
-    public static Transform createRotateTransform(float angle) {
+    private static Transform createRotateTransform(float angle) {
         return new Transform((float)FastTrig.cos(angle), -(float)FastTrig.sin(angle), 0, (float)FastTrig.sin(angle), (float)FastTrig.cos(angle), 0);   
     }   
        

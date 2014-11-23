@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
  *
  * @author kevin
  */
-public class PackedSpriteSheet {
+class PackedSpriteSheet {
     /** The image loaded for the sheet */
     private Image image;
     /** The base path where the image is expected to be found based on the original definition file */
@@ -47,7 +47,7 @@ public class PackedSpriteSheet {
      * @param trans The color to be treated as transparent
      * @throws SlickException Indicates a failure to read the definition file
      */
-    public PackedSpriteSheet(String def, Color trans) throws SlickException {
+    private PackedSpriteSheet(String def, Color trans) throws SlickException {
         def = def.replace('\\', '/');
         basePath = def.substring(0,def.lastIndexOf("/")+1);
 
@@ -73,7 +73,7 @@ public class PackedSpriteSheet {
      * @param trans The color to be treated as transparent
      * @throws SlickException Indicates a failure to read the definition file
      */
-    public PackedSpriteSheet(String def, int filter, Color trans) throws SlickException {
+    private PackedSpriteSheet(String def, int filter, Color trans) throws SlickException {
         this.filter = filter;
 
         def = def.replace('\\', '/');
@@ -98,7 +98,7 @@ public class PackedSpriteSheet {
      * @return The sprite requested (image of)
      */
     @Nonnull
-    public Image getSprite(String name) {
+    Image getSprite(String name) {
         Section section = sections.get(name);
 
         if (section == null) {

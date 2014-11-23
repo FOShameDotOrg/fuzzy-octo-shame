@@ -62,7 +62,7 @@ public class ColorEffect implements ConfigurableEffect {
      *
      * @param color The colour being applied by this effect
      */
-    public void setColor(@Nullable Color color) {
+    void setColor(@Nullable Color color) {
         if (color == null) throw new IllegalArgumentException("color cannot be null.");
         this.color = color;
     }

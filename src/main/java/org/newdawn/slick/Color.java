@@ -18,7 +18,7 @@ public class Color implements Serializable {
     private static final long serialVersionUID = 1393939L;
 
     /** The renderer to use for all GL operations */
-    protected transient SGL GL = Renderer.get();
+    private transient SGL GL = Renderer.get();
 
     /** The fixed color transparent */
     public static final Color transparent = new Color(0.0f,0.0f,0.0f,0.0f);
@@ -147,7 +147,7 @@ public class Color implements Serializable {
      *
      * @param value The value to interpret for the colour
      */
-    public Color(int value) {
+    private Color(int value) {
         int r = (value & 0x00FF0000) >> 16;
         int g = (value & 0x0000FF00) >> 8;
         int b =    (value & 0x000000FF);
@@ -228,8 +228,7 @@ public class Color implements Serializable {
      * @param scale The scale down of RGB (i.e. if you supply 0.03 the colour will be darkened by 3%)
      * @return The darker version of this colour
      */
-    @Nonnull
-    public Color darker(float scale) {
+    @Nonnull Color darker(float scale) {
         scale = 1 - scale;
         Color temp = new Color(r * scale,g * scale,b * scale,a);
 
@@ -321,7 +320,7 @@ public class Color implements Serializable {
     /**
      * Make a brighter instance of this colour
      *
-     * @param scale The scale up of RGB (i.e. if you supply 0.03 the colour will be brightened by 3%)
+     * @param scale The scale up of RGB (i.e. iy 0.03 the colour will be brightened by 3%)
      * @return The brighter version of this colour
      */
     @Nonnull

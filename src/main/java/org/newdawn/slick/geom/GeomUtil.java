@@ -12,13 +12,13 @@ import java.util.List;
  */
 public class GeomUtil {
     /** The tolerance for determining changes and steps */
-    public float EPSILON = 0.0001f;
+    private float EPSILON = 0.0001f;
     /** The tolerance for determining direction change */
-    public float EDGE_SCALE = 1f;
+    private float EDGE_SCALE = 1f;
     /** The maximum number of points returned by an operation - prevents full lockups */
-    public int MAX_POINTS = 10000;
+    private int MAX_POINTS = 10000;
     /** The listener to notify of operations */
-    public GeomUtilListener listener;
+    private GeomUtilListener listener;
 
     /**
      * Subtract one shape from another - note this is experimental and doesn't
@@ -364,8 +364,7 @@ public class GeomUtil {
      * @param line The line to intersect against the shape
      * @return The result describing the intersection or null if none
      */
-    @Nullable
-    public HitResult intersect(@Nonnull Shape shape, @Nonnull Line line) {
+    @Nullable HitResult intersect(@Nonnull Shape shape, @Nonnull Line line) {
         float distance = Float.MAX_VALUE;
         HitResult hit = null;
 
@@ -397,7 +396,7 @@ public class GeomUtil {
      * @param p The index of the point
      * @return The index that is rational for the shape
      */
-    public static int rationalPoint(@Nonnull Shape shape, int p) {
+    private static int rationalPoint(@Nonnull Shape shape, int p) {
         while (p < 0) {
             p += shape.getPointCount();
         }
@@ -416,8 +415,7 @@ public class GeomUtil {
      * @param e The index of the end point
      * @return The line between the two points
      */
-    @Nonnull
-    public Line getLine(@Nonnull Shape shape, int s, int e) {
+    @Nonnull Line getLine(@Nonnull Shape shape, int s, int e) {
         float[] start = shape.getPoint(s);
         float[] end = shape.getPoint(e);
 
@@ -434,8 +432,7 @@ public class GeomUtil {
      * @param e The index of the end point
      * @return The line between the two points
      */
-    @Nonnull
-    public Line getLine(@Nonnull Shape shape, float sx, float sy, int e) {
+    @Nonnull Line getLine(@Nonnull Shape shape, float sx, float sy, int e) {
         float[] end = shape.getPoint(e);
 
         Line line = new Line(sx,sy,end[0],end[1]);

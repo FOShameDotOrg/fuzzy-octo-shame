@@ -15,35 +15,35 @@ public abstract class Shape implements Serializable {
      */
     private static final long serialVersionUID = 1L;
     /** The points representing this polygon. */
-    protected float points[];
+    float[] points;
     /** Center point of the polygon. */
-    protected float center[];
+    float[] center;
     /** The left most point of this shape. */
-    protected float x;
+    float x;
     /** The top most point of this shape. */
-    protected float y;
+    float y;
     /** The right most point of this shape */
-    protected float maxX;
+    float maxX;
     /** The bottom most point of this shape */
-    protected float maxY;
+    float maxY;
     /** The left most point of this shape. */
-    protected float minX;
+    float minX;
     /** The top most point of this shape. */
-    protected float minY;
+    float minY;
     /** Radius of a circle that can completely enclose this shape. */
-    protected float boundingCircleRadius;
+    float boundingCircleRadius;
     /** Flag to tell whether points need to be generated */
-    protected boolean pointsDirty;
+    boolean pointsDirty;
     /** The triangles that define the shape */
-    protected transient Triangulator tris;
+    private transient Triangulator tris;
     /** True if the triangles need updating */
-    protected boolean trianglesDirty;
+    private boolean trianglesDirty;
     
     /**
      * Shape constructor.
      *
      */
-    public Shape() {
+    Shape() {
         pointsDirty = true;
     }
     
@@ -87,7 +87,7 @@ public abstract class Shape implements Serializable {
      * 
      * @param x The new x position of the left side this shape.
      */
-    public void setX(float x) {
+    void setX(float x) {
         if (x != this.x) {
             float dx = x - this.x;
             this.x = x;
@@ -112,7 +112,7 @@ public abstract class Shape implements Serializable {
      * 
      * @param y The new y position of the top of this shape.
      */
-    public void setY(float y) {
+    void setY(float y) {
         if (y != this.y) {
             float dy = y - this.y;
             this.y = y;
@@ -156,7 +156,7 @@ public abstract class Shape implements Serializable {
      * 
      * @return The x center of this shape.
      */
-    public float getCenterX() {
+    float getCenterX() {
         checkPoints();
         
         return center[0];
@@ -181,7 +181,7 @@ public abstract class Shape implements Serializable {
      * 
      * @return The y center of this shape.
      */
-    public float getCenterY() {
+    float getCenterY() {
         checkPoints();
         
         return center[1];
@@ -571,7 +571,7 @@ public abstract class Shape implements Serializable {
      * Get the center of this polygon.
      *
      */
-    protected void findCenter() {
+    void findCenter() {
         center = new float[]{0, 0};
         int length = points.length;
         for(int i=0;i<length;i+=2) {
@@ -586,7 +586,7 @@ public abstract class Shape implements Serializable {
      * Calculate the radius of a circle that can completely enclose this shape.
      *
      */
-    protected void calculateRadius() {
+    void calculateRadius() {
         boundingCircleRadius = 0;
         
         for(int i=0;i<points.length;i+=2) {
@@ -600,7 +600,7 @@ public abstract class Shape implements Serializable {
     /**
      * Calculate the triangles that can fill this shape
      */
-    protected void calculateTriangles() {
+    void calculateTriangles() {
         if ((!trianglesDirty) && (tris != null)) {
             return;
         }
@@ -639,7 +639,7 @@ public abstract class Shape implements Serializable {
     /**
      * Check the dirty flag and create points as necessary.
      */
-    protected final void checkPoints() {
+    final void checkPoints() {
         if (pointsDirty) {
             createPoints();
             findCenter();

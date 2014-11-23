@@ -201,7 +201,7 @@ public class EffectUtil {
      * @return The colour as a string
      */
     @Nonnull
-    static public String toString (@Nullable Color color) {
+    private static String toString(@Nullable Color color) {
         if (color == null) throw new IllegalArgumentException("color cannot be null.");
         String r = Integer.toHexString(color.getRed());
         if (r.length() == 1) r = "0" + r;
@@ -218,7 +218,7 @@ public class EffectUtil {
      * @param rgb The string encoding the colour
      * @return The colour represented by the given encoded string
      */
-    static public Color fromString (@Nullable String rgb) {
+    private static Color fromString(@Nullable String rgb) {
         if (rgb == null || rgb.length() != 6) return Color.white;
         return new Color(Integer.parseInt(rgb.substring(0, 2), 16), Integer.parseInt(rgb.substring(2, 4), 16), Integer.parseInt(rgb
             .substring(4, 6), 16));

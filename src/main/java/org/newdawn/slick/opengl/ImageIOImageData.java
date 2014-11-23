@@ -138,7 +138,7 @@ public class ImageIOImageData implements LoadableImageData {
         return imageToByteBuffer(bufferedImage, flipped, forceAlpha, transparent);
     }
 
-    public ByteBuffer imageToByteBuffer(@Nonnull BufferedImage image, boolean flipped, boolean forceAlpha, @Nullable int[] transparent) {
+    ByteBuffer imageToByteBuffer(@Nonnull BufferedImage image, boolean flipped, boolean forceAlpha, @Nullable int[] transparent) {
         ByteBuffer imageBuffer;
         WritableRaster raster;
         BufferedImage texImage;

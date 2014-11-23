@@ -17,7 +17,7 @@ public class NeatTriangulator implements Triangulator
     private static final long serialVersionUID = 1L;
 
     /** The error factor */
-    static final float EPSILON = 1E-006F;
+    private static final float EPSILON = 1E-006F;
     
     /** The x coordinates */
     private float pointsX[];
@@ -250,7 +250,7 @@ public class NeatTriangulator implements Triangulator
      * 
      * @throws InternalException Indicates a polygon that can't be triangulated
      */
-    public void basicTriangulation() throws InternalException
+    void basicTriangulation() throws InternalException
     {
         int i = numPoints;
         if(i < 3)

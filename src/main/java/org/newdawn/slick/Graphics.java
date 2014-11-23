@@ -35,38 +35,38 @@ public class Graphics {
     private static LineStripRenderer LSR = Renderer.getLineStripRenderer();
 
     /** The normal drawing mode */
-    public static int MODE_NORMAL = 1;
+    private static int MODE_NORMAL = 1;
 
     /** Draw to the alpha map */
-    public static int MODE_ALPHA_MAP = 2;
+    private static int MODE_ALPHA_MAP = 2;
 
     /** Draw using the alpha blending */
-    public static int MODE_ALPHA_BLEND = 3;
+    private static int MODE_ALPHA_BLEND = 3;
 
     /** Draw multiplying the source and destination colours */
-    public static int MODE_COLOR_MULTIPLY = 4;
+    private static int MODE_COLOR_MULTIPLY = 4;
 
     /** Draw adding the existing colour to the new colour */
-    public static int MODE_ADD = 5;
+    private static int MODE_ADD = 5;
 
     /** Draw blending the new image into the old one by a factor of it's colour */
-    public static int MODE_SCREEN = 6;
+    private static int MODE_SCREEN = 6;
 
     /** Draw adding the existing colour to the new colour including alpha */
-    public static int MODE_ADD_ALPHA = 7;
+    private static int MODE_ADD_ALPHA = 7;
 
     /** Draw multiplying the source and destination colours */
-    public static int MODE_COLOR_MULTIPLY_ALPHA = 8;
+    private static int MODE_COLOR_MULTIPLY_ALPHA = 8;
 
     /** The default number of segments that will be used when drawing an oval */
     private static final int DEFAULT_SEGMENTS = 50;
 
     /** The last graphics context in use */
     @Nullable
-    protected static Graphics currentGraphics = null;
+    private static Graphics currentGraphics = null;
 
     /** The default font to use */
-    protected static Font DEFAULT_FONT;
+    private static Font DEFAULT_FONT;
 
     /** The last set scale */
     private float sx = 1;
@@ -79,7 +79,7 @@ public class Graphics {
      * @param current
      *            The graphics context that should be considered current
      */
-    public static void setCurrent(Graphics current) {
+    protected static void setCurrent(Graphics current) {
         if (currentGraphics != current) {
             if (currentGraphics != null) {
                 currentGraphics.disable();
@@ -136,7 +136,7 @@ public class Graphics {
     /**
      * Default constructor for sub-classes
      */
-    public Graphics() {
+    protected Graphics() {
     }
 
     /**
@@ -147,7 +147,7 @@ public class Graphics {
      * @param height
      *            The height of the screen for this context
      */
-    public Graphics(int width, int height) {
+    protected Graphics(int width, int height) {
         if (DEFAULT_FONT == null) {
             AccessController.doPrivileged( new PrivilegedAction<Object>() {
                 @Nullable
@@ -190,7 +190,7 @@ public class Graphics {
      * @param mode
      *            The mode to apply.
      */
-    public void setDrawMode(int mode) {
+    void setDrawMode(int mode) {
         predraw();
         currentDrawingMode = mode;
         if (currentDrawingMode == MODE_NORMAL) {
@@ -275,7 +275,7 @@ public class Graphics {
     /**
      * Flush this graphics context to the underlying rendering context
      */
-    public void flush() {
+    protected void flush() {
         if (currentGraphics == this) {
             currentGraphics.disable();
             currentGraphics = null;
@@ -408,7 +408,7 @@ public class Graphics {
      * @param y
      *            The amount of translate on the y-axis
      */
-    public void translate(float x, float y) {
+    void translate(float x, float y) {
         checkPush();
 
         predraw();
@@ -439,7 +439,7 @@ public class Graphics {
      * @param color
      *            The color to use when rendering to this context
      */
-    public void setColor(@Nullable Color color) {
+    void setColor(@Nullable Color color) {
         if (color == null) {
             return;
         }
@@ -472,7 +472,7 @@ public class Graphics {
      * @param y2
      *            The y coordinate of the end point
      */
-    public void drawLine(float x1, float y1, float x2, float y2) {
+    void drawLine(float x1, float y1, float x2, float y2) {
         float lineWidth = this.lineWidth - 1;
 
         if (LSR.applyGLLineFixes()) {
@@ -653,7 +653,7 @@ public class Graphics {
      * @param fit
      *            True if we want to fit the image on to the shape
      */
-    public void texture(@Nonnull Shape shape, @Nonnull Image image, float scaleX, float scaleY, boolean fit) {
+    void texture(@Nonnull Shape shape, @Nonnull Image image, float scaleX, float scaleY, boolean fit) {
         predraw();
         TextureImpl.bindNone();
         currentColor.bind();
@@ -681,7 +681,7 @@ public class Graphics {
      * @param fill
      *            The shape fill to apply
      */
-    public void texture(@Nonnull Shape shape, @Nonnull Image image, float scaleX, float scaleY, @Nonnull ShapeFill fill) {
+    void texture(@Nonnull Shape shape, @Nonnull Image image, float scaleX, float scaleY, @Nonnull ShapeFill fill) {
         predraw();
         TextureImpl.bindNone();
         currentColor.bind();
@@ -703,7 +703,7 @@ public class Graphics {
      * @param height
      *            The height of the rectangle to draw
      */
-    public void drawRect(float x1, float y1, float width, float height) {
+    void drawRect(float x1, float y1, float width, float height) {
         getLineWidth();
 
         drawLine(x1, y1, x1 + width, y1);
@@ -715,7 +715,7 @@ public class Graphics {
     /**
      * Clear the clipping being applied. This will allow graphics to be drawn anywhere on the screen
      */
-    public void clearClip() {
+    void clearClip() {
         clip = null;
         predraw();
         GL.glDisable(SGL.GL_SCISSOR_TEST);
@@ -736,7 +736,7 @@ public class Graphics {
      * @param height
      *            The height of the allowed area
      */
-    public void setWorldClip(float x, float y, float width, float height) {
+    void setWorldClip(float x, float y, float width, float height) {
         predraw();
         worldClipRecord = new Rectangle(x, y, width, height);
 
@@ -759,7 +759,7 @@ public class Graphics {
     /**
      * Clear world clipping setup. This does not effect screen clipping
      */
-    public void clearWorldClip() {
+    void clearWorldClip() {
         predraw();
         worldClipRecord = null;
         GL.glDisable(SGL.GL_CLIP_PLANE0);
@@ -776,7 +776,7 @@ public class Graphics {
      * @param clip
      *            The area still visible
      */
-    public void setWorldClip(@Nullable Rectangle clip) {
+    void setWorldClip(@Nullable Rectangle clip) {
         if (clip == null) {
             clearWorldClip();
         } else {
@@ -789,8 +789,7 @@ public class Graphics {
      *
      * @return The last set world clip rectangle
      */
-    @Nullable
-    public Rectangle getWorldClip() {
+    @Nullable Rectangle getWorldClip() {
         return worldClipRecord;
     }
 
@@ -807,7 +806,7 @@ public class Graphics {
      * @param height
      *            The height of the allowed area
      */
-    public void setClip(int x, int y, int width, int height) {
+    void setClip(int x, int y, int width, int height) {
         predraw();
 
         if (clip == null) {
@@ -896,7 +895,7 @@ public class Graphics {
      * @param height
      *            The height of the rectangle to fill
      */
-    public void fillRect(float x1, float y1, float width, float height) {
+    void fillRect(float x1, float y1, float width, float height) {
         predraw();
         TextureImpl.bindNone();
         currentColor.bind();
@@ -940,7 +939,7 @@ public class Graphics {
      * @param segments
      *            The number of line segments to use when drawing the oval
      */
-    public void drawOval(float x1, float y1, float width, float height, int segments) {
+    void drawOval(float x1, float y1, float width, float height, int segments) {
         drawArc(x1, y1, width, height, segments, 0, 360);
     }
 
@@ -982,7 +981,7 @@ public class Graphics {
      * @param end
      *            The angle the arc ends at
      */
-    public void drawArc(float x1, float y1, float width, float height, int segments, float start, float end) {
+    void drawArc(float x1, float y1, float width, float height, int segments, float start, float end) {
         predraw();
         TextureImpl.bindNone();
         currentColor.bind();
@@ -1041,7 +1040,7 @@ public class Graphics {
      * @param segments
      *            The number of line segments to use when filling the oval
      */
-    public void fillOval(float x1, float y1, float width, float height, int segments) {
+    void fillOval(float x1, float y1, float width, float height, int segments) {
         fillArc(x1, y1, width, height, segments, 0, 360);
     }
 
@@ -1083,7 +1082,7 @@ public class Graphics {
      * @param end
      *            The angle the arc ends at
      */
-    public void fillArc(float x1, float y1, float width, float height, int segments, float start, float end) {
+    void fillArc(float x1, float y1, float width, float height, int segments, float start, float end) {
         predraw();
         TextureImpl.bindNone();
         currentColor.bind();
@@ -1171,7 +1170,7 @@ public class Graphics {
      * @param segs
      *            The number of segments to make the corners out of
      */
-    public void drawRoundRect(float x, float y, float width, float height, int cornerRadius, int segs) {
+    void drawRoundRect(float x, float y, float width, float height, int cornerRadius, int segs) {
         if (cornerRadius < 0)
             throw new IllegalArgumentException("corner radius must be > 0");
         if (cornerRadius == 0) {
@@ -1235,7 +1234,7 @@ public class Graphics {
      * @param segs
      *            The number of segments to make the corners out of
      */
-    public void fillRoundRect(float x, float y, float width, float height, int cornerRadius, int segs) {
+    void fillRoundRect(float x, float y, float width, float height, int cornerRadius, int segs) {
         if (cornerRadius < 0)
             throw new IllegalArgumentException("corner radius must be > 0");
         if (cornerRadius == 0) {
@@ -1286,7 +1285,7 @@ public class Graphics {
      *
      * @return The width of lines being draw in this context
      */
-    public float getLineWidth() {
+    float getLineWidth() {
         return lineWidth;
     }
 
@@ -1358,7 +1357,7 @@ public class Graphics {
      * @param col
      *            The color to apply to the image as a filter
      */
-    public void drawImage(@Nonnull Image image, float x, float y, Color col) {
+    void drawImage(@Nonnull Image image, float x, float y, Color col) {
         predraw();
         image.draw(x, y, col);
         currentColor.bind();
@@ -1391,7 +1390,7 @@ public class Graphics {
      * @param col
      *            The color to apply to the animation as a filter
      */
-    public void drawAnimation(@Nonnull Animation anim, float x, float y, Color col) {
+    void drawAnimation(@Nonnull Animation anim, float x, float y, Color col) {
         predraw();
         anim.draw(x, y, col);
         currentColor.bind();
@@ -1408,7 +1407,7 @@ public class Graphics {
      * @param y
      *            The y location at which to draw the image
      */
-    public void drawImage(@Nonnull Image image, float x, float y) {
+    protected void drawImage(@Nonnull Image image, float x, float y) {
         drawImage(image, x, y, Color.white);
     }
 
@@ -1436,7 +1435,7 @@ public class Graphics {
      *            The t position of the bottom right cornder of rectangle to draw from this image (i.e. relative to the
      *            image)
      */
-    public void drawImage(@Nonnull Image image, float x, float y, float x2, float y2, float srcx, float srcy, float srcx2, float srcy2) {
+    void drawImage(@Nonnull Image image, float x, float y, float x2, float y2, float srcx, float srcy, float srcx2, float srcy2) {
         predraw();
         image.draw(x, y, x2, y2, srcx, srcy, srcx2, srcy2);
         currentColor.bind();
@@ -1498,7 +1497,7 @@ public class Graphics {
      * @param width the width of the data to copy from the screen
      * @param height the height of the data to copy from the screen
      */
-    public void copyArea(@Nonnull Image target, int x, int y, int xoff, int yoff, int width, int height) {
+    void copyArea(@Nonnull Image target, int x, int y, int xoff, int yoff, int width, int height) {
         predraw();
         target.getTexture();
         target.bind();
@@ -1595,7 +1594,7 @@ public class Graphics {
      * @param col
      *            The color to apply to the image as a filter
      */
-    public void drawImage(@Nonnull Image image, float x, float y, float x2, float y2, float srcx, float srcy, float srcx2, float srcy2, Color col) {
+    void drawImage(@Nonnull Image image, float x, float y, float x2, float y2, float srcx, float srcy, float srcx2, float srcy2, Color col) {
         predraw();
         image.draw(x, y, x2, y2, srcx, srcy, srcx2, srcy2, col);
         currentColor.bind();
@@ -1714,7 +1713,7 @@ public class Graphics {
      * transform stack. An associated popTransform() must be performed to restore the state before the end of the
      * rendering loop.
      */
-    public void pushTransform() {
+    void pushTransform() {
         predraw();
 
         FloatBuffer buffer;
@@ -1737,7 +1736,7 @@ public class Graphics {
      * Pop a previously pushed transform from the stack to the current. This should only be called if a transform has
      * been previously pushed.
      */
-    public void popTransform() {
+    void popTransform() {
         if (stackIndex == 0) {
             throw new RuntimeException("Attempt to pop a transform that hasn't be pushed");
         }

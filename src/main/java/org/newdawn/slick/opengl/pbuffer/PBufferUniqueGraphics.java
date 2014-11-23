@@ -125,7 +125,7 @@ public class PBufferUniqueGraphics extends Graphics {
     /**
      * Initialise the GL context
      */
-    protected void initGL() {
+    void initGL() {
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glShadeModel(GL11.GL_SMOOTH);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
@@ -147,7 +147,7 @@ public class PBufferUniqueGraphics extends Graphics {
     /**
      * Enter the orthographic mode
      */
-    protected void enterOrtho() {
+    void enterOrtho() {
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
         GL11.glOrtho(0, screenWidth, 0, screenHeight, 1, -1);

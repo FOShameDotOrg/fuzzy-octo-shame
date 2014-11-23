@@ -59,7 +59,7 @@ public class Image implements Renderable {
      *             if there was a problem constructing the offscreen image
      */
     @Nonnull
-    public static Image createOffscreenImage(int width, int height, int filter) throws SlickException {
+    private static Image createOffscreenImage(int width, int height, int filter) throws SlickException {
         // this is a bit hackish; ideally FBO/Image should be restructured into
         // a more OpenGL-like design...
         // but that would introduce a major overhaul of the library
@@ -92,64 +92,62 @@ public class Image implements Renderable {
     }
 
     /** The top left corner identifier */
-    public static final int TOP_LEFT = 0;
+    private static final int TOP_LEFT = 0;
     /** The top right corner identifier */
-    public static final int TOP_RIGHT = 1;
+    private static final int TOP_RIGHT = 1;
     /** The bottom right corner identifier */
-    public static final int BOTTOM_RIGHT = 2;
+    private static final int BOTTOM_RIGHT = 2;
     /** The bottom left corner identifier */
-    public static final int BOTTOM_LEFT = 3;
+    private static final int BOTTOM_LEFT = 3;
 
     /** The renderer to use for all GL operations. */
-    protected static SGL GL = Renderer.get();
+    private static SGL GL = Renderer.get();
 
     /** The sprite sheet currently in use. */
     @Nullable
-    protected static Texture inUse;
+    private static Texture inUse;
     /** Use Linear Filtering (same as SGL.GL_LINEAR) */
-    public static final int FILTER_LINEAR = SGL.GL_LINEAR;
+    private static final int FILTER_LINEAR = SGL.GL_LINEAR;
     /** Use Nearest Filtering (same as SGL.GL_NEAREST) */
     public static final int FILTER_NEAREST = SGL.GL_NEAREST;
 
     /** The OpenGL texture for this image. */
-    @Nullable
-    protected Texture texture;
+    @Nullable private Texture texture;
     /** The width of the image. */
-    protected int width;
+    private int width;
     /** The height of the image. */
-    protected int height;
+    private int height;
     /** The texture coordinate width to use to find our image. */
-    protected float textureWidth;
+    private float textureWidth;
     /** The texture coordinate height to use to find our image. */
-    protected float textureHeight;
+    private float textureHeight;
     /** The x texture offset to use to find our image. */
-    protected float textureOffsetX;
+    private float textureOffsetX;
     /** The y texture offset to use to find our image. */
-    protected float textureOffsetY;
+    private float textureOffsetY;
     /** Angle to rotate the image to, in degrees. */
-    protected float angle;
+    private float angle;
     /** The alpha to draw the image at. */
-    protected float alpha = 1.0f;
+    private float alpha = 1.0f;
     /** The name given for the image. */
-    protected String ref;
+    private String ref;
     /** True if this image's state has been initialised */
-    protected boolean inited = false;
+    private boolean inited = false;
     /** A pixelData holding the pixel data if it's been read for this texture */
-    @Nullable
-    protected byte[] pixelData;
+    @Nullable private byte[] pixelData;
     /** True if the image has been destroyed */
-    protected boolean destroyed;
+    private boolean destroyed;
 
     /** The x coordinate of the centre of rotation */
-    protected float centerX;
+    private float centerX;
     /** The y coordinate of the centre of rotation */
-    protected float centerY;
+    private float centerY;
 
     /** A meaningful name provided by the user of the image to tag it */
-    protected String name;
+    private String name;
 
     /** The colours for each of the corners */
-    protected Color[] corners;
+    private Color[] corners;
     /** The OpenGL max filter */
     private int filter = FILTER_LINEAR;
 
@@ -158,7 +156,7 @@ public class Image implements Renderable {
      *
      * @param other The other texture to copy
      */
-    protected Image(@Nonnull Image other) {
+    Image(@Nonnull Image other) {
         this.width = other.getWidth();
         this.height = other.getHeight();
         this.texture = other.texture;
@@ -176,7 +174,7 @@ public class Image implements Renderable {
     /**
      * Cloning constructor - only used internally.
      */
-    protected Image() {
+    Image() {
     }
 
     /**
@@ -233,7 +231,7 @@ public class Image implements Renderable {
      * @param flipped True if the image should be flipped on the y-axis on load
      * @throws SlickException Indicates a failure to load the image
      */
-    public Image(String ref, boolean flipped) throws SlickException {
+    private Image(String ref, boolean flipped) throws SlickException {
         this(ref, flipped, FILTER_LINEAR);
     }
 
@@ -245,7 +243,7 @@ public class Image implements Renderable {
      * @param filter The filtering method to use when scaling this image
      * @throws SlickException Indicates a failure to load the image
      */
-    public Image(String ref, boolean flipped, int filter) throws SlickException {
+    private Image(String ref, boolean flipped, int filter) throws SlickException {
         this(ref, flipped, filter, null);
     }
 
@@ -309,7 +307,7 @@ public class Image implements Renderable {
      * @param f The filter to apply to scaling the new image
      * @throws SlickException Indicates a failure to create the underlying resource
      */
-    public Image(int width, int height, int f) throws SlickException {
+    private Image(int width, int height, int f) throws SlickException {
         this(new EmptyImageData(width, height), f);
     }
 
@@ -334,7 +332,7 @@ public class Image implements Renderable {
      * @param filter The filter to use when scaling this image
      * @throws SlickException Indicates a failure to load the image
      */
-    public Image(@Nonnull InputStream in, String ref, boolean flipped,int filter) throws SlickException {
+    private Image(@Nonnull InputStream in, String ref, boolean flipped,int filter) throws SlickException {
         load(in, ref, flipped, filter, null);
     }
 
@@ -374,7 +372,7 @@ public class Image implements Renderable {
      * @param data The pixelData to use to create the image
      * @param f The filter to use when scaling this image
      */
-    public Image(@Nonnull ImageData data, int f) {
+    private Image(@Nonnull ImageData data, int f) {
         try {
             this.filter = f;
             texture = InternalTextureLoader.get().getTexture(data, this.filter);
@@ -442,7 +440,7 @@ public class Image implements Renderable {
      * @param b The blue component value to set (between 0 and 1)
      * @param a The alpha component value to set (between 0 and 1)
      */
-    public void setColor(int corner, float r, float g, float b, float a) {
+    void setColor(int corner, float r, float g, float b, float a) {
         if (corners == null) {
             corners = new Color[] {new Color(1,1,1,1f),new Color(1,1,1,1f), new Color(1,1,1,1f), new Color(1,1,1,1f)};
         }
@@ -462,7 +460,7 @@ public class Image implements Renderable {
      * @param g The green component value to set (between 0 and 1)
      * @param b The blue component value to set (between 0 and 1)
      */
-    public void setColor(int corner, float r, float g, float b) {
+    void setColor(int corner, float r, float g, float b) {
         if (corners == null) {
             corners = new Color[] {new Color(1,1,1,1f),new Color(1,1,1,1f), new Color(1,1,1,1f), new Color(1,1,1,1f)};
         }
@@ -475,7 +473,7 @@ public class Image implements Renderable {
     /**
      * Clamp the loaded texture to it's edges
      */
-    public void clampTexture() {
+    void clampTexture() {
         if (GL.canTextureMirrorClamp()) {
             GL.glTexParameteri(SGL.GL_TEXTURE_2D, SGL.GL_TEXTURE_WRAP_S, SGL.GL_MIRROR_CLAMP_TO_EDGE_EXT);
             GL.glTexParameteri(SGL.GL_TEXTURE_2D, SGL.GL_TEXTURE_WRAP_T, SGL.GL_MIRROR_CLAMP_TO_EDGE_EXT);
@@ -510,7 +508,7 @@ public class Image implements Renderable {
      * @return The graphics context used to render to this image
      * @throws SlickException Indicates a failure to create a graphics context
      */
-    public Graphics getGraphics() throws SlickException {
+    Graphics getGraphics() throws SlickException {
         return GraphicsFactory.getGraphicsForImage(this);
     }
 
@@ -553,7 +551,7 @@ public class Image implements Renderable {
     /**
      * Reinitialise internal data and flushes the cached pixel data.
      */
-    protected void reinit() {
+    void reinit() {
         inited = false;
         flushPixelData();
         init();
@@ -562,7 +560,7 @@ public class Image implements Renderable {
     /**
      * Initialise internal data
      */
-    protected final void init() {
+    final void init() {
         if (inited) {
             return;
         }
@@ -586,7 +584,7 @@ public class Image implements Renderable {
     /**
      * Hook for subclasses to perform initialisation
      */
-    protected void initImpl() {
+    void initImpl() {
 
     }
 
@@ -642,7 +640,7 @@ public class Image implements Renderable {
      * @param height the new height to render the image
      * @param rotation the rotation to render the image in degrees, using getCenterOfRotationX/Y
      */
-    public void drawEmbedded(float x, float y, float width, float height, float rotation) {
+    void drawEmbedded(float x, float y, float width, float height, float rotation) {
         if (rotation==0) {
             drawEmbedded(x, y, width, height);
             return;
@@ -766,7 +764,7 @@ public class Image implements Renderable {
      * @param srcx2 The x position of the bottom right cornder of rectangle to draw from this image (i.e. relative to this image)
      * @param srcy2 The t position of the bottom right cornder of rectangle to draw from this image (i.e. relative to this image)
      */
-    public void drawEmbedded(float x, float y, float x2, float y2, float srcx, float srcy, float srcx2, float srcy2) {
+    void drawEmbedded(float x, float y, float x2, float y2, float srcx, float srcy, float srcx2, float srcy2) {
         drawEmbedded(x,y,x2,y2,srcx,srcy,srcx2,srcy2,null);
     }
 
@@ -784,7 +782,7 @@ public class Image implements Renderable {
      * @param srcy2 The t position of the bottom right cornder of rectangle to draw from this image (i.e. relative to this image)
      * @param filter The colour filter to apply when drawing
      */
-    public void drawEmbedded(float x, float y, float x2, float y2, float srcx, float srcy, float srcx2, float srcy2, @Nullable Color filter) {
+    void drawEmbedded(float x, float y, float x2, float y2, float srcx, float srcy, float srcx2, float srcy2, @Nullable Color filter) {
         init();
         if (filter != null) {
             filter.bind();
@@ -902,7 +900,7 @@ public class Image implements Renderable {
      * @param height
      *            The height to render the image at
      */
-    public void draw(float x,float y,float width,float height) {
+    void draw(float x,float y,float width,float height) {
         init();
         draw(x,y,width,height,Color.white);
     }
@@ -928,7 +926,7 @@ public class Image implements Renderable {
      * @param vshear The amount to shear the right points by vertically
      * @param filter The colour filter to apply
      */
-    public void drawSheared(float x,float y, float hshear, float vshear, @Nullable Color filter) {
+    void drawSheared(float x,float y, float hshear, float vshear, @Nullable Color filter) {
         init();
         if (alpha != 1) {
             if (filter == null) {
@@ -1026,7 +1024,7 @@ public class Image implements Renderable {
      * @param width The width to render the image at
      * @param height The height to render the image at
      */
-    public void drawFlash(float x,float y,float width,float height) {
+    void drawFlash(float x,float y,float width,float height) {
         drawFlash(x,y,width,height,Color.white);
     }
 
@@ -1047,7 +1045,7 @@ public class Image implements Renderable {
      *
      * @return The x component of the center of rotation
      */
-    public float getCenterOfRotationX() {
+    float getCenterOfRotationX() {
         init();
 
         return centerX;
@@ -1058,7 +1056,7 @@ public class Image implements Renderable {
      *
      * @return The y component of the center of rotation
      */
-    public float getCenterOfRotationY() {
+    float getCenterOfRotationY() {
         init();
 
         return centerY;
@@ -1334,8 +1332,7 @@ public class Image implements Renderable {
      *
      * @return The copy of this image
      */
-    @Nonnull
-    public Image copy() {
+    @Nonnull Image copy() {
         init();
         return getScaledCopy(width,height);
     }
@@ -1400,8 +1397,7 @@ public class Image implements Renderable {
      * @param height The height of the copy
      * @return The new scaled image
      */
-    @Nonnull
-    public Image getScaledCopy(int width, int height) {
+    @Nonnull Image getScaledCopy(int width, int height) {
         init();
         Image image = new Image();
         image.inited = true;
@@ -1462,7 +1458,7 @@ public class Image implements Renderable {
      *
      * @see #startUse
      */
-    public void endUse() {
+    void endUse() {
         if (inUse != texture) {
             throw new RuntimeException("The sprite sheet is not currently in use");
         }
@@ -1476,7 +1472,7 @@ public class Image implements Renderable {
      * calling renderInUse(). Finally, endUse(). Between start and end there can be no rendering
      * of other sprites since the rendering is locked for this sprite sheet.
      */
-    public void startUse() {
+    void startUse() {
         if (inUse != null) {
             throw new RuntimeException("Attempt to start use of a sprite sheet before ending use with another - see endUse()");
         }
@@ -1589,7 +1585,7 @@ public class Image implements Renderable {
      *
      * @return True if this image has been destroyed
      */
-    public boolean isDestroyed() {
+    boolean isDestroyed() {
         return destroyed;
     }
 
@@ -1632,7 +1628,7 @@ public class Image implements Renderable {
      *            The height to render the image at
      * @param transform The transform to use (flip, flipX or flipY)
      */
-    public void drawEmbedded(float x, float y, float width, float height, byte transform) {
+    void drawEmbedded(float x, float y, float width, float height, byte transform) {
         boolean rotate = (transform & 1) > 0;
         boolean flipY  = ((transform & 2) > 0) ^ rotate;
         boolean flipX  = ((transform & 4) > 0) ^ rotate;

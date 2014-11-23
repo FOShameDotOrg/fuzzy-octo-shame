@@ -62,7 +62,7 @@ public class TextureLoader {
      * @return The newly created texture
      * @throws IOException Indicates a failure to read the image data
      */
-    public static Texture getTexture(String format, @Nonnull InputStream in, boolean flipped, int filter) throws IOException {
+    private static Texture getTexture(String format, @Nonnull InputStream in, boolean flipped, int filter) throws IOException {
         return InternalTextureLoader.get().getTexture(in, in.toString()+"."+format, flipped, filter);
     }
 }

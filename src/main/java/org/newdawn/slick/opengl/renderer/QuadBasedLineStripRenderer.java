@@ -12,7 +12,7 @@ public class QuadBasedLineStripRenderer implements LineStripRenderer {
     private SGL GL = Renderer.get();
 
     /** Maximum number of points allowed in a single strip */
-    public static int MAX_POINTS = 10000;
+    private static int MAX_POINTS = 10000;
     /** True if antialiasing is currently enabled */
     private boolean antialias;
     /** The width of the lines to draw */
@@ -119,7 +119,7 @@ public class QuadBasedLineStripRenderer implements LineStripRenderer {
      * @param points The points to be rendered as lines
      * @param count The number of points to render
      */
-    public void renderLines(float[] points, int count) {
+    void renderLines(float[] points, int count) {
         if (antialias) {
             GL.glEnable(SGL.GL_POLYGON_SMOOTH);
             renderLinesImpl(points,count,width+1f);
@@ -140,7 +140,7 @@ public class QuadBasedLineStripRenderer implements LineStripRenderer {
      * @param count The number of points to render
      * @param w The width to render at
      */
-    public void renderLinesImpl(float[] points, int count, float w) {
+    void renderLinesImpl(float[] points, int count, float w) {
         float width = w / 2;
 
         float lastx1 = 0;
