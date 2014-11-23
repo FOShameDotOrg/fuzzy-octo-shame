@@ -1,6 +1,5 @@
 package org.newdawn.slick.util;
 
-import javax.annotation.Nullable;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 

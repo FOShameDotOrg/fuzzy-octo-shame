@@ -6,7 +6,6 @@ import java.security.PrivilegedAction;
 import org.newdawn.slick.util.Log;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * A static utility to create the appropriate image data for a particular reference.
