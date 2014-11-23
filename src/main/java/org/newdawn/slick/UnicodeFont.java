@@ -91,11 +91,11 @@ public class UnicodeFont implements org.newdawn.slick.Font {
     /** The glyphs that are available in this font */
     private final Glyph[][] glyphs = new Glyph[PAGES][];
     /** The pages that have been loaded for this font */
-    private final List<GlyphPage> glyphPages = new ArrayList<GlyphPage>();
+    private final List<GlyphPage> glyphPages = new ArrayList<>();
     /** The glyphs queued up to be rendered */
-    private final List<Glyph> queuedGlyphs = new ArrayList<Glyph>(256);
+    private final List<Glyph> queuedGlyphs = new ArrayList<>(256);
     /** The effects that need to be applied to the font */
-    private final List<Effect> effects = new ArrayList<Effect>();
+    private final List<Effect> effects = new ArrayList<>();
 
     /** The padding applied in pixels to the top of the glyph rendered area */
     private int paddingTop;
@@ -129,7 +129,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
 
     /** The map fo the display list generated and cached - modified to allow removal of the oldest entry */
     private final Map<CharSequence, DisplayList> displayLists = new LinkedHashMap<CharSequence, DisplayList>(DISPLAY_LIST_CACHE_SIZE, 1, true) {
-        protected boolean removeEldestEntry (Entry eldest) {
+        protected boolean removeEldestEntry (Entry<CharSequence, DisplayList> eldest) {
             DisplayList displayList = (DisplayList)eldest.getValue();
             if (displayList != null) eldestDisplayListID = displayList.id;
             return size() > DISPLAY_LIST_CACHE_SIZE;
@@ -226,7 +226,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      * @param bold True if the font should be rendered in bold typeface
      * @param italic True if the font should be rendered in bold typeface
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked","rawtypes"})
     private void initializeFont(Font baseFont, int size, boolean bold, boolean italic) {
         Map attributes = baseFont.getAttributes();
         attributes.put(TextAttribute.SIZE, new Float(size));
@@ -346,8 +346,8 @@ public class UnicodeFont implements org.newdawn.slick.Font {
         if (effects.isEmpty())
             throw new IllegalStateException("The UnicodeFont must have at least one effect before any glyphs can be loaded.");
 
-        for (Iterator iter = queuedGlyphs.iterator(); iter.hasNext();) {
-            Glyph glyph = (Glyph)iter.next();
+        for (Iterator<Glyph> iter = queuedGlyphs.iterator(); iter.hasNext();) {
+            Glyph glyph = iter.next();
             int codePoint = glyph.getCodePoint();
 
             // Don't load an image for a glyph with nothing to display.
@@ -394,8 +394,8 @@ public class UnicodeFont implements org.newdawn.slick.Font {
         for (int i = 0; i < PAGES; i++)
             glyphs[i] = null;
 
-        for (Iterator iter = glyphPages.iterator(); iter.hasNext();) {
-            GlyphPage page = (GlyphPage)iter.next();
+        for (Iterator<GlyphPage> iter = glyphPages.iterator(); iter.hasNext();) {
+            GlyphPage page = iter.next();
             try {
                 page.getImage().destroy();
             } catch (SlickException ignored) {

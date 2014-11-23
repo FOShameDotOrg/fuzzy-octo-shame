@@ -117,13 +117,13 @@ public class GlyphPage {
      * @return The number of glyphs that were actually loaded.
      * @throws SlickException if the glyph could not be rendered.
      */
-    public int loadGlyphs (List glyphs, int maxGlyphsToLoad) throws SlickException {
+    public int loadGlyphs (List<Glyph> glyphs, int maxGlyphsToLoad) throws SlickException {
         if (rowHeight != 0 && maxGlyphsToLoad == -1) {
             // If this page has glyphs and we are not loading incrementally, return zero if any of the glyphs don't fit.
             int testX = pageX;
             int testY = pageY;
             int testRowHeight = rowHeight;
-            for (Iterator iter = getIterator(glyphs); iter.hasNext();) {
+            for (Iterator<?> iter = getIterator(glyphs); iter.hasNext();) {
                 Glyph glyph = (Glyph)iter.next();
                 int width = glyph.getWidth();
                 int height = glyph.getHeight();
@@ -143,7 +143,7 @@ public class GlyphPage {
         pageImage.bind();
 
         int i = 0;
-        for (Iterator iter = getIterator(glyphs); iter.hasNext();) {
+        for (Iterator<?> iter = getIterator(glyphs); iter.hasNext();) {
             Glyph glyph = (Glyph)iter.next();
             int width = Math.min(MAX_GLYPH_SIZE, glyph.getWidth());
             int height = Math.min(MAX_GLYPH_SIZE, glyph.getHeight());
@@ -200,7 +200,7 @@ public class GlyphPage {
         scratchGraphics.fillRect(0, 0, MAX_GLYPH_SIZE, MAX_GLYPH_SIZE);
         scratchGraphics.setComposite(AlphaComposite.SrcOver);
         scratchGraphics.setColor(java.awt.Color.white);
-        for (Iterator iter = unicodeFont.getEffects().iterator(); iter.hasNext();)
+        for (Iterator<?> iter = unicodeFont.getEffects().iterator(); iter.hasNext();)
             ((Effect)iter.next()).draw(scratchImage, scratchGraphics, unicodeFont, glyph);
         glyph.setShape(null); // The shape will never be needed again.
 
@@ -223,15 +223,15 @@ public class GlyphPage {
      * @param glyphs The glyphs to return if present
      * @return An iterator of the sorted list of glyphs
      */
-    private Iterator getIterator(List glyphs) {
+    private Iterator<Glyph> getIterator(List<Glyph> glyphs) {
         if (orderAscending) return glyphs.iterator();
-        final ListIterator iter = glyphs.listIterator(glyphs.size());
-        return new Iterator() {
+        final ListIterator<Glyph> iter = glyphs.listIterator(glyphs.size());
+        return new Iterator<Glyph>() {
             public boolean hasNext () {
                 return iter.hasPrevious();
             }
 
-            public Object next () {
+            public Glyph next () {
                 return iter.previous();
             }
 
@@ -246,7 +246,7 @@ public class GlyphPage {
      *
      * @return A list of {@link Glyph} elements on this page
      */
-    public List getGlyphs () {
+    public List<Glyph> getGlyphs () {
         return pageGlyphs;
     }
 

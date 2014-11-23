@@ -184,7 +184,7 @@ public class ImageIOImageData implements LoadableImageData {
         }
         
         raster = Raster.createInterleavedRaster(DataBuffer.TYPE_BYTE,texWidth,texHeight,format.getColorComponents(),null);
-        texImage = new BufferedImage(usedModel,raster,false,new Hashtable());
+        texImage = new BufferedImage(usedModel,raster,false,new Hashtable<>());
             
         // copy the source image into the produced image
         Graphics2D g = (Graphics2D) texImage.getGraphics();

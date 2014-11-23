@@ -353,7 +353,7 @@ public class HieroSettings {
      * @param file The file we're saving to
      * @throws IOException if the file could not be saved.
      */
-    public void save(File file) throws IOException {
+    public void save(File file) throws SlickException, IOException {
         PrintStream out = new PrintStream(new FileOutputStream(file));
         out.println("font.size=" + fontSize);
         out.println("font.bold=" + bold);
@@ -369,11 +369,15 @@ public class HieroSettings {
         out.println("glyph.page.width=" + glyphPageWidth);
         out.println("glyph.page.height=" + glyphPageHeight);
         out.println();
-        for (Iterator iter = effects.iterator(); iter.hasNext();) {
-            ConfigurableEffect effect = (ConfigurableEffect)iter.next();
+        for (Iterator<Effect> iter = effects.iterator(); iter.hasNext();) {
+            if(!(iter.next() instanceof ConfigurableEffect)) {
+                throw new SlickException("Effect is not org.newdawn.slick.font.effects.ConfigurableEffect");
+            }
+            ConfigurableEffect effect = (ConfigurableEffect) iter.next();
+            
             out.println("effect.class=" + effect.getClass().getName());
-            for (Iterator iter2 = effect.getValues().iterator(); iter2.hasNext();) {
-                Value value = (Value)iter2.next();
+            for (Iterator<Value> iter2 = effect.getValues().iterator(); iter2.hasNext();) {
+                Value value = iter2.next();
                 out.println("effect." + value.getName() + "=" + value.getString());
             }
             out.println();
