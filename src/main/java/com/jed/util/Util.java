@@ -48,7 +48,7 @@ public class Util {
 
     /**
      * 
-     * @param value vale to get closes power of two to
+     * @param value value to get closes power of two to
      * @return closest power of two to parameter
      */
     public static int getClosestPowerOfTwo(int value) {
