@@ -17,7 +17,7 @@ import org.newdawn.slick.util.FastTrig;
 import org.newdawn.slick.util.Log;
 
 /**
- * An image loaded from a file and renderable to the canvas
+ * An image loaded from a file and renderable to the canvas.
  *
  * @author kevin
  * @author liamzebedee #drawEmbedded(float, float, float, float, byte)
@@ -95,35 +95,35 @@ public class Image implements Renderable {
     /** The bottom left corner identifier */
     public static final int BOTTOM_LEFT = 3;
 
-    /** The renderer to use for all GL operations */
+    /** The renderer to use for all GL operations. */
     protected static SGL GL = Renderer.get();
 
-    /** The sprite sheet currently in use */
+    /** The sprite sheet currently in use. */
     protected static Texture inUse;
     /** Use Linear Filtering (same as SGL.GL_LINEAR) */
     public static final int FILTER_LINEAR = SGL.GL_LINEAR;
     /** Use Nearest Filtering (same as SGL.GL_NEAREST) */
     public static final int FILTER_NEAREST = SGL.GL_NEAREST;
 
-    /** The OpenGL texture for this image */
+    /** The OpenGL texture for this image. */
     protected Texture texture;
-    /** The width of the image */
+    /** The width of the image. */
     protected int width;
-    /** The height of the image */
+    /** The height of the image. */
     protected int height;
-    /** The texture coordinate width to use to find our image */
+    /** The texture coordinate width to use to find our image. */
     protected float textureWidth;
-    /** The texture coordinate height to use to find our image */
+    /** The texture coordinate height to use to find our image. */
     protected float textureHeight;
-    /** The x texture offset to use to find our image */
+    /** The x texture offset to use to find our image. */
     protected float textureOffsetX;
-    /** The y texture offset to use to find our image */
+    /** The y texture offset to use to find our image. */
     protected float textureOffsetY;
     /** Angle to rotate the image to, in degrees. */
     protected float angle;
-    /** The alpha to draw the image at */
+    /** The alpha to draw the image at. */
     protected float alpha = 1.0f;
-    /** The name given for the image */
+    /** The name given for the image. */
     protected String ref;
     /** True if this image's state has been initialised */
     protected boolean inited = false;
