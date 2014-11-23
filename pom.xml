@@ -186,9 +186,44 @@
           <version>${versions-maven-plugin.version}</version>
         </plugin>
         <plugin>
+          <!-- 
+            org.eclipse.m2e:lifecycle-mapping's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself if run from the command line. Because there is no m2e connector for maven-checkstyle-plugin we ignore it so that Eclipse does not show an error. If/Once a connector is available, the org.eclipse.m2e:lifecycle-mapping plugin can be removed from the plugins element. See: http://wiki.eclipse.org/M2E_plugin_execution_not_covered
+          -->
           <groupId>org.eclipse.m2e</groupId>
           <artifactId>lifecycle-mapping</artifactId>
           <version>${lifecycle-mapping.version}</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <versionRange>[2.13,)</versionRange>
+                    <goals>
+                      <goal>check</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <versionRange>[1.0.0,)</versionRange>
+                    <goals>
+                      <goal>enforce</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>org.colapietro.maven.plugins</groupId>
@@ -263,36 +298,6 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <!-- org.eclipse.m2e:lifecycle-mapping's configuration is used to store Eclipse m2e settings
-  only. It has no influence on the Maven build itself if run from the command line. Because there is no
-   m2e connector for maven-checkstyle-plugin we ignore it so that Eclipse does not show an error. If/Once a
-    connector is available, the org.eclipse.m2e:lifecycle-mapping plugin can be removed from the plugins
-     element. See: http://wiki.eclipse.org/M2E_plugin_execution_not_covered -->
-        <groupId>org.eclipse.m2e</groupId>
-        <artifactId>lifecycle-mapping</artifactId>
-        <configuration>
-          <lifecycleMappingMetadata>
-            <pluginExecutions>
-              <pluginExecution>
-                <pluginExecutionFilter>
-                  <!-- TEST ME AND REMOVE IF POSSIBLE
-                  <groupId>org.apache.maven.plugins</groupId>
-                  -->
-                  <artifactId>maven-checkstyle-plugin</artifactId>
-                  <versionRange>[2.13,)</versionRange>
-                  <goals>
-                    <goal>check</goal>
-                  </goals>
-                </pluginExecutionFilter>
-                <action>
-                  <ignore />
-                </action>
-              </pluginExecution>
-            </pluginExecutions>
-          </lifecycleMappingMetadata>
-        </configuration>
       </plugin>
       <plugin>
         <!-- see: https://github.com/virtuoushub/mavennatives and https://code.google.com/p/mavennatives/ and http://www.lwjgl.org/wiki/index.php?title=LWJGL_use_in_Maven -->
