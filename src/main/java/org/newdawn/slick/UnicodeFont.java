@@ -975,7 +975,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
             // Worst case if this UnicodeFont was loaded without a ttfFileRef, try to get the font file from Sun's classes.
             try {
                 Object font2D = Class.forName("sun.font.FontManager").getDeclaredMethod("getFont2D", new Class[] {Font.class})
-                    .invoke(null, new Object[] {font});
+                    .invoke(null, font);
                 Field platNameField = Class.forName("sun.font.PhysicalFont").getDeclaredField("platName");
                 platNameField.setAccessible(true);
                 ttfFileRef = (String)platNameField.get(font2D);
