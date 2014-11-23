@@ -6,6 +6,8 @@ import com.jed.actor.Boundary;
 import com.jed.state.MapTile;
 import com.jed.util.Vector;
 
+import javax.annotation.Nonnull;
+
 /**
  * 
  * @author jlinde, Peter Colapietro
@@ -258,7 +260,7 @@ public class Collision implements Comparable<Collision> {
     }
 
     @Override
-    public int compareTo(Collision c) {
+    public int compareTo(@Nonnull Collision c) {
         if (collisionType == SAT) {
             if (c.collisionType != SAT) {
                 return -1;
