@@ -41,10 +41,9 @@ public class Vector {
      */
     public double distance(final Vector o) {
         double axBx = x - o.x;
-        axBx *= axBx;
+        axBx = Math.pow(axBx, 2.0d);
         double ayBy = (y - o.y);
-        ayBy *= ayBy;
-
+        ayBy = Math.pow(ayBy, 2.0d);
         return Math.sqrt(axBx + ayBy);
     }
 
