@@ -117,7 +117,7 @@ public strictfp class Circle extends Ellipse {
      * Check if a point is contained by this circle
      *
      * @param x The x coordinate of the point to check
-     * @param y The y coorindate of the point to check
+     * @param y The y coordinate of the point to check
      * @return True if the point is contained by this circle
      */
     public boolean contains(float x, float y) 
