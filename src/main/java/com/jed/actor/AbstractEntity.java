@@ -38,7 +38,7 @@ public abstract class AbstractEntity implements Displayable, State, Collidable {
      *
      * @param position position vector.
      * @param movement movement vector.
-     * @param bounds entitiy's bounds.
+     * @param bounds entity's bounds.
      */
     protected AbstractEntity(Vector position, Vector movement, Boundary bounds) {
         this.position = position;

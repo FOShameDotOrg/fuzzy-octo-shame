@@ -23,7 +23,7 @@ public abstract class Boundary implements Displayable {
     /**
      * 
      */
-    public final Vector[] verticies;
+    public final Vector[] vertices;
 
     /**
      * 
@@ -64,10 +64,10 @@ public abstract class Boundary implements Displayable {
     /**
      * 
      * @param position position.
-     * @param verticies verticies. 
+     * @param vertices vertices.
      */
-    public Boundary(Vector position, Vector[] verticies) {
-        this.verticies = verticies;
+    Boundary(Vector position, Vector[] vertices) {
+        this.vertices = vertices;
         this.position = position;
     }
 
