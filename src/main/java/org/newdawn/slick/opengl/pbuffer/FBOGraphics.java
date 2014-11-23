@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
  */
 public class FBOGraphics extends Graphics {
     /** The image we're we're sort of rendering to */
-    private Image image;
+    private final Image image;
     /** The ID of the FBO in use */
     private int FBO;
     /** True if this context is valid */

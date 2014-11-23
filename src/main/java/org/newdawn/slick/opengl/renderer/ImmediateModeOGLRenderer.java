@@ -23,7 +23,7 @@ public class ImmediateModeOGLRenderer implements SGL {
     private int height;
     /** The current colour */
     @Nonnull
-    private float[] current = new float[] {1,1,1,1};
+    private final float[] current = new float[] {1,1,1,1};
     /** The global colour scale */
     float alphaScale = 1;
 

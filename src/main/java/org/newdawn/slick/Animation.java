@@ -764,7 +764,7 @@ public class Animation implements Renderable {
      */
     private class Frame {
         /** The image to display for this frame */
-        public Image image;
+        public final Image image;
         /** The duration to display the image fro */
         public int duration;
         /** The x location of this frame on a SpriteSheet*/

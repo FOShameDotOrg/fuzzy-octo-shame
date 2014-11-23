@@ -18,9 +18,9 @@ import javax.annotation.Nullable;
  */
 public final class ShapeRenderer {
     /** The renderer to use for all GL operations */
-    private static SGL GL = Renderer.get();
+    private static final SGL GL = Renderer.get();
     /** The renderer to use line strips */
-    private static LineStripRenderer LSR = Renderer.getLineStripRenderer();
+    private static final LineStripRenderer LSR = Renderer.getLineStripRenderer();
 
     /**
      * Draw the outline of the given shape.  Only the vertices are set.  

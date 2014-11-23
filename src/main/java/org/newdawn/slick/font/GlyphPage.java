@@ -39,7 +39,7 @@ public class GlyphPage {
     public static final int MAX_GLYPH_SIZE = 256;
 
     /** A temporary working buffer */
-    private static ByteBuffer scratchByteBuffer = ByteBuffer.allocateDirect(MAX_GLYPH_SIZE * MAX_GLYPH_SIZE * 4);
+    private static final ByteBuffer scratchByteBuffer = ByteBuffer.allocateDirect(MAX_GLYPH_SIZE * MAX_GLYPH_SIZE * 4);
 
     static {
         scratchByteBuffer.order(ByteOrder.LITTLE_ENDIAN);
@@ -47,15 +47,15 @@ public class GlyphPage {
     
     /** A temporary working buffer */
     @Nonnull
-    private static IntBuffer scratchIntBuffer = scratchByteBuffer.asIntBuffer();
+    private static final IntBuffer scratchIntBuffer = scratchByteBuffer.asIntBuffer();
     
     
     /** A temporary image used to generate the glyph page */
     @Nonnull
-    private static BufferedImage scratchImage = new BufferedImage(MAX_GLYPH_SIZE, MAX_GLYPH_SIZE, BufferedImage.TYPE_INT_ARGB);
+    private static final BufferedImage scratchImage = new BufferedImage(MAX_GLYPH_SIZE, MAX_GLYPH_SIZE, BufferedImage.TYPE_INT_ARGB);
     /** The graphics context form the temporary image */
     @Nonnull
-    private static Graphics2D scratchGraphics = (Graphics2D)scratchImage.getGraphics();
+    private static final Graphics2D scratchGraphics = (Graphics2D)scratchImage.getGraphics();
 
     static {
         scratchGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -64,7 +64,7 @@ public class GlyphPage {
     }
 
     /** The render context in which the glyphs will be generated */
-    public static FontRenderContext renderContext = scratchGraphics.getFontRenderContext();
+    public static final FontRenderContext renderContext = scratchGraphics.getFontRenderContext();
 
     /**
      * Get the scratch graphics used to generate the page of glyphs

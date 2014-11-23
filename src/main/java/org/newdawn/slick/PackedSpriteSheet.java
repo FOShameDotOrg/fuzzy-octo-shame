@@ -24,10 +24,10 @@ class PackedSpriteSheet {
     /** The image loaded for the sheet */
     private Image image;
     /** The base path where the image is expected to be found based on the original definition file */
-    private String basePath;
+    private final String basePath;
     /** The section definitions */
     @Nonnull
-    private Map<String, Section> sections = new HashMap<>();
+    private final Map<String, Section> sections = new HashMap<>();
     /** The filter used when loading the image */
     private int filter = Image.FILTER_NEAREST;
 

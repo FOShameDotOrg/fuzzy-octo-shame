@@ -23,10 +23,10 @@ public class Line extends Shape {
     private Vector2f vec;
     /** Temporary storage - declared globally to reduce GC */
     @Nonnull
-    private Vector2f loc = new Vector2f(0, 0);
+    private final Vector2f loc = new Vector2f(0, 0);
     /** Temporary storage - declared globally to reduce GC */
     @Nonnull
-    private Vector2f closest = new Vector2f(0, 0);
+    private final Vector2f closest = new Vector2f(0, 0);
     /**
      * Create a new line based on the origin and a single point
      *

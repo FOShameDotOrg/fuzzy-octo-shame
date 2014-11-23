@@ -26,29 +26,29 @@ public class VAOGLRenderer extends ImmediateModeOGLRenderer {
     private int currentType = NONE;
     /** The last colour applied */
     @Nonnull
-    private float[] color = new float[] {1f,1f,1f,1f};
+    private final float[] color = new float[] {1f,1f,1f,1f};
     /** The last texture applied */
     @Nonnull
-    private float[] tex = new float[] {0f,0f};
+    private final float[] tex = new float[] {0f,0f};
     /** The index of the next vertex to be created */
     private int vertIndex;
 
     /** The vertex data cached */
     @Nonnull
-    private float[] verts = new float[MAX_VERTS*3];
+    private final float[] verts = new float[MAX_VERTS*3];
     /** The vertex colour data cached */
     @Nonnull
-    private float[] cols = new float[MAX_VERTS*4];
+    private final float[] cols = new float[MAX_VERTS*4];
     /** The vertex texture coordiante data cached */
     @Nonnull
-    private float[] texs = new float[MAX_VERTS*3];
+    private final float[] texs = new float[MAX_VERTS*3];
 
     /** The buffer used to pass the vertex data to the card */
-    private FloatBuffer vertices = BufferUtils.createFloatBuffer(MAX_VERTS * 3);
+    private final FloatBuffer vertices = BufferUtils.createFloatBuffer(MAX_VERTS * 3);
     /** The buffer used to pass the vertex color data to the card */
-    private FloatBuffer colors = BufferUtils.createFloatBuffer(MAX_VERTS * 4);
+    private final FloatBuffer colors = BufferUtils.createFloatBuffer(MAX_VERTS * 4);
     /** The buffer used to pass the vertex texture coordinate data to the card */
-    private FloatBuffer textures = BufferUtils.createFloatBuffer(MAX_VERTS * 2);
+    private final FloatBuffer textures = BufferUtils.createFloatBuffer(MAX_VERTS * 2);
 
     /** The stack for entering list creation mode - when we're creating a list we can't use our VAs */
     private int listMode = 0;

@@ -27,7 +27,7 @@ public class Ellipse extends Shape {
     /**
      * The number of segments for graphical representation.
      */
-    private int segmentCount;
+    private final int segmentCount;
     /**
      * horizontal radius
      */

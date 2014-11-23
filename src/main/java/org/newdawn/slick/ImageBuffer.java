@@ -23,15 +23,15 @@ import javax.annotation.Nonnull;
  */
 public class ImageBuffer implements ImageData {
     /** The width of the image */
-    private int width;
+    private final int width;
     /** The height of the image */
-    private int height;
+    private final int height;
     /** The width of the texture */
-    private int texWidth;
+    private final int texWidth;
     /** The height of the texture */
-    private int texHeight;
+    private final int texHeight;
     /** The raw data generated for the image */
-    private byte[] rawData;
+    private final byte[] rawData;
 
     /**
      *

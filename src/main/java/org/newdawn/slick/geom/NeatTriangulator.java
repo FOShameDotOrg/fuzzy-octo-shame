@@ -371,7 +371,7 @@ public class NeatTriangulator implements Triangulator
     class Triangle
     {
         /** The vertices index */
-        int v[];
+        final int[] v;
 
         /**
          * Create a new triangle

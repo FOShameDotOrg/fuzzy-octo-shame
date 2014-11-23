@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
  */
 public class Glyph {
     /** The code point in which this glyph is found */
-    private int codePoint;
+    private final int codePoint;
     /** The width of this glyph in pixels */
     private short width;
     /** The height of this glyph in pixels */
@@ -27,7 +27,7 @@ public class Glyph {
     /** The offset on the y axis to draw the glyph at */
     private short yOffset;
     /** True if the glyph isn't defined */
-    private boolean isMissing;
+    private final boolean isMissing;
     /** The shape drawn for this glyph */
     private Shape shape;
     /** The image generated for this glyph */

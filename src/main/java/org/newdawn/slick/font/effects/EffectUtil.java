@@ -38,7 +38,7 @@ import org.newdawn.slick.font.effects.ConfigurableEffect.Value;
 public class EffectUtil {
     /** A graphics 2D temporary surface to be used when generating effects */
     @Nonnull
-    static private BufferedImage scratchImage = new BufferedImage(GlyphPage.MAX_GLYPH_SIZE, GlyphPage.MAX_GLYPH_SIZE,
+    static private final BufferedImage scratchImage = new BufferedImage(GlyphPage.MAX_GLYPH_SIZE, GlyphPage.MAX_GLYPH_SIZE,
         BufferedImage.TYPE_INT_ARGB);
 
     /**
@@ -229,7 +229,7 @@ public class EffectUtil {
         /** The value being held */
         String value;
         /** The key/name of the value */
-        String name;
+        final String name;
 
         /**
          * Create a default value

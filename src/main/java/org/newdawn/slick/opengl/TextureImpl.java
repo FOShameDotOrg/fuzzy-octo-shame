@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
  */
 public class TextureImpl implements Texture {
     /** The renderer to use for all GL operations */
-    private static SGL GL = Renderer.get();
+    private static final SGL GL = Renderer.get();
 
     /** The last texture that was bound to */
     @Nullable

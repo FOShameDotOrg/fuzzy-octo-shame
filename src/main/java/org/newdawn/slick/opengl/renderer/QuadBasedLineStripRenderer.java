@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
  */
 public class QuadBasedLineStripRenderer implements LineStripRenderer {
     /** The renderer used to interact with GL */
-    private SGL GL = Renderer.get();
+    private final SGL GL = Renderer.get();
 
     /** Maximum number of points allowed in a single strip */
     private static final int MAX_POINTS = 10000;
@@ -18,9 +18,9 @@ public class QuadBasedLineStripRenderer implements LineStripRenderer {
     /** The width of the lines to draw */
     private float width = 1;
     /** The points to draw */
-    private float[] points;
+    private final float[] points;
     /** The colours to draw */
-    private float[] colours;
+    private final float[] colours;
     /** The number of points to draw */
     private int pts;
     /** The number of colour points recorded */
@@ -28,7 +28,7 @@ public class QuadBasedLineStripRenderer implements LineStripRenderer {
 
     /** The default renderer used when width = 1 */
     @Nonnull
-    private DefaultLineStripRenderer def = new DefaultLineStripRenderer();
+    private final DefaultLineStripRenderer def = new DefaultLineStripRenderer();
     /** Indicates need to render half colour */
     private boolean renderHalf;
 

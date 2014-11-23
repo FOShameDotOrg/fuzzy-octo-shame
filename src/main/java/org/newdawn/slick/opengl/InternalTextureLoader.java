@@ -130,7 +130,7 @@ public class InternalTextureLoader {
     }
 
     /** The renderer to use for all GL operations */
-    private static SGL GL = Renderer.get();
+    private static final SGL GL = Renderer.get();
     /** The standard texture loaded used everywhere */
     private static final InternalTextureLoader loader = new InternalTextureLoader();
 
@@ -146,10 +146,10 @@ public class InternalTextureLoader {
 
     /** The table of textures that have been loaded in this loader */
     @Nonnull
-    private HashMap<String, TextureImpl> texturesLinear = new HashMap<>();
+    private final HashMap<String, TextureImpl> texturesLinear = new HashMap<>();
     /** The table of textures that have been loaded in this loader */
     @Nonnull
-    private HashMap<String, TextureImpl> texturesNearest = new HashMap<>();
+    private final HashMap<String, TextureImpl> texturesNearest = new HashMap<>();
     /** The destination pixel format */
     private int dstPixelFormat = SGL.GL_RGBA8;
     /** True if we're using deferred loading */

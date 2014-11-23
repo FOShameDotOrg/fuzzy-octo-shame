@@ -17,7 +17,7 @@ class CompositeIOException extends IOException {
     private static final long serialVersionUID = 1L;
     /** The list of exceptions causing this one */
     @Nonnull
-    private List<Exception> exceptions = new ArrayList<>();
+    private final List<Exception> exceptions = new ArrayList<>();
 
     /**
      * Create a new composite IO Exception

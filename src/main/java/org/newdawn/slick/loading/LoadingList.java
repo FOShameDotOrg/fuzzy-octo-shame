@@ -56,7 +56,7 @@ public class LoadingList {
 
     /** The list of deferred resources to load */
     @Nonnull
-    private List<DeferredResource> deferred = new ArrayList<>();
+    private final List<DeferredResource> deferred = new ArrayList<>();
     /** The total number of elements that have been added - does not go down as elements are removed */
     private int total;
 

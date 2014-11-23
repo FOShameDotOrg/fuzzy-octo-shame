@@ -14,7 +14,7 @@ public class OverTriangulator implements Triangulator {
      */
     private static final long serialVersionUID = 1L;
     /** The triangles data */
-    private float[][] triangles;
+    private final float[][] triangles;
 
     /**
      * Create a new triangulator

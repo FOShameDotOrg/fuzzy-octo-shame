@@ -36,7 +36,7 @@ import javax.annotation.Nullable;
  */
 public class AngelCodeFont implements Font {
     /** The renderer to use for all GL operations */
-    private static SGL GL = Renderer.get();
+    private static final SGL GL = Renderer.get();
 
     /**
      * The line cache size, this is how many lines we can render before starting
