@@ -69,7 +69,7 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
     private void initializeStateManager() {
         stateManager = new GameStateManager();
         pushDiscoStatesToStateManager(MotherBrainConstants.NUMBER_OF_DISCO_STATES);
-        stateManager.push(new PlayState());
+        stateManager.push(new PlayState(MotherBrainConstants.IS_DEBUG_VIEW_ENABLED));
         if (MotherBrainConstants.IS_MENU_STATE_SHOWN) {
             pushMenuStateToStateManager();
         }

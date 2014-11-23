@@ -64,15 +64,38 @@ public class Collision implements Comparable<Collision> {
      * 
      */
     private MinMax xEntityMinMax, xSEntityMinMax, yEntityMinMax, ySEntityMinMax;
+    
+    /**
+     * 
+     */
+    private final boolean isDebugViewEnabled;
 
     /**
      * 
+     * Use {@link #Collision(AbstractEntity, AbstractEntity, boolean)}.
+     * 
      * @param a entity a.
      * @param b entity b.
+     * 
      */
+    @Deprecated
     public Collision(AbstractEntity a, AbstractEntity b) {
         this.a = a;
         this.b = b;
+        this.isDebugViewEnabled = false;
+    }
+    
+    /**
+     * @since 0.1.8
+     * 
+     * @param a entity a.
+     * @param b entity b.
+     * @param isDebugViewEnabled isDebugViewEnabled
+     */
+    public Collision(AbstractEntity a, AbstractEntity b, boolean isDebugViewEnabled) {
+        this.a = a;
+        this.b = b;
+        this.isDebugViewEnabled = isDebugViewEnabled ;
     }
 
     /**
@@ -131,10 +154,12 @@ public class Collision implements Comparable<Collision> {
         smallestDisplacement = minXDistance < minYDistance ? minXDistance : minYDistance;
 
         //TODO: Temporary!
-        if (collisionType != NONE) {
-            ((MapTile) b).setColliding(true);
-        } else {
-            ((MapTile) b).setEvaluating(true);
+        if(isDebugViewEnabled) {
+            if (collisionType != NONE) {
+                ((MapTile) b).setColliding(true);
+            } else {
+                ((MapTile) b).setEvaluating(true);
+            }
         }
 
         return collisionType != NONE;

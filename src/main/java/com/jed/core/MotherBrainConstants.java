@@ -45,4 +45,8 @@ public class MotherBrainConstants {
      *
      */
     public static final int HI_RESOLUTION_TIMER_TICKS_SCALAR = 1000;
+    /**
+     * 
+     */
+    public static final boolean IS_DEBUG_VIEW_ENABLED = true;
 }

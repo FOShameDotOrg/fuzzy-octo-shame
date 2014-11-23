@@ -90,6 +90,11 @@ public class GameMap extends AbstractDisplayableState {
      * 
      */
     private float gravity = 0.21875f;
+    
+    /**
+     * 
+     */
+    private boolean isDebugViewEnabled;
 
     @Override
     public void entered() {
@@ -182,7 +187,7 @@ public class GameMap extends AbstractDisplayableState {
             quadTree.retrieve(returnObjects, entity);
             //Detect all collisions that might occur this frame
             returnObjects.stream().filter(returnObject -> !returnObject.equals(entity)).forEach(returnObject -> {
-                final Collision collision = new Collision(entity, returnObject);
+                final Collision collision = new Collision(entity, returnObject, isDebugViewEnabled());
                 //Detect all collisions that might occur this frame
                 if (collision.detectCollision()) {
                     collisions.add(collision);
@@ -214,7 +219,9 @@ public class GameMap extends AbstractDisplayableState {
     public void render() {
         quadTree.clear();
         drawMap();
-        quadTree.render();
+        if(isDebugViewEnabled()) {
+            quadTree.render();
+        }
         for (AbstractEntity each : scene) {
             each.render();
         }
@@ -366,5 +373,21 @@ public class GameMap extends AbstractDisplayableState {
      */
     public List<MapTile> getTiles() {
         return tiles;
+    }
+    
+    /**
+     * 
+     * @param isDebugViewEnabled isDebugViewEnabled
+     */
+    public void setDebugViewEnabled(boolean isDebugViewEnabled) {
+        this.isDebugViewEnabled = isDebugViewEnabled;
+    }
+    
+    /**
+     * 
+     * @return isDebugViewEnabled
+     */
+    public boolean isDebugViewEnabled() {
+        return isDebugViewEnabled;
     }
 }

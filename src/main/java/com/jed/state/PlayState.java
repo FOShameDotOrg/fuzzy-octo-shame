@@ -25,6 +25,27 @@ public class PlayState extends AbstractGameState implements StateManager {
      * 
      */
     private boolean stepFrame = false;
+    
+    /**
+     * 
+     */
+    private final boolean isDebugViewEnabled;
+    
+    /**
+     * @since 0.1.8
+     */
+    public PlayState() {
+        isDebugViewEnabled = false;
+    }
+    
+    /**
+     * @since 0.1.8
+     * 
+     * @param isDebugViewEnabled isDebugViewEnabled
+     */
+    public PlayState(boolean isDebugViewEnabled) {
+        this.isDebugViewEnabled = isDebugViewEnabled;
+    }
 
     @Override
     public void changeState(State state) {
@@ -34,6 +55,7 @@ public class PlayState extends AbstractGameState implements StateManager {
     @Override
     public void entered() {
         currentMap = MapLoader.loadMap();
+        currentMap.setDebugViewEnabled(isDebugViewEnabled);
         changeState(currentMap);
     }
 
