@@ -63,8 +63,7 @@ public class AngelCodeFont implements Font {
     private boolean singleCase = false;
     private short ascent;
     private short descent;
-    private short leading; //TODO: fix leading, use for multi-line text
-
+    
     /** The display list cache for rendered lines */
     private final Map<CharSequence, DisplayList> displayLists = new LinkedHashMap<CharSequence, DisplayList>(DISPLAY_LIST_CACHE_SIZE, 1, true) {     
         /**
@@ -220,7 +219,7 @@ public class AngelCodeFont implements Font {
             ascent = parseMetric(common, "base="); //not used apparently ?
             //ascent = parseMetric(common, "ascent=");
             descent = parseMetric(common, "descent=");
-            leading = parseMetric(common, "leading=");
+            parseMetric(common, "leading=");
 
             in.readLine();
 

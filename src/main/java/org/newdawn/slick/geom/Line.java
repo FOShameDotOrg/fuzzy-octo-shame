@@ -18,23 +18,10 @@ public class Line extends Shape {
     private Vector2f end;
     /** The vector between the two points */
     private Vector2f vec;
-    /** The length of the line squared */
-    private float lenSquared;
-
     /** Temporary storage - declared globally to reduce GC */
     private Vector2f loc = new Vector2f(0, 0);
     /** Temporary storage - declared globally to reduce GC */
-    private Vector2f v = new Vector2f(0, 0);
-    /** Temporary storage - declared globally to reduce GC */
-    private Vector2f v2 = new Vector2f(0, 0);
-    /** Temporary storage - declared globally to reduce GC */
-    private Vector2f proj = new Vector2f(0, 0);
-
-    /** Temporary storage - declared globally to reduce GC */
     private Vector2f closest = new Vector2f(0, 0);
-    /** Temporary storage - declared globally to reduce GC */
-    private Vector2f other = new Vector2f(0, 0);
-
     /**
      * Create a new line based on the origin and a single point
      *
@@ -196,7 +183,7 @@ public class Line extends Shape {
         vec = new Vector2f(end);
         vec.sub(start);
 
-        lenSquared = vec.lengthSquared();
+        vec.lengthSquared();
     }
 
     /**
@@ -218,8 +205,6 @@ public class Line extends Shape {
         float dx = (ex - sx);
         float dy = (ey - sy);
         vec.set(dx,dy);
-
-        lenSquared = (dx * dx) + (dy * dy);
     }
 
     /**
