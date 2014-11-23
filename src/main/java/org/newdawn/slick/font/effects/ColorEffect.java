@@ -89,10 +89,6 @@ public class ColorEffect implements ConfigurableEffect {
      * @see org.newdawn.slick.font.effects.ConfigurableEffect#setValues(java.util.List)
      */
     public void setValues(@Nonnull List<Value> values) {
-        for (Value value : values) {
-            if (value.getName().equals("Color")) {
-                setColor((Color) value.getObject());
-            }
-        }
+        values.stream().filter(value -> value.getName().equals("Color")).forEach(value -> setColor((Color) value.getObject()));
     }
 }
