@@ -48,7 +48,7 @@ public class MapLoader {
             doc = dBuilder.parse(resourceAsStream);
         } catch (Exception e) {
             LOGGER.error("{}", e);
-            System.exit(1);
+            System.exit(StatusCode.ERROR.getStatusCode());
         }
 
         final Element docElement = doc.getDocumentElement();
