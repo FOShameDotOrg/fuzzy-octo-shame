@@ -153,44 +153,37 @@ public class DiscoState extends GameState {
     @Override
     public void update() {
         quadTree.clear();
-        for (AbstractEntity each : scene) {
-            quadTree.insert(each);
-        }
-
+        scene.forEach(quadTree::insert);
         handleCollisions();
     }
 
     @Override
     public void render() {
         quadTree.render();
-        for (AbstractEntity each : scene) {
-            each.render();
-        }
+        scene.forEach(Ball::render);
     }
 
     /**
-     * 
+     * TODO Test
      */
     private void handleCollisions() {
         boolean collide = false;
-        for (int i = 0; i < scene.size(); i++) {
-            List<AbstractEntity> returnObjects = new ArrayList<>();
-
-            quadTree.retrieve(returnObjects, scene.get(i));
-
-            for (int j = 0; j < returnObjects.size(); j++) {
-                if (!returnObjects.get(j).equals(scene.get(i))) {
-                    Ball p1 = scene.get(i);
-                    Ball p2 = (Ball) returnObjects.get(j);
-                    if (detectCollision(p1, p2)) {
+        final List<AbstractEntity> returnObjects = new ArrayList<>();
+        for (Ball aScene : scene) {
+            quadTree.retrieve(returnObjects, aScene);
+            for (AbstractEntity returnObject : returnObjects) {
+                if (!returnObject.equals(aScene)) {
+                    final Ball p2 = (Ball) returnObject;
+                    if (detectCollision(aScene, p2)) {
                         if (!collide) {
                             LOGGER.debug("Handling Collisions");
                             collide = true;
                         }
-                        collide(p1, p2);
+                        collide(aScene, p2);
                     }
                 }
             }
+            returnObjects.clear();
         }
 
         //Boundary collisions

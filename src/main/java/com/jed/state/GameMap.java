@@ -178,24 +178,16 @@ public class GameMap extends AbstractDisplayableState {
     private void detectCollisions() {
         final List<AbstractEntity> returnObjects = new ArrayList<>(scene.size());
         final List<Collision> collisions = new CopyOnWriteArrayList<>();
-        for (int i = 0; i < scene.size(); i++) {
-            final AbstractEntity entity = scene.get(i);
-
+        for (final AbstractEntity entity : scene) {
             quadTree.retrieve(returnObjects, entity);
-
-
-            for (int j = 0; j < returnObjects.size(); j++) {
-                if (!returnObjects.get(j).equals(scene.get(i))) {
-                    final AbstractEntity sEntity = returnObjects.get(j);
-
-                    final Collision collision = new Collision(entity, sEntity);
-
-                    //Detect all collisions that might occur this frame
-                    if (collision.detectCollision()) {
-                        collisions.add(collision);
-                    }
+            //Detect all collisions that might occur this frame
+            returnObjects.stream().filter(returnObject -> !returnObject.equals(entity)).forEach(returnObject -> {
+                final Collision collision = new Collision(entity, returnObject);
+                //Detect all collisions that might occur this frame
+                if (collision.detectCollision()) {
+                    collisions.add(collision);
                 }
-            }
+            });
 
             //Sort Collisions, resolve soonest depending on type in following order:
             //    OVERLAPS
