@@ -235,7 +235,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
     @SuppressWarnings({"unchecked","rawtypes"})
     private void initializeFont(@Nonnull Font baseFont, int size, boolean bold, boolean italic) {
         Map attributes = baseFont.getAttributes();
-        attributes.put(TextAttribute.SIZE, new Float(size));
+        attributes.put(TextAttribute.SIZE, (float) size);
         attributes.put(TextAttribute.WEIGHT, bold ? TextAttribute.WEIGHT_BOLD : TextAttribute.WEIGHT_REGULAR);
         attributes.put(TextAttribute.POSTURE, italic ? TextAttribute.POSTURE_OBLIQUE : TextAttribute.POSTURE_REGULAR);
         try {
@@ -736,7 +736,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
         GlyphVector vector = font.layoutGlyphVector(GlyphPage.renderContext, chars, 0, chars.length, Font.LAYOUT_LEFT_TO_RIGHT);
         int yOffset = ascent + vector.getPixelBounds(null, 0, 0).y;
 
-        if (displayList != null) displayList.yOffset = new Short((short)yOffset);
+        if (displayList != null) displayList.yOffset = (short) yOffset;
 
         return yOffset;
     }

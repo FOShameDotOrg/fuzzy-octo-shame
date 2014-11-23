@@ -161,8 +161,8 @@ public class Ellipse extends Shape {
                 minY = newY;
             }
             
-            tempPoints.add(new Float(newX));
-            tempPoints.add(new Float(newY));
+            tempPoints.add(newX);
+            tempPoints.add(newY);
         }
         points = new float[tempPoints.size()];
         for(int i=0;i<points.length;i++) {

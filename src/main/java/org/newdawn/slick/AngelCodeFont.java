@@ -501,7 +501,7 @@ public class AngelCodeFont implements Font {
             minYOffset = Math.min(charDef.yoffset, minYOffset);
         }
 
-        if (displayList != null) displayList.yOffset = new Short((short)minYOffset);
+        if (displayList != null) displayList.yOffset = (short) minYOffset;
 
         return minYOffset;
     }
@@ -540,7 +540,7 @@ public class AngelCodeFont implements Font {
 
         maxHeight += lines * getLineHeight();
 
-        if (displayList != null) displayList.height = new Short((short)maxHeight);
+        if (displayList != null) displayList.height = (short) maxHeight;
 
         return maxHeight;
     }
@@ -584,7 +584,7 @@ public class AngelCodeFont implements Font {
             }
             maxWidth = Math.max(maxWidth, width);
         }
-        if (displayList != null) displayList.width = new Short((short)maxWidth);
+        if (displayList != null) displayList.width = (short) maxWidth;
 
         return maxWidth;
     }
