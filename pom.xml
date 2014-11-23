@@ -93,7 +93,7 @@
     <slf4j.version>1.7.7</slf4j.version>
     <guice.version>4.0-beta5</guice.version>
     <annotations.version>3.0.0</annotations.version>
-    <checkstyle.verion>6.0</checkstyle.verion>
+    <checkstyle.verion>6.1</checkstyle.verion>
     <!-- END: Dependencies Versions -->
     <!-- START: Build specific variables, probably should be associated with profiles.. -->
     <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>true</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>
