@@ -280,7 +280,7 @@ public class InternalTextureLoader {
      * @throws IOException Indicates a failure to load the image
      */
     @Nullable
-    public Texture getTexture(String resourceName, boolean flipped, int filter, int[] transparent) throws IOException {
+    public Texture getTexture(String resourceName, boolean flipped, int filter, @Nullable int[] transparent) throws IOException {
         InputStream in = ResourceLoader.getResourceAsStream(resourceName);
 
         return getTexture(in, resourceName, flipped, filter, transparent);
@@ -368,7 +368,7 @@ public class InternalTextureLoader {
     @Nonnull
     private TextureImpl getTexture(@Nonnull InputStream in, String resourceName,
                             int target,  int minFilter,  int magFilter,
-                            boolean flipped, int[] transparent) throws IOException {
+                            boolean flipped, @Nullable int[] transparent) throws IOException {
         // create the texture ID for this texture
         ByteBuffer textureBuffer;
         

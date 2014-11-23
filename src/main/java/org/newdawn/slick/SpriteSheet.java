@@ -7,6 +7,7 @@ import java.net.URL;
 import org.newdawn.slick.opengl.Texture;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * A sheet of sprites that can be drawn individually
@@ -128,7 +129,7 @@ public class SpriteSheet extends Image {
      * @param col The colour to treat as transparent
      * @throws SlickException Indicates a failure to load the image
      */
-    private SpriteSheet(String ref, int tw, int th, Color col) throws SlickException {
+    private SpriteSheet(String ref, int tw, int th, @Nullable Color col) throws SlickException {
         this(ref, tw, th, col, 0);
     }
 
@@ -142,7 +143,7 @@ public class SpriteSheet extends Image {
      * @param spacing The spacing between tiles
      * @throws SlickException Indicates a failure to load the image
      */
-    private SpriteSheet(String ref, int tw, int th, Color col, int spacing) throws SlickException {
+    private SpriteSheet(String ref, int tw, int th, @Nullable Color col, int spacing) throws SlickException {
         super(ref, false, FILTER_NEAREST, col);
 
         this.target = this;

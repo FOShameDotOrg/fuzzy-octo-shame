@@ -66,7 +66,7 @@ public class EffectUtil {
      * @return The value selected
      */
     @Nullable
-    static public Value colorValue(String name, Color currentValue) {
+    static public Value colorValue(String name, @Nullable Color currentValue) {
         return new DefaultValue(name, EffectUtil.toString(currentValue)) {
             public void showDialog () {
                 Color newColor = JColorChooser.showDialog(null, "Choose a color", EffectUtil.fromString(value));

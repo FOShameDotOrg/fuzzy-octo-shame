@@ -6,6 +6,8 @@ import java.io.InputStream;
 import org.newdawn.slick.loading.DeferredResource;
 import org.newdawn.slick.loading.LoadingList;
 
+import javax.annotation.Nullable;
+
 /**
  * A texture proxy that can be used to load a texture at a later date while still
  * allowing elements to reference it
@@ -35,7 +37,7 @@ public class DeferredTexture extends TextureImpl implements DeferredResource {
      * @param filter The filter to apply
      * @param trans The colour to defined as transparent
      */
-    public DeferredTexture(InputStream in, String resourceName, boolean flipped, int filter, int[] trans) {
+    public DeferredTexture(InputStream in, String resourceName, boolean flipped, int filter, @Nullable int[] trans) {
         this.in = in;
         this.resourceName = resourceName;
         this.flipped = flipped;

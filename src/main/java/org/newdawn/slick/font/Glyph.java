@@ -10,6 +10,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.UnicodeFont;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Represents the glyph in a font for a unicode codepoint.
@@ -119,7 +120,7 @@ public class Glyph {
      *
      * @param shape The shape that should be drawn for this glyph
      */
-    public void setShape(Shape shape) {
+    public void setShape(@Nullable Shape shape) {
         this.shape = shape;
     }
 

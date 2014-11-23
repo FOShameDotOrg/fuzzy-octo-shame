@@ -10,6 +10,7 @@ import org.newdawn.slick.util.Log;
 import org.newdawn.slick.util.ResourceLoader;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * A sprite sheet packed and defined by the Pacific Software Image Packer available
@@ -47,7 +48,7 @@ class PackedSpriteSheet {
      * @param trans The color to be treated as transparent
      * @throws SlickException Indicates a failure to read the definition file
      */
-    private PackedSpriteSheet(String def, Color trans) throws SlickException {
+    private PackedSpriteSheet(String def, @Nullable Color trans) throws SlickException {
         def = def.replace('\\', '/');
         basePath = def.substring(0,def.lastIndexOf("/")+1);
 
@@ -73,7 +74,7 @@ class PackedSpriteSheet {
      * @param trans The color to be treated as transparent
      * @throws SlickException Indicates a failure to read the definition file
      */
-    private PackedSpriteSheet(String def, int filter, Color trans) throws SlickException {
+    private PackedSpriteSheet(String def, int filter, @Nullable Color trans) throws SlickException {
         this.filter = filter;
 
         def = def.replace('\\', '/');
@@ -130,7 +131,7 @@ class PackedSpriteSheet {
      * @throws SlickException Indicates a failure to read or parse the definitions file
      * or referenced image.
      */
-    private void loadDefinition(String def, Color trans) throws SlickException {
+    private void loadDefinition(String def, @Nullable Color trans) throws SlickException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceLoader.getResourceAsStream(def)));
 
         try {

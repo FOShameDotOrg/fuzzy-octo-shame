@@ -46,7 +46,7 @@ public class CompositeImageData implements LoadableImageData  {
      * @see org.newdawn.slick.opengl.LoadableImageData#loadImage(java.io.InputStream, boolean, int[])
      */
     @Nullable
-    public ByteBuffer loadImage(@Nonnull InputStream fis, boolean flipped, int[] transparent) throws IOException {
+    public ByteBuffer loadImage(@Nonnull InputStream fis, boolean flipped, @Nullable int[] transparent) throws IOException {
         return loadImage(fis, flipped, false, transparent);
     }
 
@@ -54,7 +54,7 @@ public class CompositeImageData implements LoadableImageData  {
      * @see org.newdawn.slick.opengl.LoadableImageData#loadImage(java.io.InputStream, boolean, boolean, int[])
      */
     @Nullable
-    public ByteBuffer loadImage(@Nonnull InputStream is, boolean flipped, boolean forceAlpha, int[] transparent) throws IOException {
+    public ByteBuffer loadImage(@Nonnull InputStream is, boolean flipped, boolean forceAlpha, @Nullable int[] transparent) throws IOException {
         CompositeIOException exception = new CompositeIOException();
         ByteBuffer buffer = null;
 
