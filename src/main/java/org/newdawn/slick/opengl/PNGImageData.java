@@ -3,8 +3,6 @@ package org.newdawn.slick.opengl;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
-import java.util.Arrays;
-
 import org.lwjgl.BufferUtils;
 import org.newdawn.slick.util.Log;
 

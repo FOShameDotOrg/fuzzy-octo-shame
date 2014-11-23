@@ -3,7 +3,6 @@ package org.newdawn.slick.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.PrintStream;
 import java.util.Date;
 
 /**
