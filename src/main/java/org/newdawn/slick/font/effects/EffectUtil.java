@@ -155,7 +155,7 @@ public class EffectUtil {
      * @return The value selected by the user
      */
     static public Value optionValue (String name, final String currentValue, final String[][] options, final String description) {
-        return new DefaultValue(name, currentValue.toString()) {
+        return new DefaultValue(name, currentValue) {
             public void showDialog () {
                 int selectedIndex = -1;
                 DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
@@ -175,7 +175,7 @@ public class EffectUtil {
 
             public String toString () {
                 for (int i = 0; i < options.length; i++)
-                    if (getValue(i).equals(value)) return options[i][0].toString();
+                    if (getValue(i).equals(value)) return options[i][0];
                 return "";
             }
 
@@ -262,7 +262,7 @@ public class EffectUtil {
             if (value == null) {
                 return "";
             }
-            return value.toString();
+            return value;
         }
 
         /**

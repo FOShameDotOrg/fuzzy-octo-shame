@@ -149,7 +149,7 @@ public class Transform {
         "][" + matrixPosition[3] + "," + matrixPosition[4] + "," + matrixPosition[5] + 
         "][" + matrixPosition[6] + "," + matrixPosition[7] + "," + matrixPosition[8] + "]]";   
            
-        return result.toString();   
+        return result;
     }   
    
     /**   
