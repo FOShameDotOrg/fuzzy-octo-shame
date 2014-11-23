@@ -396,10 +396,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
             glyphs[i] = null;
 
         for (GlyphPage page : glyphPages) {
-            try {
-                page.getImage().destroy();
-            } catch (SlickException ignored) {
-            }
+            page.getImage().destroy();
         }
         glyphPages.clear();
 
