@@ -248,7 +248,7 @@ public class GameMap extends AbstractDisplayableState {
         final int columns = (MotherBrainConstants.WIDTH / tileWidth + (pixelOffsetX == 0 ? 0 : 1));
         final int nextRow = width - columns;
 
-        MapTile mapTile = null;
+        MapTile mapTile;
         for (int rowIndex = 0; rowIndex < rows; rowIndex++) {
             for (int columnIndex = 0; columnIndex < columns; columnIndex++) {
                 mapTile = tiles.get(tileIndex);

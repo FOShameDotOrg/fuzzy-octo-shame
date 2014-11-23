@@ -64,7 +64,7 @@ public class MapLoader {
 
         //Load Map properties
         final NodeList mapNodes = docElement.getChildNodes();
-        String nameNodeTextContent = null;//TODO once loop is refactored get rid of nameNodeTextContent
+        String nameNodeTextContent;//TODO once loop is refactored get rid of nameNodeTextContent
         //FIXME this loop needs refactoring.
         for (int i = 0; i < mapNodes.getLength(); i++) {
             Node eachMapNode = mapNodes.item(i);
