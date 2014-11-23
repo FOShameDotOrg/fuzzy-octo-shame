@@ -100,7 +100,7 @@ public class GraphicsFactory {
      * @param image The image to release
      * @throws SlickException Indicates a failure to release the context
      */
-    public static void releaseGraphicsForImage(@Nonnull Image image) throws SlickException {
+    public static void releaseGraphicsForImage(@Nonnull Image image) {
         Graphics g = graphics.remove(image.getTexture());
 
         if (g != null) {

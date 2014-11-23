@@ -201,7 +201,7 @@ public class GlyphPage {
      * @param height The expected height of the glyph
      * @throws SlickException if the glyph could not be rendered.
      */
-    private void renderGlyph(@Nonnull Glyph glyph, int width, int height) throws SlickException {
+    private void renderGlyph(@Nonnull Glyph glyph, int width, int height) {
         // Draw the glyph to the scratch image using Java2D.
         scratchGraphics.setComposite(AlphaComposite.Clear);
         scratchGraphics.fillRect(0, 0, MAX_GLYPH_SIZE, MAX_GLYPH_SIZE);

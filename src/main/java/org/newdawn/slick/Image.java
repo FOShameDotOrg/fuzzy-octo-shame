@@ -309,7 +309,7 @@ public class Image implements Renderable {
      * @param f The filter to apply to scaling the new image
      * @throws SlickException Indicates a failure to create the underlying resource
      */
-    private Image(int width, int height, int f) throws SlickException {
+    private Image(int width, int height, int f) {
         this(new EmptyImageData(width, height), f);
     }
 

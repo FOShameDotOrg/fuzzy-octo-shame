@@ -121,5 +121,5 @@ public abstract class SlickCallable {
      *
      * @throws SlickException Indicates a failure of some sort. This is user exception
      */
-    protected abstract void performGLOperations() throws SlickException;
+    protected abstract void performGLOperations();
 }
