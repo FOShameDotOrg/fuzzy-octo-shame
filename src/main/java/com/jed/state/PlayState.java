@@ -9,7 +9,7 @@ import com.jed.util.MapLoader;
  * @author jlinde, Peter Colapietro
  *
  */
-public class PlayState extends GameState implements StateManager {
+public class PlayState extends AbstractGameState implements StateManager {
 
     /**
      * 

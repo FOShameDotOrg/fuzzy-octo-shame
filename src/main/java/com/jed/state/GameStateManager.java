@@ -12,13 +12,13 @@ public class GameStateManager {
     /**
      * 
      */
-    private final Stack<GameState> states = new GameStateStack();
+    private final Stack<AbstractGameState> states = new GameStateStack();
 
     /**
      * 
      * @param state to change to
      */
-    public void changeState(GameState state) {
+    public void changeState(AbstractGameState state) {
         clear();
         states.push(state);
     }
@@ -27,7 +27,7 @@ public class GameStateManager {
      * 
      * @param state state to push onto stack
      */
-    public void push(GameState state) {
+    public void push(AbstractGameState state) {
         states.push(state);
     }
 
@@ -35,7 +35,7 @@ public class GameStateManager {
      * 
      * @return state from top of stack
      */
-    public GameState pop() {
+    public AbstractGameState pop() {
         return states.pop();
     }
 
@@ -52,7 +52,7 @@ public class GameStateManager {
      * 
      */
     public void update() {
-        for (GameState eachState : states) {
+        for (AbstractGameState eachState : states) {
             eachState.update();
         }
     }
@@ -61,7 +61,7 @@ public class GameStateManager {
      * 
      */
     public void render() {
-        for (GameState eachState : states) {
+        for (AbstractGameState eachState : states) {
             eachState.render();
         }
     }
@@ -71,7 +71,7 @@ public class GameStateManager {
      * @author jlinde, Peter Colapietro
      *
      */
-    private final class GameStateStack extends Stack<GameState> {
+    private final class GameStateStack extends Stack<AbstractGameState> {
 
         /**
          * 
@@ -79,15 +79,15 @@ public class GameStateManager {
         private static final long serialVersionUID = 1L;
 
         @Override
-        public GameState push(GameState o) {
+        public AbstractGameState push(AbstractGameState o) {
             super.push(o);
             o.entered();
             return o;
         }
 
         @Override
-        public synchronized GameState pop() {
-            GameState o = super.pop();
+        public synchronized AbstractGameState pop() {
+            AbstractGameState o = super.pop();
             o.leaving();
             return o;
         }

@@ -23,7 +23,7 @@ import com.jed.util.Rectangle;
  * TODO Decouple from com.jed.core.MotherBrain / com.jed.core.MotherBrainConstants
  *
  */
-public class DiscoState extends GameState {
+public class DiscoState extends AbstractGameState {
 
     /**
      * 

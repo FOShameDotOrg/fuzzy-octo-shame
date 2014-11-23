@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
  * @author jlinde, Peter Colapietro
  *
  */
-public class MenuState extends GameState {
+public class MenuState extends AbstractGameState {
 
     /**
      * 
