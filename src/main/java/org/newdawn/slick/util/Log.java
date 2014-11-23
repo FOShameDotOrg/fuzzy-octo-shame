@@ -4,7 +4,7 @@ import java.security.AccessController;
 import java.security.PrivilegedAction;
 
 /**
- * A simple central logging system
+ * A simple central logging system.
  * 
  * @author kevin
  */
