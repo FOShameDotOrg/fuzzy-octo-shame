@@ -354,34 +354,36 @@ public class HieroSettings {
      * @throws IOException if the file could not be saved.
      */
     public void save(File file) throws SlickException, IOException {
-        PrintStream out = new PrintStream(new FileOutputStream(file));
-        out.println("font.size=" + fontSize);
-        out.println("font.bold=" + bold);
-        out.println("font.italic=" + italic);
-        out.println();
-        out.println("pad.top=" + paddingTop);
-        out.println("pad.right=" + paddingRight);
-        out.println("pad.bottom=" + paddingBottom);
-        out.println("pad.left=" + paddingLeft);
-        out.println("pad.advance.x=" + paddingAdvanceX);
-        out.println("pad.advance.y=" + paddingAdvanceY);
-        out.println();
-        out.println("glyph.page.width=" + glyphPageWidth);
-        out.println("glyph.page.height=" + glyphPageHeight);
-        out.println();
-        for (Iterator<Effect> iter = effects.iterator(); iter.hasNext();) {
-            if(!(iter.next() instanceof ConfigurableEffect)) {
-                throw new SlickException("Effect is not org.newdawn.slick.font.effects.ConfigurableEffect");
-            }
-            ConfigurableEffect effect = (ConfigurableEffect) iter.next();
-            
-            out.println("effect.class=" + effect.getClass().getName());
-            for (Iterator<Value> iter2 = effect.getValues().iterator(); iter2.hasNext();) {
-                Value value = iter2.next();
-                out.println("effect." + value.getName() + "=" + value.getString());
-            }
+        try(
+            final FileOutputStream fileOutputStream = new FileOutputStream(file);
+            final PrintStream out = new PrintStream(fileOutputStream)
+        ) {
+            out.println("font.size=" + fontSize);
+            out.println("font.bold=" + bold);
+            out.println("font.italic=" + italic);
             out.println();
+            out.println("pad.top=" + paddingTop);
+            out.println("pad.right=" + paddingRight);
+            out.println("pad.bottom=" + paddingBottom);
+            out.println("pad.left=" + paddingLeft);
+            out.println("pad.advance.x=" + paddingAdvanceX);
+            out.println("pad.advance.y=" + paddingAdvanceY);
+            out.println();
+            out.println("glyph.page.width=" + glyphPageWidth);
+            out.println("glyph.page.height=" + glyphPageHeight);
+            out.println();
+            for (Iterator<Effect> iter = effects.iterator(); iter.hasNext();) {
+                if(!(iter.next() instanceof ConfigurableEffect)) {
+                    throw new SlickException("Effect is not org.newdawn.slick.font.effects.ConfigurableEffect");
+                }
+                ConfigurableEffect effect = (ConfigurableEffect) iter.next();            
+                out.println("effect.class=" + effect.getClass().getName());
+                for (Iterator<Value> iter2 = effect.getValues().iterator(); iter2.hasNext();) {
+                    Value value = iter2.next();
+                    out.println("effect." + value.getName() + "=" + value.getString());
+                }
+                out.println();
+            }
         }
-        out.close();
     }
 }
