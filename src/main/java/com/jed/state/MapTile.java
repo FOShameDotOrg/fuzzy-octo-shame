@@ -148,7 +148,6 @@ public class MapTile extends AbstractEntity {
         map.drawChildVertex2f(position.x, position.y + bounds.getHeight());
 
         GL11.glEnd();
-//        }
     }
 
     /**
