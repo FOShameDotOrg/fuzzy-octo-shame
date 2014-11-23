@@ -626,7 +626,7 @@ public class AngelCodeFont implements Font {
         Glyph g = c<0 || c>= chars.length ? null : chars[c];
         if (g!=null)
             return g;
-        if (g==null && singleCase) {
+        if (singleCase) {
             if (c>=65 && c<=90)
                 c += 32;
             else if (c>=97 && c<=122)

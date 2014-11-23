@@ -323,13 +323,11 @@ public class InternalTextureLoader {
             }
         } else {
             SoftReference<TextureImpl> ref = new SoftReference<>(hash.get(resName)); //FIXME Test
-            if (ref != null) {
-                TextureImpl tex = ref.get();
-                if (tex != null) {
-                    return tex;
-                } else {
-                    hash.remove(resName);
-                }
+            TextureImpl tex = ref.get();
+            if (tex != null) {
+                return tex;
+            } else {
+                hash.remove(resName);
             }
         }
         
