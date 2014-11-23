@@ -119,7 +119,7 @@ public class HieroSettings {
                     ConfigurableEffect effect = (ConfigurableEffect)effects.get(effects.size() - 1);
                     List<Value> values = effect.getValues();
                     for (Iterator<Value> iter = values.iterator(); iter.hasNext();) {
-                        Value effectValue = (Value)iter.next();
+                        Value effectValue = iter.next();
                         if (effectValue.getName().equals(name)) {
                             effectValue.setString(value);
                             break;

@@ -58,7 +58,7 @@ public class ResourceLoader {
         InputStream in = null;
 
         for (int i=0;i<locations.size();i++) {
-            ResourceLocation location = (ResourceLocation) locations.get(i);
+            ResourceLocation location = locations.get(i);
             in = location.getResourceAsStream(ref);
             if (in != null) {
                 break;
@@ -83,7 +83,7 @@ public class ResourceLoader {
         URL url = null;
 
         for (int i=0;i<locations.size();i++) {
-            ResourceLocation location = (ResourceLocation) locations.get(i);
+            ResourceLocation location = locations.get(i);
             url = location.getResource(ref);
             if (url != null) {
                 return true;
@@ -104,7 +104,7 @@ public class ResourceLoader {
         URL url = null;
 
         for (int i=0;i<locations.size();i++) {
-            ResourceLocation location = (ResourceLocation) locations.get(i);
+            ResourceLocation location = locations.get(i);
             url = location.getResource(ref);
             if (url != null) {
                 break;

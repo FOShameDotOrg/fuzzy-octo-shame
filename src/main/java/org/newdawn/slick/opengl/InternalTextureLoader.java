@@ -317,14 +317,14 @@ public class InternalTextureLoader {
         resName += ":"+flipped;
         
         if (holdTextureData) {
-            TextureImpl tex = (TextureImpl)  hash.get(resName);
+            TextureImpl tex = hash.get(resName);
             if (tex != null) {
                 return tex;
             }
         } else {
             SoftReference<TextureImpl> ref = new SoftReference<>(hash.get(resName)); //FIXME Test
             if (ref != null) {
-                TextureImpl tex = (TextureImpl) ref.get();
+                TextureImpl tex = ref.get();
                 if (tex != null) {
                     return tex;
                 } else {

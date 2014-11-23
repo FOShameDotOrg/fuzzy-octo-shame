@@ -82,7 +82,7 @@ public class GraphicsFactory {
      * given available hardware.
      */
     public static Graphics getGraphicsForImage(Image image) throws SlickException {
-        Graphics g = (Graphics) graphics.get(image.getTexture());
+        Graphics g = graphics.get(image.getTexture());
 
         if (g == null) {
             g = createGraphics(image);
@@ -99,7 +99,7 @@ public class GraphicsFactory {
      * @throws SlickException Indicates a failure to release the context
      */
     public static void releaseGraphicsForImage(Image image) throws SlickException {
-        Graphics g = (Graphics) graphics.remove(image.getTexture());
+        Graphics g = graphics.remove(image.getTexture());
 
         if (g != null) {
             g.destroy();

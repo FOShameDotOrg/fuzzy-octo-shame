@@ -110,6 +110,6 @@ public class LoadingList {
             return null;
         }
 
-        return (DeferredResource) deferred.remove(0);
+        return deferred.remove(0);
     }
 }

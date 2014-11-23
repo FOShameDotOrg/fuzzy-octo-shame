@@ -131,7 +131,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
         private static final long serialVersionUID = 1L;
 
         protected boolean removeEldestEntry (Entry<CharSequence, DisplayList> eldest) {
-            DisplayList displayList = (DisplayList)eldest.getValue();
+            DisplayList displayList = eldest.getValue();
             if (displayList != null) eldestDisplayListID = displayList.id;
             return size() > DISPLAY_LIST_CACHE_SIZE;
         }
@@ -458,7 +458,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
                 }
             }
             // Try to use a display list compiled for this text.
-            displayList = (DisplayList)displayLists.get(displayListKey);
+            displayList = displayLists.get(displayListKey);
             if (displayList != null) {
                 if (displayList.invalid)
                     displayList.invalid = false;
@@ -626,7 +626,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
         if (text.length() == 0) return 0;
 
         if (displayListCaching) {
-            DisplayList displayList = (DisplayList)displayLists.get(text);
+            DisplayList displayList = displayLists.get(text);
             if (displayList != null) return displayList.width;
         }
 
@@ -680,7 +680,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
         if (text.length() == 0) return 0;
 
         if (displayListCaching) {
-            DisplayList displayList = (DisplayList)displayLists.get(text);
+            DisplayList displayList = displayLists.get(text);
             if (displayList != null) return displayList.height;
         }
 
@@ -716,7 +716,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
 
         DisplayList displayList = null;
         if (displayListCaching) {
-            displayList = (DisplayList)displayLists.get(text);
+            displayList = displayLists.get(text);
             if (displayList != null && displayList.yOffset != null) return displayList.yOffset.intValue();
         }
 

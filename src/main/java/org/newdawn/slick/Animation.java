@@ -290,7 +290,7 @@ public class Animation implements Renderable {
         }
         stopped = false;
         currentFrame = 0;
-        nextChange = (int) (((Frame) frames.get(0)).duration / speed);
+        nextChange = (int) (frames.get(0).duration / speed);
         firstUpdate = true;
         lastUpdate = 0;
     }
@@ -380,7 +380,7 @@ public class Animation implements Renderable {
             nextFrame(delta);
         }
 
-        Frame frame = (Frame) frames.get(currentFrame);
+        Frame frame = frames.get(currentFrame);
         frame.image.draw(x,y,width,height, col);
     }
 
@@ -405,7 +405,7 @@ public class Animation implements Renderable {
           nextFrame(delta);
        }
 
-       Frame frame = (Frame) frames.get(currentFrame);
+       Frame frame = frames.get(currentFrame);
 
        spriteSheet.renderInUse(x, y, frame.x, frame.y);
     }
@@ -434,7 +434,7 @@ public class Animation implements Renderable {
 
 
 
-       Frame frame = (Frame) frames.get(currentFrame);
+       Frame frame = frames.get(currentFrame);
        spriteSheet.renderInUse(x, y, rot, frame.x, frame.y);
     }
 
@@ -444,7 +444,7 @@ public class Animation implements Renderable {
      * @return The width of the current frame
      */
     public int getWidth() {
-        return ((Frame) frames.get(currentFrame)).image.getWidth();
+        return frames.get(currentFrame).image.getWidth();
     }
 
     /**
@@ -453,7 +453,7 @@ public class Animation implements Renderable {
      * @return The height of the current frame
      */
     public int getHeight() {
-        return ((Frame) frames.get(currentFrame)).image.getHeight();
+        return frames.get(currentFrame).image.getHeight();
     }
 
     /**
@@ -493,7 +493,7 @@ public class Animation implements Renderable {
             nextFrame(delta);
         }
 
-        Frame frame = (Frame) frames.get(currentFrame);
+        Frame frame = frames.get(currentFrame);
         frame.image.drawFlash(x,y,width,height,col);
     }
 
@@ -552,7 +552,7 @@ public class Animation implements Renderable {
      * @return The image of the specified animation frame
      */
     public Image getImage(int index) {
-        Frame frame = (Frame) frames.get(index);
+        Frame frame = frames.get(index);
         return frame.image;
     }
 
@@ -571,7 +571,7 @@ public class Animation implements Renderable {
      * @return The image associated with the current animation frame
      */
     public Image getCurrentFrame() {
-        Frame frame = (Frame) frames.get(currentFrame);
+        Frame frame = frames.get(currentFrame);
         return frame.image;
     }
 
@@ -615,7 +615,7 @@ public class Animation implements Renderable {
                     direction = -1;
                 }
             }
-            int realDuration = (int) (((Frame) frames.get(currentFrame)).duration/ speed);
+            int realDuration = (int) (frames.get(currentFrame).duration/ speed);
             nextChange = nextChange + realDuration;
             //System.out.println("Before next: " + nextChange);
             //Pause after the loop is completed - display the first frame for the pauseDuration time.
@@ -661,7 +661,7 @@ public class Animation implements Renderable {
      * @return The duration in (ms) of the given frame
      */
     public int getDuration(int index) {
-        return ((Frame) frames.get(index)).duration;
+        return frames.get(index).duration;
     }
 
     /**
@@ -671,7 +671,7 @@ public class Animation implements Renderable {
      * @param duration The duration in (ms) for the given frame
      */
     public void setDuration(int index, int duration) {
-        ((Frame) frames.get(index)).duration = duration;
+        frames.get(index).duration = duration;
     }
 
     /**
@@ -723,7 +723,7 @@ public class Animation implements Renderable {
     public String toString() {
         String res = "[Animation ("+frames.size()+") ";
         for (int i=0;i<frames.size();i++) {
-            Frame frame = (Frame) frames.get(i);
+            Frame frame = frames.get(i);
             res += frame.duration+",";
         }
 

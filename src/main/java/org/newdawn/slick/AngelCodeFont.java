@@ -403,7 +403,7 @@ public class AngelCodeFont implements Font {
 
         GL.glTranslatef(x, y, 0);
         if (displayListCaching && startIndex == 0 && endIndex == text.length() - 1) {
-            DisplayList displayList = (DisplayList)displayLists.get(text);
+            DisplayList displayList = displayLists.get(text);
             if (displayList != null) {
                 GL.glCallList(displayList.id);
             } else {
@@ -481,7 +481,7 @@ public class AngelCodeFont implements Font {
     public int getYOffset(String text) {
         DisplayList displayList = null;
         if (displayListCaching) {
-            displayList = (DisplayList)displayLists.get(text);
+            displayList = displayLists.get(text);
             if (displayList != null && displayList.yOffset != null) return displayList.yOffset.intValue();
         }
 
@@ -508,7 +508,7 @@ public class AngelCodeFont implements Font {
     public int getHeight(CharSequence text) {
         DisplayList displayList = null;
         if (displayListCaching) {
-            displayList = (DisplayList)displayLists.get(text);
+            displayList = displayLists.get(text);
             if (displayList != null && displayList.height != null) return displayList.height.intValue();
         }
 
@@ -547,7 +547,7 @@ public class AngelCodeFont implements Font {
     public int getWidth(CharSequence text) {
         DisplayList displayList = null;
         if (displayListCaching) {
-            displayList = (DisplayList)displayLists.get(text);
+            displayList = displayLists.get(text);
             if (displayList != null && displayList.width != null) return displayList.width.intValue();
         }
 
