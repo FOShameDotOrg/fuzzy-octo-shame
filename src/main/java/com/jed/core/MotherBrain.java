@@ -118,7 +118,7 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
     private void pushMenuStateToStateManager() {
         final MenuState one = new MenuState(stateManager);
         one.setDaString(MotherBrainConstants.DA_STRING);
-        one.setCoords(MotherBrainConstants.MENU_STATE_COORDINATES);
+        one.setCoordinates(MotherBrainConstants.MENU_STATE_COORDINATES);
         stateManager.push(one);
     }
 

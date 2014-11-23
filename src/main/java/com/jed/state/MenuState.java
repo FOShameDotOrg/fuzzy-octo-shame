@@ -33,7 +33,7 @@ public class MenuState extends GameState {
     /**
      * 
      */
-    private Vector3f coords;
+    private Vector3f coordinates;
 
     /**
      * 
@@ -61,18 +61,18 @@ public class MenuState extends GameState {
 
     /**
      * 
-     * @return coords
+     * @return coordinates
      */
-    public Vector3f getCoords() {
-        return coords;
+    public Vector3f getCoordinates() {
+        return coordinates;
     }
 
     /**
      * 
-     * @param coords coords
+     * @param coordinates coordinates
      */
-    public void setCoords(Vector3f coords) {
-        this.coords = coords;
+    public void setCoordinates(Vector3f coordinates) {
+        this.coordinates = coordinates;
     }
 
     @SuppressWarnings("unchecked")
@@ -100,7 +100,7 @@ public class MenuState extends GameState {
     @Override
     public void render() {
         GL11.glEnable(GL11.GL_TEXTURE_2D);
-        font.drawString(coords.x, coords.y, daString);
+        font.drawString(coordinates.x, coordinates.y, daString);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
     }
 
