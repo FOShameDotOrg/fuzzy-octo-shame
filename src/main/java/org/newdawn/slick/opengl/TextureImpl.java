@@ -23,21 +23,21 @@ import org.newdawn.slick.util.Log;
  * @author Brian Matzon
  */
 public class TextureImpl implements Texture {
-	/** The renderer to use for all GL operations */
-	protected static SGL GL = Renderer.get();
-	
-	/** The last texture that was bound to */
-	static Texture lastBind;
-	
-	/**
-	 * Retrieve the last texture bound through the texture interface
-	 * 
-	 * @return The last texture bound
-	 */
-	public static Texture getLastBind() {
-		return lastBind;
-	}
-	
+    /** The renderer to use for all GL operations */
+    protected static SGL GL = Renderer.get();
+
+    /** The last texture that was bound to */
+    static Texture lastBind;
+
+    /**
+     * Retrieve the last texture bound through the texture interface
+     *
+     * @return The last texture bound
+     */
+    public static Texture getLastBind() {
+        return lastBind;
+    }
+
     /** The GL target type */
     private int target; 
     /** The GL texture ID */
@@ -67,7 +67,7 @@ public class TextureImpl implements Texture {
     /**
      * For subclasses to utilise
      */
-    protected TextureImpl() {	
+    protected TextureImpl() {
     }
     
     /**
@@ -90,21 +90,21 @@ public class TextureImpl implements Texture {
      * @param cacheName The name the texture is stored against in the cache
      */
     public void setCacheName(String cacheName) {
-    	this.cacheName = cacheName;
+        this.cacheName = cacheName;
     }
     
     /**
-	 * @see org.newdawn.slick.opengl.Texture#hasAlpha()
-	 */
+     * @see org.newdawn.slick.opengl.Texture#hasAlpha()
+     */
     public boolean hasAlpha() {
-    	return format.hasAlpha();
+        return format.hasAlpha();
     }
     
     /**
-	 * @see org.newdawn.slick.opengl.Texture#getTextureRef()
-	 */
+     * @see org.newdawn.slick.opengl.Texture#getTextureRef()
+     */
     public String getTextureRef() {
-    	return ref;
+        return ref;
     }
 
   /**
@@ -120,8 +120,8 @@ public class TextureImpl implements Texture {
      * Clear the binding of the texture
      */
     public static void bindNone() {
-    	lastBind = null;
-    	GL.glDisable(SGL.GL_TEXTURE_2D);
+        lastBind = null;
+        GL.glDisable(SGL.GL_TEXTURE_2D);
     }
     
     /**
@@ -130,18 +130,18 @@ public class TextureImpl implements Texture {
      * control to slick.
      */
     public static void unbind() {
-    	lastBind = null;
+        lastBind = null;
     }
     
     /**
-	 * @see org.newdawn.slick.opengl.Texture#bind()
-	 */
+     * @see org.newdawn.slick.opengl.Texture#bind()
+     */
     public void bind() {
-    	if (lastBind != this) {
-    		lastBind = this;
-    		GL.glEnable(SGL.GL_TEXTURE_2D);
-    	    GL.glBindTexture(target, textureID);
-    	}
+        if (lastBind != this) {
+            lastBind = this;
+            GL.glEnable(SGL.GL_TEXTURE_2D);
+            GL.glBindTexture(target, textureID);
+        }
     }
     
     /**
@@ -165,49 +165,49 @@ public class TextureImpl implements Texture {
     }
     
     public ImageData.Format getImageFormat() {
-    	return format;
+        return format;
     }
     
     /**
-	 * @see org.newdawn.slick.opengl.Texture#getImageHeight()
-	 */
+     * @see org.newdawn.slick.opengl.Texture#getImageHeight()
+     */
     public int getImageHeight() {
         return height;
     }
     
     /**
-	 * @see org.newdawn.slick.opengl.Texture#getImageWidth()
-	 */
+     * @see org.newdawn.slick.opengl.Texture#getImageWidth()
+     */
     public int getImageWidth() {
         return width;
     }
     
     /**
-	 * @see org.newdawn.slick.opengl.Texture#getHeight()
-	 */
+     * @see org.newdawn.slick.opengl.Texture#getHeight()
+     */
     public float getHeight() {
         return heightRatio;
     }
     
     /**
-	 * @see org.newdawn.slick.opengl.Texture#getWidth()
-	 */
+     * @see org.newdawn.slick.opengl.Texture#getWidth()
+     */
     public float getWidth() {
         return widthRatio;
     }
     
     /**
-	 * @see org.newdawn.slick.opengl.Texture#getTextureHeight()
-	 */
+     * @see org.newdawn.slick.opengl.Texture#getTextureHeight()
+     */
     public int getTextureHeight() {
-    	return texHeight;
+        return texHeight;
     }
 
     /**
-	 * @see org.newdawn.slick.opengl.Texture#getTextureWidth()
-	 */
+     * @see org.newdawn.slick.opengl.Texture#getTextureWidth()
+     */
     public int getTextureWidth() {
-    	return texWidth;
+        return texWidth;
     }
     
     /**
@@ -251,30 +251,30 @@ public class TextureImpl implements Texture {
     }
     
     /**
-	 * @see org.newdawn.slick.opengl.Texture#release()
-	 */
+     * @see org.newdawn.slick.opengl.Texture#release()
+     */
     public void release() {
-    	if (textureID == 0) 
-    		return;
-    	InternalTextureLoader.deleteTextureID(textureID);
-    	
+        if (textureID == 0)
+            return;
+        InternalTextureLoader.deleteTextureID(textureID);
+
         if (lastBind == this) {
-        	bindNone();
+            bindNone();
         }
         
         if (cacheName != null) {
-        	InternalTextureLoader.get().clear(cacheName);
+            InternalTextureLoader.get().clear(cacheName);
         } else {
-        	InternalTextureLoader.get().clear(ref);
+            InternalTextureLoader.get().clear(ref);
         }
         textureID = 0;
     }
     
     /**
-	 * @see org.newdawn.slick.opengl.Texture#getTextureID()
-	 */
+     * @see org.newdawn.slick.opengl.Texture#getTextureID()
+     */
     public int getTextureID() {
-    	return textureID;
+        return textureID;
     }
     
     /**
@@ -283,7 +283,7 @@ public class TextureImpl implements Texture {
      * @param textureID The OpenGL texture ID
      */
     public void setTextureID(int textureID) {
-    	this.textureID = textureID;
+        this.textureID = textureID;
     }
     
     /**
@@ -301,81 +301,81 @@ public class TextureImpl implements Texture {
     }    
     
     /**
-	 * @see org.newdawn.slick.opengl.Texture#getTextureData()
-	 */
+     * @see org.newdawn.slick.opengl.Texture#getTextureData()
+     */
     public byte[] getTextureData() {
-    	ByteBuffer buffer = BufferUtils.createByteBuffer(format.getColorComponents() * texWidth * texHeight);
-    	bind();
-    	GL.glGetTexImage(SGL.GL_TEXTURE_2D, 0, format.getOGLType(), SGL.GL_UNSIGNED_BYTE,
-    					   buffer);
-    	byte[] data = new byte[buffer.limit()];
-    	buffer.get(data);
-    	buffer.clear();
-    	
-    	return data;
+        ByteBuffer buffer = BufferUtils.createByteBuffer(format.getColorComponents() * texWidth * texHeight);
+        bind();
+        GL.glGetTexImage(SGL.GL_TEXTURE_2D, 0, format.getOGLType(), SGL.GL_UNSIGNED_BYTE,
+                           buffer);
+        byte[] data = new byte[buffer.limit()];
+        buffer.get(data);
+        buffer.clear();
+
+        return data;
     }
 
     /**
      * @see org.newdawn.slick.opengl.Texture#setTextureFilter(int)
      */
-	public void setTextureFilter(int textureFilter) {
-		bind();
+    public void setTextureFilter(int textureFilter) {
+        bind();
         GL.glTexParameteri(target, SGL.GL_TEXTURE_MIN_FILTER, textureFilter); 
         GL.glTexParameteri(target, SGL.GL_TEXTURE_MAG_FILTER, textureFilter); 
-	}
+    }
 
-	/**
-	 * Set the texture data that this texture can be reloaded from
-	 * 
-	 * @param srcPixelFormat The pixel format
-	 * @param componentCount The component count
-	 * @param minFilter The OpenGL minification filter
-	 * @param magFilter The OpenGL magnification filter
-	 * @param textureBuffer The texture buffer containing the data for the texture
-	 */
-	public void setTextureData(int srcPixelFormat, int componentCount,
-			int minFilter, int magFilter, ByteBuffer textureBuffer) {
-		reloadData = new ReloadData();
-		reloadData.srcPixelFormat = srcPixelFormat;
-		reloadData.componentCount = componentCount;
-		reloadData.minFilter = minFilter;
-		reloadData.magFilter = magFilter;
-		reloadData.textureBuffer = textureBuffer;
-	}
-	
-	/**
-	 * Reload this texture if it is holding texture data (release() should be called before this).
-	 * This is generally done internally (i.e. for use with context switches in Android / OpenGL ES)
-	 */
-	public void reload() {
-		if (reloadData != null) {
-			textureID = reloadData.reload();
-		}
-	}
+    /**
+     * Set the texture data that this texture can be reloaded from
+     *
+     * @param srcPixelFormat The pixel format
+     * @param componentCount The component count
+     * @param minFilter The OpenGL minification filter
+     * @param magFilter The OpenGL magnification filter
+     * @param textureBuffer The texture buffer containing the data for the texture
+     */
+    public void setTextureData(int srcPixelFormat, int componentCount,
+            int minFilter, int magFilter, ByteBuffer textureBuffer) {
+        reloadData = new ReloadData();
+        reloadData.srcPixelFormat = srcPixelFormat;
+        reloadData.componentCount = componentCount;
+        reloadData.minFilter = minFilter;
+        reloadData.magFilter = magFilter;
+        reloadData.textureBuffer = textureBuffer;
+    }
+
+    /**
+     * Reload this texture if it is holding texture data (release() should be called before this).
+     * This is generally done internally (i.e. for use with context switches in Android / OpenGL ES)
+     */
+    public void reload() {
+        if (reloadData != null) {
+            textureID = reloadData.reload();
+        }
+    }
 
   /** 
-	 * Reload this texture from it's original source data
-	 */
-	private class ReloadData {
-		/** The src pixel format */
-		private int srcPixelFormat;
-		/** The component count */
-		private int componentCount;
-		/** The OpenGL minification filter */
-		private int minFilter;
-		/** The OpenGL magnification filter */
-		private int magFilter;
-		/** The texture buffer of pixel data */
-		private ByteBuffer textureBuffer;
-		
-		/**
-		 * Reload this texture
-		 * 
-		 * @return The new texture ID assigned to this texture
-		 */
-		public int reload() {
-			Log.error("Reloading texture: "+ref);
-			return InternalTextureLoader.get().reload(TextureImpl.this, srcPixelFormat, componentCount, minFilter, magFilter, textureBuffer);
-		}
-	}
+     * Reload this texture from it's original source data
+     */
+    private class ReloadData {
+        /** The src pixel format */
+        private int srcPixelFormat;
+        /** The component count */
+        private int componentCount;
+        /** The OpenGL minification filter */
+        private int minFilter;
+        /** The OpenGL magnification filter */
+        private int magFilter;
+        /** The texture buffer of pixel data */
+        private ByteBuffer textureBuffer;
+
+        /**
+         * Reload this texture
+         *
+         * @return The new texture ID assigned to this texture
+         */
+        public int reload() {
+            Log.error("Reloading texture: "+ref);
+            return InternalTextureLoader.get().reload(TextureImpl.this, srcPixelFormat, componentCount, minFilter, magFilter, textureBuffer);
+        }
+    }
 }

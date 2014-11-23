@@ -26,18 +26,18 @@ import javax.imageio.ImageIO;
  * @author kevin
  */
 public class ImageIOImageData implements LoadableImageData {
-	/** The colour model for a image with the RGBA format. */
+    /** The colour model for a image with the RGBA format. */
     private static final ColorModel glColorModelRGBA = 
-    		new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB),
-	            new int[] {8,8,8,8},
-	            true,
-	            false,
-	            ComponentColorModel.TRANSLUCENT,
-	            DataBuffer.TYPE_BYTE);
+            new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB),
+                new int[] {8,8,8,8},
+                true,
+                false,
+                ComponentColorModel.TRANSLUCENT,
+                DataBuffer.TYPE_BYTE);
 
     /** The colour model for a image with the RGB format. */
     private static final  ColorModel glColorModelRGB =
-    		new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB),
+            new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB),
                 new int[] {8,8,8,0},
                 false,
                 false,
@@ -78,66 +78,66 @@ public class ImageIOImageData implements LoadableImageData {
     /**
      * @see org.newdawn.slick.opengl.ImageData#getFormat()
      */
-	public Format getFormat() {
-		return format;
-	}
+    public Format getFormat() {
+        return format;
+    }
 
-	/**
-	 * @see org.newdawn.slick.opengl.ImageData#getHeight()
-	 */
-	public int getHeight() {
-		return height;
-	}
+    /**
+     * @see org.newdawn.slick.opengl.ImageData#getHeight()
+     */
+    public int getHeight() {
+        return height;
+    }
 
-	/**
-	 * @see org.newdawn.slick.opengl.ImageData#getTexHeight()
-	 */
-	public int getTexHeight() {
-		return texHeight;
-	}
+    /**
+     * @see org.newdawn.slick.opengl.ImageData#getTexHeight()
+     */
+    public int getTexHeight() {
+        return texHeight;
+    }
 
-	/**
-	 * @see org.newdawn.slick.opengl.ImageData#getTexWidth()
-	 */
-	public int getTexWidth() {
-		return texWidth;
-	}
+    /**
+     * @see org.newdawn.slick.opengl.ImageData#getTexWidth()
+     */
+    public int getTexWidth() {
+        return texWidth;
+    }
 
-	/**
-	 * @see org.newdawn.slick.opengl.ImageData#getWidth()
-	 */
-	public int getWidth() {
-		return width;
-	}
+    /**
+     * @see org.newdawn.slick.opengl.ImageData#getWidth()
+     */
+    public int getWidth() {
+        return width;
+    }
 
-	/**
-	 * @see org.newdawn.slick.opengl.LoadableImageData#loadImage(java.io.InputStream)
-	 */
-	public ByteBuffer loadImage(InputStream fis) throws IOException {
-		return loadImage(fis, true, null);
-	}
+    /**
+     * @see org.newdawn.slick.opengl.LoadableImageData#loadImage(java.io.InputStream)
+     */
+    public ByteBuffer loadImage(InputStream fis) throws IOException {
+        return loadImage(fis, true, null);
+    }
 
-	/**
-	 * @see org.newdawn.slick.opengl.LoadableImageData#loadImage(java.io.InputStream, boolean, int[])
-	 */
-	public ByteBuffer loadImage(InputStream fis, boolean flipped, int[] transparent) throws IOException {
-		return loadImage(fis, flipped, false, transparent);
-	}
+    /**
+     * @see org.newdawn.slick.opengl.LoadableImageData#loadImage(java.io.InputStream, boolean, int[])
+     */
+    public ByteBuffer loadImage(InputStream fis, boolean flipped, int[] transparent) throws IOException {
+        return loadImage(fis, flipped, false, transparent);
+    }
 
-	/**
-	 * @see org.newdawn.slick.opengl.LoadableImageData#loadImage(java.io.InputStream, boolean, boolean, int[])
-	 */
-	public ByteBuffer loadImage(InputStream fis, boolean flipped, boolean forceAlpha, int[] transparent) throws IOException {
-		if (transparent != null) {
-			forceAlpha = true;
-		}
-		
-		BufferedImage bufferedImage = ImageIO.read(fis);
-		return imageToByteBuffer(bufferedImage, flipped, forceAlpha, transparent);
-	}
-	
-	public ByteBuffer imageToByteBuffer(BufferedImage image, boolean flipped, boolean forceAlpha, int[] transparent) {
-	    ByteBuffer imageBuffer = null; 
+    /**
+     * @see org.newdawn.slick.opengl.LoadableImageData#loadImage(java.io.InputStream, boolean, boolean, int[])
+     */
+    public ByteBuffer loadImage(InputStream fis, boolean flipped, boolean forceAlpha, int[] transparent) throws IOException {
+        if (transparent != null) {
+            forceAlpha = true;
+        }
+
+        BufferedImage bufferedImage = ImageIO.read(fis);
+        return imageToByteBuffer(bufferedImage, flipped, forceAlpha, transparent);
+    }
+
+    public ByteBuffer imageToByteBuffer(BufferedImage image, boolean flipped, boolean forceAlpha, int[] transparent) {
+        ByteBuffer imageBuffer = null;
         WritableRaster raster;
         BufferedImage texImage;
         
@@ -191,26 +191,26 @@ public class ImageIOImageData implements LoadableImageData {
         
         // only need to blank the image for mac compatibility if we're using alpha
         if (useAlpha) {
-	        g.setColor(new Color(0f,0f,0f,0f));
-	        g.fillRect(0,0,texWidth,texHeight);
+            g.setColor(new Color(0f,0f,0f,0f));
+            g.fillRect(0,0,texWidth,texHeight);
         }
         
         if (flipped) {
-        	g.scale(1,-1);
-        	g.drawImage(image,0,-height,null);
+            g.scale(1,-1);
+            g.drawImage(image,0,-height,null);
         } else {
-        	g.drawImage(image,0,0,null);
+            g.drawImage(image,0,0,null);
         }
         
         if (edging) {
-	        if (height < texHeight - 1) {
-	        	copyArea(texImage, 0, 0, width, 1, 0, texHeight-1);
-	        	copyArea(texImage, 0, height-1, width, 1, 0, 1);
-	        }
-	        if (width < texWidth - 1) {
-	        	copyArea(texImage, 0,0,1,height,texWidth-1,0);
-	        	copyArea(texImage, width-1,0,1,height,1,0);
-	        }
+            if (height < texHeight - 1) {
+                copyArea(texImage, 0, 0, width, 1, 0, texHeight-1);
+                copyArea(texImage, 0, height-1, width, 1, 0, 1);
+            }
+            if (width < texWidth - 1) {
+                copyArea(texImage, 0,0,1,height,texWidth-1,0);
+                copyArea(texImage, width-1,0,1,height,1,0);
+            }
         }
         
         // build a byte buffer from the temporary image 
@@ -244,7 +244,7 @@ public class ImageIOImageData implements LoadableImageData {
         g.dispose();
         
         return imageBuffer; 
-	}
+    }
     
     /**
      * Safe convert byte to int
@@ -259,35 +259,35 @@ public class ImageIOImageData implements LoadableImageData {
         
         return b;
     }
-	
-	/**
-	 * @see org.newdawn.slick.opengl.ImageData#getImageBufferData()
-	 */
-	public ByteBuffer getImageBufferData() {
-		throw new RuntimeException("ImageIOImageData doesn't store it's image.");
-	} 
-	
-	/**
-	 * Implement of transform copy area for 1.4
-	 * 
-	 * @param image The image to copy
- 	 * @param x The x position to copy to
-	 * @param y The y position to copy to
-	 * @param width The width of the image
-	 * @param height The height of the image
-	 * @param dx The transform on the x axis
-	 * @param dy The transform on the y axis
-	 */
-	private void copyArea(BufferedImage image, int x, int y, int width, int height, int dx, int dy) {
-		Graphics2D g = (Graphics2D) image.getGraphics();
-		
-		g.drawImage(image.getSubimage(x, y, width, height),x+dx,y+dy,null);
-	}
 
-	/**
-	 * @see org.newdawn.slick.opengl.LoadableImageData#configureEdging(boolean)
-	 */
-	public void configureEdging(boolean edging) {
-		this.edging = edging;
-	}
+    /**
+     * @see org.newdawn.slick.opengl.ImageData#getImageBufferData()
+     */
+    public ByteBuffer getImageBufferData() {
+        throw new RuntimeException("ImageIOImageData doesn't store it's image.");
+    }
+
+    /**
+     * Implement of transform copy area for 1.4
+     *
+     * @param image The image to copy
+      * @param x The x position to copy to
+     * @param y The y position to copy to
+     * @param width The width of the image
+     * @param height The height of the image
+     * @param dx The transform on the x axis
+     * @param dy The transform on the y axis
+     */
+    private void copyArea(BufferedImage image, int x, int y, int width, int height, int dx, int dy) {
+        Graphics2D g = (Graphics2D) image.getGraphics();
+
+        g.drawImage(image.getSubimage(x, y, width, height),x+dx,y+dy,null);
+    }
+
+    /**
+     * @see org.newdawn.slick.opengl.LoadableImageData#configureEdging(boolean)
+     */
+    public void configureEdging(boolean edging) {
+        this.edging = edging;
+    }
 }

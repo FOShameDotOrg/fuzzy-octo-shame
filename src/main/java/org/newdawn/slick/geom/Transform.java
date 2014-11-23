@@ -31,10 +31,10 @@ public class Transform {
      * @param other The other transform to copy
      */   
     public Transform(Transform other) {   
-    	matrixPosition = new float[9];
-    	for (int i=0;i<9;i++) {
-    		matrixPosition[i] = other.matrixPosition[i];
-    	}
+        matrixPosition = new float[9];
+        for (int i=0;i<9;i++) {
+            matrixPosition[i] = other.matrixPosition[i];
+        }
     }   
        
     /**
@@ -44,8 +44,8 @@ public class Transform {
      * @param t2 The second transform to join
      */
     public Transform(Transform t1, Transform t2) {
-    	this(t1);
-    	concatenate(t2);
+        this(t1);
+        concatenate(t2);
     }
     
     /**   
@@ -100,11 +100,11 @@ public class Transform {
         }   
         
         if (source == destination) {
-	        //for safety of the destination, the results are copied after the entire operation.   
-	        for(int i=0;i<numberOfPoints * 2;i+=2) {   
-	            destination[i + destOffset] = result[i];   
-	            destination[i + destOffset + 1] = result[i + 1];   
-	        }   
+            //for safety of the destination, the results are copied after the entire operation.
+            for(int i=0;i<numberOfPoints * 2;i+=2) {
+                destination[i + destOffset] = result[i];
+                destination[i + destOffset + 1] = result[i + 1];
+            }
         }
     }   
        
@@ -115,20 +115,20 @@ public class Transform {
      * @return The resulting Transform   
      */   
     public Transform concatenate(Transform tx) {   
-    	float[] mp = new float[9];
-    	float n00 = matrixPosition[0] * tx.matrixPosition[0] + matrixPosition[1] * tx.matrixPosition[3];
-    	float n01 = matrixPosition[0] * tx.matrixPosition[1] + matrixPosition[1] * tx.matrixPosition[4];
-    	float n02 = matrixPosition[0] * tx.matrixPosition[2] + matrixPosition[1] * tx.matrixPosition[5] + matrixPosition[2];
-    	float n10 = matrixPosition[3] * tx.matrixPosition[0] + matrixPosition[4] * tx.matrixPosition[3];
-    	float n11 = matrixPosition[3] * tx.matrixPosition[1] + matrixPosition[4] * tx.matrixPosition[4];
-    	float n12 = matrixPosition[3] * tx.matrixPosition[2] + matrixPosition[4] * tx.matrixPosition[5] + matrixPosition[5];
-    	mp[0] = n00;
-    	mp[1] = n01;
-    	mp[2] = n02;
-    	mp[3] = n10;
-    	mp[4] = n11;
-    	mp[5] = n12;
-//    	
+        float[] mp = new float[9];
+        float n00 = matrixPosition[0] * tx.matrixPosition[0] + matrixPosition[1] * tx.matrixPosition[3];
+        float n01 = matrixPosition[0] * tx.matrixPosition[1] + matrixPosition[1] * tx.matrixPosition[4];
+        float n02 = matrixPosition[0] * tx.matrixPosition[2] + matrixPosition[1] * tx.matrixPosition[5] + matrixPosition[2];
+        float n10 = matrixPosition[3] * tx.matrixPosition[0] + matrixPosition[4] * tx.matrixPosition[3];
+        float n11 = matrixPosition[3] * tx.matrixPosition[1] + matrixPosition[4] * tx.matrixPosition[4];
+        float n12 = matrixPosition[3] * tx.matrixPosition[2] + matrixPosition[4] * tx.matrixPosition[5] + matrixPosition[5];
+        mp[0] = n00;
+        mp[1] = n01;
+        mp[2] = n02;
+        mp[3] = n10;
+        mp[4] = n11;
+        mp[5] = n12;
+//
 //        mp[0] = matrixPosition[0] * transform.matrixPosition[0] + matrixPosition[0] * transform.matrixPosition[3] + matrixPosition[0] * transform.matrixPosition[6]; 
 //        mp[1] = matrixPosition[1] * transform.matrixPosition[1] + matrixPosition[1] * transform.matrixPosition[4] + matrixPosition[1] * transform.matrixPosition[7];
 //        mp[2] = matrixPosition[2] * transform.matrixPosition[2] + matrixPosition[2] * transform.matrixPosition[5] + matrixPosition[2] * transform.matrixPosition[8]; 
@@ -220,11 +220,11 @@ public class Transform {
      * @return The resulting point transformed by this matrix
      */
     public Vector2f transform(Vector2f pt) {
-    	float[] in = new float[] {pt.x, pt.y};
-    	float[] out = new float[2];
-    	
-    	transform(in, 0, out, 0, 1);
-    	
-    	return new Vector2f(out[0], out[1]);
+        float[] in = new float[] {pt.x, pt.y};
+        float[] out = new float[2];
+
+        transform(in, 0, out, 0, 1);
+
+        return new Vector2f(out[0], out[1]);
     }
 }   

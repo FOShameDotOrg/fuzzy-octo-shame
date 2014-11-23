@@ -8,7 +8,7 @@ package org.newdawn.slick.geom;
  */
 public class NeatTriangulator implements Triangulator
 {
-	/** The error factor */
+    /** The error factor */
     static final float EPSILON = 1E-006F;
     
     /** The x coordinates */
@@ -232,20 +232,20 @@ public class NeatTriangulator implements Triangulator
         }
     }
 
-	/**
-	 * Check if the point P is inside the triangle defined by
-	 * the points A,B,C
-	 * 
-	 * @param f Point A x-coordinate
-	 * @param f1 Point A y-coordinate
-	 * @param f2 Point B x-coordinate
-	 * @param f3 Point B y-coordinate
-	 * @param f4 Point C x-coordinate
-	 * @param f5 Point C y-coordinate
-	 * @param f6 Point P x-coordinate
-	 * @param f7 Point P y-coordinate
-	 * @return True if the point specified is within the triangle
-	 */
+    /**
+     * Check if the point P is inside the triangle defined by
+     * the points A,B,C
+     *
+     * @param f Point A x-coordinate
+     * @param f1 Point A y-coordinate
+     * @param f2 Point B x-coordinate
+     * @param f3 Point B y-coordinate
+     * @param f4 Point C x-coordinate
+     * @param f5 Point C y-coordinate
+     * @param f6 Point P x-coordinate
+     * @param f7 Point P y-coordinate
+     * @return True if the point specified is within the triangle
+     */
     private static boolean insideTriangle(float f, float f1, float f2, float f3, float f4, float f5, float f6, float f7)
     {
         float f8 = f4 - f2;
@@ -266,16 +266,16 @@ public class NeatTriangulator implements Triangulator
         return f22 >= 0.0D && f21 >= 0.0D && f20 >= 0.0D;
     }
 
-	/**
-	 * Cut a the contour and add a triangle into V to describe the 
-	 * location of the cut
-	 * 
-	 * @param i The index of the first point
-	 * @param j The index of the second point
-	 * @param k The index of the third point
-	 * @param l ?
-	 * @return True if a triangle was found
-	 */
+    /**
+     * Cut a the contour and add a triangle into V to describe the
+     * location of the cut
+     *
+     * @param i The index of the first point
+     * @param j The index of the second point
+     * @param k The index of the third point
+     * @param l ?
+     * @return True if a triangle was found
+     */
     private boolean snip(int i, int j, int k, int l)
     {
         float f = pointsX[V[i]];
@@ -497,14 +497,14 @@ public class NeatTriangulator implements Triangulator
      */
     public void addPolyPoint(float x, float y)
     {
-    	for (int i=0;i<numPoints;i++) {
-    		if ((pointsX[i] == x) && (pointsY[i] == y)) {
-    			//return;
-    			y += offset;
-    			offset += EPSILON;
-    		}
-    	}
-    	
+        for (int i=0;i<numPoints;i++) {
+            if ((pointsX[i] == x) && (pointsY[i] == y)) {
+                //return;
+                y += offset;
+                offset += EPSILON;
+            }
+        }
+
         if(numPoints == pointsX.length)
         {
             float af[] = new float[numPoints * 2];
@@ -527,7 +527,7 @@ public class NeatTriangulator implements Triangulator
      */
     class Triangle
     {
-    	/** The vertices index */
+        /** The vertices index */
         int v[];
 
         /**
@@ -553,15 +553,15 @@ public class NeatTriangulator implements Triangulator
      */
     class Edge
     {
-    	/** The start vert */
+        /** The start vert */
         int v0;
-    	/** The end vert */
+        /** The end vert */
         int v1;
-    	/** The start tangent vert */
+        /** The start tangent vert */
         int t0;
-    	/** The end tangent vert */
+        /** The end tangent vert */
         int t1;
-    	/** True if the edge is marked as a suspect */
+        /** True if the edge is marked as a suspect */
         boolean suspect;
 
         /**
@@ -582,36 +582,36 @@ public class NeatTriangulator implements Triangulator
      * @author Online Source
      */
     class InternalException extends Exception {
-    	/**
-    	 * Create an internal exception
-    	 * 
-    	 * @param msg The message describing the exception
-    	 */
-    	public InternalException(String msg) {
-    		super(msg);
-    	}
+        /**
+         * Create an internal exception
+         *
+         * @param msg The message describing the exception
+         */
+        public InternalException(String msg) {
+            super(msg);
+        }
     }
 
-	/**
-	 * @see org.newdawn.slick.geom.Triangulator#getTriangleCount()
-	 */
-	public int getTriangleCount() {
-		return numTriangles;
-	}
+    /**
+     * @see org.newdawn.slick.geom.Triangulator#getTriangleCount()
+     */
+    public int getTriangleCount() {
+        return numTriangles;
+    }
 
-	/**
-	 * @see org.newdawn.slick.geom.Triangulator#getTrianglePoint(int, int)
-	 */
-	public float[] getTrianglePoint(int tri, int i) {
-		float xp = pointsX[triangles[tri].v[i]];
-		float yp = pointsY[triangles[tri].v[i]];
-		
-		return new float[] {xp,yp};
-	}
+    /**
+     * @see org.newdawn.slick.geom.Triangulator#getTrianglePoint(int, int)
+     */
+    public float[] getTrianglePoint(int tri, int i) {
+        float xp = pointsX[triangles[tri].v[i]];
+        float yp = pointsY[triangles[tri].v[i]];
 
-	/**
-	 * @see org.newdawn.slick.geom.Triangulator#startHole()
-	 */
-	public void startHole() {
-	}
+        return new float[] {xp,yp};
+    }
+
+    /**
+     * @see org.newdawn.slick.geom.Triangulator#startHole()
+     */
+    public void startHole() {
+    }
 }
