@@ -6,6 +6,8 @@ import org.lwjgl.opengl.GL11;
 
 import com.jed.actor.Boundary;
 
+import javax.annotation.Nonnull;
+
 /**
  * 
  * @author jlinde, Peter Colapietro
@@ -66,7 +68,7 @@ public class MapTile extends AbstractEntity {
      * @param map FIXME Javadoc
      */
     public MapTile( Vector3f position,
-                    Boundary bounds,
+                    @Nonnull Boundary bounds,
                     float glTexX,float glTexY,
                     float glTexWidth,
                     float glTexHeight,

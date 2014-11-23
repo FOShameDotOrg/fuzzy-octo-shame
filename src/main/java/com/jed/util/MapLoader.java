@@ -1,5 +1,6 @@
 package com.jed.util;
 
+import javax.annotation.Nonnull;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -38,6 +39,7 @@ public class MapLoader {
      * 
      * @return gameMap
      */
+    @Nonnull
     public static GameMap loadMap() {
         final GameMap map = new GameMap();
 

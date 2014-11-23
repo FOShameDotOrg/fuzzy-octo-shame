@@ -8,6 +8,9 @@ import org.newdawn.slick.util.ResourceLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * 
  * @author jlinde, Peter Colapietro
@@ -25,7 +28,8 @@ public class Util {
      * @param path path to texture file
      * @return texture object loaded from file
      */
-    public static Texture loadTexture(String path) {
+    @Nullable
+    public static Texture loadTexture(@Nonnull String path) {
         Texture texture = null;
 
         String type = path.substring(path.lastIndexOf('.') + 1).toUpperCase();

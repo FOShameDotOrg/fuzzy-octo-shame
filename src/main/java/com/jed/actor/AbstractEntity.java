@@ -7,6 +7,8 @@ import org.colapietro.lang.LangConstants;
 import org.colapietro.lang.NotImplementedException;
 import org.colapietro.lwjgl.physics.Collidable;
 
+import javax.annotation.Nonnull;
+
 /**
  * 
  * @author jlinde, Peter Colapietro
@@ -22,6 +24,7 @@ public abstract class AbstractEntity implements Displayable, State, Collidable {
     /**
      * 
      */
+    @Nonnull
     public final Boundary bounds;
     
     /**
@@ -40,7 +43,7 @@ public abstract class AbstractEntity implements Displayable, State, Collidable {
      * @param movement movement vector.
      * @param bounds entity's bounds.
      */
-    protected AbstractEntity(Vector3f position, Vector3f movement, Boundary bounds) {
+    protected AbstractEntity(Vector3f position, Vector3f movement, @Nonnull Boundary bounds) {
         this.position = position;
         this.bounds = bounds;
         bounds.owner = this;

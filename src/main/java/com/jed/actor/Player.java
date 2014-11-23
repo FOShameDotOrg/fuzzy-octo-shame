@@ -12,6 +12,8 @@ import com.jed.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nullable;
+
 /**
  * 
  * @author jlinde, Peter Colapietro
@@ -42,6 +44,7 @@ public class Player extends AbstractEntity implements StateManager {
     /**
      * 
      */
+    @Nullable
     private Texture texture;
 
     /**
