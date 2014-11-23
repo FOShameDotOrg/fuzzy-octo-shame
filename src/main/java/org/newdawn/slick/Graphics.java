@@ -789,7 +789,8 @@ public class Graphics {
      *
      * @return The last set world clip rectangle
      */
-    @Nullable Rectangle getWorldClip() {
+    @Nullable
+    Rectangle getWorldClip() {
         return worldClipRecord;
     }
 

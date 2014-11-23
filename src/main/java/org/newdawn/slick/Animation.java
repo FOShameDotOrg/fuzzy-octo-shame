@@ -355,7 +355,7 @@ public class Animation implements Renderable {
      * @param width The width to draw the animation at
      * @param height The height to draw the animation at
      */
-    void draw(float x,float y,float width,float height) {
+    void draw(float x, float y, float width, float height) {
         draw(x,y,width,height,Color.white);
     }
 
@@ -368,7 +368,7 @@ public class Animation implements Renderable {
      * @param height The height to draw the animation at
      * @param col The colour filter to use
      */
-    void draw(float x,float y,float width,float height, Color col) {
+    void draw(float x, float y, float width, float height, Color col) {
         if (frames.size() == 0) {
             return;
         }
@@ -481,7 +481,7 @@ public class Animation implements Renderable {
      * @param height The height to draw the animation at
      * @param col The colour for the flash
      */
-    void drawFlash(float x,float y,float width,float height, @Nonnull Color col) {
+    void drawFlash(float x, float y, float width, float height, @Nonnull Color col) {
         if (frames.size() == 0) {
             return;
         }

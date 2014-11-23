@@ -112,7 +112,8 @@ public class Image implements Renderable {
     public static final int FILTER_NEAREST = SGL.GL_NEAREST;
 
     /** The OpenGL texture for this image. */
-    @Nullable private Texture texture;
+    @Nullable
+    private Texture texture;
     /** The width of the image. */
     private int width;
     /** The height of the image. */
@@ -134,7 +135,8 @@ public class Image implements Renderable {
     /** True if this image's state has been initialised */
     private boolean inited = false;
     /** A pixelData holding the pixel data if it's been read for this texture */
-    @Nullable private byte[] pixelData;
+    @Nullable
+    private byte[] pixelData;
     /** True if the image has been destroyed */
     private boolean destroyed;
 
@@ -332,7 +334,7 @@ public class Image implements Renderable {
      * @param filter The filter to use when scaling this image
      * @throws SlickException Indicates a failure to load the image
      */
-    private Image(@Nonnull InputStream in, String ref, boolean flipped,int filter) throws SlickException {
+    private Image(@Nonnull InputStream in, String ref, boolean flipped, int filter) throws SlickException {
         load(in, ref, flipped, filter, null);
     }
 
@@ -900,7 +902,7 @@ public class Image implements Renderable {
      * @param height
      *            The height to render the image at
      */
-    void draw(float x,float y,float width,float height) {
+    void draw(float x, float y, float width, float height) {
         init();
         draw(x,y,width,height,Color.white);
     }
@@ -926,7 +928,7 @@ public class Image implements Renderable {
      * @param vshear The amount to shear the right points by vertically
      * @param filter The colour filter to apply
      */
-    void drawSheared(float x,float y, float hshear, float vshear, @Nullable Color filter) {
+    void drawSheared(float x, float y, float hshear, float vshear, @Nullable Color filter) {
         init();
         if (alpha != 1) {
             if (filter == null) {
@@ -1024,7 +1026,7 @@ public class Image implements Renderable {
      * @param width The width to render the image at
      * @param height The height to render the image at
      */
-    void drawFlash(float x,float y,float width,float height) {
+    void drawFlash(float x, float y, float width, float height) {
         drawFlash(x,y,width,height,Color.white);
     }
 
@@ -1332,7 +1334,8 @@ public class Image implements Renderable {
      *
      * @return The copy of this image
      */
-    @Nonnull Image copy() {
+    @Nonnull
+    Image copy() {
         init();
         return getScaledCopy(width,height);
     }
@@ -1397,7 +1400,8 @@ public class Image implements Renderable {
      * @param height The height of the copy
      * @return The new scaled image
      */
-    @Nonnull Image getScaledCopy(int width, int height) {
+    @Nonnull
+    Image getScaledCopy(int width, int height) {
         init();
         Image image = new Image();
         image.inited = true;

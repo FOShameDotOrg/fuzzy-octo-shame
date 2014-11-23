@@ -364,7 +364,8 @@ public class GeomUtil {
      * @param line The line to intersect against the shape
      * @return The result describing the intersection or null if none
      */
-    @Nullable HitResult intersect(@Nonnull Shape shape, @Nonnull Line line) {
+    @Nullable
+    HitResult intersect(@Nonnull Shape shape, @Nonnull Line line) {
         float distance = Float.MAX_VALUE;
         HitResult hit = null;
 
@@ -415,7 +416,8 @@ public class GeomUtil {
      * @param e The index of the end point
      * @return The line between the two points
      */
-    @Nonnull Line getLine(@Nonnull Shape shape, int s, int e) {
+    @Nonnull
+    Line getLine(@Nonnull Shape shape, int s, int e) {
         float[] start = shape.getPoint(s);
         float[] end = shape.getPoint(e);
 
@@ -432,7 +434,8 @@ public class GeomUtil {
      * @param e The index of the end point
      * @return The line between the two points
      */
-    @Nonnull Line getLine(@Nonnull Shape shape, float sx, float sy, int e) {
+    @Nonnull
+    Line getLine(@Nonnull Shape shape, float sx, float sy, int e) {
         float[] end = shape.getPoint(e);
 
         Line line = new Line(sx,sy,end[0],end[1]);

@@ -31,7 +31,7 @@ public class Transform {
      * Copy a transform
      * 
      * @param other The other transform to copy
-     */   
+     */
     private Transform(@Nonnull Transform other) {
         matrixPosition = new float[9];
         System.arraycopy(other.matrixPosition, 0, matrixPosition, 0, 9);
@@ -72,7 +72,7 @@ public class Transform {
      * @param point10 float for the fourth position   
      * @param point11 float for the fifth position   
      * @param point12 float for the sixth position   
-     */   
+     */
     private Transform(float point00, float point01, float point02, float point10, float point11, float point12) {
         matrixPosition = new float[]{point00, point01, point02, point10, point11, point12, 0, 0, 1};   
     }   
@@ -114,7 +114,8 @@ public class Transform {
      * @param tx The Transfrom to concatenate to this one.   
      * @return The resulting Transform   
      */   
-    @Nonnull Transform concatenate(@Nonnull Transform tx) {
+    @Nonnull
+    Transform concatenate(@Nonnull Transform tx) {
         float[] mp = new float[9];
         float n00 = matrixPosition[0] * tx.matrixPosition[0] + matrixPosition[1] * tx.matrixPosition[3];
         float n01 = matrixPosition[0] * tx.matrixPosition[1] + matrixPosition[1] * tx.matrixPosition[4];
