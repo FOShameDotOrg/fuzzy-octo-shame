@@ -118,8 +118,7 @@ public class Vector {
      * @return new scaled vector.
      */
     public Vector scale(float scaleFactor) {
-        Vector v2 = new Vector(x * scaleFactor, y * scaleFactor);
-        return v2;
+        return new Vector(x * scaleFactor, y * scaleFactor);
     }
 
     /**
