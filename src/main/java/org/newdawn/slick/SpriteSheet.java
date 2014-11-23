@@ -172,7 +172,7 @@ public class SpriteSheet extends Image {
     /**
      * @see org.newdawn.slick.Image#initImpl()
      */
-    protected void initImpl() {
+    void initImpl() {
         if (subImages != null) {
             return;
         }

@@ -324,7 +324,7 @@ public class Color implements Serializable {
      * @return The brighter version of this colour
      */
     @Nonnull
-    public Color brighter(float scale) {
+    Color brighter(float scale) {
         scale += 1;
         Color temp = new Color(r * scale,g * scale,b * scale,a);
 

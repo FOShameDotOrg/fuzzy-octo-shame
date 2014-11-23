@@ -10,7 +10,7 @@ import java.util.List;
  * 
  * @author kevin
  */
-public class GeomUtil {
+class GeomUtil {
     /** The tolerance for determining changes and steps */
     private static final float EPSILON = 0.0001f;
     /** The tolerance for determining direction change */
