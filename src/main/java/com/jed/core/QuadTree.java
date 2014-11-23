@@ -66,7 +66,7 @@ public class QuadTree implements Displayable {
     public QuadTree(Vector position, int level, Rectangle rectangle, Displayable parent) {
         this.position = position;
         this.level = level;
-        this.objects = new ArrayList<AbstractEntity>();
+        this.objects = new ArrayList<>();
         this.rectangle = rectangle;
         this.nodes = new QuadTree[4];
         this.parent = parent;
@@ -107,7 +107,7 @@ public class QuadTree implements Displayable {
      * @return ret
      */
     public List<AbstractEntity> getObjects() {
-        List<AbstractEntity> ret = new ArrayList<AbstractEntity>();
+        List<AbstractEntity> ret = new ArrayList<>();
         ret.addAll(objects);
         if (nodes[0] != null) {
             ret.addAll(nodes[0].getObjects());
@@ -152,9 +152,9 @@ public class QuadTree implements Displayable {
      */
     private void split() {
         //TODO START pc 2014-10-31: Test me
-        float halfWidth = Float.valueOf(rectangle.getWidth()) / 2.0f;
+        float halfWidth = rectangle.getWidth() / 2.0f;
         int subWidth = Math.round(halfWidth);
-        float halfHeight = Float.valueOf(rectangle.getHeight()) / 2.0f;
+        float halfHeight = rectangle.getHeight() / 2.0f;
         int subHeight = Math.round(halfHeight);
         //TODO END pc 2014-10-31: Test me
         int x = Math.round(position.x);

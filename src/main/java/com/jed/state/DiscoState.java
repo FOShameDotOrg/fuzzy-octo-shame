@@ -63,7 +63,7 @@ public class DiscoState extends GameState {
         width = MotherBrainConstants.WIDTH;
         height = MotherBrainConstants.HEIGHT;
 
-        scene = new Stack<Ball>();
+        scene = new Stack<>();
         quadTree = new QuadTree(new Vector(0, 0), 0, new Rectangle(width, height), this);
 
         Random rand = new Random();
@@ -174,7 +174,7 @@ public class DiscoState extends GameState {
     private void handleCollisions() {
         boolean collide = false;
         for (int i = 0; i < scene.size(); i++) {
-            List<AbstractEntity> returnObjects = new ArrayList<AbstractEntity>();
+            List<AbstractEntity> returnObjects = new ArrayList<>();
 
             quadTree.retrieve(returnObjects, scene.get(i));
 
