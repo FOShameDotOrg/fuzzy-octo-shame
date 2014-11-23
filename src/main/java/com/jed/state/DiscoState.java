@@ -315,20 +315,7 @@ public class DiscoState extends GameState {
          * Adjust the displacement of p1 so that it doesn't become "entwined"
          * with the other ball. Place it right where the collision would have occurred
          */
-
-
-        float blarg = (float) (mvDistance / mv.magnitude());
-        blarg = blarg + (blarg > 0 ? .5f : -.5f);
-//        p1.setDisplacement(new Vector(0,0));
-//        p2.setDisplacement(p2.position.add(p2.movement.scale(blarg)));
-//
-//        LOGGER.debug("p1 mag = " + p1.movement.magnitude());
-//        LOGGER.debug(d);
-//        LOGGER.debug("SQRT T = " + Math.sqrt(t));
-//        LOGGER.debug("distance to move " + mvDistance);
         LOGGER.debug("result = " + mv.magnitude() / p1.movement.magnitude());
-//        LOGGER.debug("");
-
         return true;
     }
 

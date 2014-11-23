@@ -113,7 +113,7 @@ public class MapLoader {
 
         //Get the tile layout data
         final NodeList dataNodes = docElement.getElementsByTagName("data");
-        int rowIndex = 0, columnIndex = 0, tileCount = 0;
+        int rowIndex = 0, columnIndex = 0;
         final int textureWidth = Util.getClosestPowerOfTwo(tileImageWidth);
         final int textureHeight = Util.getClosestPowerOfTwo(tileImageHeight);
         //TODO START pc 2014-10-31 test me
