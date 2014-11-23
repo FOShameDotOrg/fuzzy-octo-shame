@@ -59,7 +59,7 @@ public class GameMap extends AbstractDisplayableState {
      * 
      */
     //TODO: this should be set when the map loads...
-    private final Vector3f position = new Vector3f(0, 0);
+    private static final Vector3f POSITION = new Vector3f(0, 0);
 
     /**
      * 
@@ -136,37 +136,37 @@ public class GameMap extends AbstractDisplayableState {
      */
     private void scrollMap() {
         if (player.movement.y > 0) {
-            if ((player.position.y + (player.height / 2) - position.y) > MotherBrainConstants.HEIGHT / 2) {
-                if (position.y + player.movement.y > height * tileHeight - MotherBrainConstants.HEIGHT) {
-                    position.y = height * tileHeight - MotherBrainConstants.HEIGHT;
+            if ((player.position.y + (player.height / 2) - POSITION.y) > MotherBrainConstants.HEIGHT / 2) {
+                if (POSITION.y + player.movement.y > height * tileHeight - MotherBrainConstants.HEIGHT) {
+                    POSITION.y = height * tileHeight - MotherBrainConstants.HEIGHT;
                 } else {
-                    position.y += player.movement.y;
+                    POSITION.y += player.movement.y;
                 }
             }
         } else if (player.movement.y < 0) {
-            if ((player.position.y + (player.height / 2) - position.y) < MotherBrainConstants.HEIGHT / 2) {
-                if (player.movement.y + position.y < 0) {
-                    position.y = 0;
+            if ((player.position.y + (player.height / 2) - POSITION.y) < MotherBrainConstants.HEIGHT / 2) {
+                if (player.movement.y + POSITION.y < 0) {
+                    POSITION.y = 0;
                 } else {
-                    position.y += player.movement.y;
+                    POSITION.y += player.movement.y;
                 }
             }
         }
 
         if (player.movement.x > 0) {
-            if ((player.position.x + (player.width / 2) - position.x) > MotherBrainConstants.WIDTH / 2) {
-                if (position.x + player.movement.x > width * tileWidth - MotherBrainConstants.WIDTH) {
-                    position.x = width * tileWidth - MotherBrainConstants.WIDTH;
+            if ((player.position.x + (player.width / 2) - POSITION.x) > MotherBrainConstants.WIDTH / 2) {
+                if (POSITION.x + player.movement.x > width * tileWidth - MotherBrainConstants.WIDTH) {
+                    POSITION.x = width * tileWidth - MotherBrainConstants.WIDTH;
                 } else {
-                    position.x += player.movement.x;
+                    POSITION.x += player.movement.x;
                 }
             }
         } else if (player.movement.x < 0) {
-            if ((player.position.x + (player.width / 2) - position.x) < MotherBrainConstants.WIDTH / 2) {
-                if (player.movement.x + position.x < 0) {
-                    position.x = 0;
+            if ((player.position.x + (player.width / 2) - POSITION.x) < MotherBrainConstants.WIDTH / 2) {
+                if (player.movement.x + POSITION.x < 0) {
+                    POSITION.x = 0;
                 } else {
-                    position.x += player.movement.x;
+                    POSITION.x += player.movement.x;
                 }
             }
         }
@@ -228,10 +228,10 @@ public class GameMap extends AbstractDisplayableState {
         texture.bind();
         GL11.glEnable(GL11.GL_TEXTURE_2D);
 
-        final float tileOffsetY = position.y / tileHeight;
+        final float tileOffsetY = POSITION.y / tileHeight;
         final double pixelOffsetY = tileHeight * (tileOffsetY % 1);
 
-        final float tileOffsetX = position.x / tileWidth;
+        final float tileOffsetX = POSITION.x / tileWidth;
         final double pixelOffsetX = tileWidth * (tileOffsetX % 1);
 
         int tileIndex = (int) (width * (Math.floor(tileOffsetY)) + tileOffsetX);
@@ -261,7 +261,7 @@ public class GameMap extends AbstractDisplayableState {
      * @param y y
      */
     public void drawChildVertex2f(float x, float y) {
-        GL11.glVertex2f(x - position.x, y - position.y);
+        GL11.glVertex2f(x - POSITION.x, y - POSITION.y);
     }
 
     /**
