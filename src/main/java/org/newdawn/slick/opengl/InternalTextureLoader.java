@@ -595,8 +595,6 @@ public class InternalTextureLoader {
         
         int minFilter = filter;
         int magFilter = filter;
-        boolean flipped = false;
-        
         // bind this texture 
         GL.glEnable(target);
         GL.glBindTexture(target, textureID); 

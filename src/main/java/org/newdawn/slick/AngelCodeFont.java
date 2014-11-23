@@ -215,14 +215,14 @@ public class AngelCodeFont implements Font {
             // now parse the font file
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     fntFile));
-            String info = in.readLine();
+            in.readLine();
             String common = in.readLine();
             ascent = parseMetric(common, "base="); //not used apparently ?
             //ascent = parseMetric(common, "ascent=");
             descent = parseMetric(common, "descent=");
             leading = parseMetric(common, "leading=");
 
-            String page = in.readLine();
+            in.readLine();
 
             Map<Short, List<Short>> kerning = new HashMap<Short, List<Short>>(64);
             List<Glyph> charDefs = new ArrayList<Glyph>(MAX_CHAR);

@@ -26,9 +26,6 @@ public class GraphicsFactory {
     private static boolean pbufferRT = true;
     /** True if fbo are supported */
     private static boolean fbo = true;
-    /** True if we've initialised */
-    private static boolean init = false;
-
     /**
      * Initialise offscreen rendering by checking what buffers are supported
      * by the card
@@ -36,8 +33,6 @@ public class GraphicsFactory {
      * @throws SlickException Indicates no buffers are supported
      */
     private static void init() throws SlickException {
-        init = true;
-
         if (fbo) {
             fbo = GLContext.getCapabilities().GL_EXT_framebuffer_object;
         }

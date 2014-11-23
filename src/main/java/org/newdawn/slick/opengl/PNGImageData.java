@@ -20,8 +20,6 @@ public class PNGImageData implements LoadableImageData {
     private int texHeight;
     /** The texture width */
     private int texWidth;
-    /** The decoder used to load the PNG */
-    private PNGDecoder decoder;
     /** The data format of this PNG */
     private Format format;
     /** The scratch buffer storing the image data */

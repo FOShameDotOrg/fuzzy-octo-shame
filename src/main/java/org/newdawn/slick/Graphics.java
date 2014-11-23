@@ -13,7 +13,6 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.ShapeRenderer;
-import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureImpl;
 import org.newdawn.slick.opengl.renderer.LineStripRenderer;
 import org.newdawn.slick.opengl.renderer.Renderer;
@@ -695,7 +694,7 @@ public class Graphics {
      *            The height of the rectangle to draw
      */
     public void drawRect(float x1, float y1, float width, float height) {
-        float lineWidth = getLineWidth();
+        getLineWidth();
 
         drawLine(x1, y1, x1 + width, y1);
         drawLine(x1 + width, y1, x1 + width, y1 + height);
@@ -1489,7 +1488,7 @@ public class Graphics {
      */
     public void copyArea(Image target, int x, int y, int xoff, int yoff, int width, int height) {
         predraw();
-        Texture tex = target.getTexture();
+        target.getTexture();
         target.bind();
         if (isYFlipped()) {
             GL11.glCopyTexSubImage2D(SGL.GL_TEXTURE_2D, 0, xoff, yoff, x, y, width, height);

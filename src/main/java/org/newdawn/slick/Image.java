@@ -145,11 +145,6 @@ public class Image implements Renderable {
     /** The OpenGL max filter */
     private int filter = FILTER_LINEAR;
 
-    /** True if the image should be flipped vertically */
-    private boolean flipped;
-    /** The transparent colour set if any */
-    private Color transparent;
-
     /**
      * Create a texture as a copy of another
      *
@@ -257,9 +252,6 @@ public class Image implements Renderable {
      */
     public Image(String ref, boolean flipped, int f, Color transparent) throws SlickException {
         this.filter = f;
-        this.transparent = transparent;
-        this.flipped = flipped;
-
         try {
             this.ref = ref;
             int[] trans = null;
