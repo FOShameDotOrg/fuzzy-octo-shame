@@ -19,12 +19,12 @@ public class QuadTree implements Displayable {
     /**
      * 
      */
-    private final int MAX_OBJECTS = 2;
+    private static final int MAX_OBJECTS = 2;
     
     /**
      * 
      */
-    private final int MAX_LEVELS = 5;
+    private static final int MAX_LEVELS = 5;
 
     /**
      * 
