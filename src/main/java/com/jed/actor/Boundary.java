@@ -18,12 +18,12 @@ public abstract class Boundary implements Displayable {
     /**
      * 
      */
-    public Vector position;
+    public final Vector position;
     
     /**
      * 
      */
-    public Vector[] verticies;
+    public final Vector[] verticies;
 
     /**
      * 

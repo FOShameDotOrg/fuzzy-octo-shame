@@ -10,7 +10,7 @@ public abstract class GameState extends AbstractDisplayableState  {
     /**
      * 
      */
-    protected GameStateManager manager;
+    protected final GameStateManager manager;
 
     /**
      * 

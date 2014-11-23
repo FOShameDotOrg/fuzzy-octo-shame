@@ -29,32 +29,32 @@ public class QuadTree implements Displayable {
     /**
      * 
      */
-    private int level;
+    private final int level;
     
     /**
      * 
      */
-    private List<AbstractEntity> objects;
+    private final List<AbstractEntity> objects;
     
     /**
      * 
      */
-    private Rectangle rectangle;
+    private final Rectangle rectangle;
     
     /**
      * 
      */
-    private QuadTree[] nodes;
+    private final QuadTree[] nodes;
 
     /**
      * 
      */
-    private Displayable parent;
+    private final Displayable parent;
 
     /**
      * 
      */
-    private Vector position;
+    private final Vector position;
 
     /**
      * 

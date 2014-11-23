@@ -13,22 +13,22 @@ public class Ball extends PhysicsEntity {
     /**
      * 
      */
-    private int segments;
+    private final int segments;
     
     /**
      * 
      */
-    private float g;
+    private final float g;
 
     /**
      * 
      */
-    private float r;
+    private final float r;
     
     /**
      * 
      */
-    private float b;
+    private final float b;
 
     /**
      * 

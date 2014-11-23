@@ -15,7 +15,7 @@ public class RectangleBoundary extends Boundary {
     /**
      * 
      */
-    private Rectangle rectangle;
+    private final Rectangle rectangle;
 
     /**
      * 

@@ -22,7 +22,7 @@ public abstract class AbstractEntity implements Displayable, State, Collidable {
     /**
      * 
      */
-    public Boundary bounds;
+    public final Boundary bounds;
     
     /**
      * 

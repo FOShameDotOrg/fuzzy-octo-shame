@@ -59,7 +59,7 @@ public class GameMap extends AbstractDisplayableState {
      * 
      */
     //TODO: this should be set when the map loads...
-    private Vector position = new Vector(0, 0);
+    private final Vector position = new Vector(0, 0);
 
     /**
      * 

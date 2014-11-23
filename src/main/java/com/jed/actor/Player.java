@@ -22,7 +22,8 @@ public class Player extends AbstractEntity implements StateManager {
     /**
      * 
      */
-    public int height, width;
+    public final int height;
+    public final int width;
     
     /**
      * 
@@ -96,7 +97,7 @@ public class Player extends AbstractEntity implements StateManager {
     /**
      * 
      */
-    private GameMap map;
+    private final GameMap map;
 
     /**
      * 
@@ -372,12 +373,12 @@ public class Player extends AbstractEntity implements StateManager {
         /**
          * 
          */
-        float[] animation = {.0625f, .125f, .1875f, .25f, .3125f, .375f, .4375f};
+        final float[] animation = {.0625f, .125f, .1875f, .25f, .3125f, .375f, .4375f};
         
         /**
          * 
          */
-        float frameWidth = .0625f;
+        final float frameWidth = .0625f;
         
         /**
          * 
@@ -502,12 +503,12 @@ public class Player extends AbstractEntity implements StateManager {
         /**
          * 
          */
-        float[] animation = {.125f, .1875f, .25f, .3125f, .375f, .4375f, .5f, .5625f, .625f, .6875f, .75f};
+        final float[] animation = {.125f, .1875f, .25f, .3125f, .375f, .4375f, .5f, .5625f, .625f, .6875f, .75f};
         
         /**
          * 
          */
-        float frameWidth = .0625f;
+        final float frameWidth = .0625f;
         
         /**
          * 
