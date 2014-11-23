@@ -107,7 +107,7 @@ public abstract class SlickCallable {
      * @throws SlickException Indicates a failure while performing the GL operations or
      * maintaing SlickState
      */
-    public final void call() throws SlickException {
+    public final void call() {
         enterSafeBlock();
 
         performGLOperations();

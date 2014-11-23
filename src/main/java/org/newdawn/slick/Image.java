@@ -297,7 +297,7 @@ public class Image implements Renderable {
      * @param height The height of the image
      * @throws SlickException Indicates a failure to create the underlying resource
      */
-    public Image(int width, int height) throws SlickException {
+    public Image(int width, int height) {
         this(width, height, FILTER_NEAREST);
     }
 
@@ -1599,7 +1599,7 @@ public class Image implements Renderable {
      *
      * @throws SlickException Indicates a failure to release resources on the graphics card
      */
-    public void destroy() throws SlickException {
+    public void destroy() {
         if (isDestroyed()) {
             return;
         }

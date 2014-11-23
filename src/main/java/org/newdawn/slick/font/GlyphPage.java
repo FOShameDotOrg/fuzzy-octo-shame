@@ -104,7 +104,7 @@ public class GlyphPage {
      * @param pageHeight The height of the backing texture.
      * @throws SlickException if the backing texture could not be created.
      */
-    public GlyphPage(UnicodeFont unicodeFont, int pageWidth, int pageHeight) throws SlickException {
+    public GlyphPage(UnicodeFont unicodeFont, int pageWidth, int pageHeight) {
         this.unicodeFont = unicodeFont;
         this.pageWidth = pageWidth;
         this.pageHeight = pageHeight;
@@ -124,7 +124,7 @@ public class GlyphPage {
      * @return The number of glyphs that were actually loaded.
      * @throws SlickException if the glyph could not be rendered.
      */
-    public int loadGlyphs (@Nonnull List<Glyph> glyphs, int maxGlyphsToLoad) throws SlickException {
+    public int loadGlyphs (@Nonnull List<Glyph> glyphs, int maxGlyphsToLoad) {
         if (rowHeight != 0 && maxGlyphsToLoad == -1) {
             // If this page has glyphs and we are not loading incrementally, return zero if any of the glyphs don't fit.
             int testX = pageX;
