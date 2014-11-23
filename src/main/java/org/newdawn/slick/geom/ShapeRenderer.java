@@ -114,13 +114,7 @@ public final class ShapeRenderer {
         Texture t = TextureImpl.getLastBind();
         TextureImpl.bindNone();
         
-        fill(shape, new PointCallback() {
-            @Nullable
-            public float[] preRenderPoint(Shape shape, float x, float y) {
-                // do nothing, we're just filling the shape this time
-                return null;
-            }
-        });
+        fill(shape, (shape1, x, y) -> null);
         
         if (t == null) {
             TextureImpl.bindNone();
@@ -195,18 +189,15 @@ public final class ShapeRenderer {
         final Texture t = TextureImpl.getLastBind();
         image.getTexture().bind();
         
-        fill(shape, new PointCallback() {
-            @Nullable
-            public float[] preRenderPoint(Shape shape, float x, float y) {
-                float tx = x * scaleX;
-                float ty = y * scaleY;
+        fill(shape, (shape1, x, y) -> {
+            float tx = x * scaleX;
+            float ty = y * scaleY;
 
-                tx = image.getTextureOffsetX() + (image.getTextureWidth() * tx);
-                ty = image.getTextureOffsetY() + (image.getTextureHeight() * ty);
+            tx = image.getTextureOffsetX() + (image.getTextureWidth() * tx);
+            ty = image.getTextureOffsetY() + (image.getTextureHeight() * ty);
 
-                GL.glTexCoord2f(tx, ty);
-                return null;
-            }
+            GL.glTexCoord2f(tx, ty);
+            return null;
         });
 
         shape.getPoints();
@@ -243,24 +234,21 @@ public final class ShapeRenderer {
         shape.getMaxX();
         shape.getMaxY();
 
-        fill(shape, new PointCallback() {
-            @Nullable
-            public float[] preRenderPoint(@Nonnull Shape shape, float x, float y) {
-                x -= shape.getMinX();
-                y -= shape.getMinY();
+        fill(shape, (shape1, x, y) -> {
+            x -= shape1.getMinX();
+            y -= shape1.getMinY();
 
-                x /= (shape.getMaxX() - shape.getMinX());
-                y /= (shape.getMaxY() - shape.getMinY());
+            x /= (shape1.getMaxX() - shape1.getMinX());
+            y /= (shape1.getMaxY() - shape1.getMinY());
 
-                float tx = x * scaleX;
-                float ty = y * scaleY;
+            float tx = x * scaleX;
+            float ty = y * scaleY;
 
-                tx = image.getTextureOffsetX() + (image.getTextureWidth() * tx);
-                ty = image.getTextureOffsetY() + (image.getTextureHeight() * ty);
+            tx = image.getTextureOffsetX() + (image.getTextureWidth() * tx);
+            ty = image.getTextureOffsetY() + (image.getTextureHeight() * ty);
 
-                GL.glTexCoord2f(tx, ty);
-                return null;
-            }
+            GL.glTexCoord2f(tx, ty);
+            return null;
         });
         
         if (t == null) {
@@ -286,14 +274,11 @@ public final class ShapeRenderer {
         TextureImpl.bindNone();
 
         shape.getCenter();
-        fill(shape, new PointCallback() {
-            @Nonnull
-            public float[] preRenderPoint(Shape shape, float x, float y) {
-                fill.colorAt(shape, x, y).bind();
-                Vector2f offset = fill.getOffsetAt(shape, x, y);
+        fill(shape, (shape1, x, y) -> {
+            fill.colorAt(shape1, x, y).bind();
+            Vector2f offset = fill.getOffsetAt(shape1, x, y);
 
-                return new float[] {offset.x + x,offset.y + y};
-            }
+            return new float[] {offset.x + x,offset.y + y};
         });
         
         if (t == null) {
@@ -323,25 +308,22 @@ public final class ShapeRenderer {
         image.getTexture().bind();
         
         final float center[] = shape.getCenter();
-        fill(shape, new PointCallback() {
-            @Nonnull
-            public float[] preRenderPoint(Shape shape, float x, float y) {
-                fill.colorAt(shape, x - center[0], y - center[1]).bind();
-                Vector2f offset = fill.getOffsetAt(shape, x, y);
+        fill(shape, (shape1, x, y) -> {
+            fill.colorAt(shape1, x - center[0], y - center[1]).bind();
+            Vector2f offset = fill.getOffsetAt(shape1, x, y);
 
-                x += offset.x;
-                y += offset.y;
+            x += offset.x;
+            y += offset.y;
 
-                float tx = x * scaleX;
-                float ty = y * scaleY;
+            float tx = x * scaleX;
+            float ty = y * scaleY;
 
-                tx = image.getTextureOffsetX() + (image.getTextureWidth() * tx);
-                ty = image.getTextureOffsetY() + (image.getTextureHeight() * ty);
+            tx = image.getTextureOffsetX() + (image.getTextureWidth() * tx);
+            ty = image.getTextureOffsetY() + (image.getTextureHeight() * ty);
 
-                GL.glTexCoord2f(tx, ty);
+            GL.glTexCoord2f(tx, ty);
 
-                return new float[] {offset.x + x,offset.y + y};
-            }
+            return new float[] {offset.x + x,offset.y + y};
         });
         
         if (t == null) {
@@ -364,14 +346,11 @@ public final class ShapeRenderer {
         image.getTexture().bind();
 
         shape.getCenter();
-        fill(shape, new PointCallback() {
-            @Nonnull
-            public float[] preRenderPoint(Shape shape, float x, float y) {
-                Vector2f tex = gen.getCoordFor(x, y);
-                GL.glTexCoord2f(tex.x, tex.y);
+        fill(shape, (shape1, x, y) -> {
+            Vector2f tex = gen.getCoordFor(x, y);
+            GL.glTexCoord2f(tex.x, tex.y);
 
-                return new float[] {x,y};
-            }
+            return new float[] {x,y};
         });
         
         if (t == null) {

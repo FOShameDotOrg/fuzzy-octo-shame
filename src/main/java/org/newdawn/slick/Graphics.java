@@ -149,16 +149,13 @@ public class Graphics {
      */
     protected Graphics(int width, int height) {
         if (DEFAULT_FONT == null) {
-            AccessController.doPrivileged( new PrivilegedAction<Object>() {
-                @Nullable
-                public Object run() {
-                    try {
-                        DEFAULT_FONT = new AngelCodeFont("org/newdawn/slick/data/defaultfont.fnt", "org/newdawn/slick/data/defaultfont.png");
-                    } catch (SlickException e) {
-                        Log.error(e);
-                    }
-                    return null; // nothing to return
+            AccessController.doPrivileged((PrivilegedAction<Object>) () -> {
+                try {
+                    DEFAULT_FONT = new AngelCodeFont("org/newdawn/slick/data/defaultfont.fnt", "org/newdawn/slick/data/defaultfont.png");
+                } catch (SlickException e) {
+                    Log.error(e);
                 }
+                return null; // nothing to return
             });
         }
 

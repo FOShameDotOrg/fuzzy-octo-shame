@@ -66,16 +66,13 @@ public final class Log {
      */
     public static void checkVerboseLogSetting() {
         try {
-            AccessController.doPrivileged(new PrivilegedAction<Object>() {
-                @Nullable
-                public Object run() {
-                    String val = System.getProperty(Log.forceVerboseProperty);
-                    if ((val != null) && (val.equalsIgnoreCase(Log.forceVerbosePropertyOnValue))) {
-                        Log.setForcedVerboseOn();
-                    }
-
-                    return null;
+            AccessController.doPrivileged((PrivilegedAction<Object>) () -> {
+                String val = System.getProperty(Log.forceVerboseProperty);
+                if ((val != null) && (val.equalsIgnoreCase(Log.forceVerbosePropertyOnValue))) {
+                    Log.setForcedVerboseOn();
                 }
+
+                return null;
             });
         } catch (Throwable e) {
             // ignore, security failure - probably an applet

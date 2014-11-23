@@ -33,17 +33,14 @@ class ImageDataFactory {
             pngLoaderPropertyChecked = true;
 
             try {
-                AccessController.doPrivileged(new PrivilegedAction<Object>() {
-                    @Nullable
-                    public Object run() {
-                        String val = System.getProperty(PNG_LOADER);
-                        if ("false".equalsIgnoreCase(val)) {
-                            usePngLoader = false;
-                        }
-
-                        Log.info("Use Java PNG Loader = " + usePngLoader);
-                        return null;
+                AccessController.doPrivileged((PrivilegedAction<Object>) () -> {
+                    String val = System.getProperty(PNG_LOADER);
+                    if ("false".equalsIgnoreCase(val)) {
+                        usePngLoader = false;
                     }
+
+                    Log.info("Use Java PNG Loader = " + usePngLoader);
+                    return null;
                 });
             } catch (Throwable e) {
                 // ignore, security failure - probably an applet

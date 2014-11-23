@@ -286,13 +286,11 @@ public class EffectUtil {
             ValueDialog dialog = new ValueDialog(component, name, description);
             dialog.setTitle(name);
             dialog.setLocationRelativeTo(null);
-            EventQueue.invokeLater(new Runnable() {
-                public void run () {
-                    JComponent focusComponent = component;
-                    if (focusComponent instanceof JSpinner)
-                        focusComponent = ((JSpinner.DefaultEditor)((JSpinner)component).getEditor()).getTextField();
-                    focusComponent.requestFocusInWindow();
-                }
+            EventQueue.invokeLater(() -> {
+                JComponent focusComponent = component;
+                if (focusComponent instanceof JSpinner)
+                    focusComponent = ((JSpinner.DefaultEditor)((JSpinner)component).getEditor()).getTextField();
+                focusComponent.requestFocusInWindow();
             });
             dialog.setVisible(true);
             return dialog.okPressed;
@@ -359,21 +357,15 @@ public class EffectUtil {
             {
                 JButton okButton = new JButton("OK");
                 buttonPanel.add(okButton);
-                okButton.addActionListener(new ActionListener() {
-                    public void actionPerformed (ActionEvent evt) {
-                        okPressed = true;
-                        setVisible(false);
-                    }
+                okButton.addActionListener(evt -> {
+                    okPressed = true;
+                    setVisible(false);
                 });
             }
             {
                 JButton cancelButton = new JButton("Cancel");
                 buttonPanel.add(cancelButton);
-                cancelButton.addActionListener(new ActionListener() {
-                    public void actionPerformed (ActionEvent evt) {
-                        setVisible(false);
-                    }
-                });
+                cancelButton.addActionListener(evt -> setVisible(false));
             }
 
             setSize(new Dimension(320, 175));

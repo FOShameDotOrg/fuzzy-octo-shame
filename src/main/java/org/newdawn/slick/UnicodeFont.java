@@ -73,11 +73,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
     /**
      * Sorts glyphs by height, tallest first.
      */
-    private static final Comparator<Glyph> heightComparator = new Comparator<Glyph>() {
-        public int compare (@Nonnull Glyph o1, @Nonnull Glyph o2) {
-            return o1.getHeight() - o2.getHeight();
-        }
-    };
+    private static final Comparator<Glyph> heightComparator = (o1, o2) -> o1.getHeight() - o2.getHeight();
 
     /** The AWT font that is being rendered */
     private Font font;
