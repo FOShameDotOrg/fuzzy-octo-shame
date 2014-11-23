@@ -67,7 +67,6 @@ public class MenuState extends AbstractGameState {
         this.coordinates = coordinates;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void entered() {
         java.awt.Font awtFont = new java.awt.Font("Arial", java.awt.Font.PLAIN, 24);
