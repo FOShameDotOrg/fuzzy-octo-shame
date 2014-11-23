@@ -104,10 +104,10 @@ public class TGAImageData implements LoadableImageData {
         if (transparent != null) {
             forceAlpha = true;
         }
-        byte red = 0;
-        byte green = 0;
-        byte blue = 0;
-        byte alpha = 0;
+        byte red;
+        byte green;
+        byte blue;
+        byte alpha;
 
         BufferedInputStream bis = new BufferedInputStream(fis, 100000);
         DataInputStream dis = new DataInputStream(bis);
@@ -146,7 +146,7 @@ public class TGAImageData implements LoadableImageData {
             bis.skip(idLength);
         }
 
-        byte[] rawData = null;
+        byte[] rawData;
         if ((pixelDepth == 32) || (forceAlpha)) {
             pixelDepth = 32;
             format = Format.RGBA;

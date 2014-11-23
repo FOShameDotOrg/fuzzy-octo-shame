@@ -80,7 +80,7 @@ public class ResourceLoader {
      * @return True if the resource can be located
      */
     public static boolean resourceExists(String ref) {
-        URL url = null;
+        URL url;
 
         for (int i=0;i<locations.size();i++) {
             ResourceLocation location = locations.get(i);

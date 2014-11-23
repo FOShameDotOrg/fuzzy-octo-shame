@@ -585,7 +585,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
         }
         int pageIndex = glyphCode / PAGE_SIZE;
         int glyphIndex = glyphCode & (PAGE_SIZE - 1);
-        Glyph glyph = null;
+        Glyph glyph;
         Glyph[] page = glyphs[pageIndex];
         if (page != null) {
             glyph = page[glyphIndex];

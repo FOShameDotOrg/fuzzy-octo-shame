@@ -172,8 +172,8 @@ public class Animation implements Renderable {
      */
     public Animation(SpriteSheet ss, int[] frames, int[] duration){
         spriteSheet = ss;
-        int x = -1;
-        int y = -1;
+        int x;
+        int y;
 
         for(int i = 0; i < frames.length/2; i++){
            x = frames[i*2];
