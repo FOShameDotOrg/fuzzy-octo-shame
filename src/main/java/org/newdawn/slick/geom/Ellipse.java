@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.newdawn.slick.util.FastTrig;
 
+import javax.annotation.Nonnull;
+
 /**
  * An ellipse meeting the <code>Shape</code> contract. The ellipse is actually an approximation using 
  * a series of points generated around the contour of the ellipse.
@@ -171,7 +173,8 @@ public class Ellipse extends Shape {
     /**
      * @see org.newdawn.slick.geom.Shape#transform(org.newdawn.slick.geom.Transform)
      */
-    public Shape transform(Transform transform) {
+    @Nonnull
+    public Shape transform(@Nonnull Transform transform) {
         checkPoints();
         
         Polygon resultPolygon = new Polygon();

@@ -15,6 +15,9 @@ import org.newdawn.slick.opengl.TextureImpl;
 import org.newdawn.slick.opengl.InternalTextureLoader;
 import org.newdawn.slick.util.Log;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A graphics implementation that renders to a PBuffer
  *
@@ -23,6 +26,7 @@ import org.newdawn.slick.util.Log;
 public class PBufferGraphics extends Graphics {
 
     /** The pbuffer we're going to render to */
+    @Nullable
     private Pbuffer pbuffer;
     /** The image we're we're sort of rendering to */
     private Image image;
@@ -33,7 +37,7 @@ public class PBufferGraphics extends Graphics {
      * @param image The image we're rendering to
      * @throws SlickException Indicates a failure to use pbuffers
      */
-    public PBufferGraphics(Image image) throws SlickException {
+    public PBufferGraphics(@Nonnull Image image) throws SlickException {
         super(InternalTextureLoader.get2Fold(image.getWidth()), InternalTextureLoader.get2Fold(image.getHeight()));
         this.image = image;
 

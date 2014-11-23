@@ -6,6 +6,9 @@ import java.util.List;
 import org.lwjgl.Sys;
 import org.newdawn.slick.util.Log;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A utility to hold and render animations
  *
@@ -40,6 +43,7 @@ public class Animation implements Renderable {
     /** True if the animation should loop (default) */
     private boolean loop = true;
     /** The spriteSheet backing this animation */
+    @Nullable
     private SpriteSheet spriteSheet = null;
     /** If this animation pauses after completing 1 full cycle. A value of 0 indicates no pausing (avoids an extra boolean)*/
     private long pauseDuration = 0;
@@ -57,7 +61,7 @@ public class Animation implements Renderable {
      * @param frames The images for the animation frames
      * @param duration The duration to show each frame
      */
-    public Animation(Image[] frames, int duration) {
+    public Animation(@Nonnull Image[] frames, int duration) {
         this(frames, duration, true);
     }
 
@@ -67,7 +71,7 @@ public class Animation implements Renderable {
      * @param frames The images for the animation frames
      * @param durations The duration to show each frame
      */
-    public Animation(Image[] frames, int[] durations) {
+    public Animation(@Nonnull Image[] frames, @Nonnull int[] durations) {
         this(frames, durations, true);
     }
 
@@ -90,7 +94,7 @@ public class Animation implements Renderable {
      * @param autoUpdate True if this animation should automatically update. This means that the
      * current frame will be caculated based on the time between renders
      */
-    public Animation(Image[] frames, int duration, boolean autoUpdate) {
+    public Animation(@Nonnull Image[] frames, int duration, boolean autoUpdate) {
         for (int i=0;i<frames.length;i++) {
             addFrame(frames[i], duration);
         }
@@ -106,7 +110,7 @@ public class Animation implements Renderable {
      * @param autoUpdate True if this animation should automatically update. This means that the
      * current frame will be caculated based on the time between renders
      */
-    public Animation(Image[] frames, int[] durations, boolean autoUpdate) {
+    public Animation(@Nonnull Image[] frames, @Nonnull int[] durations, boolean autoUpdate) {
         this.autoUpdate = autoUpdate;
         if (frames.length != durations.length) {
             throw new RuntimeException("There must be one duration per frame");
@@ -126,7 +130,7 @@ public class Animation implements Renderable {
      * @param frames The sprite sheet containing the frames
      * @param duration The duration each frame should be displayed for
      */
-    public Animation(SpriteSheet frames, int duration) {
+    public Animation(@Nonnull SpriteSheet frames, int duration) {
         this(frames, 0,0,frames.getHorizontalCount()-1,frames.getVerticalCount()-1,true,duration,true);
     }
 
@@ -170,7 +174,7 @@ public class Animation implements Renderable {
      * @param frames An array of coordinates of sub-image locations for each frame
      * @param duration The duration each frame should be displayed for
      */
-    public Animation(SpriteSheet ss, int[] frames, int[] duration){
+    public Animation(SpriteSheet ss, @Nonnull int[] frames, int[] duration){
         spriteSheet = ss;
         int x;
         int y;
@@ -477,7 +481,7 @@ public class Animation implements Renderable {
      * @param height The height to draw the animation at
      * @param col The colour for the flash
      */
-    public void drawFlash(float x,float y,float width,float height, Color col) {
+    public void drawFlash(float x,float y,float width,float height, @Nonnull Color col) {
         if (frames.size() == 0) {
             return;
         }
@@ -679,6 +683,7 @@ public class Animation implements Renderable {
      *
      * @return The durations of all the frames in this animation
      */
+    @Nonnull
     public int[] getDurations() {
         int[] durations = new int[frames.size()];
         for (int i=0;i<frames.size();i++) {
@@ -720,6 +725,7 @@ public class Animation implements Renderable {
     /**
      * @see java.lang.Object#toString()
      */
+    @Nonnull
     public String toString() {
         String res = "[Animation ("+frames.size()+") ";
         for (int i=0;i<frames.size();i++) {
@@ -737,6 +743,7 @@ public class Animation implements Renderable {
      *
      * @return A copy of this animation
      */
+    @Nonnull
     public Animation copy() {
         Animation copy = new Animation();
 

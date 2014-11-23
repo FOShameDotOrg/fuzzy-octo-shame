@@ -9,6 +9,8 @@ import java.awt.font.GlyphVector;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.UnicodeFont;
 
+import javax.annotation.Nonnull;
+
 /**
  * Represents the glyph in a font for a unicode codepoint.
  * 
@@ -39,7 +41,7 @@ public class Glyph {
      * @param index The index of this glyph within the vector
      * @param unicodeFont The font this glyph forms part of
      */
-    public Glyph(int codePoint, Rectangle bounds, GlyphVector vector, int index, UnicodeFont unicodeFont) {
+    public Glyph(int codePoint, @Nonnull Rectangle bounds, @Nonnull GlyphVector vector, int index, @Nonnull UnicodeFont unicodeFont) {
         this.codePoint = codePoint;
 
         GlyphMetrics metrics = vector.getGlyphMetrics(index);

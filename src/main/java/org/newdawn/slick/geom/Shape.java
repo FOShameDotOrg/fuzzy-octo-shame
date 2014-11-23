@@ -1,5 +1,6 @@
 package org.newdawn.slick.geom;
 
+import javax.annotation.Nonnull;
 import java.io.Serializable;
 
 /**
@@ -145,7 +146,7 @@ public abstract class Shape implements Serializable {
      * 
      * @param loc The new location of the shape
      */
-    public void setLocation(Vector2f loc) {
+    public void setLocation(@Nonnull Vector2f loc) {
         setX(loc.x);
         setY(loc.y);
     }
@@ -285,6 +286,7 @@ public abstract class Shape implements Serializable {
      * @param index The index of the point to retrieve
      * @return The point's coordinates
      */
+    @Nonnull
     public float[] getPoint(int index) {
         checkPoints();
 
@@ -302,6 +304,7 @@ public abstract class Shape implements Serializable {
      * @param index The index of the point whose normal should be retrieved
      * @return The combined normal of a given point
      */
+    @Nonnull
     public float[] getNormal(int index) {
         float[] current = getPoint(index);
         float[] prev = getPoint(index - 1 < 0 ? getPointCount() - 1 : index - 1);
@@ -331,7 +334,7 @@ public abstract class Shape implements Serializable {
      * @return True if the other shape supplied is entirely contained
      * within this one.
      */
-    public boolean contains(Shape other) {
+    public boolean contains(@Nonnull Shape other) {
         if (other.intersects(this)) {
             return false;
         }
@@ -352,6 +355,7 @@ public abstract class Shape implements Serializable {
      * @param end The end point
      * @return The normal of the line between the two points
      */
+    @Nonnull
     private float[] getNormal(float[] start, float[] end) {
         float dx = start[0] - end[0];
         float dy = start[1] - end[1];
@@ -466,7 +470,7 @@ public abstract class Shape implements Serializable {
      * @param shape The shape to check if it intersects with this one.
      * @return True if the shapes do intersect, false otherwise.
      */
-    public boolean intersects(Shape shape) {
+    public boolean intersects(@Nonnull Shape shape) {
         /*
          * Intersection formula used:
          *      (x4 - x3)(y1 - y3) - (y4 - y3)(x1 - x3)
@@ -680,6 +684,7 @@ public abstract class Shape implements Serializable {
      * 
      * @return The new shape with points pruned
      */
+    @Nonnull
     public Shape prune() {
         Polygon result = new Polygon();
 

@@ -19,6 +19,8 @@ import org.newdawn.slick.font.effects.ConfigurableEffect.Value;
 import org.newdawn.slick.font.effects.Effect;
 import org.newdawn.slick.util.ResourceLoader;
 
+import javax.annotation.Nonnull;
+
 /**
  * Holds the settings needed to configure a UnicodeFont.
  * 
@@ -72,7 +74,7 @@ public class HieroSettings {
      * @param in The stream from which to read the settings from
      * @throws SlickException if the file could not be read.
      */
-    public HieroSettings(InputStream in) throws SlickException {
+    public HieroSettings(@Nonnull InputStream in) throws SlickException {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             while (true) {
@@ -343,6 +345,7 @@ public class HieroSettings {
      *
      * @return The list of effects applied to the text
      */
+    @Nonnull
     public List<Effect> getEffects() {
         return effects;
     }
@@ -353,7 +356,7 @@ public class HieroSettings {
      * @param file The file we're saving to
      * @throws IOException if the file could not be saved.
      */
-    public void save(File file) throws SlickException, IOException {
+    public void save(@Nonnull File file) throws SlickException, IOException {
         try(
             final FileOutputStream fileOutputStream = new FileOutputStream(file);
             final PrintStream out = new PrintStream(fileOutputStream)

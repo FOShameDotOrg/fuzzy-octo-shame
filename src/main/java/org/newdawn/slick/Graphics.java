@@ -20,6 +20,9 @@ import org.newdawn.slick.opengl.renderer.SGL;
 import org.newdawn.slick.util.FastTrig;
 import org.newdawn.slick.util.Log;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A graphics context that can be used to render primatives to the accelerated canvas provided by LWJGL.
  * 
@@ -59,6 +62,7 @@ public class Graphics {
     private static final int DEFAULT_SEGMENTS = 50;
 
     /** The last graphics context in use */
+    @Nullable
     protected static Graphics currentGraphics = null;
 
     /** The default font to use */
@@ -89,6 +93,7 @@ public class Graphics {
     private Font font;
 
     /** The current color */
+    @Nonnull
     private Color currentColor = Color.white;
 
     /** The width of the screen */
@@ -101,6 +106,7 @@ public class Graphics {
     private boolean pushed;
 
     /** The graphics context clipping */
+    @Nullable
     private Rectangle clip;
 
     /** Buffer used for setting the world clip */
@@ -113,6 +119,7 @@ public class Graphics {
     private boolean antialias;
 
     /** The world clip recorded since last set */
+    @Nullable
     private Rectangle worldClipRecord;
 
     /** The current drawing mode */
@@ -143,6 +150,7 @@ public class Graphics {
     public Graphics(int width, int height) {
         if (DEFAULT_FONT == null) {
             AccessController.doPrivileged( new PrivilegedAction<Object>() {
+                @Nullable
                 public Object run() {
                     try {
                         DEFAULT_FONT = new AngelCodeFont("org/newdawn/slick/data/defaultfont.fnt", "org/newdawn/slick/data/defaultfont.png");
@@ -296,7 +304,7 @@ public class Graphics {
      * @param color
      *            The background color of the graphics context
      */
-    public void setBackground(Color color) {
+    public void setBackground(@Nonnull Color color) {
         predraw();
         GL.glClearColor(color.r, color.g, color.b, color.a);
         postdraw();
@@ -307,6 +315,7 @@ public class Graphics {
      *
      * @return The background color of this graphics context
      */
+    @Nonnull
     public Color getBackground() {
         predraw();
         FloatBuffer buffer = BufferUtils.createFloatBuffer(16);
@@ -430,7 +439,7 @@ public class Graphics {
      * @param color
      *            The color to use when rendering to this context
      */
-    public void setColor(Color color) {
+    public void setColor(@Nullable Color color) {
         if (color == null) {
             return;
         }
@@ -446,6 +455,7 @@ public class Graphics {
      *
      * @return The color in use by this graphics context
      */
+    @Nonnull
     public Color getColor() {
         return new Color(currentColor);
     }
@@ -509,7 +519,7 @@ public class Graphics {
      * @param fill
      *            The fill type to apply
      */
-    public void draw(Shape shape, ShapeFill fill) {
+    public void draw(@Nonnull Shape shape, @Nonnull ShapeFill fill) {
         predraw();
         TextureImpl.bindNone();
 
@@ -527,7 +537,7 @@ public class Graphics {
      * @param fill
      *            The fill type to apply
      */
-    public void fill(Shape shape, ShapeFill fill) {
+    public void fill(@Nonnull Shape shape, @Nonnull ShapeFill fill) {
         predraw();
         TextureImpl.bindNone();
 
@@ -543,7 +553,7 @@ public class Graphics {
      * @param shape
      *            The shape to draw.
      */
-    public void draw(Shape shape) {
+    public void draw(@Nonnull Shape shape) {
         predraw();
         TextureImpl.bindNone();
         currentColor.bind();
@@ -559,7 +569,7 @@ public class Graphics {
      * @param shape
      *            The shape to fill.
      */
-    public void fill(Shape shape) {
+    public void fill(@Nonnull Shape shape) {
         predraw();
         TextureImpl.bindNone();
         currentColor.bind();
@@ -577,7 +587,7 @@ public class Graphics {
      * @param image
      *            The image to tile across the shape
      */
-    public void texture(Shape shape, Image image) {
+    public void texture(@Nonnull Shape shape, @Nonnull Image image) {
         texture(shape, image, 0.01f, 0.01f, false);
     }
 
@@ -591,7 +601,7 @@ public class Graphics {
      * @param fill
      *            The shape fill to apply
      */
-    public void texture(Shape shape, Image image, ShapeFill fill) {
+    public void texture(@Nonnull Shape shape, @Nonnull Image image, @Nonnull ShapeFill fill) {
         texture(shape, image, 0.01f, 0.01f, fill);
     }
 
@@ -605,7 +615,7 @@ public class Graphics {
      * @param fit
      *            True if we want to fit the image on to the shape
      */
-    public void texture(Shape shape, Image image, boolean fit) {
+    public void texture(@Nonnull Shape shape, @Nonnull Image image, boolean fit) {
         if (fit) {
             texture(shape, image, 1, 1, true);
         } else {
@@ -625,7 +635,7 @@ public class Graphics {
      * @param scaleY
      *            The scale to apply on the y axis for texturing
      */
-    public void texture(Shape shape, Image image, float scaleX, float scaleY) {
+    public void texture(@Nonnull Shape shape, @Nonnull Image image, float scaleX, float scaleY) {
         texture(shape, image, scaleX, scaleY, false);
     }
 
@@ -643,7 +653,7 @@ public class Graphics {
      * @param fit
      *            True if we want to fit the image on to the shape
      */
-    public void texture(Shape shape, Image image, float scaleX, float scaleY, boolean fit) {
+    public void texture(@Nonnull Shape shape, @Nonnull Image image, float scaleX, float scaleY, boolean fit) {
         predraw();
         TextureImpl.bindNone();
         currentColor.bind();
@@ -671,7 +681,7 @@ public class Graphics {
      * @param fill
      *            The shape fill to apply
      */
-    public void texture(Shape shape, Image image, float scaleX, float scaleY, ShapeFill fill) {
+    public void texture(@Nonnull Shape shape, @Nonnull Image image, float scaleX, float scaleY, @Nonnull ShapeFill fill) {
         predraw();
         TextureImpl.bindNone();
         currentColor.bind();
@@ -766,7 +776,7 @@ public class Graphics {
      * @param clip
      *            The area still visible
      */
-    public void setWorldClip(Rectangle clip) {
+    public void setWorldClip(@Nullable Rectangle clip) {
         if (clip == null) {
             clearWorldClip();
         } else {
@@ -779,6 +789,7 @@ public class Graphics {
      *
      * @return The last set world clip rectangle
      */
+    @Nullable
     public Rectangle getWorldClip() {
         return worldClipRecord;
     }
@@ -817,7 +828,7 @@ public class Graphics {
      * @param rect
      *            The rectangle describing the clipped area in screen coordinates
      */
-    public void setClip(Rectangle rect) {
+    public void setClip(@Nullable Rectangle rect) {
         if (rect == null) {
             clearClip();
             return;
@@ -831,6 +842,7 @@ public class Graphics {
      *
      * @return The current applied clipping rectangle or null if no clipping is applied
      */
+    @Nullable
     public Rectangle getClip() {
         return clip;
     }
@@ -853,7 +865,7 @@ public class Graphics {
      * @param offY
      *            The offset on the y axis from the top left corner
      */
-    public void fillRect(float x, float y, float width, float height, Image pattern, float offX, float offY) {
+    public void fillRect(float x, float y, float width, float height, @Nonnull Image pattern, float offX, float offY) {
         int cols = ((int) Math.ceil(width / pattern.getWidth())) + 2;
         int rows = ((int) Math.ceil(height / pattern.getHeight())) + 2;
 
@@ -1346,7 +1358,7 @@ public class Graphics {
      * @param col
      *            The color to apply to the image as a filter
      */
-    public void drawImage(Image image, float x, float y, Color col) {
+    public void drawImage(@Nonnull Image image, float x, float y, Color col) {
         predraw();
         image.draw(x, y, col);
         currentColor.bind();
@@ -1363,7 +1375,7 @@ public class Graphics {
      * @param y
      *            The y position to draw the animation at
      */
-    public void drawAnimation(Animation anim, float x, float y) {
+    public void drawAnimation(@Nonnull Animation anim, float x, float y) {
         drawAnimation(anim, x, y, Color.white);
     }
 
@@ -1379,7 +1391,7 @@ public class Graphics {
      * @param col
      *            The color to apply to the animation as a filter
      */
-    public void drawAnimation(Animation anim, float x, float y, Color col) {
+    public void drawAnimation(@Nonnull Animation anim, float x, float y, Color col) {
         predraw();
         anim.draw(x, y, col);
         currentColor.bind();
@@ -1396,7 +1408,7 @@ public class Graphics {
      * @param y
      *            The y location at which to draw the image
      */
-    public void drawImage(Image image, float x, float y) {
+    public void drawImage(@Nonnull Image image, float x, float y) {
         drawImage(image, x, y, Color.white);
     }
 
@@ -1424,7 +1436,7 @@ public class Graphics {
      *            The t position of the bottom right cornder of rectangle to draw from this image (i.e. relative to the
      *            image)
      */
-    public void drawImage(Image image, float x, float y, float x2, float y2, float srcx, float srcy, float srcx2, float srcy2) {
+    public void drawImage(@Nonnull Image image, float x, float y, float x2, float y2, float srcx, float srcy, float srcx2, float srcy2) {
         predraw();
         image.draw(x, y, x2, y2, srcx, srcy, srcx2, srcy2);
         currentColor.bind();
@@ -1451,7 +1463,7 @@ public class Graphics {
      *            The t position of the bottom right cornder of rectangle to draw from this image (i.e. relative to the
      *            image)
      */
-    public void drawImage(Image image, float x, float y, float srcx, float srcy, float srcx2, float srcy2) {
+    public void drawImage(@Nonnull Image image, float x, float y, float srcx, float srcy, float srcx2, float srcy2) {
         drawImage(image, x, y, x + image.getWidth(), y + image.getHeight(), srcx, srcy, srcx2, srcy2);
     }
 
@@ -1466,7 +1478,7 @@ public class Graphics {
      * @param y
      *            The y position to copy from
      */
-    public void copyArea(Image target, int x, int y) {
+    public void copyArea(@Nonnull Image target, int x, int y) {
         copyArea(target, x, y, 0, 0, target.getWidth(), target.getHeight());
     }
 
@@ -1486,7 +1498,7 @@ public class Graphics {
      * @param width the width of the data to copy from the screen
      * @param height the height of the data to copy from the screen
      */
-    public void copyArea(Image target, int x, int y, int xoff, int yoff, int width, int height) {
+    public void copyArea(@Nonnull Image target, int x, int y, int xoff, int yoff, int width, int height) {
         predraw();
         target.getTexture();
         target.bind();
@@ -1524,6 +1536,7 @@ public class Graphics {
      *            The y coordinate of the pixel to read
      * @return The colour of the pixel at the specified location
      */
+    @Nonnull
     public Color getPixel(int x, int y) {
         predraw();
         GL.glReadPixels(x, screenHeight - y, 1, 1, SGL.GL_RGBA, SGL.GL_UNSIGNED_BYTE, readBuffer);
@@ -1546,7 +1559,7 @@ public class Graphics {
      * @param target
      *            The target buffer to grab into
      */
-    public void getArea(int x, int y, int width, int height, ByteBuffer target) {
+    public void getArea(int x, int y, int width, int height, @Nonnull ByteBuffer target) {
         if (target.capacity() < width * height * 4) {
             throw new IllegalArgumentException("Byte buffer provided to get area is not big enough");
         }
@@ -1582,7 +1595,7 @@ public class Graphics {
      * @param col
      *            The color to apply to the image as a filter
      */
-    public void drawImage(Image image, float x, float y, float x2, float y2, float srcx, float srcy, float srcx2, float srcy2, Color col) {
+    public void drawImage(@Nonnull Image image, float x, float y, float x2, float y2, float srcx, float srcy, float srcx2, float srcy2, Color col) {
         predraw();
         image.draw(x, y, x2, y2, srcx, srcy, srcx2, srcy2, col);
         currentColor.bind();
@@ -1611,7 +1624,7 @@ public class Graphics {
      * @param col
      *            The color to apply to the image as a filter
      */
-    public void drawImage(Image image, float x, float y, float srcx, float srcy, float srcx2, float srcy2, Color col) {
+    public void drawImage(@Nonnull Image image, float x, float y, float srcx, float srcy, float srcx2, float srcy2, Color col) {
         drawImage(image, x, y, x + image.getWidth(), y + image.getHeight(), srcx, srcy, srcx2, srcy2, col);
     }
 
@@ -1678,7 +1691,7 @@ public class Graphics {
      * @param Color2
      *            The ending position's color
      */
-    public void drawGradientLine(float x1, float y1, Color Color1, float x2, float y2, Color Color2) {
+    public void drawGradientLine(float x1, float y1, @Nonnull Color Color1, float x2, float y2, @Nonnull Color Color2) {
         predraw();
 
         TextureImpl.bindNone();

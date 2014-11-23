@@ -6,6 +6,8 @@ import java.nio.FloatBuffer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 
+import javax.annotation.Nonnull;
+
 /**
  * A renderer that caches all operations into an array, creates an opengl vertex array when
  * required and spits the data down to the card in batch mode
@@ -23,17 +25,22 @@ public class VAOGLRenderer extends ImmediateModeOGLRenderer {
     /** The type of the geometry array currently being built - i.e. GL_QUADS */
     private int currentType = NONE;
     /** The last colour applied */
+    @Nonnull
     private float[] color = new float[] {1f,1f,1f,1f};
     /** The last texture applied */
+    @Nonnull
     private float[] tex = new float[] {0f,0f};
     /** The index of the next vertex to be created */
     private int vertIndex;
 
     /** The vertex data cached */
+    @Nonnull
     private float[] verts = new float[MAX_VERTS*3];
     /** The vertex colour data cached */
+    @Nonnull
     private float[] cols = new float[MAX_VERTS*4];
     /** The vertex texture coordiante data cached */
+    @Nonnull
     private float[] texs = new float[MAX_VERTS*3];
 
     /** The buffer used to pass the vertex data to the card */
@@ -401,6 +408,7 @@ public class VAOGLRenderer extends ImmediateModeOGLRenderer {
     /**
      * @see org.newdawn.slick.opengl.renderer.SGL#getCurrentColor()
      */
+    @Nonnull
     public float[] getCurrentColor() {
         return color;
     }

@@ -5,6 +5,9 @@ import java.security.PrivilegedAction;
 
 import org.newdawn.slick.util.Log;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A static utility to create the appropriate image data for a particular reference.
  *
@@ -31,6 +34,7 @@ public class ImageDataFactory {
 
             try {
                 AccessController.doPrivileged(new PrivilegedAction<Object>() {
+                    @Nullable
                     public Object run() {
                         String val = System.getProperty(PNG_LOADER);
                         if ("false".equalsIgnoreCase(val)) {
@@ -53,6 +57,7 @@ public class ImageDataFactory {
      * @param ref The reference to the image to retrieve
      * @return The image data that can be used to retrieve the data for that resource
      */
+    @Nonnull
     public static LoadableImageData getImageDataFor(String ref) {
         checkProperty();
 

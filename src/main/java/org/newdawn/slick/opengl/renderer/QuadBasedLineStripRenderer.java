@@ -1,5 +1,7 @@
 package org.newdawn.slick.opengl.renderer;
 
+import javax.annotation.Nonnull;
+
 /**
  * A line strip renderer that uses quads to generate lines
  * 
@@ -25,6 +27,7 @@ public class QuadBasedLineStripRenderer implements LineStripRenderer {
     private int cpt;
 
     /** The default renderer used when width = 1 */
+    @Nonnull
     private DefaultLineStripRenderer def = new DefaultLineStripRenderer();
     /** Indicates need to render half colour */
     private boolean renderHalf;

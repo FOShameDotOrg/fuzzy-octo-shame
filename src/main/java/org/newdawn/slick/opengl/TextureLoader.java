@@ -5,6 +5,8 @@ import java.io.InputStream;
 
 import org.lwjgl.opengl.GL11;
 
+import javax.annotation.Nonnull;
+
 /**
  * A utility class to wrap the Slick internal texture loader and present a
  * rational interface.
@@ -20,7 +22,7 @@ public class TextureLoader {
      * @return The newly created texture
      * @throws IOException Indicates a failure to read the image data
      */
-    public static Texture getTexture(String format, InputStream in) throws IOException {
+    public static Texture getTexture(String format, @Nonnull InputStream in) throws IOException {
         return getTexture(format, in, false, GL11.GL_LINEAR);
     }
 
@@ -33,7 +35,7 @@ public class TextureLoader {
      * @return The newly created texture
      * @throws IOException Indicates a failure to read the image data
      */
-    public static Texture getTexture(String format, InputStream in, boolean flipped)  throws IOException {
+    public static Texture getTexture(String format, @Nonnull InputStream in, boolean flipped)  throws IOException {
         return getTexture(format, in, flipped, GL11.GL_LINEAR);
     }
 
@@ -46,7 +48,7 @@ public class TextureLoader {
      * @return The newly created texture
      * @throws IOException Indicates a failure to read the image data
      */
-    public static Texture getTexture(String format, InputStream in, int filter) throws IOException {
+    public static Texture getTexture(String format, @Nonnull InputStream in, int filter) throws IOException {
         return getTexture(format, in, false, filter);
     }
 
@@ -60,7 +62,7 @@ public class TextureLoader {
      * @return The newly created texture
      * @throws IOException Indicates a failure to read the image data
      */
-    public static Texture getTexture(String format, InputStream in, boolean flipped, int filter) throws IOException {
+    public static Texture getTexture(String format, @Nonnull InputStream in, boolean flipped, int filter) throws IOException {
         return InternalTextureLoader.get().getTexture(in, in.toString()+"."+format, flipped, filter);
     }
 }

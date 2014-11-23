@@ -16,6 +16,9 @@ import org.newdawn.slick.opengl.renderer.SGL;
 import org.newdawn.slick.util.FastTrig;
 import org.newdawn.slick.util.Log;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * An image loaded from a file and renderable to the canvas.
  *
@@ -55,6 +58,7 @@ public class Image implements Renderable {
      * @throws SlickException
      *             if there was a problem constructing the offscreen image
      */
+    @Nonnull
     public static Image createOffscreenImage(int width, int height, int filter) throws SlickException {
         // this is a bit hackish; ideally FBO/Image should be restructured into
         // a more OpenGL-like design...
@@ -82,6 +86,7 @@ public class Image implements Renderable {
      * @throws SlickException
      *             if there was a problem constructing the offscreen image
      */
+    @Nonnull
     public static Image createOffscreenImage(int width, int height) throws SlickException {
         return createOffscreenImage(width, height, Image.FILTER_LINEAR);
     }
@@ -99,6 +104,7 @@ public class Image implements Renderable {
     protected static SGL GL = Renderer.get();
 
     /** The sprite sheet currently in use. */
+    @Nullable
     protected static Texture inUse;
     /** Use Linear Filtering (same as SGL.GL_LINEAR) */
     public static final int FILTER_LINEAR = SGL.GL_LINEAR;
@@ -106,6 +112,7 @@ public class Image implements Renderable {
     public static final int FILTER_NEAREST = SGL.GL_NEAREST;
 
     /** The OpenGL texture for this image. */
+    @Nullable
     protected Texture texture;
     /** The width of the image. */
     protected int width;
@@ -128,6 +135,7 @@ public class Image implements Renderable {
     /** True if this image's state has been initialised */
     protected boolean inited = false;
     /** A pixelData holding the pixel data if it's been read for this texture */
+    @Nullable
     protected byte[] pixelData;
     /** True if the image has been destroyed */
     protected boolean destroyed;
@@ -150,7 +158,7 @@ public class Image implements Renderable {
      *
      * @param other The other texture to copy
      */
-    protected Image(Image other) {
+    protected Image(@Nonnull Image other) {
         this.width = other.getWidth();
         this.height = other.getHeight();
         this.texture = other.texture;
@@ -177,7 +185,7 @@ public class Image implements Renderable {
      * @param texture
      *            The texture to use
      */
-    public Image(Texture texture) {
+    public Image(@Nonnull Texture texture) {
         this.texture = texture;
         ref = texture.toString();
         clampTexture();
@@ -250,7 +258,7 @@ public class Image implements Renderable {
      * @param transparent The color to treat as transparent
      * @throws SlickException Indicates a failure to load the image
      */
-    public Image(String ref, boolean flipped, int f, Color transparent) throws SlickException {
+    public Image(String ref, boolean flipped, int f, @Nullable Color transparent) throws SlickException {
         this.filter = f;
         try {
             this.ref = ref;
@@ -313,7 +321,7 @@ public class Image implements Renderable {
      * @param flipped True if the image should be flipped on the y-axis  on load
      * @throws SlickException Indicates a failure to load the image
      */
-    public Image(InputStream in, String ref, boolean flipped) throws SlickException {
+    public Image(@Nonnull InputStream in, String ref, boolean flipped) throws SlickException {
         this(in, ref, flipped, FILTER_LINEAR);
     }
 
@@ -326,7 +334,7 @@ public class Image implements Renderable {
      * @param filter The filter to use when scaling this image
      * @throws SlickException Indicates a failure to load the image
      */
-    public Image(InputStream in, String ref, boolean flipped,int filter) throws SlickException {
+    public Image(@Nonnull InputStream in, String ref, boolean flipped,int filter) throws SlickException {
         load(in, ref, flipped, filter, null);
     }
 
@@ -356,7 +364,7 @@ public class Image implements Renderable {
      *
      * @param data The pixelData to use to create the image
      */
-    public Image(ImageData data) {
+    public Image(@Nonnull ImageData data) {
         this(data, FILTER_LINEAR);
     }
 
@@ -366,7 +374,7 @@ public class Image implements Renderable {
      * @param data The pixelData to use to create the image
      * @param f The filter to use when scaling this image
      */
-    public Image(ImageData data, int f) {
+    public Image(@Nonnull ImageData data, int f) {
         try {
             this.filter = f;
             texture = InternalTextureLoader.get().getTexture(data, this.filter);
@@ -516,7 +524,7 @@ public class Image implements Renderable {
      * @param transparent The color to treat as transparent
      * @throws SlickException Indicates a failure to load the image
      */
-    private void load(InputStream in, String ref, boolean flipped, int f, Color transparent) throws SlickException {
+    private void load(@Nonnull InputStream in, String ref, boolean flipped, int f, @Nullable Color transparent) throws SlickException {
         this.filter = f;
 
         try {
@@ -776,7 +784,7 @@ public class Image implements Renderable {
      * @param srcy2 The t position of the bottom right cornder of rectangle to draw from this image (i.e. relative to this image)
      * @param filter The colour filter to apply when drawing
      */
-    public void drawEmbedded(float x, float y, float x2, float y2, float srcx, float srcy, float srcx2, float srcy2, Color filter) {
+    public void drawEmbedded(float x, float y, float x2, float y2, float srcx, float srcy, float srcx2, float srcy2, @Nullable Color filter) {
         init();
         if (filter != null) {
             filter.bind();
@@ -920,7 +928,7 @@ public class Image implements Renderable {
      * @param vshear The amount to shear the right points by vertically
      * @param filter The colour filter to apply
      */
-    public void drawSheared(float x,float y, float hshear, float vshear, Color filter) {
+    public void drawSheared(float x,float y, float hshear, float vshear, @Nullable Color filter) {
         init();
         if (alpha != 1) {
             if (filter == null) {
@@ -972,7 +980,7 @@ public class Image implements Renderable {
      * @param height The height to render the image at
      * @param filter The color to filter with while drawing
      */
-    public void draw(float x,float y,float width,float height,Color filter) {
+    public void draw(float x,float y,float width,float height, @Nullable Color filter) {
         init();
         if (alpha != 1) {
             if (filter == null) {
@@ -1065,7 +1073,7 @@ public class Image implements Renderable {
      * @param height The height to render the image at
      * @param col The color for the sillohette
      */
-    public void drawFlash(float x,float y,float width,float height, Color col) {
+    public void drawFlash(float x,float y,float width,float height, @Nonnull Color col) {
         init();
 
         col.bind();
@@ -1210,7 +1218,7 @@ public class Image implements Renderable {
      * @param srcy2 The t position of the bottom right cornder of rectangle to draw from this image (i.e. relative to this image)
      * @param filter The colour filter to apply when drawing
      */
-    public void draw(float x, float y, float x2, float y2, float srcx, float srcy, float srcx2, float srcy2, Color filter) {
+    public void draw(float x, float y, float x2, float y2, float srcx, float srcy, float srcx2, float srcy2, @Nullable Color filter) {
         init();
 
         if (alpha != 1) {
@@ -1326,6 +1334,7 @@ public class Image implements Renderable {
      *
      * @return The copy of this image
      */
+    @Nonnull
     public Image copy() {
         init();
         return getScaledCopy(width,height);
@@ -1343,6 +1352,7 @@ public class Image implements Renderable {
      * @param height The height of the sub-image
      * @return The image represent the sub-part of this image
      */
+    @Nonnull
     public Image getSubImage(int x,int y,int width,int height) {
         init();
 
@@ -1376,6 +1386,7 @@ public class Image implements Renderable {
      * @param scale The scale to apply
      * @return The new scaled image
      */
+    @Nonnull
     public Image getScaledCopy(float scale) {
         init();
         return getScaledCopy((int) (width*scale),(int) (height*scale));
@@ -1389,6 +1400,7 @@ public class Image implements Renderable {
      * @param height The height of the copy
      * @return The new scaled image
      */
+    @Nonnull
     public Image getScaledCopy(int width, int height) {
         init();
         Image image = new Image();
@@ -1428,6 +1440,7 @@ public class Image implements Renderable {
      * @param flipVertical True if we want to flip the image vertically
      * @return The flipped image instance
      */
+    @Nonnull
     public Image getFlippedCopy(boolean flipHorizontal, boolean flipVertical) {
         init();
         Image image = copy();
@@ -1478,6 +1491,7 @@ public class Image implements Renderable {
     /**
      * @see java.lang.Object#toString()
      */
+    @Nonnull
     public String toString() {
         init();
 
@@ -1489,6 +1503,7 @@ public class Image implements Renderable {
      *
      * @return The OpenGL texture holding this image
      */
+    @Nullable
     public Texture getTexture() {
         return texture;
     }
@@ -1538,6 +1553,7 @@ public class Image implements Renderable {
      * @param y The y coordinate of the pixel
      * @return The Color of the pixel at the specified location
      */
+    @Nonnull
     public Color getColor(int x, int y) {
         if (pixelData == null) {
             pixelData = texture.getTextureData();

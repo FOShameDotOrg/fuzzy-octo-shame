@@ -1,5 +1,6 @@
 package org.newdawn.slick.opengl;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ public class CompositeIOException extends IOException {
      */
     private static final long serialVersionUID = 1L;
     /** The list of exceptions causing this one */
+    @Nonnull
     private List<Exception> exceptions = new ArrayList<>();
 
     /**
@@ -36,6 +38,7 @@ public class CompositeIOException extends IOException {
     /**
      * @see java.lang.Throwable#getMessage()
      */
+    @Nonnull
     public String getMessage() {
         String msg = "Composite Exception: \n";
         for (int i=0;i<exceptions.size();i++) {

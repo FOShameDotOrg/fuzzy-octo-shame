@@ -1,5 +1,8 @@
 package org.newdawn.slick.geom;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * Implemenation of a bunch of maths functions to do with lines. Note that lines
  * can't be used as dynamic shapes right now - also collision with the end of a
@@ -19,8 +22,10 @@ public class Line extends Shape {
     /** The vector between the two points */
     private Vector2f vec;
     /** Temporary storage - declared globally to reduce GC */
+    @Nonnull
     private Vector2f loc = new Vector2f(0, 0);
     /** Temporary storage - declared globally to reduce GC */
+    @Nonnull
     private Vector2f closest = new Vector2f(0, 0);
     /**
      * Create a new line based on the origin and a single point
@@ -293,7 +298,7 @@ public class Line extends Shape {
      *            The point to check
      * @return True if the point is on this line
      */
-    public boolean on(Vector2f point) {
+    public boolean on(@Nonnull Vector2f point) {
         getClosestPoint(point, closest);
 
         return point.equals(closest);
@@ -323,7 +328,7 @@ public class Line extends Shape {
      * @param result
      *            The point on the line closest to the given point
      */
-    public void getClosestPoint(Vector2f point, Vector2f result) {
+    public void getClosestPoint(Vector2f point, @Nonnull Vector2f result) {
         loc.set(point);
         loc.sub(start);
 
@@ -347,6 +352,7 @@ public class Line extends Shape {
     /**
      * @see java.lang.Object#toString()
      */
+    @Nonnull
     public String toString() {
         return "[Line " + start + "," + end + "]";
     }
@@ -358,7 +364,8 @@ public class Line extends Shape {
      *            The other line we should intersect with
      * @return The intersection point or null if the lines are parallel
      */
-    public Vector2f intersect(Line other) {
+    @Nullable
+    public Vector2f intersect(@Nonnull Line other) {
         return intersect(other, false);
     }
 
@@ -371,7 +378,8 @@ public class Line extends Shape {
      *            True if the collision is limited to the extent of the lines
      * @return The intersection point or null if the lines don't intersect
      */
-    public Vector2f intersect(Line other, boolean limit) {
+    @Nullable
+    public Vector2f intersect(@Nonnull Line other, boolean limit) {
         Vector2f temp = new Vector2f();
 
         if (!intersect(other, limit, temp)) {
@@ -392,7 +400,7 @@ public class Line extends Shape {
      *            The resulting intersection point if any
      * @return True if the lines intersect
      */
-    public boolean intersect(Line other, boolean limit, Vector2f result) {
+    public boolean intersect(@Nonnull Line other, boolean limit, @Nonnull Vector2f result) {
         float dx1 = end.getX() - start.getX();
         float dx2 = other.end.getX() - other.start.getX();
         float dy1 = end.getY() - start.getY();
@@ -437,7 +445,8 @@ public class Line extends Shape {
     /**
      * @see org.newdawn.slick.geom.Shape#transform(org.newdawn.slick.geom.Transform)
      */
-    public Shape transform(Transform transform) {
+    @Nonnull
+    public Shape transform(@Nonnull Transform transform) {
         float[] temp = new float[4];
         createPoints();
         transform.transform(points, 0, temp, 0, 2);

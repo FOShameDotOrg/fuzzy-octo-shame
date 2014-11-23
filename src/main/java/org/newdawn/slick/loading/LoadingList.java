@@ -6,6 +6,9 @@ import java.util.List;
 import org.newdawn.slick.opengl.InternalTextureLoader;
 import org.newdawn.slick.util.Log;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A central list where all deferred loading resoures end up when deferred loading is in use. Each
  * texture and sound loaded will be put in this list and can be loaded in one by one 
@@ -14,6 +17,7 @@ import org.newdawn.slick.util.Log;
  */
 public class LoadingList {
     /** The single instance of this list */
+    @Nonnull
     private static LoadingList single = new LoadingList();
 
     /**
@@ -21,6 +25,7 @@ public class LoadingList {
      *
      * @return The single global loading list
      */
+    @Nonnull
     public static LoadingList get() {
         return single;
     }
@@ -50,6 +55,7 @@ public class LoadingList {
     }
 
     /** The list of deferred resources to load */
+    @Nonnull
     private List<DeferredResource> deferred = new ArrayList<>();
     /** The total number of elements that have been added - does not go down as elements are removed */
     private int total;
@@ -76,7 +82,7 @@ public class LoadingList {
      *
      * @param resource The resource to remove
      */
-    public void remove(DeferredResource resource) {
+    public void remove(@Nonnull DeferredResource resource) {
         Log.info("Early loading of deferred resource due to req: "+resource.getDescription());
         total--;
         deferred.remove(resource);
@@ -105,6 +111,7 @@ public class LoadingList {
      *
      * @return The next resource to load or null if there are no more remaining
      */
+    @Nullable
     public DeferredResource getNext() {
         if (deferred.size() == 0) {
             return null;

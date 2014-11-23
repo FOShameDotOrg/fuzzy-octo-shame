@@ -4,6 +4,8 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.opengl.renderer.Renderer;
 
+import javax.annotation.Nullable;
+
 /**
  * A utility to allow performing GL operations without contaminating the
  * Slick OpenGL state. Note this will not protect you from OpenGL programming errors
@@ -42,6 +44,7 @@ import org.newdawn.slick.opengl.renderer.Renderer;
  */
 public abstract class SlickCallable {
     /** The last texture used */
+    @Nullable
     private static Texture lastUsed;
     /** True if we're in a safe block */
     private static boolean inSafe = false;

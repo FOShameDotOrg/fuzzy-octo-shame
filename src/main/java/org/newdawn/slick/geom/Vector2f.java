@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import org.newdawn.slick.util.FastTrig;
 
+import javax.annotation.Nonnull;
+
 /**
  * A two dimensional vector
  * 
@@ -85,6 +87,7 @@ public strictfp class Vector2f implements Serializable {
      * @return This vector - useful for chaining operations
      *
      */
+    @Nonnull
     public Vector2f add(double theta) {
         setTheta(getTheta() + theta);
 
@@ -97,6 +100,7 @@ public strictfp class Vector2f implements Serializable {
      * @param theta The angle to adjust the angle by (in degrees)
      * @return This vector - useful for chaining operations
      */
+    @Nonnull
     public Vector2f sub(double theta) {
         setTheta(getTheta() - theta);
 
@@ -143,7 +147,7 @@ public strictfp class Vector2f implements Serializable {
      *
      * @param other The other vector to copy into this one
      */
-    public Vector2f(Vector2f other) {
+    public Vector2f(@Nonnull Vector2f other) {
         this(other.getX(),other.getY());
     }
 
@@ -163,7 +167,7 @@ public strictfp class Vector2f implements Serializable {
      *
      * @param other The values to set into the vector
      */
-    public void set(Vector2f other) {
+    public void set(@Nonnull Vector2f other) {
         set(other.getX(),other.getY());
     }
 
@@ -173,7 +177,7 @@ public strictfp class Vector2f implements Serializable {
      * @param other The other vector dot agianst
      * @return The dot product of the two vectors
      */
-    public float dot(Vector2f other) {
+    public float dot(@Nonnull Vector2f other) {
         return (x * other.getX()) + (y * other.getY());
     }
 
@@ -184,6 +188,7 @@ public strictfp class Vector2f implements Serializable {
      * @param y The y component to set
      * @return This vector - useful for chaining operations
      */
+    @Nonnull
     public Vector2f set(float x, float y) {
         this.x = x;
         this.y = y;
@@ -196,6 +201,7 @@ public strictfp class Vector2f implements Serializable {
      *
      * @return a vector perpendicular to this vector
      */
+    @Nonnull
     public Vector2f getPerpendicular() {
        return new Vector2f(-y, x);
     }
@@ -206,6 +212,7 @@ public strictfp class Vector2f implements Serializable {
      * @param pt The pair of values to set into the vector
      * @return This vector - useful for chaining operations
      */
+    @Nonnull
     public Vector2f set(float[] pt) {
         return set(pt[0], pt[1]);
     }
@@ -215,6 +222,7 @@ public strictfp class Vector2f implements Serializable {
      *
      * @return A copy of this vector negated
      */
+    @Nonnull
     public Vector2f negate() {
         return new Vector2f(-x, -y);
     }
@@ -224,6 +232,7 @@ public strictfp class Vector2f implements Serializable {
      *
      * @return This vector - useful for chaning operations
      */
+    @Nonnull
     public Vector2f negateLocal() {
         x = -x;
         y = -y;
@@ -237,7 +246,8 @@ public strictfp class Vector2f implements Serializable {
      * @param v The vector to add
      * @return This vector - useful for chaning operations
      */
-    public Vector2f add(Vector2f v)
+    @Nonnull
+    public Vector2f add(@Nonnull Vector2f v)
     {
         x += v.getX();
         y += v.getY();
@@ -251,7 +261,8 @@ public strictfp class Vector2f implements Serializable {
      * @param v The vector subtract
      * @return This vector - useful for chaining operations
      */
-    public Vector2f sub(Vector2f v)
+    @Nonnull
+    public Vector2f sub(@Nonnull Vector2f v)
     {
         x -= v.getX();
         y -= v.getY();
@@ -265,6 +276,7 @@ public strictfp class Vector2f implements Serializable {
      * @param a The value to scale this vector by
      * @return This vector - useful for chaining operations
      */
+    @Nonnull
     public Vector2f scale(float a)
     {
         x *= a;
@@ -278,6 +290,7 @@ public strictfp class Vector2f implements Serializable {
      *
      * @return This vector - useful for chaning operations
      */
+    @Nonnull
     public Vector2f normalise() {
         float l = length();
 
@@ -295,6 +308,7 @@ public strictfp class Vector2f implements Serializable {
      * 
      * @return A unit vector with the same direction as the vector
      */
+    @Nonnull
     public Vector2f getNormal() {
        Vector2f cp = copy();
        cp.normalise();
@@ -326,7 +340,7 @@ public strictfp class Vector2f implements Serializable {
      * @param b The vector to project onto
      * @param result The projected vector
      */
-    public void projectOntoUnit(Vector2f b, Vector2f result) {
+    public void projectOntoUnit(@Nonnull Vector2f b, @Nonnull Vector2f result) {
         float dp = b.dot(this);
 
         result.x = dp * b.getX();
@@ -339,6 +353,7 @@ public strictfp class Vector2f implements Serializable {
      *
      * @return The new instance that copies this vector
      */
+    @Nonnull
     public Vector2f copy() {
         return new Vector2f(x,y);
     }
@@ -346,6 +361,7 @@ public strictfp class Vector2f implements Serializable {
     /**
      * @see java.lang.Object#toString()
      */
+    @Nonnull
     public String toString() {
         return "[Vector2f "+x+","+y+" ("+length()+")]";
     }
@@ -356,7 +372,7 @@ public strictfp class Vector2f implements Serializable {
      * @param other The other point we're measuring to
      * @return The distance to the other point
      */
-    public float distance(Vector2f other) {
+    public float distance(@Nonnull Vector2f other) {
         return (float) Math.sqrt(distanceSquared(other));
     }
 
@@ -368,7 +384,7 @@ public strictfp class Vector2f implements Serializable {
      * @param other The other point we're measuring to
      * @return The distance to the other point squared
      */
-    public float distanceSquared(Vector2f other) {
+    public float distanceSquared(@Nonnull Vector2f other) {
         float dx = other.getX() - getX();
         float dy = other.getY() - getY();
 

@@ -4,6 +4,8 @@ import java.nio.ByteBuffer;
 
 import org.lwjgl.BufferUtils;
 
+import javax.annotation.Nonnull;
+
 /**
  * An image data implementation which represents an empty texture
  * 
@@ -29,6 +31,7 @@ public class EmptyImageData implements ImageData {
     /**
      * @see org.newdawn.slick.opengl.ImageData#getFormat()
      */
+    @Nonnull
     public Format getFormat() {
         return Format.RGBA;
     }

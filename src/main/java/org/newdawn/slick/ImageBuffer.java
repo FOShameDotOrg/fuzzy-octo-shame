@@ -6,6 +6,8 @@ import java.nio.ByteOrder;
 import org.lwjgl.BufferUtils;
 import org.newdawn.slick.opengl.ImageData;
 
+import javax.annotation.Nonnull;
+
 /**
  * A utility for creating images from pixel operations
  *
@@ -58,6 +60,7 @@ public class ImageBuffer implements ImageData {
     /**
      * @see org.newdawn.slick.opengl.ImageData#getFormat()
      */
+    @Nonnull
     public Format getFormat() {
         return Format.RGBA;
     }
@@ -136,6 +139,7 @@ public class ImageBuffer implements ImageData {
      *
      * @return The image generated from this buffer
      */
+    @Nonnull
     public Image getImage() {
         return new Image(this);
     }
@@ -146,6 +150,7 @@ public class ImageBuffer implements ImageData {
      * @param filter The filtering method to use when scaling this image
      * @return The image generated from this buffer
      */
+    @Nonnull
     public Image getImage(int filter) {
         return new Image(this, filter);
     }

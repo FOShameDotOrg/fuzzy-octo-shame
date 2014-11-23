@@ -6,6 +6,8 @@ import java.nio.ByteBuffer;
 import org.lwjgl.BufferUtils;
 import org.newdawn.slick.util.Log;
 
+import javax.annotation.Nullable;
+
 /**
  * The PNG imge data source that is pure java reading PNGs
  * 
@@ -70,7 +72,7 @@ public class PNGImageData implements LoadableImageData {
     /**
      * @see org.newdawn.slick.opengl.LoadableImageData#loadImage(java.io.InputStream, boolean, boolean, int[])
      */
-    public ByteBuffer loadImage(InputStream fis, boolean flipped, boolean forceAlpha, int[] transparent) throws IOException {
+    public ByteBuffer loadImage(InputStream fis, boolean flipped, boolean forceAlpha, @Nullable int[] transparent) throws IOException {
         if (transparent != null) {
             forceAlpha = true;
         }

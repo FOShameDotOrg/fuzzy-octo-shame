@@ -1,5 +1,6 @@
 package org.newdawn.slick.geom;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class Polygon extends Shape {
      * 
      * @param points An array of points in x, y order.
      */
-    public Polygon(float points[]) {
+    public Polygon(@Nonnull float points[]) {
         int length = points.length;
         
         this.points = new float[length];
@@ -135,7 +136,8 @@ public class Polygon extends Shape {
      * @param transform The transform to be applied
      * @return The transformed shape.
      */
-    public Shape transform(Transform transform) {
+    @Nonnull
+    public Shape transform(@Nonnull Transform transform) {
         checkPoints();
         
         Polygon resultPolygon = new Polygon();
@@ -195,6 +197,7 @@ public class Polygon extends Shape {
      *
      * @return A copy of this polygon
      */
+    @Nonnull
     public Polygon copy() {
         float[] copyPoints = new float[points.length];
         System.arraycopy(points, 0, copyPoints, 0, copyPoints.length);

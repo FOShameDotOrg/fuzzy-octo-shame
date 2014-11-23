@@ -14,6 +14,8 @@ import org.newdawn.slick.opengl.SlickCallable;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.Log;
 
+import javax.annotation.Nonnull;
+
 /**
  * A graphics implementation that renders to an FBO
  *
@@ -33,7 +35,7 @@ public class FBOGraphics extends Graphics {
      * @param image The image we're rendering to
      * @throws SlickException Indicates a failure to use pbuffers
      */
-    public FBOGraphics(Image image) throws SlickException {
+    public FBOGraphics(@Nonnull Image image) throws SlickException {
         super(InternalTextureLoader.get2Fold(image.getWidth()), InternalTextureLoader.get2Fold(image.getHeight()));
         this.image = image;
 

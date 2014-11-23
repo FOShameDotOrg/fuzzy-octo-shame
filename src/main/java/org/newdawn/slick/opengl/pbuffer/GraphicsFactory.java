@@ -11,6 +11,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.Log;
 
+import javax.annotation.Nonnull;
+
 /**
  * A factory to produce an appropriate render to texture graphics context based on current
  * hardware
@@ -81,7 +83,7 @@ public class GraphicsFactory {
      * @throws SlickException Indicates it wasn't possible to create a graphics context
      * given available hardware.
      */
-    public static Graphics getGraphicsForImage(Image image) throws SlickException {
+    public static Graphics getGraphicsForImage(@Nonnull Image image) throws SlickException {
         Graphics g = graphics.get(image.getTexture());
 
         if (g == null) {
@@ -98,7 +100,7 @@ public class GraphicsFactory {
      * @param image The image to release
      * @throws SlickException Indicates a failure to release the context
      */
-    public static void releaseGraphicsForImage(Image image) throws SlickException {
+    public static void releaseGraphicsForImage(@Nonnull Image image) throws SlickException {
         Graphics g = graphics.remove(image.getTexture());
 
         if (g != null) {
@@ -113,7 +115,8 @@ public class GraphicsFactory {
      * @return The graphics context created
      * @throws SlickException
      */
-    private static Graphics createGraphics(Image image) throws SlickException {
+    @Nonnull
+    private static Graphics createGraphics(@Nonnull Image image) throws SlickException {
         init();
 
         if (fbo) {

@@ -6,6 +6,8 @@ import java.net.URL;
 
 import org.newdawn.slick.opengl.Texture;
 
+import javax.annotation.Nonnull;
+
 /**
  * A sheet of sprites that can be drawn individually
  * 
@@ -34,7 +36,7 @@ public class SpriteSheet extends Image {
      * @throws SlickException Indicates a failure to read image data
      * @throws IOException Indicates the URL could not be opened
      */
-    public SpriteSheet(URL ref,int tw,int th) throws SlickException, IOException {
+    public SpriteSheet(@Nonnull URL ref,int tw,int th) throws SlickException, IOException {
         this(new Image(ref.openStream(), ref.toString(), false), tw, th);
     }
 
@@ -45,7 +47,7 @@ public class SpriteSheet extends Image {
      * @param tw The width of the tiles on the sheet
      * @param th The height of the tiles on the sheet
      */
-    public SpriteSheet(Image image,int tw,int th) {
+    public SpriteSheet(@Nonnull Image image,int tw,int th) {
         super(image);
 
         this.target = image;
@@ -66,7 +68,7 @@ public class SpriteSheet extends Image {
      * @param spacing The spacing between tiles
      * @param margin The magrin around the tiles
      */
-    public SpriteSheet(Image image,int tw,int th,int spacing,int margin) {
+    public SpriteSheet(@Nonnull Image image,int tw,int th,int spacing,int margin) {
         super(image);
 
         this.target = image;
@@ -88,7 +90,7 @@ public class SpriteSheet extends Image {
      * @param th The height of the tiles on the sheet
      * @param spacing The spacing between tiles
      */
-    public SpriteSheet(Image image,int tw,int th,int spacing) {
+    public SpriteSheet(@Nonnull Image image,int tw,int th,int spacing) {
         this(image,tw,th,spacing,0);
     }
 
@@ -158,7 +160,7 @@ public class SpriteSheet extends Image {
      * @param th The height of the tiles on the sheet
      * @throws SlickException Indicates a failure to load the image
      */
-    public SpriteSheet(String name, InputStream ref,int tw,int th) throws SlickException {
+    public SpriteSheet(String name, @Nonnull InputStream ref,int tw,int th) throws SlickException {
         super(ref,name,false);
 
         this.target = this;
@@ -216,6 +218,7 @@ public class SpriteSheet extends Image {
      * @param y The y position of the cell on the sprite sheet
      * @return The single image from the sprite sheet
      */
+    @Nonnull
     public Image getSprite(int x, int y) {
         target.init();
         initImpl();

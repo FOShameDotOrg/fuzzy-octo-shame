@@ -17,6 +17,9 @@ import org.newdawn.slick.opengl.renderer.SGL;
 import org.newdawn.slick.util.Log;
 import org.newdawn.slick.util.ResourceLoader;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A font implementation that will parse BMFont format font files. The font files can be output
  * by Hiero, which is included with Slick, and also the AngelCode font tool available at:
@@ -71,7 +74,7 @@ public class AngelCodeFont implements Font {
          */
         private static final long serialVersionUID = 1L;
 
-        protected boolean removeEldestEntry(Entry<CharSequence, DisplayList> eldest) {
+        protected boolean removeEldestEntry(@Nonnull Entry<CharSequence, DisplayList> eldest) {
             eldestDisplayList = eldest.getValue();
             eldestDisplayListID = eldestDisplayList.id;
 
@@ -167,7 +170,7 @@ public class AngelCodeFont implements Font {
      * @throws SlickException
      *             Indicates a failure to load either file
      */
-    public AngelCodeFont(String name, InputStream fntFile, InputStream imgFile)
+    public AngelCodeFont(String name, @Nonnull InputStream fntFile, @Nonnull InputStream imgFile)
             throws SlickException {
         fontImage = new Image(imgFile, name, false);
 
@@ -189,7 +192,7 @@ public class AngelCodeFont implements Font {
      * @throws SlickException
      *             Indicates a failure to load either file
      */
-    public AngelCodeFont(String name, InputStream fntFile, InputStream imgFile,
+    public AngelCodeFont(String name, @Nonnull InputStream fntFile, @Nonnull InputStream imgFile,
             boolean caching) throws SlickException {
         fontImage = new Image(imgFile, name, false);
 
@@ -204,7 +207,7 @@ public class AngelCodeFont implements Font {
      *            The stream from which the font file can be read
      * @throws SlickException
      */
-    private void parseFnt(InputStream fntFile) throws SlickException {
+    private void parseFnt(@Nonnull InputStream fntFile) throws SlickException {
         if (displayListCaching) {
             baseDisplayListID = GL.glGenLists(DISPLAY_LIST_CACHE_SIZE);
             if (baseDisplayListID == 0) displayListCaching = false;
@@ -323,7 +326,7 @@ public class AngelCodeFont implements Font {
         return singleCase;
     }
 
-    private short parseMetric(String str, String sub) {
+    private short parseMetric(@Nonnull String str, @Nonnull String sub) {
         int ind = str.indexOf(sub);
         if (ind!=-1) {
             String subStr = str.substring(ind+sub.length());
@@ -341,6 +344,7 @@ public class AngelCodeFont implements Font {
      * @return The character definition from the line
      * @throws SlickException Indicates a given character is not valid in an angel code font
      */
+    @Nullable
     private Glyph parseChar(String line) throws SlickException {
         StringTokenizer tokens = new StringTokenizer(line, " =");
 
@@ -381,7 +385,7 @@ public class AngelCodeFont implements Font {
     /**
      * @see org.newdawn.slick.Font#drawString(float, float, CharSequence)
      */
-    public void drawString(float x, float y, CharSequence text) {
+    public void drawString(float x, float y, @Nonnull CharSequence text) {
         drawString(x, y, text, Color.white);
     }
 
@@ -389,14 +393,14 @@ public class AngelCodeFont implements Font {
      * @see org.newdawn.slick.Font#drawString(float, float, CharSequence,
      *      org.newdawn.slick.Color)
      */
-    public void drawString(float x, float y, CharSequence text, Color col) {
+    public void drawString(float x, float y, @Nonnull CharSequence text, @Nonnull Color col) {
         drawString(x, y, text, col, 0, text.length() - 1);
     }
 
     /**
      * @see Font#drawString(float, float, CharSequence, Color, int, int)
      */
-    public void drawString(float x, float y, CharSequence text, Color col,
+    public void drawString(float x, float y, @Nonnull CharSequence text, @Nonnull Color col,
             int startIndex, int endIndex) {
         fontImage.bind();
         col.bind();
@@ -437,7 +441,7 @@ public class AngelCodeFont implements Font {
      * @param start The index of the first character in the string to render
      * @param end The index of the last character in the string to render
      */
-    private void render(CharSequence text, int start, int end) {
+    private void render(@Nonnull CharSequence text, int start, int end) {
         GL.glBegin(SGL.GL_QUADS);
 
         int x = 0, y = 0;
@@ -478,7 +482,7 @@ public class AngelCodeFont implements Font {
      *            The text that is to be tested
      * @return The yoffset from the y draw location at which text will start
      */
-    public int getYOffset(String text) {
+    public int getYOffset(@Nonnull String text) {
         DisplayList displayList = null;
         if (displayListCaching) {
             displayList = displayLists.get(text);
@@ -505,7 +509,7 @@ public class AngelCodeFont implements Font {
     /**
      * @see org.newdawn.slick.Font#getHeight(CharSequence)
      */
-    public int getHeight(CharSequence text) {
+    public int getHeight(@Nonnull CharSequence text) {
         DisplayList displayList = null;
         if (displayListCaching) {
             displayList = displayLists.get(text);
@@ -544,7 +548,7 @@ public class AngelCodeFont implements Font {
     /**
      * @see org.newdawn.slick.Font#getWidth(CharSequence)
      */
-    public int getWidth(CharSequence text) {
+    public int getWidth(@Nonnull CharSequence text) {
         DisplayList displayList = null;
         if (displayListCaching) {
             displayList = displayLists.get(text);
@@ -622,6 +626,7 @@ public class AngelCodeFont implements Font {
      * @param c the desired character
      * @return the CharDef with glyph info
      */
+    @Nullable
     public Glyph getGlyph(char c) {
         Glyph g = c<0 || c>= chars.length ? null : chars[c];
         if (g!=null)
@@ -681,6 +686,7 @@ public class AngelCodeFont implements Font {
         /**
          * @see java.lang.Object#toString()
          */
+        @Nonnull
         public String toString() {
             return "[CharDef id=" + id + " x=" + x + " y=" + y + "]";
         }

@@ -9,6 +9,8 @@ import java.util.Map;
 import org.newdawn.slick.util.Log;
 import org.newdawn.slick.util.ResourceLoader;
 
+import javax.annotation.Nonnull;
+
 /**
  * A sprite sheet packed and defined by the Pacific Software Image Packer available
  * from:
@@ -23,6 +25,7 @@ public class PackedSpriteSheet {
     /** The base path where the image is expected to be found based on the original definition file */
     private String basePath;
     /** The section definitions */
+    @Nonnull
     private Map<String, Section> sections = new HashMap<>();
     /** The filter used when loading the image */
     private int filter = Image.FILTER_NEAREST;
@@ -94,6 +97,7 @@ public class PackedSpriteSheet {
      * @param name The name of the sprite to retrieve
      * @return The sprite requested (image of)
      */
+    @Nonnull
     public Image getSprite(String name) {
         Section section = sections.get(name);
 
@@ -110,6 +114,7 @@ public class PackedSpriteSheet {
      * @param name The name of the sprite sheet to retrieve
      * @return The sprite sheet from the packed sheet
      */
+    @Nonnull
     public SpriteSheet getSpriteSheet(String name) {
         Image image = getSprite(name);
         Section section = sections.get(name);
@@ -175,7 +180,7 @@ public class PackedSpriteSheet {
          * @param reader The reader from which the definition can be read
          * @throws IOException Indicates a failure toread the provided stream
          */
-        public Section(BufferedReader reader) throws IOException {
+        public Section(@Nonnull BufferedReader reader) throws IOException {
             name = reader.readLine().trim();
 
             x = Integer.parseInt(reader.readLine().trim());

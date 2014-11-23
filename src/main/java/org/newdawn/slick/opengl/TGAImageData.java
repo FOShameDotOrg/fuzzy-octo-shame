@@ -9,6 +9,9 @@ import java.nio.ByteOrder;
 
 import org.lwjgl.BufferUtils;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A utility to load TGAs. Note: NOT THREAD SAFE
  * 
@@ -86,21 +89,21 @@ public class TGAImageData implements LoadableImageData {
     /**
      * @see org.newdawn.slick.opengl.LoadableImageData#loadImage(java.io.InputStream)
      */
-    public ByteBuffer loadImage(InputStream fis) throws IOException {
+    public ByteBuffer loadImage(@Nonnull InputStream fis) throws IOException {
         return loadImage(fis,true, null);
     }
 
     /**
      * @see org.newdawn.slick.opengl.LoadableImageData#loadImage(java.io.InputStream, boolean, int[])
      */
-    public ByteBuffer loadImage(InputStream fis, boolean flipped, int[] transparent) throws IOException {
+    public ByteBuffer loadImage(@Nonnull InputStream fis, boolean flipped, int[] transparent) throws IOException {
         return loadImage(fis, flipped, false, transparent);
     }
 
     /**
      * @see org.newdawn.slick.opengl.LoadableImageData#loadImage(java.io.InputStream, boolean, boolean, int[])
      */
-    public ByteBuffer loadImage(InputStream fis, boolean flipped, boolean forceAlpha, int[] transparent) throws IOException {
+    public ByteBuffer loadImage(@Nonnull InputStream fis, boolean flipped, boolean forceAlpha, @Nullable int[] transparent) throws IOException {
         if (transparent != null) {
             forceAlpha = true;
         }
@@ -309,6 +312,7 @@ public class TGAImageData implements LoadableImageData {
     /**
      * @see org.newdawn.slick.opengl.ImageData#getImageBufferData()
      */
+    @Nonnull
     public ByteBuffer getImageBufferData() {
         throw new RuntimeException("TGAImageData doesn't store it's image.");
     }

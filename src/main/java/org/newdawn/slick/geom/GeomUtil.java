@@ -1,5 +1,7 @@
 package org.newdawn.slick.geom;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,7 @@ public class GeomUtil {
      * @param missing The shape to subtract
      * @return The newly created shapes
      */
+    @Nonnull
     public Shape[] subtract(Shape target, Shape missing) {
         target = target.transform(new Transform());
         missing = missing.transform(new Transform());
@@ -77,7 +80,7 @@ public class GeomUtil {
      * @param y The y coordiante of teh point to check
      * @return True if the point is on the path
      */
-    private boolean onPath(Shape path, float x, float y) {
+    private boolean onPath(@Nonnull Shape path, float x, float y) {
         for (int i=0;i<path.getPointCount()+1;i++) {
             int n = rationalPoint(path, i+1);
             Line line = getLine(path, rationalPoint(path, i), n);
@@ -106,6 +109,7 @@ public class GeomUtil {
      * @param other The additional shape to union
      * @return The newly created shapes
      */
+    @Nonnull
     public Shape[] union(Shape target, Shape other) {
         target = target.transform(new Transform());
         other = other.transform(new Transform());
@@ -154,7 +158,8 @@ public class GeomUtil {
      * @param subtract True if it's a subtract operation, otherwise it's union
      * @return The set of shapes produced
      */
-    private Shape[] combine(Shape target, Shape other, boolean subtract) {
+    @Nonnull
+    private Shape[] combine(@Nonnull Shape target, @Nonnull Shape other, boolean subtract) {
         if (subtract) {
             List<Shape> shapes = new ArrayList<>();
             List<Vector2f> used = new ArrayList<>();
@@ -210,6 +215,7 @@ public class GeomUtil {
      * @param start The point to start at
      * @return The newly created shape
      */
+    @Nonnull
     private Shape combineSingle(Shape target, Shape missing, boolean subtract, int start) {
         Shape current = target;
         Shape other = missing;
@@ -358,7 +364,8 @@ public class GeomUtil {
      * @param line The line to intersect against the shape
      * @return The result describing the intersection or null if none
      */
-    public HitResult intersect(Shape shape, Line line) {
+    @Nullable
+    public HitResult intersect(@Nonnull Shape shape, @Nonnull Line line) {
         float distance = Float.MAX_VALUE;
         HitResult hit = null;
 
@@ -390,7 +397,7 @@ public class GeomUtil {
      * @param p The index of the point
      * @return The index that is rational for the shape
      */
-    public static int rationalPoint(Shape shape, int p) {
+    public static int rationalPoint(@Nonnull Shape shape, int p) {
         while (p < 0) {
             p += shape.getPointCount();
         }
@@ -409,7 +416,8 @@ public class GeomUtil {
      * @param e The index of the end point
      * @return The line between the two points
      */
-    public Line getLine(Shape shape, int s, int e) {
+    @Nonnull
+    public Line getLine(@Nonnull Shape shape, int s, int e) {
         float[] start = shape.getPoint(s);
         float[] end = shape.getPoint(e);
 
@@ -426,7 +434,8 @@ public class GeomUtil {
      * @param e The index of the end point
      * @return The line between the two points
      */
-    public Line getLine(Shape shape, float sx, float sy, int e) {
+    @Nonnull
+    public Line getLine(@Nonnull Shape shape, float sx, float sy, int e) {
         float[] end = shape.getPoint(e);
 
         Line line = new Line(sx,sy,end[0],end[1]);
@@ -445,6 +454,7 @@ public class GeomUtil {
         /** The index of the second point on the target shape that forms the line */
         public int p2;
         /** The position of the intersection */
+        @Nullable
         public Vector2f pt;
     }
 }

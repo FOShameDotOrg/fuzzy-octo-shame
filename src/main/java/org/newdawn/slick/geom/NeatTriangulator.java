@@ -1,6 +1,9 @@
 package org.newdawn.slick.geom;
 
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A second triangulator that seems slightly more robust
  * 
@@ -25,6 +28,7 @@ public class NeatTriangulator implements Triangulator
     /** The edges defines by triangulation */
     private Edge edges[];
     /** Voroni */
+    @Nullable
     private int V[];
     /** The number of edges found */
     private int numEdges;
@@ -446,6 +450,7 @@ public class NeatTriangulator implements Triangulator
     /**
      * @see org.newdawn.slick.geom.Triangulator#getTrianglePoint(int, int)
      */
+    @Nonnull
     public float[] getTrianglePoint(int tri, int i) {
         float xp = pointsX[triangles[tri].v[i]];
         float yp = pointsY[triangles[tri].v[i]];

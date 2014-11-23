@@ -1,5 +1,7 @@
 package org.newdawn.slick.geom;
 
+import javax.annotation.Nonnull;
+
 /**
  * A triangulator implementation that splits the triangules of another, subdividing
  * to give a higher tesselation - and hence smoother transitions.
@@ -19,7 +21,7 @@ public class OverTriangulator implements Triangulator {
      *
      * @param tris The original set of triangles to be sub-dividied
      */
-    public OverTriangulator(Triangulator tris) {
+    public OverTriangulator(@Nonnull Triangulator tris) {
         triangles = new float[tris.getTriangleCount()*6*3][2];
 
         int tcount = 0;
@@ -95,6 +97,7 @@ public class OverTriangulator implements Triangulator {
     /**
      * @see org.newdawn.slick.geom.Triangulator#getTrianglePoint(int, int)
      */
+    @Nonnull
     public float[] getTrianglePoint(int tri, int i) {
         float[] pt = triangles[(tri * 3)+i];
 

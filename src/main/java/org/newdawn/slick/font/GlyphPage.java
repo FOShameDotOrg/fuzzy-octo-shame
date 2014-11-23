@@ -24,6 +24,8 @@ import org.newdawn.slick.opengl.TextureImpl;
 import org.newdawn.slick.opengl.renderer.Renderer;
 import org.newdawn.slick.opengl.renderer.SGL;
 
+import javax.annotation.Nonnull;
+
 /**
  * Stores a number of glyphs on a single texture.
  * 
@@ -44,12 +46,15 @@ public class GlyphPage {
     }
     
     /** A temporary working buffer */
+    @Nonnull
     private static IntBuffer scratchIntBuffer = scratchByteBuffer.asIntBuffer();
     
     
     /** A temporary image used to generate the glyph page */
+    @Nonnull
     private static BufferedImage scratchImage = new BufferedImage(MAX_GLYPH_SIZE, MAX_GLYPH_SIZE, BufferedImage.TYPE_INT_ARGB);
     /** The graphics context form the temporary image */
+    @Nonnull
     private static Graphics2D scratchGraphics = (Graphics2D)scratchImage.getGraphics();
 
     static {
@@ -66,6 +71,7 @@ public class GlyphPage {
      *
      * @return The scratch graphics used to build the page
      */
+    @Nonnull
     public static Graphics2D getScratchGraphics() {
         return scratchGraphics;
     }
@@ -77,6 +83,7 @@ public class GlyphPage {
     /** The height of this page's image */
     private final int pageHeight;
     /** The image containing the glyphs */
+    @Nonnull
     private final Image pageImage;
     /** The x position of the page */
     private int pageX;
@@ -117,7 +124,7 @@ public class GlyphPage {
      * @return The number of glyphs that were actually loaded.
      * @throws SlickException if the glyph could not be rendered.
      */
-    public int loadGlyphs (List<Glyph> glyphs, int maxGlyphsToLoad) throws SlickException {
+    public int loadGlyphs (@Nonnull List<Glyph> glyphs, int maxGlyphsToLoad) throws SlickException {
         if (rowHeight != 0 && maxGlyphsToLoad == -1) {
             // If this page has glyphs and we are not loading incrementally, return zero if any of the glyphs don't fit.
             int testX = pageX;
@@ -194,7 +201,7 @@ public class GlyphPage {
      * @param height The expected height of the glyph
      * @throws SlickException if the glyph could not be rendered.
      */
-    private void renderGlyph(Glyph glyph, int width, int height) throws SlickException {
+    private void renderGlyph(@Nonnull Glyph glyph, int width, int height) throws SlickException {
         // Draw the glyph to the scratch image using Java2D.
         scratchGraphics.setComposite(AlphaComposite.Clear);
         scratchGraphics.fillRect(0, 0, MAX_GLYPH_SIZE, MAX_GLYPH_SIZE);
@@ -223,7 +230,8 @@ public class GlyphPage {
      * @param glyphs The glyphs to return if present
      * @return An iterator of the sorted list of glyphs
      */
-    private Iterator<Glyph> getIterator(List<Glyph> glyphs) {
+    @Nonnull
+    private Iterator<Glyph> getIterator(@Nonnull List<Glyph> glyphs) {
         if (orderAscending) return glyphs.iterator();
         final ListIterator<Glyph> iter = glyphs.listIterator(glyphs.size());
         return new Iterator<Glyph>() {
@@ -246,6 +254,7 @@ public class GlyphPage {
      *
      * @return A list of {@link Glyph} elements on this page
      */
+    @Nonnull
     public List<Glyph> getGlyphs () {
         return pageGlyphs;
     }
@@ -255,6 +264,7 @@ public class GlyphPage {
      *
      * @return The image of this page of glyphs
      */
+    @Nonnull
     public Image getImage () {
         return pageImage;
     }

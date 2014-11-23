@@ -1,5 +1,7 @@
 package org.newdawn.slick.geom;
 
+import javax.annotation.Nonnull;
+
 /**
  * An axis oriented used for shape bounds
  * 
@@ -62,7 +64,7 @@ public class Rectangle extends Shape {
      *
      * @param other The other rectangle whose bounds should be applied
      */
-    public void setBounds(Rectangle other) {
+    public void setBounds(@Nonnull Rectangle other) {
         setBounds(other.getX(), other.getY(), other.getWidth(), other.getHeight());
     }
 
@@ -217,13 +219,14 @@ public class Rectangle extends Shape {
      * @param other The circle to check against
      * @return True if they touch
      */
-    private boolean intersects(Circle other) {
+    private boolean intersects(@Nonnull Circle other) {
         return other.intersects(this);
     }
 
     /**
      * @see java.lang.Object#toString()
      */
+    @Nonnull
     public String toString() {
         return "[Rectangle "+width+"x"+height+"]";
     }
@@ -257,7 +260,8 @@ public class Rectangle extends Shape {
      * @param transform The transform to be applied
      * @return The transformed shape.
      */
-    public Shape transform(Transform transform) {
+    @Nonnull
+    public Shape transform(@Nonnull Transform transform) {
         checkPoints();
         
         Polygon resultPolygon = new Polygon();

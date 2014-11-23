@@ -1,5 +1,6 @@
 package org.newdawn.slick.util;
 
+import javax.annotation.Nullable;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.InputStream;
@@ -54,6 +55,7 @@ public class ResourceLoader {
      * @param ref The reference to the resource to retrieve
      * @return A stream from which the resource can be read
      */
+    @Nullable
     public static InputStream getResourceAsStream(String ref) {
         InputStream in = null;
 
@@ -99,6 +101,7 @@ public class ResourceLoader {
      * @param ref The reference to the resource to retrieve
      * @return A URL from which the resource can be read
      */
+    @Nullable
     public static URL getResource(String ref) {
 
         URL url = null;
