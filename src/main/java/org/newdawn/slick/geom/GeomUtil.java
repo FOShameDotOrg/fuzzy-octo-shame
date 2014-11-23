@@ -186,7 +186,7 @@ public class GeomUtil {
                 }
             }
 
-            return (Shape[]) shapes.toArray(new Shape[0]);
+            return (Shape[]) shapes.toArray();
         } else {
             for (int i=0;i<target.getPointCount();i++) {
                 if (!other.contains(target.getPoint(i)[0], target.getPoint(i)[1])) {
