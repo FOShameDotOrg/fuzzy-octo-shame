@@ -32,9 +32,7 @@ public class Transform {
      */   
     public Transform(Transform other) {   
         matrixPosition = new float[9];
-        for (int i=0;i<9;i++) {
-            matrixPosition[i] = other.matrixPosition[i];
-        }
+        System.arraycopy(other.matrixPosition, 0, matrixPosition, 0, 9);
     }   
        
     /**
