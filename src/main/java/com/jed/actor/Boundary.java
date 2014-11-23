@@ -1,7 +1,7 @@
 package com.jed.actor;
 
 import com.jed.core.Displayable;
-import com.jed.util.Vector;
+import com.jed.util.Vector3f;
 
 /**
  * 
@@ -18,12 +18,12 @@ public abstract class Boundary implements Displayable {
     /**
      * 
      */
-    final Vector position;
+    final Vector3f position;
     
     /**
      * 
      */
-    public final Vector[] vertices;
+    public final Vector3f[] vertices;
 
     /**
      * 
@@ -66,7 +66,7 @@ public abstract class Boundary implements Displayable {
      * @param position position.
      * @param vertices vertices.
      */
-    Boundary(Vector position, Vector[] vertices) {
+    Boundary(Vector3f position, Vector3f[] vertices) {
         this.vertices = vertices;
         this.position = position;
     }
@@ -75,7 +75,7 @@ public abstract class Boundary implements Displayable {
      * 
      * @return world position.
      */
-    public Vector getWorldPosition() {
+    public Vector3f getWorldPosition() {
         return owner.position.add(position);
     }
 
@@ -83,7 +83,7 @@ public abstract class Boundary implements Displayable {
      * 
      * @return next world position.
      */
-    public Vector getNextWorldPosition() {
+    public Vector3f getNextWorldPosition() {
         return getWorldPosition().add(owner.movement);
     }
 

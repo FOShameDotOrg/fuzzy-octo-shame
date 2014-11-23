@@ -1,6 +1,6 @@
 package com.jed.actor;
 
-import com.jed.util.Vector;
+import com.jed.util.Vector3f;
 import org.lwjgl.opengl.GL11;
 
 import com.jed.util.Rectangle;
@@ -22,8 +22,8 @@ public class RectangleBoundary extends Boundary {
      * @param rectangle rectangle
      * @param position position of rectangle boundary
      */
-    public RectangleBoundary(Rectangle rectangle, Vector position) {
-        super(position, new Vector[]{});
+    public RectangleBoundary(Rectangle rectangle, Vector3f position) {
+        super(position, new Vector3f[]{});
         this.rectangle = rectangle;
     }
 

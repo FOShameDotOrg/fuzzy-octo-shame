@@ -1,6 +1,6 @@
 package com.jed.actor;
 
-import com.jed.util.Vector;
+import com.jed.util.Vector3f;
 
 /**
  * 
@@ -15,7 +15,7 @@ abstract class PhysicsEntity extends AbstractEntity {
      * @param movement movement vector.
      * @param bounds bounds of entity.
      */
-    PhysicsEntity(Vector position, Vector movement, Boundary bounds) {
+    PhysicsEntity(Vector3f position, Vector3f movement, Boundary bounds) {
         super(position, movement, bounds);
     }
 

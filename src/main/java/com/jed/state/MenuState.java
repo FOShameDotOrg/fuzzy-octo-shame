@@ -1,6 +1,6 @@
 package com.jed.state;
 
-import com.jed.util.Vector;
+import com.jed.util.Vector3f;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.UnicodeFont;
@@ -33,7 +33,7 @@ public class MenuState extends GameState {
     /**
      * 
      */
-    private Vector coords;
+    private Vector3f coords;
 
     /**
      * 
@@ -63,7 +63,7 @@ public class MenuState extends GameState {
      * 
      * @return coords
      */
-    public Vector getCoords() {
+    public Vector3f getCoords() {
         return coords;
     }
 
@@ -71,7 +71,7 @@ public class MenuState extends GameState {
      * 
      * @param coords coords
      */
-    public void setCoords(Vector coords) {
+    public void setCoords(Vector3f coords) {
         this.coords = coords;
     }
 

@@ -7,7 +7,7 @@ import java.util.Stack;
 
 import com.jed.actor.AbstractEntity;
 import com.jed.core.MotherBrainConstants;
-import com.jed.util.Vector;
+import com.jed.util.Vector3f;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,7 +64,7 @@ public class DiscoState extends GameState {
         height = MotherBrainConstants.HEIGHT;
 
         scene = new Stack<>();
-        quadTree = new QuadTree(new Vector(0, 0), 0, new Rectangle(width, height), this);
+        quadTree = new QuadTree(new Vector3f(0, 0), 0, new Rectangle(width, height), this);
 
         Random rand = new Random();
 
@@ -82,8 +82,8 @@ public class DiscoState extends GameState {
             randBlue = rand.nextFloat();
 
             Ball newBall = new Ball(
-                    new Vector(randW, randH),
-                    new Vector(randXS, randYS),
+                    new Vector3f(randW, randH),
+                    new Vector3f(randXS, randYS),
                     new CircleBoundary(randR),
                     25,
                     randRed, randGreen, randBlue);
@@ -226,7 +226,7 @@ public class DiscoState extends GameState {
          * Represents where the two balls will collide, if they do
          * by assuming p2 is static
          */
-        Vector mv = p1.movement.subtract(p2.movement);
+        Vector3f mv = p1.movement.subtract(p2.movement);
 
         /**
          * The movement vector must be at least the distance between
@@ -245,12 +245,12 @@ public class DiscoState extends GameState {
         /**
          * Find c, the vector from the center of p1 to the center of p2
          */
-        Vector c = p2.position.subtract(p1.position);
+        Vector3f c = p2.position.subtract(p1.position);
 
         /**
          * Normalize the movement vector to determine if p1 is moving towards p2
          */
-        Vector mvN = mv.normalize();
+        Vector3f mvN = mv.normalize();
 
         /**
          * Dot product of the normalized movement vector and the difference
@@ -327,7 +327,7 @@ public class DiscoState extends GameState {
     private void collide(Ball p1, Ball p2) {
         // First, find the normalized vector n from the center of
         // circle1 to the center of circle2
-        Vector n = (p1.position.subtract(p2.position)).normalize();
+        Vector3f n = (p1.position.subtract(p2.position)).normalize();
 
         // Find the length of the component of each of the movement
         // vectors along n.
@@ -340,11 +340,11 @@ public class DiscoState extends GameState {
 
         // Calculate v1', the new movement vector of circle1
         // v1' = v1 - optimizedP * m2 * n
-        Vector v1 = p1.movement.subtract(n.scale((float) (optimizedP * p2.mass())));
+        Vector3f v1 = p1.movement.subtract(n.scale((float) (optimizedP * p2.mass())));
 
         // Calculate v1', the new movement vector of circle1
         // v2' = v2 + optimizedP * m1 * n
-        Vector v2 = p2.movement.add(n.scale((float) (optimizedP * p1.mass())));
+        Vector3f v2 = p2.movement.add(n.scale((float) (optimizedP * p1.mass())));
 
         p1.movement = v1;
         p2.movement = v2;

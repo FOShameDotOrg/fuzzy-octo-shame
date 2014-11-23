@@ -9,7 +9,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.jed.actor.AbstractEntity;
 import com.jed.core.MotherBrainConstants;
-import com.jed.util.Vector;
+import com.jed.util.Vector3f;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
@@ -59,7 +59,7 @@ public class GameMap extends AbstractDisplayableState {
      * 
      */
     //TODO: this should be set when the map loads...
-    private final Vector position = new Vector(0, 0);
+    private final Vector3f position = new Vector3f(0, 0);
 
     /**
      * 
@@ -97,11 +97,11 @@ public class GameMap extends AbstractDisplayableState {
 
         //TODO: initialize scene Stack by some data contained in the map i.e. start position or something like that...
         scene = new Stack<>();
-        player = new Player(new Vector(50, 200), 256, 256, this);
+        player = new Player(new Vector3f(50, 200), 256, 256, this);
         scene.push(player);
 
         quadTree = new QuadTree(
-                new Vector(0, 0), 0,
+                new Vector3f(0, 0), 0,
                 new Rectangle(
                         width * tileWidth,
                         height * tileHeight),

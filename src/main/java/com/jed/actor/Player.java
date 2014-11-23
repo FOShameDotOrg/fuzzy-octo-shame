@@ -1,7 +1,7 @@
 package com.jed.actor;
 
 import com.jed.state.*;
-import com.jed.util.Vector;
+import com.jed.util.Vector3f;
 import org.colapietro.lang.NotImplementedException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -110,20 +110,20 @@ public class Player extends AbstractEntity implements StateManager {
      * @param width width
      * @param map game map
      */
-    public Player(Vector position, int height, int width, GameMap map) {
+    public Player(Vector3f position, int height, int width, GameMap map) {
 
         //TODO: The Bounds should be scaled to the size of the player sprite so that
         //it can be scaled
         super(
                 position,
-                new Vector(0, 0),
+                new Vector3f(0, 0),
                 new PolygonBoundary(
-                        new Vector(110, 130),
-                        new Vector[]{
-                                new Vector(0, 0),
-                                new Vector(40, 0),
-                                new Vector(40, 120),
-                                new Vector(0, 120)
+                        new Vector3f(110, 130),
+                        new Vector3f[]{
+                                new Vector3f(0, 0),
+                                new Vector3f(40, 0),
+                                new Vector3f(40, 120),
+                                new Vector3f(0, 120)
                         })
         );
 

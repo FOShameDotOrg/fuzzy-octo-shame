@@ -142,15 +142,15 @@ public class MapLoader {
                         float glY = glHeight * tileRow;
 
                         map.getTiles().add(new MapTile(
-                                new Vector(columnIndex * map.getTileHeight(), rowIndex * map.getTileWidth()),
+                                new Vector3f(columnIndex * map.getTileHeight(), rowIndex * map.getTileWidth()),
 
                                 new PolygonBoundary(
-                                        new Vector(0, 0),
-                                        new Vector[]{
-                                                new Vector(0, 0),
-                                                new Vector(map.getTileWidth(), 0),
-                                                new Vector(map.getTileWidth(), map.getTileHeight()),
-                                                new Vector(0, map.getTileHeight())
+                                        new Vector3f(0, 0),
+                                        new Vector3f[]{
+                                                new Vector3f(0, 0),
+                                                new Vector3f(map.getTileWidth(), 0),
+                                                new Vector3f(map.getTileWidth(), map.getTileHeight()),
+                                                new Vector3f(0, map.getTileHeight())
                                         })
                                 ,
                                 glX, glY, glWidth, glHeight,
