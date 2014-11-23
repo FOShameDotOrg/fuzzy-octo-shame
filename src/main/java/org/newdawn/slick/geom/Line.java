@@ -464,7 +464,7 @@ public class Line extends Shape {
     /**
      * @see org.newdawn.slick.geom.Shape#intersects(org.newdawn.slick.geom.Shape)
      */
-    public boolean intersects(Shape shape)
+    public boolean intersects(@Nonnull Shape shape)
     { 
         if (shape instanceof Circle) 
         { 

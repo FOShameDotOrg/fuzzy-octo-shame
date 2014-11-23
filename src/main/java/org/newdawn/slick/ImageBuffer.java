@@ -35,8 +35,8 @@ public class ImageBuffer implements ImageData {
 
     /**
      *
-     * @param width
-     * @param height
+     * @param width width
+     * @param height height
      */
     public ImageBuffer(int width, int height) {
         this.width = width;

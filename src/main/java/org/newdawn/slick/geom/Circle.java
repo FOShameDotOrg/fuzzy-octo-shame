@@ -1,5 +1,7 @@
 package org.newdawn.slick.geom;
 
+import javax.annotation.Nonnull;
+
 /**
  * A simple Circle geometry
  * 
@@ -86,7 +88,7 @@ public strictfp class Circle extends Ellipse {
      * @param shape The other circle
      * @return True if they touch
      */
-    public boolean intersects(Shape shape) {
+    public boolean intersects(@Nonnull Shape shape) {
         if(shape instanceof Circle) {
             Circle other = (Circle)shape;
             float totalRad2 = getRadius() + other.getRadius();

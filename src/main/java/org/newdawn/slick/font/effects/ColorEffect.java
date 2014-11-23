@@ -35,7 +35,7 @@ public class ColorEffect implements ConfigurableEffect {
      *
      * @param color The colour to apply across the text
      */
-    public ColorEffect(Color color) {
+    public ColorEffect(@Nullable Color color) {
         this.color = color;
     }
 

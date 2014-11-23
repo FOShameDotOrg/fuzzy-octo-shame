@@ -147,7 +147,7 @@ public class Animation implements Renderable {
      * @param duration The duration each frame should be displayed for
      * @param autoUpdate True if this animation should automatically update based on the render times
      */
-    public Animation(SpriteSheet frames, int x1, int y1, int x2, int y2, boolean horizontalScan, int duration, boolean autoUpdate) {
+    public Animation(@Nullable SpriteSheet frames, int x1, int y1, int x2, int y2, boolean horizontalScan, int duration, boolean autoUpdate) {
         this.spriteSheet = frames;
         this.autoUpdate = autoUpdate;
 
@@ -174,7 +174,7 @@ public class Animation implements Renderable {
      * @param frames An array of coordinates of sub-image locations for each frame
      * @param duration The duration each frame should be displayed for
      */
-    public Animation(SpriteSheet ss, @Nonnull int[] frames, int[] duration){
+    public Animation(@Nullable SpriteSheet ss, @Nonnull int[] frames, int[] duration){
         spriteSheet = ss;
         int x;
         int y;

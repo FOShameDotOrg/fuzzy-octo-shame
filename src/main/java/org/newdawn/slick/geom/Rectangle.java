@@ -168,7 +168,7 @@ public class Rectangle extends Shape {
      * @param shape The other shape to check against
      * @return True if the rectangles touch
      */
-    public boolean intersects(Shape shape) {
+    public boolean intersects(@Nonnull Shape shape) {
         if(shape instanceof Rectangle) {
             Rectangle other = (Rectangle)shape;
             if ((x > (other.x + other.width)) || ((x + width) < other.x)) {

@@ -1515,7 +1515,7 @@ public class Image implements Renderable {
      *
      * @param texture The texture used by this image
      */
-    public void setTexture(Texture texture) {
+    public void setTexture(@Nullable Texture texture) {
         if (texture!=this.texture)
             destroyed = false;
         this.texture = texture;
