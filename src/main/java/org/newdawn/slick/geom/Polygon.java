@@ -100,8 +100,8 @@ public class Polygon extends Shape {
         }
 
         final List<Float> tempPoints = new ArrayList<>();
-        for(int i=0;i<points.length;i++) {
-            tempPoints.add(points[i]);
+        for (float point : points) {
+            tempPoints.add(point);
         }
         tempPoints.add(x);
         tempPoints.add(y);

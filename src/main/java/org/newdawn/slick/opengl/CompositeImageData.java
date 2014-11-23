@@ -62,16 +62,16 @@ public class CompositeImageData implements LoadableImageData  {
         in.mark(is.available());
 
         // cycle through our source until one of them works
-        for (int i=0;i<sources.size();i++) {
+        for (LoadableImageData source : sources) {
             in.reset();
             try {
-                LoadableImageData data = sources.get(i);
+                LoadableImageData data = source;
 
                 buffer = data.loadImage(in, flipped, forceAlpha, transparent);
                 picked = data;
                 break;
             } catch (Exception e) {
-                Log.warn(sources.get(i).getClass()+" failed to read the data", e);
+                Log.warn(source.getClass() + " failed to read the data", e);
                 exception.addException(e);
             }
         }
@@ -151,8 +151,8 @@ public class CompositeImageData implements LoadableImageData  {
      * @see org.newdawn.slick.opengl.LoadableImageData#configureEdging(boolean)
      */
     public void configureEdging(boolean edging) {
-        for (int i=0;i<sources.size();i++) {
-            sources.get(i).configureEdging(edging);
+        for (LoadableImageData source : sources) {
+            source.configureEdging(edging);
         }
     }
 

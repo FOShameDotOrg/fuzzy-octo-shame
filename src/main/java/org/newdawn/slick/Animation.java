@@ -95,8 +95,8 @@ public class Animation implements Renderable {
      * current frame will be caculated based on the time between renders
      */
     private Animation(@Nonnull Image[] frames, int duration, boolean autoUpdate) {
-        for (int i=0;i<frames.length;i++) {
-            addFrame(frames[i], duration);
+        for (Image frame : frames) {
+            addFrame(frame, duration);
         }
         currentFrame = 0;
         this.autoUpdate = autoUpdate;
@@ -728,9 +728,8 @@ public class Animation implements Renderable {
     @Nonnull
     public String toString() {
         String res = "[Animation ("+frames.size()+") ";
-        for (int i=0;i<frames.size();i++) {
-            Frame frame = frames.get(i);
-            res += frame.duration+",";
+        for (Frame frame : frames) {
+            res += frame.duration + ",";
         }
 
         res += "]";

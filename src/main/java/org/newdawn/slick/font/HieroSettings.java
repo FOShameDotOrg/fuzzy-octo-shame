@@ -120,8 +120,7 @@ public class HieroSettings {
                     name = name.substring(7);
                     ConfigurableEffect effect = (ConfigurableEffect)effects.get(effects.size() - 1);
                     List<Value> values = effect.getValues();
-                    for (Iterator<Value> iter = values.iterator(); iter.hasNext();) {
-                        Value effectValue = iter.next();
+                    for (Value effectValue : values) {
                         if (effectValue.getName().equals(name)) {
                             effectValue.setString(value);
                             break;
@@ -381,8 +380,7 @@ public class HieroSettings {
                 }
                 ConfigurableEffect effect = (ConfigurableEffect) iter.next();            
                 out.println("effect.class=" + effect.getClass().getName());
-                for (Iterator<Value> iter2 = effect.getValues().iterator(); iter2.hasNext();) {
-                    Value value = iter2.next();
+                for (Value value : effect.getValues()) {
                     out.println("effect." + value.getName() + "=" + value.getString());
                 }
                 out.println();

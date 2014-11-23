@@ -375,8 +375,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
         Collections.sort(queuedGlyphs, heightComparator);
 
         // Add to existing pages.
-        for (Iterator<GlyphPage> iter = glyphPages.iterator(); iter.hasNext();) {
-            GlyphPage glyphPage = iter.next();
+        for (GlyphPage glyphPage : glyphPages) {
             maxGlyphsToLoad -= glyphPage.loadGlyphs(queuedGlyphs, maxGlyphsToLoad);
             if (maxGlyphsToLoad == 0 || queuedGlyphs.isEmpty())
                 return true;
@@ -400,8 +399,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
         for (int i = 0; i < PAGES; i++)
             glyphs[i] = null;
 
-        for (Iterator<GlyphPage> iter = glyphPages.iterator(); iter.hasNext();) {
-            GlyphPage page = iter.next();
+        for (GlyphPage page : glyphPages) {
             try {
                 page.getImage().destroy();
             } catch (SlickException ignored) {

@@ -41,8 +41,8 @@ class CompositeIOException extends IOException {
     @Nonnull
     public String getMessage() {
         String msg = "Composite Exception: \n";
-        for (int i=0;i<exceptions.size();i++) {
-            msg += "\t"+ exceptions.get(i).getMessage()+"\n";
+        for (Exception exception : exceptions) {
+            msg += "\t" + exception.getMessage() + "\n";
         }
 
         return msg;
