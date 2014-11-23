@@ -86,9 +86,9 @@ public class VAOGLRenderer extends ImmediateModeOGLRenderer {
         if (vertIndex < TOLERANCE) {
             GL11.glBegin(currentType);
             for (int i=0;i<vertIndex;i++) {
-                GL11.glColor4f(cols[(i*4)+0], cols[(i*4)+1], cols[(i*4)+2], cols[(i*4)+3]);
-                GL11.glTexCoord2f(texs[(i*2)+0], texs[(i*2)+1]);
-                GL11.glVertex3f(verts[(i*3)+0], verts[(i*3)+1], verts[(i*3)+2]);
+                GL11.glColor4f(cols[(i * 4)], cols[(i*4)+1], cols[(i*4)+2], cols[(i*4)+3]);
+                GL11.glTexCoord2f(texs[(i * 2)], texs[(i*2)+1]);
+                GL11.glVertex3f(verts[(i * 3)], verts[(i*3)+1], verts[(i*3)+2]);
             }
             GL11.glEnd();
             currentType = NONE;
@@ -213,14 +213,14 @@ public class VAOGLRenderer extends ImmediateModeOGLRenderer {
             return;
         }
 
-        verts[(vertIndex*3)+0] = x;
+        verts[(vertIndex * 3)] = x;
         verts[(vertIndex*3)+1] = y;
         verts[(vertIndex*3)+2] = z;
-        cols[(vertIndex*4)+0] = color[0];
+        cols[(vertIndex * 4)] = color[0];
         cols[(vertIndex*4)+1] = color[1];
         cols[(vertIndex*4)+2] = color[2];
         cols[(vertIndex*4)+3] = color[3];
-        texs[(vertIndex*2)+0] = tex[0];
+        texs[(vertIndex * 2)] = tex[0];
         texs[(vertIndex*2)+1] = tex[1];
         vertIndex++;
 

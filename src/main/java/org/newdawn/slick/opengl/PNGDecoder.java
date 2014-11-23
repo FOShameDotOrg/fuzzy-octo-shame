@@ -532,7 +532,7 @@ public class PNGDecoder {
         if (paletteA != null) {
             for (int i = 1, n = curLine.length; i < n; i += 1) {
                 int idx = curLine[i] & 255;
-                byte r = palette[idx * 3 + 0];
+                byte r = palette[(idx * 3)];
                 byte g = palette[idx * 3 + 1];
                 byte b = palette[idx * 3 + 2];
                 byte a = paletteA[idx];
@@ -541,7 +541,7 @@ public class PNGDecoder {
         } else {
             for (int i = 1, n = curLine.length; i < n; i += 1) {
                 int idx = curLine[i] & 255;
-                byte r = palette[idx * 3 + 0];
+                byte r = palette[(idx * 3)];
                 byte g = palette[idx * 3 + 1];
                 byte b = palette[idx * 3 + 2];
                 byte a = (byte) 0xFF;
@@ -554,7 +554,7 @@ public class PNGDecoder {
         if (paletteA != null) {
             for (int i = 1, n = curLine.length; i < n; i += 1) {
                 int idx = curLine[i] & 255;
-                byte r = palette[idx * 3 + 0];
+                byte r = palette[(idx * 3)];
                 byte g = palette[idx * 3 + 1];
                 byte b = palette[idx * 3 + 2];
                 byte a = paletteA[idx];
@@ -563,7 +563,7 @@ public class PNGDecoder {
         } else {
             for (int i = 1, n = curLine.length; i < n; i += 1) {
                 int idx = curLine[i] & 255;
-                byte r = palette[idx * 3 + 0];
+                byte r = palette[(idx * 3)];
                 byte g = palette[idx * 3 + 1];
                 byte b = palette[idx * 3 + 2];
                 byte a = (byte) 0xFF;
@@ -576,7 +576,7 @@ public class PNGDecoder {
         if (paletteA != null) {
             for (int i = 1, n = curLine.length; i < n; i += 1) {
                 int idx = curLine[i] & 255;
-                byte r = palette[idx * 3 + 0];
+                byte r = palette[(idx * 3)];
                 byte g = palette[idx * 3 + 1];
                 byte b = palette[idx * 3 + 2];
                 byte a = paletteA[idx];
@@ -585,7 +585,7 @@ public class PNGDecoder {
         } else {
             for (int i = 1, n = curLine.length; i < n; i += 1) {
                 int idx = curLine[i] & 255;
-                byte r = palette[idx * 3 + 0];
+                byte r = palette[(idx * 3)];
                 byte g = palette[idx * 3 + 1];
                 byte b = palette[idx * 3 + 2];
                 byte a = (byte) 0xFF;
