@@ -17,3 +17,42 @@ The Apache Software Foundation (http://www.apache.org/).
 Apache Commons Lang
 Copyright 2001-2014 The Apache Software Foundation
 (see:org.colapietro.lang.NotImplementedException)
+
+This product also includes software from
+(http://slick.ninjacave.com/).
+
+Copyright (c) 2013, Slick2D
+All rights reserved.
+
+* Redistributions of source code must retain the above copyright notice, 
+    this list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice, 
+    this list of conditions and the following disclaimer in the documentation and/or 
+    other materials provided with the distribution.
+* Neither the name of the Slick2D nor the names of its contributors may be used to 
+    endorse or promote products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+Slick2D Authors:
+Kevin Glass (slick@cokeandcode.com)
+Tommy Haaks (thomas@haaks.net)
+Mark Bernard (captainjester@hotmail.com)
+Aaron Roberts (antamiga@gmail.com)
+-- New
+Liam Edwards-Playne / liamzebedee (liamzebedee@yahoo.com.au)
+Matt DesLauriers / davedes (dave.des@gmail.com)
+Stefan Lange / R.D. (regiden@hotmail.de)
+Christopher Waugh / Mr. Kenkron (kenkron@gmail.com)
+(see:org.newdawn.slick.*)
+
+You may obtain a copy of the Slick2D License at
+
+    http://slick.ninjacave.com/license/
+    
