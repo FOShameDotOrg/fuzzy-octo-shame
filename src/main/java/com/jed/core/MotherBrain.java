@@ -7,9 +7,11 @@ import com.jed.util.StatusCode;
 import org.colapietro.lwjgl.AbstractLwjglGameLoopable;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
+import org.lwjgl.input.Controllers;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.util.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,6 +59,15 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
      */
     @Override
     public void initialize() {
+        try {
+            Log.debug("org.lwjgl.input.Controllers#create");
+            Controllers.create();
+            for (int i = 0; i < Controllers.getControllerCount(); i++) {
+                Log.debug(Controllers.getController(i).toString());
+            }
+        } catch (LWJGLException e) {
+            Log.error("{}",e);
+        }
         initializeDisplay();
         initializeOpenGl();
         initializeStateManager();
