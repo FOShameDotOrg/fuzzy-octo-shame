@@ -165,8 +165,8 @@ public class Player extends AbstractEntity implements StateManager {
     public void keyPressEvent() {
         if (Keyboard.getEventKey() == Keyboard.KEY_SPACE && Keyboard.getEventKeyState()) {
             boolean isJumpCountLessThanTwo = jumpCount < 2;
-            int heightOffsetWithYPostion = Math.round(position.y) + height; //TODO Test me.
-            if (isJumpCountLessThanTwo || heightOffsetWithYPostion == map.getHeight() * map.getTileHeight()) {
+            int heightOffsetWithYPosition = Math.round(position.y) + height; //TODO Test me.
+            if (isJumpCountLessThanTwo || heightOffsetWithYPosition == map.getHeight() * map.getTileHeight()) {
                 movement.y = -8;
                 jumpCount++;
                 changeState(jumpingState);

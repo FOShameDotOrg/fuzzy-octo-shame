@@ -33,13 +33,13 @@ public class PolygonBoundary extends Boundary {
     /**
      * 
      * @param position position vector
-     * @param verticies array of vertices
+     * @param vertices array of vertices
      */
-    public PolygonBoundary(final Vector3f position, final Vector3f[] verticies) {
-        super(position, verticies);
+    public PolygonBoundary(final Vector3f position, final Vector3f[] vertices) {
+        super(position, vertices);
 
         //Find Max Bounds for quad tree
-        for (final Vector3f vertex: verticies) {
+        for (final Vector3f vertex: vertices) {
             if (vertex.x > rightBound) {
                 rightBound = vertex.x;
             }

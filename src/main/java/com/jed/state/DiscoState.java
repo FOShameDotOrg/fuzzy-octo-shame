@@ -266,7 +266,7 @@ public class DiscoState extends GameState {
 
         /**
          * f is the distance between the center of p1 and the movement vector
-         * if this distance is greater than the radiuses squared, the balls
+         * if this distance is greater than the radii squared, the balls
          * will never touch
          */
         double lengthC = c.magnitude();
@@ -278,7 +278,7 @@ public class DiscoState extends GameState {
         }
 
         /**
-         * sqrt(t) represents the distance between the 90 degree intersection
+         * Math#sqrt(double) represents the distance between the 90 degree intersection
          * of the point on the movement vector and the ball minus the
          * 2 radii of the balls. So it's the square root of the distance along the movement
          * vector where the balls WILL intersect
@@ -287,7 +287,7 @@ public class DiscoState extends GameState {
 
         /**
          * If there is no such right triangle with sides length of
-         * sumRadii and sqrt(f), T will probably be less than 0.
+         * sumRadii and Math#sqrt(double), T will probably be less than 0.
          * Better to check now than perform a square root of a
          * negative number.
          */
@@ -297,7 +297,7 @@ public class DiscoState extends GameState {
 
         /**
          * The distance the circle has to travel along
-         *    movevec is D - sqrt(T)
+         *    move vector is D - Math#sqrt(double)
          */
         double mvDistance = d - Math.sqrt(t);
 
