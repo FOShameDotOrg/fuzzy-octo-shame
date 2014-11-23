@@ -42,7 +42,7 @@ public class GameStateManager {
     /**
      * 
      */
-    public void clear() {
+    void clear() {
         while (!states.isEmpty()) {
             states.pop();
         }

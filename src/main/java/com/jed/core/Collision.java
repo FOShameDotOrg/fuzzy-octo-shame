@@ -1,10 +1,10 @@
 package com.jed.core;
 
 import com.jed.actor.AbstractEntity;
+import com.jed.util.Vector;
 import org.colapietro.number.util.Doubles;
 import com.jed.actor.Boundary;
 import com.jed.state.MapTile;
-import com.jed.util.Vector;
 
 import javax.annotation.Nonnull;
 
@@ -18,37 +18,37 @@ public class Collision implements Comparable<Collision> {
     /**
      * 
      */
-    public static final int NONE = 0;
+    private static final int NONE = 0;
     
     /**
      * 
      */
-    public static final int SAT = 1;
+    private static final int SAT = 1;
     
     /**
      * 
      */
-    public static final int SWEPT_X = 2;
+    private static final int SWEPT_X = 2;
     
     /**
      * 
      */
-    public static final int SWEPT_Y = 3;
+    private static final int SWEPT_Y = 3;
 
     /**
      * 
      */
-    public int collisionType = NONE;
+    private int collisionType = NONE;
 
     /**
      * 
      */
-    public final AbstractEntity a;
+    private final AbstractEntity a;
 
     /**
      *
      */
-    public final AbstractEntity b;
+    private final AbstractEntity b;
     
     /**
      * 
@@ -233,12 +233,12 @@ public class Collision implements Comparable<Collision> {
          * @param axis axis
          */
         public MinMax(Boundary boundary, Vector axis) {
-            max = boundary.verticies[0].add(boundary.getWorldPosition()).dotProduct(axis);
-            min = boundary.verticies[0].add(boundary.getWorldPosition()).dotProduct(axis);
+            max = boundary.vertices[0].add(boundary.getWorldPosition()).dotProduct(axis);
+            min = boundary.vertices[0].add(boundary.getWorldPosition()).dotProduct(axis);
 
             double current;
-            for (int i = 1; i < boundary.verticies.length; i++) {
-                current = boundary.verticies[i].add(boundary.getWorldPosition()).dotProduct(axis);
+            for (int i = 1; i < boundary.vertices.length; i++) {
+                current = boundary.vertices[i].add(boundary.getWorldPosition()).dotProduct(axis);
                 if (min > current) {
                     min = current;
                 }

@@ -1,10 +1,10 @@
 package com.jed.state;
 
 import com.jed.actor.AbstractEntity;
+import com.jed.util.Vector;
 import org.lwjgl.opengl.GL11;
 
 import com.jed.actor.Boundary;
-import com.jed.util.Vector;
 
 /**
  * 

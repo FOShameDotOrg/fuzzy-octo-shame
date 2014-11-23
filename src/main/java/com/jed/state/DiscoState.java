@@ -7,6 +7,7 @@ import java.util.Stack;
 
 import com.jed.actor.AbstractEntity;
 import com.jed.core.MotherBrainConstants;
+import com.jed.util.Vector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +15,6 @@ import com.jed.actor.Ball;
 import com.jed.actor.CircleBoundary;
 import com.jed.core.QuadTree;
 import com.jed.util.Rectangle;
-import com.jed.util.Vector;
 
 /**
  * 

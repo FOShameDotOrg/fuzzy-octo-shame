@@ -7,7 +7,7 @@ import com.jed.util.Vector;
  * @author jlinde, Peter Colapietro
  *
  */
-public abstract class PhysicsEntity extends AbstractEntity {
+abstract class PhysicsEntity extends AbstractEntity {
 
     /**
      * 
@@ -15,7 +15,7 @@ public abstract class PhysicsEntity extends AbstractEntity {
      * @param movement movement vector.
      * @param bounds bounds of entity.
      */
-    public PhysicsEntity(Vector position, Vector movement, Boundary bounds) {
+    PhysicsEntity(Vector position, Vector movement, Boundary bounds) {
         super(position, movement, bounds);
     }
 

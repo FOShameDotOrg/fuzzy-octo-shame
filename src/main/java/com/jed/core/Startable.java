@@ -6,7 +6,7 @@ package com.jed.core;
  * @author Peter Colapietro
  * @since 0.1.1
  */
-public interface Startable {
+interface Startable {
 
     /**
      * 

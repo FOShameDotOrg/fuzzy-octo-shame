@@ -9,6 +9,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.jed.actor.AbstractEntity;
 import com.jed.core.MotherBrainConstants;
+import com.jed.util.Vector;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
@@ -18,7 +19,6 @@ import com.jed.core.Collision;
 import com.jed.core.QuadTree;
 import com.jed.util.Rectangle;
 import com.jed.util.Util;
-import com.jed.util.Vector;
 
 
 /**

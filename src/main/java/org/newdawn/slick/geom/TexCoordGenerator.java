@@ -2,7 +2,7 @@ package org.newdawn.slick.geom;
 
 /**
  * A class capable of generating texture coordiantes based on
- * rendering positions of verticies. This allows custom texturing
+ * rendering positions of vertices. This allows custom texturing
  * of geometric shapes
  * 
  * @author kevin

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jed.actor.AbstractEntity;
+import com.jed.util.Vector;
 import org.lwjgl.opengl.GL11;
 
 import com.jed.util.Rectangle;
-import com.jed.util.Vector;
 
 /**
  * 
@@ -106,7 +106,7 @@ public class QuadTree implements Displayable {
      * 
      * @return ret
      */
-    public List<AbstractEntity> getObjects() {
+    List<AbstractEntity> getObjects() {
         List<AbstractEntity> ret = new ArrayList<>();
         ret.addAll(objects);
         if (nodes[0] != null) {

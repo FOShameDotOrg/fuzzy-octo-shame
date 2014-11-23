@@ -18,7 +18,7 @@ public abstract class Boundary implements Displayable {
     /**
      * 
      */
-    public final Vector position;
+    final Vector position;
     
     /**
      * 

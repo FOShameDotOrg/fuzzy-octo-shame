@@ -1,8 +1,7 @@
 package com.jed.actor;
 
-import org.lwjgl.opengl.GL11;
-
 import com.jed.util.Vector;
+import org.lwjgl.opengl.GL11;
 
 /**
  * 
@@ -92,7 +91,7 @@ public class PolygonBoundary extends Boundary {
         GL11.glColor3f(1f, 0, 0);
 
         GL11.glBegin(GL11.GL_LINE_LOOP);
-        for (final Vector vertex : verticies) {
+        for (final Vector vertex : vertices) {
             owner.drawChildVertex2f(position.x + vertex.x, position.y + vertex.y);
         }
         GL11.glEnd();

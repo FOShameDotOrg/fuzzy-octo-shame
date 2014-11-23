@@ -1,9 +1,9 @@
 package com.jed.actor;
 
+import com.jed.util.Vector;
 import org.lwjgl.opengl.GL11;
 
 import com.jed.util.Rectangle;
-import com.jed.util.Vector;
 
 /**
  * 

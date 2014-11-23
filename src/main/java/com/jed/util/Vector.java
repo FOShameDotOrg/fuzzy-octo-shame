@@ -20,7 +20,7 @@ public class Vector {
     /**
      * 
      */
-    public Vector() {
+    private Vector() {
     }
 
     /**

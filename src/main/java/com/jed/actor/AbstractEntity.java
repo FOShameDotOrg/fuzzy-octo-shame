@@ -40,7 +40,7 @@ public abstract class AbstractEntity implements Displayable, State, Collidable {
      * @param movement movement vector.
      * @param bounds entitiy's bounds.
      */
-    public AbstractEntity(Vector position, Vector movement, Boundary bounds) {
+    protected AbstractEntity(Vector position, Vector movement, Boundary bounds) {
         this.position = position;
         this.bounds = bounds;
         bounds.owner = this;

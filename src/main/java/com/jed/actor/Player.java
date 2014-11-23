@@ -1,6 +1,7 @@
 package com.jed.actor;
 
 import com.jed.state.*;
+import com.jed.util.Vector;
 import org.colapietro.lang.NotImplementedException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -8,7 +9,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import com.jed.util.Util;
-import com.jed.util.Vector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,14 +25,14 @@ public class Player extends AbstractEntity implements StateManager {
     public final int height;
 
     /**
-     * 
+     *
      */
     public final int width;
     
     /**
      * 
      */
-    public int xDir;
+    private int xDir;
 
     /**
      *
@@ -48,12 +48,12 @@ public class Player extends AbstractEntity implements StateManager {
      * 
      */
     //Player Direction
-    public final int PLAYER_RIGHT = 1;
+    private final int PLAYER_RIGHT = 1;
     
     /**
      * 
      */
-    public final int PLAYER_LEFT = 0;
+    private final int PLAYER_LEFT = 0;
 
     /**
      * 
@@ -248,7 +248,7 @@ public class Player extends AbstractEntity implements StateManager {
         /**
          * 
          */
-        protected boolean falling;
+        boolean falling;
 
         /**
          * 
@@ -271,7 +271,7 @@ public class Player extends AbstractEntity implements StateManager {
         /**
          *
          */
-        protected final Logger LOGGER = LoggerFactory.getLogger(AbstractNonEnterablePlayerState.class);
+        final Logger LOGGER = LoggerFactory.getLogger(AbstractNonEnterablePlayerState.class);
 
         @Override
         public void entered() {

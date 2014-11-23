@@ -4,7 +4,7 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 /**
- * A filling method for a shape. This allows changing colours at shape verticies and 
+ * A filling method for a shape. This allows changing colours at shape vertices and
  * modify they're positions as required
  *
  * @author kevin
