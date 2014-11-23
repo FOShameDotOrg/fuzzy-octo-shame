@@ -49,6 +49,11 @@
       <artifactId>guice</artifactId>
       <version>${guice.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>annotations</artifactId>
+      <version>${annotations.version}</version>
+    </dependency>
   </dependencies>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -87,6 +92,7 @@
     <jinput.version>2.0.6</jinput.version>
     <slf4j.version>1.7.7</slf4j.version>
     <guice.version>4.0-beta5</guice.version>
+    <annotations.version>3.0.0</annotations.version>
     <!-- END: Dependencies Versions -->
     <!-- START: Build specific variables, probably should be associated with profiles.. -->
     <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>true</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>
@@ -292,12 +298,12 @@
             </goals>
           </execution>
         </executions>
-        <!--
         <configuration>
           <platforms>
             <platform>osx</platform>
           </platforms>
         </configuration>
+        <!--
         <configuration>
           <platforms>
             <platform>windows</platform>
