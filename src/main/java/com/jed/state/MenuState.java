@@ -37,14 +37,6 @@ public class MenuState extends GameState {
 
     /**
      * 
-     * @param manager game state manager
-     */
-    public MenuState(GameStateManager manager) {
-        super(manager);
-    }
-
-    /**
-     * 
      * @return daString
      */
     public String getDaString() {

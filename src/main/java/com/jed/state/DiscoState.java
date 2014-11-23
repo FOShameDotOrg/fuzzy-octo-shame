@@ -50,14 +50,6 @@ public class DiscoState extends GameState {
      */
     private int height;
 
-    /**
-     * 
-     * @param manager game state manager
-     */
-    public DiscoState(GameStateManager manager) {
-        super(manager);
-    }
-
     @Override
     public void entered() {
         width = MotherBrainConstants.WIDTH;

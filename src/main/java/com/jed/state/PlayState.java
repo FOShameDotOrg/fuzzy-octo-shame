@@ -26,14 +26,6 @@ public class PlayState extends GameState implements StateManager {
      */
     private boolean stepFrame = false;
 
-    /**
-     * 
-     * @param manager game state manager
-     */
-    public PlayState(GameStateManager manager) {
-        super(manager);
-    }
-
     @Override
     public void changeState(State state) {
         state.entered();

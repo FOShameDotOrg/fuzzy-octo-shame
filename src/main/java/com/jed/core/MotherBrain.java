@@ -31,10 +31,6 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
     /**
      * 
      */
-
-    /**
-     * 
-     */
     private int fps;
     
     /**
@@ -73,7 +69,7 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
     private void initializeStateManager() {
         stateManager = new GameStateManager();
         pushDiscoStatesToStateManager(MotherBrainConstants.NUMBER_OF_DISCO_STATES);
-        stateManager.push(new PlayState(stateManager));
+        stateManager.push(new PlayState());
         if (MotherBrainConstants.IS_MENU_STATE_SHOWN) {
             pushMenuStateToStateManager();
         }
@@ -116,7 +112,7 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
      * 
      */
     private void pushMenuStateToStateManager() {
-        final MenuState one = new MenuState(stateManager);
+        final MenuState one = new MenuState();
         one.setDaString(MotherBrainConstants.DA_STRING);
         one.setCoordinates(MotherBrainConstants.MENU_STATE_COORDINATES);
         stateManager.push(one);
@@ -128,7 +124,7 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
      */
     private void pushDiscoStatesToStateManager(int numberOfStates) {
         for (int i = 0; i < numberOfStates; i++) {
-            stateManager.push(new DiscoState(stateManager));
+            stateManager.push(new DiscoState());
         }
     }
 
