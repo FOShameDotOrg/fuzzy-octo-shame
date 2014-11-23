@@ -9,6 +9,10 @@ import java.util.List;
  * @author Mark
  */
 public class Polygon extends Shape {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     /** Allow duplicated points */
     private boolean allowDups = false;
     /** True if the polygon is closed */

@@ -67,6 +67,11 @@ public class AngelCodeFont implements Font {
 
     /** The display list cache for rendered lines */
     private final Map<CharSequence, DisplayList> displayLists = new LinkedHashMap<CharSequence, DisplayList>(DISPLAY_LIST_CACHE_SIZE, 1, true) {     
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 1L;
+
         protected boolean removeEldestEntry(Entry<CharSequence, DisplayList> eldest) {
             eldestDisplayList = eldest.getValue();
             eldestDisplayListID = eldestDisplayList.id;

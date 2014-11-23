@@ -13,6 +13,11 @@ import org.newdawn.slick.util.FastTrig;
  */
 public class Ellipse extends Shape {
     /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * Default number of segments to draw this ellipse with
      */
     protected static final int DEFAULT_SEGMENT_COUNT = 50;

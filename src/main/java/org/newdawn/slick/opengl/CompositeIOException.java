@@ -10,6 +10,10 @@ import java.util.List;
  * @author kevin
  */
 public class CompositeIOException extends IOException {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     /** The list of exceptions causing this one */
     private List<Exception> exceptions = new ArrayList<>();
 
