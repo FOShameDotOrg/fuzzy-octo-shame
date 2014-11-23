@@ -23,6 +23,10 @@ public class Player extends AbstractEntity implements StateManager {
      * 
      */
     public final int height;
+
+    /**
+     * 
+     */
     public final int width;
     
     /**

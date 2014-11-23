@@ -17,8 +17,20 @@ public class MapTile extends AbstractEntity {
      * 
      */
     private float glTexX;
+
+    /**
+     *
+     */
     private float glTexY;
+
+    /**
+     *
+     */
     private final float glTexWidth;
+
+    /**
+     *
+     */
     private final float glTexHeight;
     
     /**

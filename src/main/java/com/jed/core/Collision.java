@@ -44,6 +44,10 @@ public class Collision implements Comparable<Collision> {
      * 
      */
     public final AbstractEntity a;
+
+    /**
+     *
+     */
     public final AbstractEntity b;
     
     /**
