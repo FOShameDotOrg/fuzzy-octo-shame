@@ -601,8 +601,6 @@ public abstract class Shape implements Serializable {
             return;
         }
         if (points.length >= 6) {
-            for (int i=0;i<(points.length/2)-1;i++) {
-            }
             tris = new NeatTriangulator();
             for (int i=0;i<points.length;i+=2) {
                 tris.addPolyPoint(points[i], points[i+1]);
