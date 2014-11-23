@@ -226,8 +226,8 @@ public class AngelCodeFont implements Font {
 
             in.readLine();
 
-            Map<Short, List<Short>> kerning = new HashMap<Short, List<Short>>(64);
-            List<Glyph> charDefs = new ArrayList<Glyph>(MAX_CHAR);
+            Map<Short, List<Short>> kerning = new HashMap<>(64);
+            List<Glyph> charDefs = new ArrayList<>(MAX_CHAR);
             int maxChar = 0;
             boolean done = false;
             while (!done) {
@@ -260,7 +260,7 @@ public class AngelCodeFont implements Font {
                                                                             // value
                         List<Short> values = kerning.get(first);
                         if (values == null) {
-                            values = new ArrayList<Short>();
+                            values = new ArrayList<>();
                             kerning.put(first, values);
                         }
                         // Pack the character and kerning offset into a short.
