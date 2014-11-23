@@ -108,7 +108,7 @@ public class Polygon extends Shape {
         int length = tempPoints.size();
         points = new float[length];
         for(int i=0;i<length;i++) {
-            points[i] = tempPoints.get(i).floatValue();
+            points[i] = tempPoints.get(i);
         }
         if(x > maxX) {
             maxX = x;

@@ -88,9 +88,9 @@ public class HieroSettings {
                 if (name.equals("font.size")) {
                     fontSize = Integer.parseInt(value);
                 } else if (name.equals("font.bold")) {
-                    bold = Boolean.valueOf(value).booleanValue();
+                    bold = Boolean.valueOf(value);
                 } else if (name.equals("font.italic")) {
-                    italic = Boolean.valueOf(value).booleanValue();
+                    italic = Boolean.valueOf(value);
                 } else if (name.equals("pad.top")) {
                     paddingTop = Integer.parseInt(value);
                 } else if (name.equals("pad.right")) {

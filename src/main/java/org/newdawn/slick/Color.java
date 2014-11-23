@@ -175,7 +175,7 @@ public class Color implements Serializable {
      */
     @Nonnull
     public static Color decode(String nm) {
-        return new Color(Integer.decode(nm).intValue());
+        return new Color(Integer.decode(nm));
     }
 
     /**

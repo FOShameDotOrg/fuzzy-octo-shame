@@ -166,7 +166,7 @@ public class Ellipse extends Shape {
         }
         points = new float[tempPoints.size()];
         for(int i=0;i<points.length;i++) {
-            points[i] = tempPoints.get(i).floatValue();
+            points[i] = tempPoints.get(i);
         }
     }
 
