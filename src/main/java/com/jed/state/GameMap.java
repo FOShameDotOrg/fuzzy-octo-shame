@@ -272,50 +272,98 @@ public class GameMap extends AbstractDisplayableState {
         this.tileSetPath = tileSetPath;
     }
 
+    /**
+     *
+     * @param width width
+     */
     public void setWidth(int width) {
         this.width = width;
     }
 
+    /**
+     *
+     * @return width
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     *
+     * @param height height
+     */
     public void setHeight(int height) {
         this.height = height;
     }
 
+    /**
+     *
+     * @return height
+     */
     public int getHeight() {
         return height;
     }
 
+    /**
+     *
+     * @return gravity
+     */
     public float getGravity() {
         return gravity;
     }
 
+    /**
+     *
+     * @return tileWidth
+     */
     public int getTileWidth() {
         return tileWidth;
     }
 
+    /**
+     *
+     * @param tileWidth tileWidth
+     */
     public void setTileWidth(int tileWidth) {
         this.tileWidth = tileWidth;
     }
 
+    /**
+     *
+     * @return tileHeight
+     */
     public int getTileHeight() {
         return tileHeight;
     }
 
+    /**
+     *
+     * @param tileHeight tileHeight
+     */
     public void setTileHeight(int tileHeight) {
         this.tileHeight = tileHeight;
     }
 
+    /**
+     *
+     * @param gravity gravity
+     */
     public void setGravity(Float gravity) {
         this.gravity = gravity;
     }
 
+    /**
+     *
+     * @param tiles tiles
+     */
     public void setTiles(final List<MapTile> tiles) {
         this.tiles = tiles;
     }
 
+    /**
+     *
+     * @return tiles
+     */
     public List<MapTile> getTiles() {
         return tiles;
     }

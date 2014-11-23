@@ -151,10 +151,18 @@ public class MapTile extends AbstractEntity {
 //        }
     }
 
+    /**
+     *
+     * @param colliding colliding
+     */
     public void setColliding(boolean colliding) {
         this.colliding = colliding;
     }
 
+    /**
+     *
+     * @param evaluating evaluating
+     */
     public void setEvaluating(boolean evaluating) {
         this.evaluating = evaluating;
     }

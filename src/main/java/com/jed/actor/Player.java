@@ -30,7 +30,7 @@ public class Player extends AbstractEntity implements StateManager {
     public int xDir;
 
     /**
-     * TODO Refactor location of constant variable
+     *
      */
     private static final String TEXTURE_PATH = "MEGA_MAN_SH.png";
     
@@ -258,8 +258,14 @@ public class Player extends AbstractEntity implements StateManager {
         public abstract void handleInput();
     }
 
+    /**
+     *
+     */
     private abstract class AbstractNonEnterablePlayerState extends AbstractPlayerState {
 
+        /**
+         *
+         */
         protected final Logger LOGGER = LoggerFactory.getLogger(AbstractNonEnterablePlayerState.class);
 
         @Override

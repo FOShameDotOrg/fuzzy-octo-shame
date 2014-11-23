@@ -164,9 +164,9 @@ public class DiscoState extends GameState {
     }
 
     /**
-     * TODO Test
+     *
      */
-    private void handleCollisions() {
+    private void handleCollisions() {//TODO Test handleCollisions().
         boolean collide = false;
         final List<AbstractEntity> returnObjects = new ArrayList<>();
         for (Ball aScene : scene) {

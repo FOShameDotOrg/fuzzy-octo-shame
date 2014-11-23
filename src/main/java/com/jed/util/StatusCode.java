@@ -8,15 +8,32 @@ package com.jed.util;
  */
 public enum StatusCode {
 
+    /**
+     *
+     */
     NORMAL(0),
+    /**
+     *
+     */
     ERROR(1);
 
+    /**
+     *
+     */
     private final int statusCode;
 
+    /**
+     *
+     * @param statusCode statusCode
+     */
     private StatusCode(int statusCode) {
         this.statusCode = statusCode;
     }
 
+    /**
+     *
+     * @return statusCode
+     */
     public int getStatusCode() {
         return statusCode;
     }

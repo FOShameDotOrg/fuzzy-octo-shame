@@ -36,7 +36,7 @@ public class MapLoader {
 
     /**
      * 
-\     * @return gameMap
+     * @return gameMap
      */
     public static GameMap loadMap() {
         final GameMap map = new GameMap();
