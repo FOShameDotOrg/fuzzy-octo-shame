@@ -12,7 +12,7 @@ public class QuadBasedLineStripRenderer implements LineStripRenderer {
     private SGL GL = Renderer.get();
 
     /** Maximum number of points allowed in a single strip */
-    private static int MAX_POINTS = 10000;
+    private static final int MAX_POINTS = 10000;
     /** True if antialiasing is currently enabled */
     private boolean antialias;
     /** The width of the lines to draw */

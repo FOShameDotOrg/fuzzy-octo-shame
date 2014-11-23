@@ -12,11 +12,11 @@ import java.util.List;
  */
 public class GeomUtil {
     /** The tolerance for determining changes and steps */
-    private float EPSILON = 0.0001f;
+    private static final float EPSILON = 0.0001f;
     /** The tolerance for determining direction change */
-    private float EDGE_SCALE = 1f;
+    private static final float EDGE_SCALE = 1f;
     /** The maximum number of points returned by an operation - prevents full lockups */
-    private int MAX_POINTS = 10000;
+    private static final int MAX_POINTS = 10000;
     /** The listener to notify of operations */
     private GeomUtilListener listener;
 

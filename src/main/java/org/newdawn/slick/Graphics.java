@@ -35,28 +35,28 @@ public class Graphics {
     private static LineStripRenderer LSR = Renderer.getLineStripRenderer();
 
     /** The normal drawing mode */
-    private static int MODE_NORMAL = 1;
+    private static final int MODE_NORMAL = 1;
 
     /** Draw to the alpha map */
-    private static int MODE_ALPHA_MAP = 2;
+    private static final int MODE_ALPHA_MAP = 2;
 
     /** Draw using the alpha blending */
-    private static int MODE_ALPHA_BLEND = 3;
+    private static final int MODE_ALPHA_BLEND = 3;
 
     /** Draw multiplying the source and destination colours */
-    private static int MODE_COLOR_MULTIPLY = 4;
+    private static final int MODE_COLOR_MULTIPLY = 4;
 
     /** Draw adding the existing colour to the new colour */
-    private static int MODE_ADD = 5;
+    private static final int MODE_ADD = 5;
 
     /** Draw blending the new image into the old one by a factor of it's colour */
-    private static int MODE_SCREEN = 6;
+    private static final int MODE_SCREEN = 6;
 
     /** Draw adding the existing colour to the new colour including alpha */
-    private static int MODE_ADD_ALPHA = 7;
+    private static final int MODE_ADD_ALPHA = 7;
 
     /** Draw multiplying the source and destination colours */
-    private static int MODE_COLOR_MULTIPLY_ALPHA = 8;
+    private static final int MODE_COLOR_MULTIPLY_ALPHA = 8;
 
     /** The default number of segments that will be used when drawing an oval */
     private static final int DEFAULT_SEGMENTS = 50;
