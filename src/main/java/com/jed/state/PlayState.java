@@ -4,6 +4,8 @@ import org.lwjgl.input.Keyboard;
 
 import com.jed.util.MapLoader;
 
+import javax.annotation.Nonnull;
+
 /**
  * 
  * @author jlinde, Peter Colapietro
@@ -48,7 +50,7 @@ public class PlayState extends AbstractGameState implements StateManager {
     }
 
     @Override
-    public void changeState(State state) {
+    public void changeState(@Nonnull State state) {
         state.entered();
     }
 

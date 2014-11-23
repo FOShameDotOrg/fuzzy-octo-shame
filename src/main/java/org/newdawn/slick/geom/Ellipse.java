@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.newdawn.slick.util.FastTrig;
 
+import javax.annotation.Nonnull;
+
 /**
  * An ellipse meeting the <code>Shape</code> contract. The ellipse is actually an approximation using 
  * a series of points generated around the contour of the ellipse.
@@ -20,12 +22,12 @@ public class Ellipse extends Shape {
     /**
      * Default number of segments to draw this ellipse with
      */
-    protected static final int DEFAULT_SEGMENT_COUNT = 50;
+    static final int DEFAULT_SEGMENT_COUNT = 50;
     
     /**
      * The number of segments for graphical representation.
      */
-    private int segmentCount;
+    private final int segmentCount;
     /**
      * horizontal radius
      */
@@ -56,7 +58,7 @@ public class Ellipse extends Shape {
      * @param radius2 vertical radius
      * @param segmentCount how fine to make the ellipse.
      */
-    public Ellipse(float centerPointX, float centerPointY, float radius1, float radius2, int segmentCount) {
+    Ellipse(float centerPointX, float centerPointY, float radius1, float radius2, int segmentCount) {
         this.x = centerPointX - radius1;
         this.y = centerPointY - radius2;
         this.radius1 = radius1;
@@ -71,7 +73,7 @@ public class Ellipse extends Shape {
      * @param radius1 horizontal radius
      * @param radius2 vertical radius
      */
-    public void setRadii(float radius1, float radius2) {
+    void setRadii(float radius1, float radius2) {
         setRadius1(radius1);
         setRadius2(radius2);
     }
@@ -90,7 +92,7 @@ public class Ellipse extends Shape {
      * 
      * @param radius1 The horizontal radius to set
      */
-    public void setRadius1(float radius1) {
+    void setRadius1(float radius1) {
         if (radius1 != this.radius1) {
             this.radius1 = radius1;
             pointsDirty = true;
@@ -111,7 +113,7 @@ public class Ellipse extends Shape {
      * 
      * @param radius2 The vertical radius to set
      */
-    public void setRadius2(float radius2) {
+    void setRadius2(float radius2) {
         if (radius2 != this.radius2) {
             this.radius2 = radius2;
             pointsDirty = true;
@@ -159,19 +161,20 @@ public class Ellipse extends Shape {
                 minY = newY;
             }
             
-            tempPoints.add(new Float(newX));
-            tempPoints.add(new Float(newY));
+            tempPoints.add(newX);
+            tempPoints.add(newY);
         }
         points = new float[tempPoints.size()];
         for(int i=0;i<points.length;i++) {
-            points[i] = ((Float)tempPoints.get(i)).floatValue();
+            points[i] = tempPoints.get(i);
         }
     }
 
     /**
      * @see org.newdawn.slick.geom.Shape#transform(org.newdawn.slick.geom.Transform)
      */
-    public Shape transform(Transform transform) {
+    @Nonnull
+    public Shape transform(@Nonnull Transform transform) {
         checkPoints();
         
         Polygon resultPolygon = new Polygon();

@@ -1,5 +1,7 @@
 package org.newdawn.slick.geom;
 
+import javax.annotation.Nonnull;
+
 /**
  * An axis oriented used for shape bounds
  * 
@@ -11,9 +13,9 @@ public class Rectangle extends Shape {
      */
     private static final long serialVersionUID = 1L;
     /** The width of the box */
-    protected float width;
+    private float width;
     /** The height of the box */
-    protected float height;
+    private float height;
 
     /**
      * Create a new bounding box
@@ -62,7 +64,7 @@ public class Rectangle extends Shape {
      *
      * @param other The other rectangle whose bounds should be applied
      */
-    public void setBounds(Rectangle other) {
+    public void setBounds(@Nonnull Rectangle other) {
         setBounds(other.getX(), other.getY(), other.getWidth(), other.getHeight());
     }
 
@@ -86,7 +88,7 @@ public class Rectangle extends Shape {
      * @param width The width to set in this rectangle
      * @param height The height to set in this rectangle
      */
-    public void setSize(float width, float height) {
+    void setSize(float width, float height) {
         setWidth(width);
         setHeight(height);
     }
@@ -117,7 +119,7 @@ public class Rectangle extends Shape {
      * @param h The amount to adjust horizontally
      * @param v The amount to ajust vertically
      */
-    public void grow(float h, float v) {
+    void grow(float h, float v) {
         setX(getX() - h);
         setY(getY() - v);
         setWidth(getWidth() + (h*2));
@@ -139,7 +141,7 @@ public class Rectangle extends Shape {
      *
      * @param width The new width of this box
      */
-    public void setWidth(float width) {
+    void setWidth(float width) {
         if (width != this.width) {
             pointsDirty = true;
             this.width = width;
@@ -152,7 +154,7 @@ public class Rectangle extends Shape {
      *
      * @param height The height of this box
      */
-    public void setHeight(float height) {
+    void setHeight(float height) {
         if (height != this.height) {
             pointsDirty = true;
             this.height = height;
@@ -166,7 +168,7 @@ public class Rectangle extends Shape {
      * @param shape The other shape to check against
      * @return True if the rectangles touch
      */
-    public boolean intersects(Shape shape) {
+    public boolean intersects(@Nonnull Shape shape) {
         if(shape instanceof Rectangle) {
             Rectangle other = (Rectangle)shape;
             if ((x > (other.x + other.width)) || ((x + width) < other.x)) {
@@ -217,13 +219,14 @@ public class Rectangle extends Shape {
      * @param other The circle to check against
      * @return True if they touch
      */
-    private boolean intersects(Circle other) {
+    private boolean intersects(@Nonnull Circle other) {
         return other.intersects(this);
     }
 
     /**
      * @see java.lang.Object#toString()
      */
+    @Nonnull
     public String toString() {
         return "[Rectangle "+width+"x"+height+"]";
     }
@@ -257,7 +260,8 @@ public class Rectangle extends Shape {
      * @param transform The transform to be applied
      * @return The transformed shape.
      */
-    public Shape transform(Transform transform) {
+    @Nonnull
+    public Shape transform(@Nonnull Transform transform) {
         checkPoints();
         
         Polygon resultPolygon = new Polygon();

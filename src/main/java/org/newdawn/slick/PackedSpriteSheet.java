@@ -9,6 +9,9 @@ import java.util.Map;
 import org.newdawn.slick.util.Log;
 import org.newdawn.slick.util.ResourceLoader;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A sprite sheet packed and defined by the Pacific Software Image Packer available
  * from:
@@ -17,13 +20,14 @@ import org.newdawn.slick.util.ResourceLoader;
  *
  * @author kevin
  */
-public class PackedSpriteSheet {
+class PackedSpriteSheet {
     /** The image loaded for the sheet */
     private Image image;
     /** The base path where the image is expected to be found based on the original definition file */
-    private String basePath;
+    private final String basePath;
     /** The section definitions */
-    private Map<String, Section> sections = new HashMap<>();
+    @Nonnull
+    private final Map<String, Section> sections = new HashMap<>();
     /** The filter used when loading the image */
     private int filter = Image.FILTER_NEAREST;
 
@@ -44,7 +48,7 @@ public class PackedSpriteSheet {
      * @param trans The color to be treated as transparent
      * @throws SlickException Indicates a failure to read the definition file
      */
-    public PackedSpriteSheet(String def, Color trans) throws SlickException {
+    private PackedSpriteSheet(String def, @Nullable Color trans) throws SlickException {
         def = def.replace('\\', '/');
         basePath = def.substring(0,def.lastIndexOf("/")+1);
 
@@ -70,7 +74,7 @@ public class PackedSpriteSheet {
      * @param trans The color to be treated as transparent
      * @throws SlickException Indicates a failure to read the definition file
      */
-    public PackedSpriteSheet(String def, int filter, Color trans) throws SlickException {
+    private PackedSpriteSheet(String def, int filter, @Nullable Color trans) throws SlickException {
         this.filter = filter;
 
         def = def.replace('\\', '/');
@@ -94,8 +98,9 @@ public class PackedSpriteSheet {
      * @param name The name of the sprite to retrieve
      * @return The sprite requested (image of)
      */
-    public Image getSprite(String name) {
-        Section section = (Section) sections.get(name);
+    @Nonnull
+    Image getSprite(String name) {
+        Section section = sections.get(name);
 
         if (section == null) {
             throw new RuntimeException("Unknown sprite from packed sheet: "+name);
@@ -110,9 +115,10 @@ public class PackedSpriteSheet {
      * @param name The name of the sprite sheet to retrieve
      * @return The sprite sheet from the packed sheet
      */
+    @Nonnull
     public SpriteSheet getSpriteSheet(String name) {
         Image image = getSprite(name);
-        Section section = (Section) sections.get(name);
+        Section section = sections.get(name);
 
         return new SpriteSheet(image, section.width / section.tilesx, section.height / section.tilesy);
     }
@@ -125,7 +131,7 @@ public class PackedSpriteSheet {
      * @throws SlickException Indicates a failure to read or parse the definitions file
      * or referenced image.
      */
-    private void loadDefinition(String def, Color trans) throws SlickException {
+    private void loadDefinition(String def, @Nullable Color trans) throws SlickException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceLoader.getResourceAsStream(def)));
 
         try {
@@ -175,7 +181,7 @@ public class PackedSpriteSheet {
          * @param reader The reader from which the definition can be read
          * @throws IOException Indicates a failure toread the provided stream
          */
-        public Section(BufferedReader reader) throws IOException {
+        public Section(@Nonnull BufferedReader reader) throws IOException {
             name = reader.readLine().trim();
 
             x = Integer.parseInt(reader.readLine().trim());

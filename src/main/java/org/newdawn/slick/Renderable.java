@@ -5,7 +5,7 @@ package org.newdawn.slick;
  * 
  * @author kevin
  */
-public interface Renderable {
+interface Renderable {
 
     /**
      * Draw this artefact at the given location

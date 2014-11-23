@@ -1,5 +1,6 @@
 package org.newdawn.slick.geom;
 
+import javax.annotation.Nonnull;
 import java.io.Serializable;
 
 /**
@@ -14,35 +15,35 @@ public abstract class Shape implements Serializable {
      */
     private static final long serialVersionUID = 1L;
     /** The points representing this polygon. */
-    protected float points[];
+    float[] points;
     /** Center point of the polygon. */
-    protected float center[];
+    float[] center;
     /** The left most point of this shape. */
-    protected float x;
+    float x;
     /** The top most point of this shape. */
-    protected float y;
+    float y;
     /** The right most point of this shape */
-    protected float maxX;
+    float maxX;
     /** The bottom most point of this shape */
-    protected float maxY;
+    float maxY;
     /** The left most point of this shape. */
-    protected float minX;
+    float minX;
     /** The top most point of this shape. */
-    protected float minY;
+    float minY;
     /** Radius of a circle that can completely enclose this shape. */
-    protected float boundingCircleRadius;
+    float boundingCircleRadius;
     /** Flag to tell whether points need to be generated */
-    protected boolean pointsDirty;
+    boolean pointsDirty;
     /** The triangles that define the shape */
-    protected transient Triangulator tris;
+    private transient Triangulator tris;
     /** True if the triangles need updating */
-    protected boolean trianglesDirty;
+    private boolean trianglesDirty;
     
     /**
      * Shape constructor.
      *
      */
-    public Shape() {
+    Shape() {
         pointsDirty = true;
     }
     
@@ -86,7 +87,7 @@ public abstract class Shape implements Serializable {
      * 
      * @param x The new x position of the left side this shape.
      */
-    public void setX(float x) {
+    void setX(float x) {
         if (x != this.x) {
             float dx = x - this.x;
             this.x = x;
@@ -111,7 +112,7 @@ public abstract class Shape implements Serializable {
      * 
      * @param y The new y position of the top of this shape.
      */
-    public void setY(float y) {
+    void setY(float y) {
         if (y != this.y) {
             float dy = y - this.y;
             this.y = y;
@@ -145,7 +146,7 @@ public abstract class Shape implements Serializable {
      * 
      * @param loc The new location of the shape
      */
-    public void setLocation(Vector2f loc) {
+    public void setLocation(@Nonnull Vector2f loc) {
         setX(loc.x);
         setY(loc.y);
     }
@@ -155,7 +156,7 @@ public abstract class Shape implements Serializable {
      * 
      * @return The x center of this shape.
      */
-    public float getCenterX() {
+    float getCenterX() {
         checkPoints();
         
         return center[0];
@@ -180,7 +181,7 @@ public abstract class Shape implements Serializable {
      * 
      * @return The y center of this shape.
      */
-    public float getCenterY() {
+    float getCenterY() {
         checkPoints();
         
         return center[1];
@@ -285,6 +286,7 @@ public abstract class Shape implements Serializable {
      * @param index The index of the point to retrieve
      * @return The point's coordinates
      */
+    @Nonnull
     public float[] getPoint(int index) {
         checkPoints();
 
@@ -302,6 +304,7 @@ public abstract class Shape implements Serializable {
      * @param index The index of the point whose normal should be retrieved
      * @return The combined normal of a given point
      */
+    @Nonnull
     public float[] getNormal(int index) {
         float[] current = getPoint(index);
         float[] prev = getPoint(index - 1 < 0 ? getPointCount() - 1 : index - 1);
@@ -331,7 +334,7 @@ public abstract class Shape implements Serializable {
      * @return True if the other shape supplied is entirely contained
      * within this one.
      */
-    public boolean contains(Shape other) {
+    public boolean contains(@Nonnull Shape other) {
         if (other.intersects(this)) {
             return false;
         }
@@ -352,6 +355,7 @@ public abstract class Shape implements Serializable {
      * @param end The end point
      * @return The normal of the line between the two points
      */
+    @Nonnull
     private float[] getNormal(float[] start, float[] end) {
         float dx = start[0] - end[0];
         float dy = start[1] - end[1];
@@ -466,7 +470,7 @@ public abstract class Shape implements Serializable {
      * @param shape The shape to check if it intersects with this one.
      * @return True if the shapes do intersect, false otherwise.
      */
-    public boolean intersects(Shape shape) {
+    public boolean intersects(@Nonnull Shape shape) {
         /*
          * Intersection formula used:
          *      (x4 - x3)(y1 - y3) - (y4 - y3)(x1 - x3)
@@ -567,7 +571,7 @@ public abstract class Shape implements Serializable {
      * Get the center of this polygon.
      *
      */
-    protected void findCenter() {
+    void findCenter() {
         center = new float[]{0, 0};
         int length = points.length;
         for(int i=0;i<length;i+=2) {
@@ -582,7 +586,7 @@ public abstract class Shape implements Serializable {
      * Calculate the radius of a circle that can completely enclose this shape.
      *
      */
-    protected void calculateRadius() {
+    void calculateRadius() {
         boundingCircleRadius = 0;
         
         for(int i=0;i<points.length;i+=2) {
@@ -596,24 +600,11 @@ public abstract class Shape implements Serializable {
     /**
      * Calculate the triangles that can fill this shape
      */
-    protected void calculateTriangles() {
+    void calculateTriangles() {
         if ((!trianglesDirty) && (tris != null)) {
             return;
         }
         if (points.length >= 6) {
-            boolean clockwise = true;
-            float area = 0;
-            for (int i=0;i<(points.length/2)-1;i++) {
-                float x1 = points[(i*2)];
-                float y1 = points[(i*2)+1];
-                float x2 = points[(i*2)+2];
-                float y2 = points[(i*2)+3];
-
-                area += (x1 * y2) - (y1 * x2);
-            }
-            area /= 2;
-            clockwise = area > 0;
-
             tris = new NeatTriangulator();
             for (int i=0;i<points.length;i+=2) {
                 tris.addPolyPoint(points[i], points[i+1]);
@@ -648,7 +639,7 @@ public abstract class Shape implements Serializable {
     /**
      * Check the dirty flag and create points as necessary.
      */
-    protected final void checkPoints() {
+    final void checkPoints() {
         if (pointsDirty) {
             createPoints();
             findCenter();
@@ -693,6 +684,7 @@ public abstract class Shape implements Serializable {
      * 
      * @return The new shape with points pruned
      */
+    @Nonnull
     public Shape prune() {
         Polygon result = new Polygon();
 

@@ -20,6 +20,8 @@ import com.jed.core.QuadTree;
 import com.jed.util.Rectangle;
 import com.jed.util.Util;
 
+import javax.annotation.Nullable;
+
 
 /**
  * 
@@ -69,6 +71,7 @@ public class GameMap extends AbstractDisplayableState {
     /**
      * 
      */
+    @Nullable
     private Texture texture;
 
     /**
@@ -387,7 +390,7 @@ public class GameMap extends AbstractDisplayableState {
      * 
      * @return isDebugViewEnabled
      */
-    public boolean isDebugViewEnabled() {
+    boolean isDebugViewEnabled() {
         return isDebugViewEnabled;
     }
 }

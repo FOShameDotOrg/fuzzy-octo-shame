@@ -167,52 +167,52 @@ public interface SGL {
     /**
      * OpenGL Method - @url http://www.opengl.org/documentation/
      *
-     * @param red
-     * @param green
-     * @param blue
-     * @param alpha
+     * @param red red
+     * @param green green
+     * @param blue blue
+     * @param alpha alpha
      */
     public void glClearColor(float red, float green, float blue, float alpha);
 
     /**
      * OpenGL Method - @url http://www.opengl.org/documentation/
      *
-     * @param plane
-     * @param buffer
+     * @param plane plane
+     * @param buffer buffer
      */
     public void glClipPlane(int plane, DoubleBuffer buffer);
 
     /**
      * OpenGL Method - @url http://www.opengl.org/documentation/
      *
-     * @param x
-     * @param y
-     * @param width
-     * @param height
+     * @param x x
+     * @param y y
+     * @param width width
+     * @param height height
      */
     public void glScissor(int x, int y, int width, int height);
 
     /**
      * OpenGL Method - @url http://www.opengl.org/documentation/
      *
-     * @param width
+     * @param width width
      */
     public void glLineWidth(float width);
 
     /**
      * OpenGL Method - @url http://www.opengl.org/documentation/
      *
-     * @param value
+     * @param value value
      */
     public void glClear(int value);
 
     /**
      * OpenGL Method - @url http://www.opengl.org/documentation/
      *
-     * @param red
-     * @param green
-     * @param blue
-     * @param alpha
+     * @param red red
+     * @param green green
+     * @param blue blue
+     * @param alpha alpha
      */
     public void glColorMask(boolean red, boolean green, boolean blue, boolean alpha);
 
@@ -498,14 +498,14 @@ public interface SGL {
     /**
      * OpenGL Method - @url http://www.opengl.org/documentation/
      *
-     * @param buffer
+     * @param buffer buffer
      */
     public void glLoadMatrix(FloatBuffer buffer);
 
     /**
      * OpenGL Method - @url http://www.opengl.org/documentation/
      *
-     * @param ids
+     * @param ids ids
      */
     public void glGenTextures(IntBuffer ids);
 
@@ -516,13 +516,34 @@ public interface SGL {
 
     /**
      * OpenGL Method - @url http://www.opengl.org/documentation/
+     *
+     * @param target
+     * @param i
+     * @param dstPixelFormat
+     * @param get2Fold
+     * @param get2Fold2
+     * @param j
+     * @param srcPixelFormat
+     * @param glUnsignedByte
+     * @param textureBuffer
      */
     public void glTexImage2D(int target, int i, int dstPixelFormat,
             int get2Fold, int get2Fold2, int j, int srcPixelFormat,
             int glUnsignedByte, ByteBuffer textureBuffer);
 
+
     /**
      * OpenGL Method - @url http://www.opengl.org/documentation/
+     *
+     * @param glTexture2d
+     * @param i
+     * @param pageX
+     * @param pageY
+     * @param width
+     * @param height
+     * @param glBgra
+     * @param glUnsignedByte
+     * @param scratchByteBuffer
      */
     public void glTexSubImage2D(int glTexture2d, int i, int pageX, int pageY,
             int width, int height, int glBgra, int glUnsignedByte,
@@ -535,7 +556,17 @@ public interface SGL {
      */
     public boolean canTextureMirrorClamp();
 
+    /**
+     *
+     * @return canSecondaryColor
+     */
     public boolean canSecondaryColor();
 
+    /**
+     *
+     * @param b b
+     * @param c c
+     * @param d d
+     */
     public void glSecondaryColor3ubEXT(byte b, byte c, byte d);
 }

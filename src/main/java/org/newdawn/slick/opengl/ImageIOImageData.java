@@ -16,6 +16,8 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Hashtable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.imageio.ImageIO;
 
 /**
@@ -120,14 +122,14 @@ public class ImageIOImageData implements LoadableImageData {
     /**
      * @see org.newdawn.slick.opengl.LoadableImageData#loadImage(java.io.InputStream, boolean, int[])
      */
-    public ByteBuffer loadImage(InputStream fis, boolean flipped, int[] transparent) throws IOException {
+    public ByteBuffer loadImage(InputStream fis, boolean flipped, @Nullable int[] transparent) throws IOException {
         return loadImage(fis, flipped, false, transparent);
     }
 
     /**
      * @see org.newdawn.slick.opengl.LoadableImageData#loadImage(java.io.InputStream, boolean, boolean, int[])
      */
-    public ByteBuffer loadImage(InputStream fis, boolean flipped, boolean forceAlpha, int[] transparent) throws IOException {
+    public ByteBuffer loadImage(InputStream fis, boolean flipped, boolean forceAlpha, @Nullable int[] transparent) throws IOException {
         if (transparent != null) {
             forceAlpha = true;
         }
@@ -136,8 +138,8 @@ public class ImageIOImageData implements LoadableImageData {
         return imageToByteBuffer(bufferedImage, flipped, forceAlpha, transparent);
     }
 
-    public ByteBuffer imageToByteBuffer(BufferedImage image, boolean flipped, boolean forceAlpha, int[] transparent) {
-        ByteBuffer imageBuffer = null;
+    ByteBuffer imageToByteBuffer(@Nonnull BufferedImage image, boolean flipped, boolean forceAlpha, @Nullable int[] transparent) {
+        ByteBuffer imageBuffer;
         WritableRaster raster;
         BufferedImage texImage;
         
@@ -263,6 +265,7 @@ public class ImageIOImageData implements LoadableImageData {
     /**
      * @see org.newdawn.slick.opengl.ImageData#getImageBufferData()
      */
+    @Nonnull
     public ByteBuffer getImageBufferData() {
         throw new RuntimeException("ImageIOImageData doesn't store it's image.");
     }
@@ -278,7 +281,7 @@ public class ImageIOImageData implements LoadableImageData {
      * @param dx The transform on the x axis
      * @param dy The transform on the y axis
      */
-    private void copyArea(BufferedImage image, int x, int y, int width, int height, int dx, int dy) {
+    private void copyArea(@Nonnull BufferedImage image, int x, int y, int width, int height, int dx, int dy) {
         Graphics2D g = (Graphics2D) image.getGraphics();
 
         g.drawImage(image.getSubimage(x, y, width, height),x+dx,y+dy,null);

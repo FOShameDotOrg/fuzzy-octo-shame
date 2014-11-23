@@ -9,6 +9,9 @@ import java.nio.ByteOrder;
 
 import org.lwjgl.BufferUtils;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A utility to load TGAs. Note: NOT THREAD SAFE
  * 
@@ -86,41 +89,41 @@ public class TGAImageData implements LoadableImageData {
     /**
      * @see org.newdawn.slick.opengl.LoadableImageData#loadImage(java.io.InputStream)
      */
-    public ByteBuffer loadImage(InputStream fis) throws IOException {
+    public ByteBuffer loadImage(@Nonnull InputStream fis) throws IOException {
         return loadImage(fis,true, null);
     }
 
     /**
      * @see org.newdawn.slick.opengl.LoadableImageData#loadImage(java.io.InputStream, boolean, int[])
      */
-    public ByteBuffer loadImage(InputStream fis, boolean flipped, int[] transparent) throws IOException {
+    public ByteBuffer loadImage(@Nonnull InputStream fis, boolean flipped, @Nullable int[] transparent) throws IOException {
         return loadImage(fis, flipped, false, transparent);
     }
 
     /**
      * @see org.newdawn.slick.opengl.LoadableImageData#loadImage(java.io.InputStream, boolean, boolean, int[])
      */
-    public ByteBuffer loadImage(InputStream fis, boolean flipped, boolean forceAlpha, int[] transparent) throws IOException {
+    public ByteBuffer loadImage(@Nonnull InputStream fis, boolean flipped, boolean forceAlpha, @Nullable int[] transparent) throws IOException {
         if (transparent != null) {
             forceAlpha = true;
         }
-        byte red = 0;
-        byte green = 0;
-        byte blue = 0;
-        byte alpha = 0;
+        byte red;
+        byte green;
+        byte blue;
+        byte alpha;
 
         BufferedInputStream bis = new BufferedInputStream(fis, 100000);
         DataInputStream dis = new DataInputStream(bis);
 
         // Read in the Header
         short idLength = (short) dis.read();
-        short colorMapType = (short) dis.read();
+        dis.read();
         short imageType = (short) dis.read();
-        short cMapStart = flipEndian(dis.readShort());
-        short cMapLength = flipEndian(dis.readShort());
-        short cMapDepth = (short) dis.read();
-        short xOffset = flipEndian(dis.readShort());
-        short yOffset = flipEndian(dis.readShort());
+        flipEndian(dis.readShort());
+        flipEndian(dis.readShort());
+        dis.read();
+        flipEndian(dis.readShort());
+        flipEndian(dis.readShort());
 
         if (imageType != 2) {
             throw new IOException("Slick only supports uncompressed RGB(A) TGA images");
@@ -146,7 +149,7 @@ public class TGAImageData implements LoadableImageData {
             bis.skip(idLength);
         }
 
-        byte[] rawData = null;
+        byte[] rawData;
         if ((pixelDepth == 32) || (forceAlpha)) {
             pixelDepth = 32;
             format = Format.RGBA;
@@ -309,6 +312,7 @@ public class TGAImageData implements LoadableImageData {
     /**
      * @see org.newdawn.slick.opengl.ImageData#getImageBufferData()
      */
+    @Nonnull
     public ByteBuffer getImageBufferData() {
         throw new RuntimeException("TGAImageData doesn't store it's image.");
     }

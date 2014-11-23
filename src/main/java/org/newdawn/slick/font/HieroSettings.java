@@ -19,6 +19,8 @@ import org.newdawn.slick.font.effects.ConfigurableEffect.Value;
 import org.newdawn.slick.font.effects.Effect;
 import org.newdawn.slick.util.ResourceLoader;
 
+import javax.annotation.Nonnull;
+
 /**
  * Holds the settings needed to configure a UnicodeFont.
  * 
@@ -72,7 +74,7 @@ public class HieroSettings {
      * @param in The stream from which to read the settings from
      * @throws SlickException if the file could not be read.
      */
-    public HieroSettings(InputStream in) throws SlickException {
+    private HieroSettings(@Nonnull InputStream in) throws SlickException {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             while (true) {
@@ -86,9 +88,9 @@ public class HieroSettings {
                 if (name.equals("font.size")) {
                     fontSize = Integer.parseInt(value);
                 } else if (name.equals("font.bold")) {
-                    bold = Boolean.valueOf(value).booleanValue();
+                    bold = Boolean.valueOf(value);
                 } else if (name.equals("font.italic")) {
-                    italic = Boolean.valueOf(value).booleanValue();
+                    italic = Boolean.valueOf(value);
                 } else if (name.equals("pad.top")) {
                     paddingTop = Integer.parseInt(value);
                 } else if (name.equals("pad.right")) {
@@ -118,8 +120,7 @@ public class HieroSettings {
                     name = name.substring(7);
                     ConfigurableEffect effect = (ConfigurableEffect)effects.get(effects.size() - 1);
                     List<Value> values = effect.getValues();
-                    for (Iterator<Value> iter = values.iterator(); iter.hasNext();) {
-                        Value effectValue = (Value)iter.next();
+                    for (Value effectValue : values) {
                         if (effectValue.getName().equals(name)) {
                             effectValue.setString(value);
                             break;
@@ -343,6 +344,7 @@ public class HieroSettings {
      *
      * @return The list of effects applied to the text
      */
+    @Nonnull
     public List<Effect> getEffects() {
         return effects;
     }
@@ -353,7 +355,7 @@ public class HieroSettings {
      * @param file The file we're saving to
      * @throws IOException if the file could not be saved.
      */
-    public void save(File file) throws SlickException, IOException {
+    public void save(@Nonnull File file) throws SlickException, IOException {
         try(
             final FileOutputStream fileOutputStream = new FileOutputStream(file);
             final PrintStream out = new PrintStream(fileOutputStream)
@@ -378,8 +380,7 @@ public class HieroSettings {
                 }
                 ConfigurableEffect effect = (ConfigurableEffect) iter.next();            
                 out.println("effect.class=" + effect.getClass().getName());
-                for (Iterator<Value> iter2 = effect.getValues().iterator(); iter2.hasNext();) {
-                    Value value = iter2.next();
+                for (Value value : effect.getValues()) {
                     out.println("effect." + value.getName() + "=" + value.getString());
                 }
                 out.println();

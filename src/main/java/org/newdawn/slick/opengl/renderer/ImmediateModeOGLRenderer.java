@@ -9,6 +9,8 @@ import org.lwjgl.opengl.EXTSecondaryColor;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GLContext;
 
+import javax.annotation.Nonnull;
+
 /**
  * The default OpenGL renderer, uses immediate mode for everything
  * 
@@ -20,9 +22,10 @@ public class ImmediateModeOGLRenderer implements SGL {
     /** The height of the display */
     private int height;
     /** The current colour */
-    private float[] current = new float[] {1,1,1,1};
+    @Nonnull
+    private final float[] current = new float[] {1,1,1,1};
     /** The global colour scale */
-    protected float alphaScale = 1;
+    float alphaScale = 1;
 
     /**
      * Initializes default states (texturing, shade model, disable depth test, etc).
@@ -325,6 +328,7 @@ public class ImmediateModeOGLRenderer implements SGL {
     /**
      * @see org.newdawn.slick.opengl.renderer.SGL#getCurrentColor()
      */
+    @Nonnull
     public float[] getCurrentColor() {
         return current;
     }

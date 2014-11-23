@@ -3,6 +3,8 @@ package org.newdawn.slick;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
+import javax.annotation.Nonnull;
+
 /**
  * A filling method for a shape. This allows changing colours at shape vertices and
  * modify they're positions as required
@@ -19,6 +21,7 @@ public interface ShapeFill {
      * @param y The y coordinate of the point being coloured
      * @return The colour that should be applied based on the control points of this gradient
      */
+    @Nonnull
     public Color colorAt(Shape shape, float x, float y);
 
     /**
@@ -29,5 +32,6 @@ public interface ShapeFill {
      * @param y The y coordinate of the point being drawn
      * @return The offset to apply to this vertex
      */
+    @Nonnull
     public Vector2f getOffsetAt(Shape shape, float x, float y);
 }

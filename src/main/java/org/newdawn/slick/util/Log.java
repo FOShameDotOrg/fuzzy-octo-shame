@@ -4,7 +4,7 @@ import java.security.AccessController;
 import java.security.PrivilegedAction;
 
 /**
- * A simple central logging system
+ * A simple central logging system.
  * 
  * @author kevin
  */
@@ -65,15 +65,13 @@ public final class Log {
      */
     public static void checkVerboseLogSetting() {
         try {
-            AccessController.doPrivileged(new PrivilegedAction<Object>() {
-                public Object run() {
-                    String val = System.getProperty(Log.forceVerboseProperty);
-                    if ((val != null) && (val.equalsIgnoreCase(Log.forceVerbosePropertyOnValue))) {
-                        Log.setForcedVerboseOn();
-                    }
-
-                    return null;
+            AccessController.doPrivileged((PrivilegedAction<Object>) () -> {
+                String val = System.getProperty(Log.forceVerboseProperty);
+                if ((val != null) && (val.equalsIgnoreCase(Log.forceVerbosePropertyOnValue))) {
+                    Log.setForcedVerboseOn();
                 }
+
+                return null;
             });
         } catch (Throwable e) {
             // ignore, security failure - probably an applet
@@ -85,7 +83,7 @@ public final class Log {
      * Only be called when system property "org.newdawn.slick.forceVerboseLog" is set to true.
      * You must not call this method directly.
      */
-    public static void setForcedVerboseOn() {
+    private static void setForcedVerboseOn() {
         forcedVerbose = true;
         verbose = true;
     }

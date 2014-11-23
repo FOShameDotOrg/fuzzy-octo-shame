@@ -24,6 +24,8 @@ import org.newdawn.slick.opengl.TextureImpl;
 import org.newdawn.slick.opengl.renderer.Renderer;
 import org.newdawn.slick.opengl.renderer.SGL;
 
+import javax.annotation.Nonnull;
+
 /**
  * Stores a number of glyphs on a single texture.
  * 
@@ -37,20 +39,23 @@ public class GlyphPage {
     public static final int MAX_GLYPH_SIZE = 256;
 
     /** A temporary working buffer */
-    private static ByteBuffer scratchByteBuffer = ByteBuffer.allocateDirect(MAX_GLYPH_SIZE * MAX_GLYPH_SIZE * 4);
+    private static final ByteBuffer scratchByteBuffer = ByteBuffer.allocateDirect(MAX_GLYPH_SIZE * MAX_GLYPH_SIZE * 4);
 
     static {
         scratchByteBuffer.order(ByteOrder.LITTLE_ENDIAN);
     }
     
     /** A temporary working buffer */
-    private static IntBuffer scratchIntBuffer = scratchByteBuffer.asIntBuffer();
+    @Nonnull
+    private static final IntBuffer scratchIntBuffer = scratchByteBuffer.asIntBuffer();
     
     
     /** A temporary image used to generate the glyph page */
-    private static BufferedImage scratchImage = new BufferedImage(MAX_GLYPH_SIZE, MAX_GLYPH_SIZE, BufferedImage.TYPE_INT_ARGB);
+    @Nonnull
+    private static final BufferedImage scratchImage = new BufferedImage(MAX_GLYPH_SIZE, MAX_GLYPH_SIZE, BufferedImage.TYPE_INT_ARGB);
     /** The graphics context form the temporary image */
-    private static Graphics2D scratchGraphics = (Graphics2D)scratchImage.getGraphics();
+    @Nonnull
+    private static final Graphics2D scratchGraphics = (Graphics2D)scratchImage.getGraphics();
 
     static {
         scratchGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -59,13 +64,14 @@ public class GlyphPage {
     }
 
     /** The render context in which the glyphs will be generated */
-    public static FontRenderContext renderContext = scratchGraphics.getFontRenderContext();
+    public static final FontRenderContext renderContext = scratchGraphics.getFontRenderContext();
 
     /**
      * Get the scratch graphics used to generate the page of glyphs
      *
      * @return The scratch graphics used to build the page
      */
+    @Nonnull
     public static Graphics2D getScratchGraphics() {
         return scratchGraphics;
     }
@@ -77,6 +83,7 @@ public class GlyphPage {
     /** The height of this page's image */
     private final int pageHeight;
     /** The image containing the glyphs */
+    @Nonnull
     private final Image pageImage;
     /** The x position of the page */
     private int pageX;
@@ -97,7 +104,7 @@ public class GlyphPage {
      * @param pageHeight The height of the backing texture.
      * @throws SlickException if the backing texture could not be created.
      */
-    public GlyphPage(UnicodeFont unicodeFont, int pageWidth, int pageHeight) throws SlickException {
+    public GlyphPage(UnicodeFont unicodeFont, int pageWidth, int pageHeight) {
         this.unicodeFont = unicodeFont;
         this.pageWidth = pageWidth;
         this.pageHeight = pageHeight;
@@ -117,7 +124,7 @@ public class GlyphPage {
      * @return The number of glyphs that were actually loaded.
      * @throws SlickException if the glyph could not be rendered.
      */
-    public int loadGlyphs (List<Glyph> glyphs, int maxGlyphsToLoad) throws SlickException {
+    public int loadGlyphs (@Nonnull List<Glyph> glyphs, int maxGlyphsToLoad) {
         if (rowHeight != 0 && maxGlyphsToLoad == -1) {
             // If this page has glyphs and we are not loading incrementally, return zero if any of the glyphs don't fit.
             int testX = pageX;
@@ -194,14 +201,13 @@ public class GlyphPage {
      * @param height The expected height of the glyph
      * @throws SlickException if the glyph could not be rendered.
      */
-    private void renderGlyph(Glyph glyph, int width, int height) throws SlickException {
+    private void renderGlyph(@Nonnull Glyph glyph, int width, int height) {
         // Draw the glyph to the scratch image using Java2D.
         scratchGraphics.setComposite(AlphaComposite.Clear);
         scratchGraphics.fillRect(0, 0, MAX_GLYPH_SIZE, MAX_GLYPH_SIZE);
         scratchGraphics.setComposite(AlphaComposite.SrcOver);
         scratchGraphics.setColor(java.awt.Color.white);
-        for (Iterator<?> iter = unicodeFont.getEffects().iterator(); iter.hasNext();)
-            ((Effect)iter.next()).draw(scratchImage, scratchGraphics, unicodeFont, glyph);
+        for (Effect effect : unicodeFont.getEffects()) (effect).draw(scratchImage, scratchGraphics, unicodeFont, glyph);
         glyph.setShape(null); // The shape will never be needed again.
 
         WritableRaster raster = scratchImage.getRaster();
@@ -223,7 +229,8 @@ public class GlyphPage {
      * @param glyphs The glyphs to return if present
      * @return An iterator of the sorted list of glyphs
      */
-    private Iterator<Glyph> getIterator(List<Glyph> glyphs) {
+    @Nonnull
+    private Iterator<Glyph> getIterator(@Nonnull List<Glyph> glyphs) {
         if (orderAscending) return glyphs.iterator();
         final ListIterator<Glyph> iter = glyphs.listIterator(glyphs.size());
         return new Iterator<Glyph>() {
@@ -246,6 +253,7 @@ public class GlyphPage {
      *
      * @return A list of {@link Glyph} elements on this page
      */
+    @Nonnull
     public List<Glyph> getGlyphs () {
         return pageGlyphs;
     }
@@ -255,6 +263,7 @@ public class GlyphPage {
      *
      * @return The image of this page of glyphs
      */
+    @Nonnull
     public Image getImage () {
         return pageImage;
     }

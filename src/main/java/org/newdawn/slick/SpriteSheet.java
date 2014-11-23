@@ -6,6 +6,9 @@ import java.net.URL;
 
 import org.newdawn.slick.opengl.Texture;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A sheet of sprites that can be drawn individually
  * 
@@ -34,7 +37,7 @@ public class SpriteSheet extends Image {
      * @throws SlickException Indicates a failure to read image data
      * @throws IOException Indicates the URL could not be opened
      */
-    public SpriteSheet(URL ref,int tw,int th) throws SlickException, IOException {
+    public SpriteSheet(@Nonnull URL ref,int tw,int th) throws SlickException, IOException {
         this(new Image(ref.openStream(), ref.toString(), false), tw, th);
     }
 
@@ -45,7 +48,7 @@ public class SpriteSheet extends Image {
      * @param tw The width of the tiles on the sheet
      * @param th The height of the tiles on the sheet
      */
-    public SpriteSheet(Image image,int tw,int th) {
+    public SpriteSheet(@Nonnull Image image,int tw,int th) {
         super(image);
 
         this.target = image;
@@ -66,7 +69,7 @@ public class SpriteSheet extends Image {
      * @param spacing The spacing between tiles
      * @param margin The magrin around the tiles
      */
-    public SpriteSheet(Image image,int tw,int th,int spacing,int margin) {
+    private SpriteSheet(@Nonnull Image image, int tw, int th, int spacing, int margin) {
         super(image);
 
         this.target = image;
@@ -88,7 +91,7 @@ public class SpriteSheet extends Image {
      * @param th The height of the tiles on the sheet
      * @param spacing The spacing between tiles
      */
-    public SpriteSheet(Image image,int tw,int th,int spacing) {
+    public SpriteSheet(@Nonnull Image image,int tw,int th,int spacing) {
         this(image,tw,th,spacing,0);
     }
 
@@ -126,7 +129,7 @@ public class SpriteSheet extends Image {
      * @param col The colour to treat as transparent
      * @throws SlickException Indicates a failure to load the image
      */
-    public SpriteSheet(String ref,int tw,int th, Color col) throws SlickException {
+    private SpriteSheet(String ref, int tw, int th, @Nullable Color col) throws SlickException {
         this(ref, tw, th, col, 0);
     }
 
@@ -140,7 +143,7 @@ public class SpriteSheet extends Image {
      * @param spacing The spacing between tiles
      * @throws SlickException Indicates a failure to load the image
      */
-    public SpriteSheet(String ref,int tw,int th, Color col, int spacing) throws SlickException {
+    private SpriteSheet(String ref, int tw, int th, @Nullable Color col, int spacing) throws SlickException {
         super(ref, false, FILTER_NEAREST, col);
 
         this.target = this;
@@ -158,7 +161,7 @@ public class SpriteSheet extends Image {
      * @param th The height of the tiles on the sheet
      * @throws SlickException Indicates a failure to load the image
      */
-    public SpriteSheet(String name, InputStream ref,int tw,int th) throws SlickException {
+    public SpriteSheet(String name, @Nonnull InputStream ref,int tw,int th) throws SlickException {
         super(ref,name,false);
 
         this.target = this;
@@ -169,7 +172,7 @@ public class SpriteSheet extends Image {
     /**
      * @see org.newdawn.slick.Image#initImpl()
      */
-    protected void initImpl() {
+    void initImpl() {
         if (subImages != null) {
             return;
         }
@@ -216,7 +219,8 @@ public class SpriteSheet extends Image {
      * @param y The y position of the cell on the sprite sheet
      * @return The single image from the sprite sheet
      */
-    public Image getSprite(int x, int y) {
+    @Nonnull
+    Image getSprite(int x, int y) {
         target.init();
         initImpl();
 
@@ -285,7 +289,7 @@ public class SpriteSheet extends Image {
      * @param sx The x location of the cell to render
      * @param sy The y location of the cell to render
      */
-    public void renderInUse(int x, int y, int width, int height, int sx, int sy) {
+    void renderInUse(int x, int y, int width, int height, int sx, int sy) {
         subImages[sx][sy].drawEmbedded(x, y, width, height);
     }
 
@@ -325,7 +329,7 @@ public class SpriteSheet extends Image {
      * @param sx The x location of the cell to render
      * @param sy The y location of the cell to render
      */
-    public void renderInUse(int x, int y, int width, int height, float rotation, int sx, int sy) {
+    void renderInUse(int x, int y, int width, int height, float rotation, int sx, int sy) {
         subImages[sx][sy].drawEmbedded(x, y, width, height, rotation);
     }
 

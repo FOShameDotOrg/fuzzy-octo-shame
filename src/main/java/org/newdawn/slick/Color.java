@@ -6,6 +6,8 @@ import java.nio.FloatBuffer;
 import org.newdawn.slick.opengl.renderer.Renderer;
 import org.newdawn.slick.opengl.renderer.SGL;
 
+import javax.annotation.Nonnull;
+
 /**
  * A simple wrapper round the values required for a colour
  * 
@@ -16,7 +18,7 @@ public class Color implements Serializable {
     private static final long serialVersionUID = 1393939L;
 
     /** The renderer to use for all GL operations */
-    protected transient SGL GL = Renderer.get();
+    private final transient SGL GL = Renderer.get();
 
     /** The fixed color transparent */
     public static final Color transparent = new Color(0.0f,0.0f,0.0f,0.0f);
@@ -61,7 +63,7 @@ public class Color implements Serializable {
      *
      * @param color The color to copy into the new instance
      */
-    public Color(Color color) {
+    public Color(@Nonnull Color color) {
         r = color.r;
         g = color.g;
         b = color.b;
@@ -73,7 +75,7 @@ public class Color implements Serializable {
      *
      * @param buffer The buffer to read the color from
      */
-    public Color(FloatBuffer buffer) {
+    public Color(@Nonnull FloatBuffer buffer) {
         this.r = buffer.get();
         this.g = buffer.get();
         this.b = buffer.get();
@@ -145,7 +147,7 @@ public class Color implements Serializable {
      *
      * @param value The value to interpret for the colour
      */
-    public Color(int value) {
+    private Color(int value) {
         int r = (value & 0x00FF0000) >> 16;
         int g = (value & 0x0000FF00) >> 8;
         int b =    (value & 0x000000FF);
@@ -171,8 +173,9 @@ public class Color implements Serializable {
      * @param nm The number string to decode
      * @return The color generated from the number read
      */
+    @Nonnull
     public static Color decode(String nm) {
-        return new Color(Integer.decode(nm).intValue());
+        return new Color(Integer.decode(nm));
     }
 
     /**
@@ -204,6 +207,7 @@ public class Color implements Serializable {
     /**
      * @see java.lang.Object#toString()
      */
+    @Nonnull
     public String toString() {
         return "Color ("+r+","+g+","+b+","+a+")";
     }
@@ -213,6 +217,7 @@ public class Color implements Serializable {
      *
      * @return The darker version of this colour
      */
+    @Nonnull
     public Color darker() {
         return darker(0.5f);
     }
@@ -223,7 +228,7 @@ public class Color implements Serializable {
      * @param scale The scale down of RGB (i.e. if you supply 0.03 the colour will be darkened by 3%)
      * @return The darker version of this colour
      */
-    public Color darker(float scale) {
+    @Nonnull Color darker(float scale) {
         scale = 1 - scale;
         Color temp = new Color(r * scale,g * scale,b * scale,a);
 
@@ -235,6 +240,7 @@ public class Color implements Serializable {
      *
      * @return The brighter version of this colour
      */
+    @Nonnull
     public Color brighter() {
         return brighter(0.2f);
     }
@@ -314,10 +320,11 @@ public class Color implements Serializable {
     /**
      * Make a brighter instance of this colour
      *
-     * @param scale The scale up of RGB (i.e. if you supply 0.03 the colour will be brightened by 3%)
+     * @param scale The scale up of RGB (i.e. iy 0.03 the colour will be brightened by 3%)
      * @return The brighter version of this colour
      */
-    public Color brighter(float scale) {
+    @Nonnull
+    Color brighter(float scale) {
         scale += 1;
         Color temp = new Color(r * scale,g * scale,b * scale,a);
 
@@ -330,7 +337,8 @@ public class Color implements Serializable {
      * @param c the other color
      * @return product of the two colors
      */
-    public Color multiply(Color c) {
+    @Nonnull
+    public Color multiply(@Nonnull Color c) {
         return new Color(r * c.r, g * c.g, b * c.b, a * c.a);
     }
 
@@ -339,7 +347,7 @@ public class Color implements Serializable {
      *
      * @param c The colour to add
      */
-    public void add(Color c) {
+    public void add(@Nonnull Color c) {
         r += c.r;
         g += c.g;
         b += c.b;
@@ -364,7 +372,8 @@ public class Color implements Serializable {
      * @param c The colour to add
      * @return The copy which has had the color added to it
      */
-    public Color addToCopy(Color c) {
+    @Nonnull
+    public Color addToCopy(@Nonnull Color c) {
         Color copy = new Color(r,g,b,a);
         copy.r += c.r;
         copy.g += c.g;
@@ -380,6 +389,7 @@ public class Color implements Serializable {
      * @param value The value to scale by
      * @return The copy which has been scaled
      */
+    @Nonnull
     public Color scaleCopy(float value) {
         Color copy = new Color(r,g,b,a);
         copy.r *= value;

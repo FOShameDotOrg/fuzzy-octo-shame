@@ -1,5 +1,7 @@
 package org.newdawn.slick.geom;
 
+import javax.annotation.Nonnull;
+
 /**
  * A class capable of generating texture coordiantes based on
  * rendering positions of vertices. This allows custom texturing
@@ -15,5 +17,6 @@ public interface TexCoordGenerator {
      * @param y The y coordinate of the vertex being rendered
      * @return The texture coordinate to apply
      */
+    @Nonnull
     public Vector2f getCoordFor(float x, float y);
 }

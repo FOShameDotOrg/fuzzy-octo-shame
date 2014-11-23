@@ -16,6 +16,8 @@ import com.jed.actor.CircleBoundary;
 import com.jed.core.QuadTree;
 import com.jed.util.Rectangle;
 
+import javax.annotation.Nonnull;
+
 /**
  * 
  * @author jlinde, Peter Colapietro
@@ -212,7 +214,7 @@ public class DiscoState extends AbstractGameState {
      * @param p2 ball two
      * @return if ball one and two collided or not
      */
-    private boolean detectCollision(Ball p1, Ball p2) {
+    private boolean detectCollision(@Nonnull Ball p1, @Nonnull Ball p2) {
         /**
          * Subtract p2's movement vector from p1 the resultant vector
          * Represents where the two balls will collide, if they do
@@ -316,7 +318,7 @@ public class DiscoState extends AbstractGameState {
      * @param p1 ball one
      * @param p2 ball two
      */
-    private void collide(Ball p1, Ball p2) {
+    private void collide(@Nonnull Ball p1, @Nonnull Ball p2) {
         // First, find the normalized vector n from the center of
         // circle1 to the center of circle2
         Vector3f n = (p1.position.subtract(p2.position)).normalize();

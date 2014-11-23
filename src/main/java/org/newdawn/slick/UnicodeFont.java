@@ -28,6 +28,9 @@ import org.newdawn.slick.opengl.renderer.Renderer;
 import org.newdawn.slick.opengl.renderer.SGL;
 import org.newdawn.slick.util.ResourceLoader;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A Slick bitmap font that can display unicode glyphs from a TrueTypeFont.
  * 
@@ -70,11 +73,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
     /**
      * Sorts glyphs by height, tallest first.
      */
-    private static final Comparator<Glyph> heightComparator = new Comparator<Glyph>() {
-        public int compare (Glyph o1, Glyph o2) {
-            return o1.getHeight() - o2.getHeight();
-        }
-    };
+    private static final Comparator<Glyph> heightComparator = (o1, o2) -> o1.getHeight() - o2.getHeight();
 
     /** The AWT font that is being rendered */
     private Font font;
@@ -110,6 +109,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
     /** The padding applied in pixels to vertical advance for each glyph */
     private int paddingAdvanceY;
     /** The glyph to display for missing glyphs in code points */
+    @Nullable
     private Glyph missingGlyph;
 
     /** The width of the glyph page generated */
@@ -123,19 +123,16 @@ public class UnicodeFont implements org.newdawn.slick.Font {
     private int baseDisplayListID = -1;
     /** The ID of the display list that has been around the longest time */
     private int eldestDisplayListID;
-    /** The eldest display list  */
-    private DisplayList eldestDisplayList;
-
-
     /** The map fo the display list generated and cached - modified to allow removal of the oldest entry */
+    @Nullable
     private final Map<CharSequence, DisplayList> displayLists = new LinkedHashMap<CharSequence, DisplayList>(DISPLAY_LIST_CACHE_SIZE, 1, true) {
         /**
          * 
          */
         private static final long serialVersionUID = 1L;
 
-        protected boolean removeEldestEntry (Entry<CharSequence, DisplayList> eldest) {
-            DisplayList displayList = (DisplayList)eldest.getValue();
+        protected boolean removeEldestEntry (@Nonnull Entry<CharSequence, DisplayList> eldest) {
+            DisplayList displayList = eldest.getValue();
             if (displayList != null) eldestDisplayListID = displayList.id;
             return size() > DISPLAY_LIST_CACHE_SIZE;
         }
@@ -159,7 +156,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      * @param settings The settings configured via the Hiero tool
      * @throws SlickException if the UnicodeFont could not be initialized.
      */
-    public UnicodeFont (String ttfFileRef, HieroSettings settings) throws SlickException {
+    private UnicodeFont(String ttfFileRef, @Nonnull HieroSettings settings) throws SlickException {
         this.ttfFileRef = ttfFileRef;
         Font font = createFont(ttfFileRef);
         initializeFont(font, settings.getFontSize(), settings.isBold(), settings.isItalic());
@@ -187,7 +184,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      * @param hieroFileRef The file system or classpath location of the Hiero settings file.
      * @throws SlickException if the UnicodeFont could not be initialized.
      */
-    public UnicodeFont (Font font, String hieroFileRef) throws SlickException {
+    public UnicodeFont (@Nonnull Font font, String hieroFileRef) throws SlickException {
         this(font, new HieroSettings(hieroFileRef));
     }
 
@@ -197,7 +194,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      * @param font The AWT font to render
      * @param settings The settings configured via the Hiero tool
      */
-    public UnicodeFont (Font font, HieroSettings settings) {
+    private UnicodeFont(@Nonnull Font font, @Nonnull HieroSettings settings) {
         initializeFont(font, settings.getFontSize(), settings.isBold(), settings.isItalic());
         loadSettings(settings);
     }
@@ -207,7 +204,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      *
      * @param font The AWT font to render
      */
-    public UnicodeFont (Font font) {
+    public UnicodeFont (@Nonnull Font font) {
         initializeFont(font, font.getSize(), font.isBold(), font.isItalic());
     }
 
@@ -219,7 +216,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      * @param bold True if the font should be rendered in bold typeface
      * @param italic True if the font should be rendered in bold typeface
      */
-    public UnicodeFont (Font font, int size, boolean bold, boolean italic) {
+    public UnicodeFont (@Nonnull Font font, int size, boolean bold, boolean italic) {
         initializeFont(font, size, bold, italic);
     }
 
@@ -232,9 +229,9 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      * @param italic True if the font should be rendered in bold typeface
      */
     @SuppressWarnings({"unchecked","rawtypes"})
-    private void initializeFont(Font baseFont, int size, boolean bold, boolean italic) {
+    private void initializeFont(@Nonnull Font baseFont, int size, boolean bold, boolean italic) {
         Map attributes = baseFont.getAttributes();
-        attributes.put(TextAttribute.SIZE, new Float(size));
+        attributes.put(TextAttribute.SIZE, (float) size);
         attributes.put(TextAttribute.WEIGHT, bold ? TextAttribute.WEIGHT_BOLD : TextAttribute.WEIGHT_REGULAR);
         attributes.put(TextAttribute.POSTURE, italic ? TextAttribute.POSTURE_OBLIQUE : TextAttribute.POSTURE_REGULAR);
         try {
@@ -261,7 +258,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      *
      * @param settings The settings to be applied
      */
-    private void loadSettings(HieroSettings settings) {
+    private void loadSettings(@Nonnull HieroSettings settings) {
         paddingTop = settings.getPaddingTop();
         paddingLeft = settings.getPaddingLeft();
         paddingBottom = settings.getPaddingBottom();
@@ -283,7 +280,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      * @param startCodePoint The code point of the first glyph to add
      * @param endCodePoint The code point of the last glyph to add
      */
-    public void addGlyphs(int startCodePoint, int endCodePoint) {
+    void addGlyphs(int startCodePoint, int endCodePoint) {
         for (int codePoint = startCodePoint; codePoint <= endCodePoint; codePoint++)
             addGlyphs(new String(Character.toChars(codePoint)));
     }
@@ -294,7 +291,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      *
      * @param text The text containing the glyphs to be added
      */
-    public void addGlyphs(String text) {
+    void addGlyphs(@Nullable String text) {
         if (text == null) throw new IllegalArgumentException("text cannot be null.");
 
         char[] chars = text.toCharArray();
@@ -345,7 +342,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      * @return True if the glyphs were loaded entirely
      * @throws SlickException if the glyphs could not be loaded.
      */
-    public boolean loadGlyphs (int maxGlyphsToLoad) throws SlickException {
+    boolean loadGlyphs(int maxGlyphsToLoad) throws SlickException {
         if (queuedGlyphs.isEmpty()) return false;
 
         if (effects.isEmpty())
@@ -374,8 +371,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
         Collections.sort(queuedGlyphs, heightComparator);
 
         // Add to existing pages.
-        for (Iterator<GlyphPage> iter = glyphPages.iterator(); iter.hasNext();) {
-            GlyphPage glyphPage = iter.next();
+        for (GlyphPage glyphPage : glyphPages) {
             maxGlyphsToLoad -= glyphPage.loadGlyphs(queuedGlyphs, maxGlyphsToLoad);
             if (maxGlyphsToLoad == 0 || queuedGlyphs.isEmpty())
                 return true;
@@ -395,16 +391,12 @@ public class UnicodeFont implements org.newdawn.slick.Font {
     /**
      * Clears all loaded and queued glyphs.
      */
-    public void clearGlyphs () {
+    void clearGlyphs() {
         for (int i = 0; i < PAGES; i++)
             glyphs[i] = null;
 
-        for (Iterator<GlyphPage> iter = glyphPages.iterator(); iter.hasNext();) {
-            GlyphPage page = iter.next();
-            try {
-                page.getImage().destroy();
-            } catch (SlickException ignored) {
-            }
+        for (GlyphPage page : glyphPages) {
+            page.getImage().destroy();
         }
         glyphPages.clear();
 
@@ -438,7 +430,8 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      * @param endIndex The end index into the string to render to
      * @return The reference to the display list that was drawn and potentiall ygenerated
      */
-    public DisplayList drawDisplayList (float x, float y, CharSequence text, Color color, int startIndex, int endIndex) {
+    @Nullable
+    DisplayList drawDisplayList(float x, float y, @Nullable CharSequence text, @Nullable Color color, int startIndex, int endIndex) {
         if (text == null) throw new IllegalArgumentException("text cannot be null.");
         if (text.length() == 0) return EMPTY_DISPLAY_LIST;
         if (color == null) throw new IllegalArgumentException("color cannot be null.");
@@ -462,7 +455,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
                 }
             }
             // Try to use a display list compiled for this text.
-            displayList = (DisplayList)displayLists.get(displayListKey);
+            displayList = displayLists.get(displayListKey);
             if (displayList != null) {
                 if (displayList.invalid)
                     displayList.invalid = false;
@@ -559,11 +552,11 @@ public class UnicodeFont implements org.newdawn.slick.Font {
         drawDisplayList(x, y, text, color, startIndex, endIndex);
     }
 
-    public void drawString (float x, float y, CharSequence text) {
+    public void drawString (float x, float y, @Nonnull CharSequence text) {
         drawString(x, y, text, Color.white);
     }
 
-    public void drawString (float x, float y, CharSequence text, Color col) {
+    public void drawString (float x, float y, @Nonnull CharSequence text, Color col) {
         drawString(x, y, text, col, 0, text.length());
     }
 
@@ -578,7 +571,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      * @param index The index of the glyph within the vector
      * @return The glyph requested
      */
-    private Glyph getGlyph (int glyphCode, int codePoint, Rectangle bounds, GlyphVector vector, int index) {
+    private Glyph getGlyph (int glyphCode, int codePoint, @Nonnull Rectangle bounds, @Nonnull GlyphVector vector, int index) {
         if (glyphCode < 0 || glyphCode >= MAX_GLYPH_CODE) {
             // GlyphVector#getGlyphCode sometimes returns negative numbers on OS X.
             return new Glyph(codePoint, bounds, vector, index, this) {
@@ -589,7 +582,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
         }
         int pageIndex = glyphCode / PAGE_SIZE;
         int glyphIndex = glyphCode & (PAGE_SIZE - 1);
-        Glyph glyph = null;
+        Glyph glyph;
         Glyph[] page = glyphs[pageIndex];
         if (page != null) {
             glyph = page[glyphIndex];
@@ -609,7 +602,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      * @param index The index of the glyph within the vector
      * @param codePoint The code point associated with the glyph
      */
-    private Rectangle getGlyphBounds (GlyphVector vector, int index, int codePoint) {
+    private Rectangle getGlyphBounds (@Nonnull GlyphVector vector, int index, int codePoint) {
         Rectangle bounds = vector.getGlyphPixelBounds(index, GlyphPage.renderContext, 0, 0);
         if (codePoint == ' ') bounds.width = spaceWidth;
         return bounds;
@@ -625,12 +618,12 @@ public class UnicodeFont implements org.newdawn.slick.Font {
     /**
      * @see org.newdawn.slick.Font#getWidth(CharSequence)
      */
-    public int getWidth (CharSequence text) {
+    public int getWidth (@Nullable CharSequence text) {
         if (text == null) throw new IllegalArgumentException("text cannot be null.");
         if (text.length() == 0) return 0;
 
         if (displayListCaching) {
-            DisplayList displayList = (DisplayList)displayLists.get(text);
+            DisplayList displayList = displayLists.get(text);
             if (displayList != null) return displayList.width;
         }
 
@@ -656,7 +649,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
         return width;
     }
 
-    static int indexOf(CharSequence cs, char chr) {
+    private static int indexOf(@Nonnull CharSequence cs, char chr) {
         for (int i=0; i<cs.length(); i++) {
             if (cs.charAt(i)==chr)
                 return i;
@@ -665,7 +658,8 @@ public class UnicodeFont implements org.newdawn.slick.Font {
     }
 
     //instead of subSequence().toString().toCharArray()
-    static char[] toCharArray(CharSequence cs, int startIndex, int endIndex) {
+    @Nonnull
+    private static char[] toCharArray(@Nonnull CharSequence cs, int startIndex, int endIndex) {
         if (startIndex==0 && endIndex==cs.length() && cs instanceof String)
             return ((String)cs).toCharArray();
         int s = endIndex-startIndex;
@@ -679,12 +673,12 @@ public class UnicodeFont implements org.newdawn.slick.Font {
     /**
      * @see org.newdawn.slick.Font#getHeight(CharSequence)
      */
-    public int getHeight (CharSequence text) {
+    public int getHeight (@Nullable CharSequence text) {
         if (text == null) throw new IllegalArgumentException("text cannot be null.");
         if (text.length() == 0) return 0;
 
         if (displayListCaching) {
-            DisplayList displayList = (DisplayList)displayLists.get(text);
+            DisplayList displayList = displayLists.get(text);
             if (displayList != null) return displayList.height;
         }
 
@@ -715,12 +709,12 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      * @param text The text to analyse
      * @return The distance fro the y drawing location ot the top most pixel of the specified text
      */
-    public int getYOffset (CharSequence text) {
+    public int getYOffset (@Nullable CharSequence text) {
         if (text == null) throw new IllegalArgumentException("text cannot be null.");
 
         DisplayList displayList = null;
         if (displayListCaching) {
-            displayList = (DisplayList)displayLists.get(text);
+            displayList = displayLists.get(text);
             if (displayList != null && displayList.yOffset != null) return displayList.yOffset.intValue();
         }
 
@@ -733,7 +727,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
         GlyphVector vector = font.layoutGlyphVector(GlyphPage.renderContext, chars, 0, chars.length, Font.LAYOUT_LEFT_TO_RIGHT);
         int yOffset = ascent + vector.getPixelBounds(null, 0, 0).y;
 
-        if (displayList != null) displayList.yOffset = new Short((short)yOffset);
+        if (displayList != null) displayList.yOffset = (short) yOffset;
 
         return yOffset;
     }
@@ -934,6 +928,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      *
      * @return The glyph pages that have been loaded into this font
      */
+    @Nonnull
     public List<GlyphPage> getGlyphPages () {
         return glyphPages;
     }
@@ -944,6 +939,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      *
      * @return The list of effects to be applied to the font
      */
+    @Nonnull
     public List<Effect> getEffects () {
         return effects;
     }
@@ -974,12 +970,13 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      *
      * @return The reference to the font file that the kerning was loaded from
      */
+    @Nullable
     public String getFontFile () {
         if (ttfFileRef == null || ttfFileRef.length()==0) {
             // Worst case if this UnicodeFont was loaded without a ttfFileRef, try to get the font file from Sun's classes.
             try {
                 Object font2D = Class.forName("sun.font.FontManager").getDeclaredMethod("getFont2D", new Class[] {Font.class})
-                    .invoke(null, new Object[] {font});
+                    .invoke(null, font);
                 Field platNameField = Class.forName("sun.font.PhysicalFont").getDeclaredField("platName");
                 platNameField.setAccessible(true);
                 ttfFileRef = (String)platNameField.get(font2D);

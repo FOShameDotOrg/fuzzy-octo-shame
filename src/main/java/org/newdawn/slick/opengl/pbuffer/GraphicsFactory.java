@@ -11,6 +11,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.Log;
 
+import javax.annotation.Nonnull;
+
 /**
  * A factory to produce an appropriate render to texture graphics context based on current
  * hardware
@@ -26,9 +28,6 @@ public class GraphicsFactory {
     private static boolean pbufferRT = true;
     /** True if fbo are supported */
     private static boolean fbo = true;
-    /** True if we've initialised */
-    private static boolean init = false;
-
     /**
      * Initialise offscreen rendering by checking what buffers are supported
      * by the card
@@ -36,8 +35,6 @@ public class GraphicsFactory {
      * @throws SlickException Indicates no buffers are supported
      */
     private static void init() throws SlickException {
-        init = true;
-
         if (fbo) {
             fbo = GLContext.getCapabilities().GL_EXT_framebuffer_object;
         }
@@ -86,8 +83,8 @@ public class GraphicsFactory {
      * @throws SlickException Indicates it wasn't possible to create a graphics context
      * given available hardware.
      */
-    public static Graphics getGraphicsForImage(Image image) throws SlickException {
-        Graphics g = (Graphics) graphics.get(image.getTexture());
+    public static Graphics getGraphicsForImage(@Nonnull Image image) throws SlickException {
+        Graphics g = graphics.get(image.getTexture());
 
         if (g == null) {
             g = createGraphics(image);
@@ -103,8 +100,8 @@ public class GraphicsFactory {
      * @param image The image to release
      * @throws SlickException Indicates a failure to release the context
      */
-    public static void releaseGraphicsForImage(Image image) throws SlickException {
-        Graphics g = (Graphics) graphics.remove(image.getTexture());
+    public static void releaseGraphicsForImage(@Nonnull Image image) {
+        Graphics g = graphics.remove(image.getTexture());
 
         if (g != null) {
             g.destroy();
@@ -118,7 +115,8 @@ public class GraphicsFactory {
      * @return The graphics context created
      * @throws SlickException
      */
-    private static Graphics createGraphics(Image image) throws SlickException {
+    @Nonnull
+    private static Graphics createGraphics(@Nonnull Image image) throws SlickException {
         init();
 
         if (fbo) {

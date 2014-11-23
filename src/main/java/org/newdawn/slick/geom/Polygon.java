@@ -1,5 +1,6 @@
 package org.newdawn.slick.geom;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class Polygon extends Shape {
      * 
      * @param points An array of points in x, y order.
      */
-    public Polygon(float points[]) {
+    private Polygon(@Nonnull float points[]) {
         int length = points.length;
         
         this.points = new float[length];
@@ -99,15 +100,15 @@ public class Polygon extends Shape {
         }
 
         final List<Float> tempPoints = new ArrayList<>();
-        for(int i=0;i<points.length;i++) {
-            tempPoints.add(new Float(points[i]));
+        for (float point : points) {
+            tempPoints.add(point);
         }
-        tempPoints.add(new Float(x));
-        tempPoints.add(new Float(y));
+        tempPoints.add(x);
+        tempPoints.add(y);
         int length = tempPoints.size();
         points = new float[length];
         for(int i=0;i<length;i++) {
-            points[i] = tempPoints.get(i).floatValue();
+            points[i] = tempPoints.get(i);
         }
         if(x > maxX) {
             maxX = x;
@@ -135,7 +136,8 @@ public class Polygon extends Shape {
      * @param transform The transform to be applied
      * @return The transformed shape.
      */
-    public Shape transform(Transform transform) {
+    @Nonnull
+    public Shape transform(@Nonnull Transform transform) {
         checkPoints();
         
         Polygon resultPolygon = new Polygon();
@@ -195,6 +197,7 @@ public class Polygon extends Shape {
      *
      * @return A copy of this polygon
      */
+    @Nonnull
     public Polygon copy() {
         float[] copyPoints = new float[points.length];
         System.arraycopy(points, 0, copyPoints, 0, copyPoints.length);

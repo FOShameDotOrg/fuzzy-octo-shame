@@ -9,6 +9,9 @@ import java.util.List;
 
 import org.newdawn.slick.util.Log;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A composite data source that checks multiple loaders in order of
  * preference
@@ -17,7 +20,8 @@ import org.newdawn.slick.util.Log;
  */
 public class CompositeImageData implements LoadableImageData  {
     /** The list of images sources in order of preference to try loading the data with */
-    private List<LoadableImageData> sources = new ArrayList<>();
+    @Nonnull
+    private final List<LoadableImageData> sources = new ArrayList<>();
     /** The data source that worked and was used - or null if no luck */
     private LoadableImageData picked;
 
@@ -33,21 +37,24 @@ public class CompositeImageData implements LoadableImageData  {
     /**
      * @see org.newdawn.slick.opengl.LoadableImageData#loadImage(java.io.InputStream)
      */
-    public ByteBuffer loadImage(InputStream fis) throws IOException {
+    @Nullable
+    public ByteBuffer loadImage(@Nonnull InputStream fis) throws IOException {
         return loadImage(fis, false, null);
     }
 
     /**
      * @see org.newdawn.slick.opengl.LoadableImageData#loadImage(java.io.InputStream, boolean, int[])
      */
-    public ByteBuffer loadImage(InputStream fis, boolean flipped, int[] transparent) throws IOException {
+    @Nullable
+    public ByteBuffer loadImage(@Nonnull InputStream fis, boolean flipped, @Nullable int[] transparent) throws IOException {
         return loadImage(fis, flipped, false, transparent);
     }
 
     /**
      * @see org.newdawn.slick.opengl.LoadableImageData#loadImage(java.io.InputStream, boolean, boolean, int[])
      */
-    public ByteBuffer loadImage(InputStream is, boolean flipped, boolean forceAlpha, int[] transparent) throws IOException {
+    @Nullable
+    public ByteBuffer loadImage(@Nonnull InputStream is, boolean flipped, boolean forceAlpha, @Nullable int[] transparent) throws IOException {
         CompositeIOException exception = new CompositeIOException();
         ByteBuffer buffer = null;
 
@@ -55,16 +62,16 @@ public class CompositeImageData implements LoadableImageData  {
         in.mark(is.available());
 
         // cycle through our source until one of them works
-        for (int i=0;i<sources.size();i++) {
+        for (LoadableImageData source : sources) {
             in.reset();
             try {
-                LoadableImageData data = (LoadableImageData) sources.get(i);
+                LoadableImageData data = source;
 
                 buffer = data.loadImage(in, flipped, forceAlpha, transparent);
                 picked = data;
                 break;
             } catch (Exception e) {
-                Log.warn(sources.get(i).getClass()+" failed to read the data", e);
+                Log.warn(source.getClass() + " failed to read the data", e);
                 exception.addException(e);
             }
         }
@@ -144,8 +151,8 @@ public class CompositeImageData implements LoadableImageData  {
      * @see org.newdawn.slick.opengl.LoadableImageData#configureEdging(boolean)
      */
     public void configureEdging(boolean edging) {
-        for (int i=0;i<sources.size();i++) {
-            ((LoadableImageData) sources.get(i)).configureEdging(edging);
+        for (LoadableImageData source : sources) {
+            source.configureEdging(edging);
         }
     }
 

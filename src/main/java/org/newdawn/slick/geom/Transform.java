@@ -2,6 +2,8 @@ package org.newdawn.slick.geom;
 
 import org.newdawn.slick.util.FastTrig;
 
+import javax.annotation.Nonnull;
+
 /**   
  * A 2 dimensional transformation that can be applied to <code>Shape</code> implemenations.   
  *    
@@ -29,12 +31,10 @@ public class Transform {
      * Copy a transform
      * 
      * @param other The other transform to copy
-     */   
-    public Transform(Transform other) {   
+     */
+    private Transform(@Nonnull Transform other) {
         matrixPosition = new float[9];
-        for (int i=0;i<9;i++) {
-            matrixPosition[i] = other.matrixPosition[i];
-        }
+        System.arraycopy(other.matrixPosition, 0, matrixPosition, 0, 9);
     }   
        
     /**
@@ -43,7 +43,7 @@ public class Transform {
      * @param t1 The first transform to join
      * @param t2 The second transform to join
      */
-    public Transform(Transform t1, Transform t2) {
+    public Transform(@Nonnull Transform t1, @Nonnull Transform t2) {
         this(t1);
         concatenate(t2);
     }
@@ -54,7 +54,7 @@ public class Transform {
      * @param matrixPosition An array of float[6] to set up a transform   
      * @throws RuntimeException if the array is not of length 6   
      */   
-    public Transform(float matrixPosition[]) {   
+    public Transform(@Nonnull float matrixPosition[]) {
         if(matrixPosition.length != 6) {   
             throw new RuntimeException("The parameter must be a float array of length 6.");   
         }   
@@ -72,8 +72,8 @@ public class Transform {
      * @param point10 float for the fourth position   
      * @param point11 float for the fifth position   
      * @param point12 float for the sixth position   
-     */   
-    public Transform(float point00, float point01, float point02, float point10, float point11, float point12) {   
+     */
+    private Transform(float point00, float point01, float point02, float point10, float point11, float point12) {
         matrixPosition = new float[]{point00, point01, point02, point10, point11, point12, 0, 0, 1};   
     }   
        
@@ -114,7 +114,8 @@ public class Transform {
      * @param tx The Transfrom to concatenate to this one.   
      * @return The resulting Transform   
      */   
-    public Transform concatenate(Transform tx) {   
+    @Nonnull
+    Transform concatenate(@Nonnull Transform tx) {
         float[] mp = new float[9];
         float n00 = matrixPosition[0] * tx.matrixPosition[0] + matrixPosition[1] * tx.matrixPosition[3];
         float n01 = matrixPosition[0] * tx.matrixPosition[1] + matrixPosition[1] * tx.matrixPosition[4];
@@ -146,12 +147,13 @@ public class Transform {
      *    
      * @return This Transform in human readable format.   
      */   
-    public String toString() {   
+    @Nonnull
+    public String toString() {
         String result = "Transform[[" + matrixPosition[0] + "," + matrixPosition[1] + "," + matrixPosition[2] +    
         "][" + matrixPosition[3] + "," + matrixPosition[4] + "," + matrixPosition[5] + 
         "][" + matrixPosition[6] + "," + matrixPosition[7] + "," + matrixPosition[8] + "]]";   
            
-        return result.toString();   
+        return result;
     }   
    
     /**   
@@ -169,7 +171,8 @@ public class Transform {
      * @param angle The angle in radians to set the transform.   
      * @return The resulting Transform   
      */   
-    public static Transform createRotateTransform(float angle) {   
+    @Nonnull
+    private static Transform createRotateTransform(float angle) {
         return new Transform((float)FastTrig.cos(angle), -(float)FastTrig.sin(angle), 0, (float)FastTrig.sin(angle), (float)FastTrig.cos(angle), 0);   
     }   
        
@@ -181,7 +184,8 @@ public class Transform {
      * @param y The y coordinate around which to rotate.   
      * @return The resulting Transform   
      */   
-    public static Transform createRotateTransform(float angle, float x, float y) {   
+    @Nonnull
+    public static Transform createRotateTransform(float angle, float x, float y) {
         Transform temp = Transform.createRotateTransform(angle);
         float sinAngle = temp.matrixPosition[3];
         float oneMinusCosAngle = 1.0f - temp.matrixPosition[4];
@@ -198,7 +202,8 @@ public class Transform {
      * @param yOffset The amount to move in the y direction   
      * @return The resulting Transform   
      */   
-    public static Transform createTranslateTransform(float xOffset, float yOffset) {   
+    @Nonnull
+    public static Transform createTranslateTransform(float xOffset, float yOffset) {
         return new Transform(1, 0, xOffset, 0, 1, yOffset);   
     }   
        
@@ -209,7 +214,8 @@ public class Transform {
      * @param yScale The amount to scale in the x coordinate   
      * @return The resulting Transform   
      */   
-    public static Transform createScaleTransform(float xScale, float yScale) {   
+    @Nonnull
+    public static Transform createScaleTransform(float xScale, float yScale) {
         return new Transform(xScale, 0, 0, 0, yScale, 0);   
     }
     
@@ -219,7 +225,8 @@ public class Transform {
      * @param pt The point to be transformed
      * @return The resulting point transformed by this matrix
      */
-    public Vector2f transform(Vector2f pt) {
+    @Nonnull
+    public Vector2f transform(@Nonnull Vector2f pt) {
         float[] in = new float[] {pt.x, pt.y};
         float[] out = new float[2];
 

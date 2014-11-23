@@ -24,6 +24,9 @@ import org.newdawn.slick.opengl.renderer.Renderer;
 import org.newdawn.slick.opengl.renderer.SGL;
 import org.newdawn.slick.util.ResourceLoader;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A texture loaded based on many old versions that will load image data from a file
  * and produce OpenGL textures.
@@ -35,7 +38,7 @@ import org.newdawn.slick.util.ResourceLoader;
 public class InternalTextureLoader {
 
     /** Useful for debugging; keeps track of the current number of active textures. */
-    static int textureCount = 0;
+    private static int textureCount = 0;
     
     private static boolean forcePOT = true;
     
@@ -51,7 +54,7 @@ public class InternalTextureLoader {
      *   
      * @return true if we should ensure POT sized textures, flase if we should attempt to use NPOT if supported
      */
-    public static boolean isForcePOT() {
+    private static boolean isForcePOT() {
         return forcePOT;
     }
     
@@ -82,7 +85,7 @@ public class InternalTextureLoader {
      *
      * @return A new texture ID
      */
-    public static int createTextureID() { 
+    private static int createTextureID() {
        IntBuffer tmp = createIntBuffer(1); 
        GL.glGenTextures(tmp);
        textureCount++;
@@ -109,7 +112,7 @@ public class InternalTextureLoader {
      *
      * @return whether the version is >= 1.4 or GL_EXT_framebuffer_object extension exists
      */
-    public static boolean isGenerateMipmapSupported() {
+    private static boolean isGenerateMipmapSupported() {
         return GLContext.getCapabilities().OpenGL14 || GLContext.getCapabilities().GL_EXT_framebuffer_object;
     }
 
@@ -120,14 +123,14 @@ public class InternalTextureLoader {
      *
      * @return true if the extension is listed
      */
-    public static boolean isNPOTSupported() {
+    private static boolean isNPOTSupported() {
         //don't check GL20, nvidia/ATI usually don't advertise this extension
         //if it means requiring software fallback
         return GLContext.getCapabilities().GL_ARB_texture_non_power_of_two;
     }
 
     /** The renderer to use for all GL operations */
-    protected static SGL GL = Renderer.get();
+    private static final SGL GL = Renderer.get();
     /** The standard texture loaded used everywhere */
     private static final InternalTextureLoader loader = new InternalTextureLoader();
 
@@ -136,14 +139,17 @@ public class InternalTextureLoader {
      *
      * @return The single instance of the texture loader
      */
+    @Nonnull
     public static InternalTextureLoader get() {
         return loader;
     }
 
     /** The table of textures that have been loaded in this loader */
-    private HashMap<String, TextureImpl> texturesLinear = new HashMap<String, TextureImpl>();
+    @Nonnull
+    private final HashMap<String, TextureImpl> texturesLinear = new HashMap<>();
     /** The table of textures that have been loaded in this loader */
-    private HashMap<String, TextureImpl> texturesNearest = new HashMap<String, TextureImpl>();
+    @Nonnull
+    private final HashMap<String, TextureImpl> texturesNearest = new HashMap<>();
     /** The destination pixel format */
     private int dstPixelFormat = SGL.GL_RGBA8;
     /** True if we're using deferred loading */
@@ -221,7 +227,8 @@ public class InternalTextureLoader {
      * @return The texture loaded
      * @throws IOException Indicates a failure to load the image
      */
-    public Texture getTexture(File source, boolean flipped,int filter) throws IOException {
+    @Nullable
+    public Texture getTexture(@Nonnull File source, boolean flipped,int filter) throws IOException {
         String resourceName = source.getAbsolutePath();
         InputStream in = new FileInputStream(source);
 
@@ -238,7 +245,8 @@ public class InternalTextureLoader {
      * @return The texture loaded
      * @throws IOException Indicates a failure to load the image
      */
-    public Texture getTexture(File source, boolean flipped,int filter, int[] transparent) throws IOException {
+    @Nullable
+    public Texture getTexture(@Nonnull File source, boolean flipped,int filter, int[] transparent) throws IOException {
         String resourceName = source.getAbsolutePath();
         InputStream in = new FileInputStream(source);
 
@@ -254,6 +262,7 @@ public class InternalTextureLoader {
      * @return The texture loaded
      * @throws IOException Indicates a failure to load the image
      */
+    @Nullable
     public Texture getTexture(String resourceName, boolean flipped, int filter) throws IOException {
         InputStream in = ResourceLoader.getResourceAsStream(resourceName);
 
@@ -270,7 +279,8 @@ public class InternalTextureLoader {
      * @return The texture loaded
      * @throws IOException Indicates a failure to load the image
      */
-    public Texture getTexture(String resourceName, boolean flipped, int filter, int[] transparent) throws IOException {
+    @Nullable
+    public Texture getTexture(String resourceName, boolean flipped, int filter, @Nullable int[] transparent) throws IOException {
         InputStream in = ResourceLoader.getResourceAsStream(resourceName);
 
         return getTexture(in, resourceName, flipped, filter, transparent);
@@ -285,7 +295,8 @@ public class InternalTextureLoader {
      * @return The texture loaded
      * @throws IOException Indicates a failure to load the image
      */
-    public Texture getTexture(InputStream in, String resourceName, boolean flipped, int filter) throws IOException {
+    @Nullable
+    public Texture getTexture(@Nonnull InputStream in, String resourceName, boolean flipped, int filter) throws IOException {
         return getTexture(in, resourceName, flipped, filter, null);
     }
     
@@ -300,7 +311,8 @@ public class InternalTextureLoader {
      * @return The texture loaded
      * @throws IOException Indicates a failure to load the image
      */
-    public TextureImpl getTexture(InputStream in, String resourceName, boolean flipped, int filter, int[] transparent) throws IOException {
+    @Nullable
+    public TextureImpl getTexture(@Nonnull InputStream in, String resourceName, boolean flipped, int filter, @Nullable int[] transparent) throws IOException {
         if (deferred) {
             return new DeferredTexture(in, resourceName, flipped, filter, transparent);
         }
@@ -317,19 +329,17 @@ public class InternalTextureLoader {
         resName += ":"+flipped;
         
         if (holdTextureData) {
-            TextureImpl tex = (TextureImpl)  hash.get(resName);
+            TextureImpl tex = hash.get(resName);
             if (tex != null) {
                 return tex;
             }
         } else {
             SoftReference<TextureImpl> ref = new SoftReference<>(hash.get(resName)); //FIXME Test
-            if (ref != null) {
-                TextureImpl tex = (TextureImpl) ref.get();
-                if (tex != null) {
-                    return tex;
-                } else {
-                    hash.remove(resName);
-                }
+            TextureImpl tex = ref.get();
+            if (tex != null) {
+                return tex;
+            } else {
+                hash.remove(resName);
             }
         }
         
@@ -348,16 +358,17 @@ public class InternalTextureLoader {
         if (holdTextureData) {
             hash.put(resName, tex);
         } else {
-            final SoftReference<TextureImpl> textureSoftReference = new SoftReference<TextureImpl>(tex);
+            final SoftReference<TextureImpl> textureSoftReference = new SoftReference<>(tex);
             hash.put(resName, textureSoftReference.get());
         }
         
         return tex;
     }
     
-    private TextureImpl getTexture(InputStream in, String resourceName, 
+    @Nonnull
+    private TextureImpl getTexture(@Nonnull InputStream in, String resourceName,
                             int target,  int minFilter,  int magFilter,
-                            boolean flipped, int[] transparent) throws IOException {
+                            boolean flipped, @Nullable int[] transparent) throws IOException {
         // create the texture ID for this texture
         ByteBuffer textureBuffer;
         
@@ -456,13 +467,14 @@ public class InternalTextureLoader {
      * @return The texture loaded
      * @throws IOException Indicates a failure to load the image
      */
-    public TextureImpl createTexture(ImageData data, ByteBuffer buffer,
+    @Nonnull
+    public TextureImpl createTexture(@Nonnull ImageData data, ByteBuffer buffer,
                           String ref,
                           int target, 
                           int minFilter, 
                           int magFilter, 
                           boolean genMipmaps,
-                          ImageData.Format internalFormat) throws IOException { 
+                          @Nullable ImageData.Format internalFormat) throws IOException {
         int textureID = createTextureID();
         TextureImpl texture = new TextureImpl(ref, target, textureID); 
         // bind this texture 
@@ -556,6 +568,7 @@ public class InternalTextureLoader {
      * @return The created empty texture
      * @throws IOException Indicates a failure to create the texture on the graphics hardware
      */
+    @Nonnull
     public Texture createTexture(final int width, final int height) throws IOException {
         return createTexture(width, height, SGL.GL_NEAREST);
     }
@@ -568,6 +581,7 @@ public class InternalTextureLoader {
      * @return The created empty texture
      * @throws IOException Indicates a failure to create the texture on the graphics hardware
      */
+    @Nonnull
     public Texture createTexture(final int width, final int height, final int filter) throws IOException {
         ImageData ds = new EmptyImageData(width, height);
 
@@ -582,7 +596,8 @@ public class InternalTextureLoader {
      * @return The texture created
      * @throws IOException Indicates the texture is too big for the hardware
      */
-    public Texture getTexture(ImageData dataSource, int filter) throws IOException
+    @Nonnull
+    public Texture getTexture(@Nonnull ImageData dataSource, int filter) throws IOException
     { 
         int target = SGL.GL_TEXTURE_2D;
 
@@ -595,8 +610,6 @@ public class InternalTextureLoader {
         
         int minFilter = filter;
         int magFilter = filter;
-        boolean flipped = false;
-        
         // bind this texture 
         GL.glEnable(target);
         GL.glBindTexture(target, textureID); 
@@ -674,7 +687,8 @@ public class InternalTextureLoader {
      * @param size how many int to contain
      * @return created IntBuffer
      */
-    public static IntBuffer createIntBuffer(int size) {
+    @Nonnull
+    private static IntBuffer createIntBuffer(int size) {
       ByteBuffer temp = ByteBuffer.allocateDirect(4 * size);
       temp.order(ByteOrder.nativeOrder());
 
@@ -707,7 +721,7 @@ public class InternalTextureLoader {
      * @param textureBuffer The pixel data 
      * @return The ID of the newly created texture
      */
-    public int reload(TextureImpl texture, int srcPixelFormat, int componentCount,
+    public int reload(@Nonnull TextureImpl texture, int srcPixelFormat, int componentCount,
             int minFilter, int magFilter, ByteBuffer textureBuffer) {
         int target = SGL.GL_TEXTURE_2D;
         int textureID = createTextureID();

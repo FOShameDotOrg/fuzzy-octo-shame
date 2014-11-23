@@ -1,5 +1,6 @@
 package org.newdawn.slick.opengl;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -36,7 +37,7 @@ public interface LoadableImageData extends ImageData {
      * @return The byte buffer containing texture data
      * @throws IOException Indicates a failure to read the TGA
      */
-    public ByteBuffer loadImage(InputStream fis, boolean flipped, int[] transparent)
+    public ByteBuffer loadImage(InputStream fis, boolean flipped, @Nullable int[] transparent)
             throws IOException;
 
     /**
@@ -49,6 +50,6 @@ public interface LoadableImageData extends ImageData {
      * @return The byte buffer containing texture data
      * @throws IOException Indicates a failure to read the TGA
      */
-    public ByteBuffer loadImage(InputStream fis, boolean flipped, boolean forceAlpha, int[] transparent)
+    public ByteBuffer loadImage(InputStream fis, boolean flipped, boolean forceAlpha, @Nullable int[] transparent)
             throws IOException;
 }

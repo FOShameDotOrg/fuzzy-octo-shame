@@ -1,5 +1,7 @@
 package com.jed.util;
 
+import javax.annotation.Nonnull;
+
 /**
  * 
  * @author jlinde, Peter Colapietro
@@ -40,7 +42,7 @@ public class Vector3f {
      * @param o other vector
      * @return distance between the this and o.
      */
-    public double distance(final Vector3f o) {
+    public double distance(@Nonnull final Vector3f o) {
         double axBx = x - o.x;
         axBx = Math.pow(axBx, 2.0d);
         double ayBy = (y - o.y);
@@ -53,7 +55,8 @@ public class Vector3f {
      * @param o other vector.
      * @return resultant vector of adding this and o. 
      */
-    public Vector3f add(Vector3f o) {
+    @Nonnull
+    public Vector3f add(@Nonnull Vector3f o) {
         return new Vector3f(this.x + o.x, this.y + o.y);
     }
 
@@ -62,7 +65,8 @@ public class Vector3f {
      * @param o other vector.
      * @return resultant vector of subtracting o from this.
      */
-    public Vector3f subtract(Vector3f o) {
+    @Nonnull
+    public Vector3f subtract(@Nonnull Vector3f o) {
         return new Vector3f(o.x - this.x, o.y - this.y);
     }
 
@@ -92,7 +96,7 @@ public class Vector3f {
      * @param v1 second operand operand, where this vector is the first.
      * @return dot product.
      */
-    public double dotProduct(Vector3f v1) {
+    public double dotProduct(@Nonnull Vector3f v1) {
         return x * v1.x + y * v1.y;
     }
 
@@ -100,6 +104,7 @@ public class Vector3f {
      * 
      * @return normalized vector.
      */
+    @Nonnull
     public Vector3f normalize() {
         Vector3f v2 = new Vector3f();
 
@@ -117,6 +122,7 @@ public class Vector3f {
      * @param scaleFactor factor to scale vector by.
      * @return new scaled vector.
      */
+    @Nonnull
     public Vector3f scale(float scaleFactor) {
         return new Vector3f(x * scaleFactor, y * scaleFactor);
     }
@@ -125,6 +131,7 @@ public class Vector3f {
      * 
      * @return a copy of this vector.
      */
+    @Nonnull
     public Vector3f copy() {
         return new Vector3f(x, y);
     }

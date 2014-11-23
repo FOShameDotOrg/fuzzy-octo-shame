@@ -1,5 +1,6 @@
 package com.jed.state;
 
+import javax.annotation.Nonnull;
 import java.util.Stack;
 
 /**
@@ -78,8 +79,9 @@ public class GameStateManager {
          */
         private static final long serialVersionUID = 1L;
 
+        @Nonnull
         @Override
-        public AbstractGameState push(AbstractGameState o) {
+        public AbstractGameState push(@Nonnull AbstractGameState o) {
             super.push(o);
             o.entered();
             return o;

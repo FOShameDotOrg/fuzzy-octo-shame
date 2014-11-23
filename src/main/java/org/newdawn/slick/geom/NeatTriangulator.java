@@ -1,6 +1,9 @@
 package org.newdawn.slick.geom;
 
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A second triangulator that seems slightly more robust
  * 
@@ -14,7 +17,7 @@ public class NeatTriangulator implements Triangulator
     private static final long serialVersionUID = 1L;
 
     /** The error factor */
-    static final float EPSILON = 1E-006F;
+    private static final float EPSILON = 1E-006F;
     
     /** The x coordinates */
     private float pointsX[];
@@ -25,6 +28,7 @@ public class NeatTriangulator implements Triangulator
     /** The edges defines by triangulation */
     private Edge edges[];
     /** Voroni */
+    @Nullable
     private int V[];
     /** The number of edges found */
     private int numEdges;
@@ -138,27 +142,6 @@ public class NeatTriangulator implements Triangulator
     }
 
     /**
-     * Remove and edge identified by it's verts
-     * 
-     * @param i The index of the first vert
-     * @param j The index of the second vert
-     * @throws InternalException Indicates the edge didn't exist
-     */
-    private void deleteEdge(int i, int j) throws InternalException
-    {
-        int k;
-        if(0 > (k = findEdge(i, j)))
-        {
-            throw new InternalException("Attempt to delete unknown edge");
-        } 
-        else
-        {
-            edges[k] = edges[--numEdges];
-            return;
-        }
-    }
-
-    /**
      * Mark an edge as either a suspect or not
      * 
      * @param i The index of the first vert
@@ -175,65 +158,6 @@ public class NeatTriangulator implements Triangulator
         } else
         {
             edges[k].suspect = flag;
-            return;
-        }
-    }
-
-    /**
-     * Choose the suspect to become part of the triangle
-     * 
-     * @return The edge selected
-     */
-    private Edge chooseSuspect()
-    {
-        for(int i = 0; i < numEdges; i++)
-        {
-            Edge edge = edges[i];
-            if(edge.suspect)
-            {
-                edge.suspect = false;
-                if(edge.t0 >= 0 && edge.t1 >= 0)
-                    return edge;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Factor rho.
-     * 
-     * @param f Factor 1
-     * @param f1 Factor 2
-     * @param f2 Factor 3
-     * @param f3 Factor 4
-     * @param f4 Factor 5
-     * @param f5 Factor 6
-     * @return The computation of rho
-     */
-    private static float rho(float f, float f1, float f2, float f3, float f4, float f5)
-    {
-        float f6 = f4 - f2;
-        float f7 = f5 - f3;
-        float f8 = f - f4;
-        float f9 = f1 - f5;
-        float f18 = f6 * f9 - f7 * f8;
-        if(f18 > 0.0F)
-        {
-            if(f18 < 1E-006F)
-                f18 = 1E-006F;
-            float f12 = f6 * f6;
-            float f13 = f7 * f7;
-            float f14 = f8 * f8;
-            float f15 = f9 * f9;
-            float f10 = f2 - f;
-            float f11 = f3 - f1;
-            float f16 = f10 * f10;
-            float f17 = f11 * f11;
-            return ((f12 + f13) * (f14 + f15) * (f16 + f17)) / (f18 * f18);
-        } else
-        {
-            return -1F;
         }
     }
 
@@ -326,7 +250,7 @@ public class NeatTriangulator implements Triangulator
      * 
      * @throws InternalException Indicates a polygon that can't be triangulated
      */
-    public void basicTriangulation() throws InternalException
+    void basicTriangulation() throws InternalException
     {
         int i = numPoints;
         if(i < 3)
@@ -394,92 +318,6 @@ public class NeatTriangulator implements Triangulator
     }
 
     /**
-     * Optimize the triangulation by applying delauney rules
-     * 
-     * @throws InternalException Indicates an invalid polygon
-     */
-    private void optimize() throws InternalException
-    {
-        do
-        {
-            Edge edge;
-            if ((edge = chooseSuspect()) == null) {
-                break;
-            }
-            int i1 = edge.v0;
-            int k1 = edge.v1;
-            int i = edge.t0;
-            int j = edge.t1;
-            int j1 = -1;
-            int l1 = -1;
-            for (int k = 0; k < 3; k++)
-            {
-                int i2 = triangles[i].v[k];
-                if(i1 == i2 || k1 == i2) {
-                    continue;
-                }
-                l1 = i2;
-                break;
-            }
-
-            for (int l = 0; l < 3; l++)
-            {
-                int j2 = triangles[j].v[l];
-                if(i1 == j2 || k1 == j2) {
-                    continue;
-                }
-                j1 = j2;
-                break;
-            }
-
-            if(-1 == j1 || -1 == l1) {
-                throw new InternalException("can't find quad");
-            }
-            
-            float f = pointsX[i1];
-            float f1 = pointsY[i1];
-            float f2 = pointsX[j1];
-            float f3 = pointsY[j1];
-            float f4 = pointsX[k1];
-            float f5 = pointsY[k1];
-            float f6 = pointsX[l1];
-            float f7 = pointsY[l1];
-            float f8 = rho(f, f1, f2, f3, f4, f5);
-            float f9 = rho(f, f1, f4, f5, f6, f7);
-            float f10 = rho(f2, f3, f4, f5, f6, f7);
-            float f11 = rho(f2, f3, f6, f7, f, f1);
-            if(0.0F > f8 || 0.0F > f9) {
-                throw new InternalException("original triangles backwards");
-            }
-            if(0.0F <= f10 && 0.0F <= f11)
-            {
-                if(f8 > f9) {
-                    f8 = f9;
-                }
-                if(f10 > f11) {
-                    f10 = f11;
-                }
-                if(f8 > f10) {
-                    deleteEdge(i1, k1);
-                    triangles[i].v[0] = j1;
-                    triangles[i].v[1] = k1;
-                    triangles[i].v[2] = l1;
-                    triangles[j].v[0] = j1;
-                    triangles[j].v[1] = l1;
-                    triangles[j].v[2] = i1;
-                    addEdge(j1, k1, i);
-                    addEdge(k1, l1, i);
-                    addEdge(l1, j1, i);
-                    addEdge(l1, i1, j);
-                    addEdge(i1, j1, j);
-                    addEdge(j1, l1, j);
-                    markSuspect(j1, l1, false);
-                }
-            }
-        } while(true);
-    }
-
-    /**
      * Upate the triangles
      */
     public boolean triangulate()
@@ -533,7 +371,7 @@ public class NeatTriangulator implements Triangulator
     class Triangle
     {
         /** The vertices index */
-        int v[];
+        final int[] v;
 
         /**
          * Create a new triangle
@@ -612,6 +450,7 @@ public class NeatTriangulator implements Triangulator
     /**
      * @see org.newdawn.slick.geom.Triangulator#getTrianglePoint(int, int)
      */
+    @Nonnull
     public float[] getTrianglePoint(int tri, int i) {
         float xp = pointsX[triangles[tri].v[i]];
         float yp = pointsY[triangles[tri].v[i]];

@@ -3,6 +3,8 @@ package com.jed.actor;
 import com.jed.util.Vector3f;
 import org.lwjgl.opengl.GL11;
 
+import javax.annotation.Nonnull;
+
 /**
  * 
  * @author jlinde, Peter Colapietro
@@ -35,7 +37,7 @@ public class PolygonBoundary extends Boundary {
      * @param position position vector
      * @param vertices array of vertices
      */
-    public PolygonBoundary(final Vector3f position, final Vector3f[] vertices) {
+    public PolygonBoundary(final Vector3f position, @Nonnull final Vector3f[] vertices) {
         super(position, vertices);
 
         //Find Max Bounds for quad tree

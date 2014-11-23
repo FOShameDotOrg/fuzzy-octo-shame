@@ -9,6 +9,9 @@ import org.newdawn.slick.opengl.renderer.Renderer;
 import org.newdawn.slick.opengl.renderer.SGL;
 import org.newdawn.slick.util.Log;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A texture to be bound within JOGL. This object is responsible for 
  * keeping track of a given OpenGL texture and for calculating the
@@ -24,16 +27,18 @@ import org.newdawn.slick.util.Log;
  */
 public class TextureImpl implements Texture {
     /** The renderer to use for all GL operations */
-    protected static SGL GL = Renderer.get();
+    private static final SGL GL = Renderer.get();
 
     /** The last texture that was bound to */
-    static Texture lastBind;
+    @Nullable
+    private static Texture lastBind;
 
     /**
      * Retrieve the last texture bound through the texture interface
      *
      * @return The last texture bound
      */
+    @Nullable
     public static Texture getLastBind() {
         return lastBind;
     }
@@ -67,7 +72,7 @@ public class TextureImpl implements Texture {
     /**
      * For subclasses to utilise
      */
-    protected TextureImpl() {
+    TextureImpl() {
     }
     
     /**
@@ -282,7 +287,7 @@ public class TextureImpl implements Texture {
      * 
      * @param textureID The OpenGL texture ID
      */
-    public void setTextureID(int textureID) {
+    void setTextureID(int textureID) {
         this.textureID = textureID;
     }
     
@@ -293,6 +298,7 @@ public class TextureImpl implements Texture {
      * @param size how many int to contain
      * @return created IntBuffer
      */
+    @Nonnull
     protected IntBuffer createIntBuffer(int size) {
       ByteBuffer temp = ByteBuffer.allocateDirect(4 * size);
       temp.order(ByteOrder.nativeOrder());

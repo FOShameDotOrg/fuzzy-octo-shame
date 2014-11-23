@@ -3,6 +3,8 @@ package com.jed.actor;
 import com.jed.core.Displayable;
 import com.jed.util.Vector3f;
 
+import javax.annotation.Nonnull;
+
 /**
  * 
  * @author jlinde, Peter Colapietro
@@ -75,6 +77,7 @@ public abstract class Boundary implements Displayable {
      * 
      * @return world position.
      */
+    @Nonnull
     public Vector3f getWorldPosition() {
         return owner.position.add(position);
     }
@@ -83,6 +86,7 @@ public abstract class Boundary implements Displayable {
      * 
      * @return next world position.
      */
+    @Nonnull
     public Vector3f getNextWorldPosition() {
         return getWorldPosition().add(owner.movement);
     }

@@ -9,6 +9,9 @@ import java.awt.font.GlyphVector;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.UnicodeFont;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * Represents the glyph in a font for a unicode codepoint.
  * 
@@ -16,7 +19,7 @@ import org.newdawn.slick.UnicodeFont;
  */
 public class Glyph {
     /** The code point in which this glyph is found */
-    private int codePoint;
+    private final int codePoint;
     /** The width of this glyph in pixels */
     private short width;
     /** The height of this glyph in pixels */
@@ -24,7 +27,7 @@ public class Glyph {
     /** The offset on the y axis to draw the glyph at */
     private short yOffset;
     /** True if the glyph isn't defined */
-    private boolean isMissing;
+    private final boolean isMissing;
     /** The shape drawn for this glyph */
     private Shape shape;
     /** The image generated for this glyph */
@@ -39,7 +42,7 @@ public class Glyph {
      * @param index The index of this glyph within the vector
      * @param unicodeFont The font this glyph forms part of
      */
-    public Glyph(int codePoint, Rectangle bounds, GlyphVector vector, int index, UnicodeFont unicodeFont) {
+    public Glyph(int codePoint, @Nonnull Rectangle bounds, @Nonnull GlyphVector vector, int index, @Nonnull UnicodeFont unicodeFont) {
         this.codePoint = codePoint;
 
         GlyphMetrics metrics = vector.getGlyphMetrics(index);
@@ -117,7 +120,7 @@ public class Glyph {
      *
      * @param shape The shape that should be drawn for this glyph
      */
-    public void setShape(Shape shape) {
+    public void setShape(@Nullable Shape shape) {
         this.shape = shape;
     }
 

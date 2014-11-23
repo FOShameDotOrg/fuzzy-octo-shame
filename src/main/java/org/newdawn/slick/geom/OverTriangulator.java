@@ -1,5 +1,7 @@
 package org.newdawn.slick.geom;
 
+import javax.annotation.Nonnull;
+
 /**
  * A triangulator implementation that splits the triangules of another, subdividing
  * to give a higher tesselation - and hence smoother transitions.
@@ -12,14 +14,14 @@ public class OverTriangulator implements Triangulator {
      */
     private static final long serialVersionUID = 1L;
     /** The triangles data */
-    private float[][] triangles;
+    private final float[][] triangles;
 
     /**
      * Create a new triangulator
      *
      * @param tris The original set of triangles to be sub-dividied
      */
-    public OverTriangulator(Triangulator tris) {
+    public OverTriangulator(@Nonnull Triangulator tris) {
         triangles = new float[tris.getTriangleCount()*6*3][2];
 
         int tcount = 0;
@@ -47,8 +49,8 @@ public class OverTriangulator implements Triangulator {
                 pt1[0] = (pt1[0] + pt2[0]) / 2;
                 pt1[1] = (pt1[1] + pt2[1]) / 2;
 
-                triangles[(tcount *3) + 0][0] = cx;
-                triangles[(tcount *3) + 0][1] = cy;
+                triangles[(tcount * 3)][0] = cx;
+                triangles[(tcount * 3)][1] = cy;
                 triangles[(tcount *3) + 1][0] = pt1[0];
                 triangles[(tcount *3) + 1][1] = pt1[1];
                 triangles[(tcount *3) + 2][0] = pt2[0];
@@ -68,8 +70,8 @@ public class OverTriangulator implements Triangulator {
                 pt2[0] = (pt1[0] + pt2[0]) / 2;
                 pt2[1] = (pt1[1] + pt2[1]) / 2;
 
-                triangles[(tcount *3) + 0][0] = cx;
-                triangles[(tcount *3) + 0][1] = cy;
+                triangles[(tcount * 3)][0] = cx;
+                triangles[(tcount * 3)][1] = cy;
                 triangles[(tcount *3) + 1][0] = pt1[0];
                 triangles[(tcount *3) + 1][1] = pt1[1];
                 triangles[(tcount *3) + 2][0] = pt2[0];
@@ -95,6 +97,7 @@ public class OverTriangulator implements Triangulator {
     /**
      * @see org.newdawn.slick.geom.Triangulator#getTrianglePoint(int, int)
      */
+    @Nonnull
     public float[] getTrianglePoint(int tri, int i) {
         float[] pt = triangles[(tri * 3)+i];
 

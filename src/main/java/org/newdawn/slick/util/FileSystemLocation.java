@@ -1,5 +1,7 @@
 package org.newdawn.slick.util;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,7 +15,7 @@ import java.net.URL;
  */
 public class FileSystemLocation implements ResourceLocation {
     /** The root of the file system to search */
-    private File root;
+    private final File root;
 
     /**
      * Create a new resoruce location based on the file system
@@ -27,7 +29,8 @@ public class FileSystemLocation implements ResourceLocation {
     /**
      * @see ResourceLocation#getResource(String)
      */
-    public URL getResource(String ref) {
+    @Nullable
+    public URL getResource(@Nonnull String ref) {
         try {
             File file = new File(root, ref);
             if (!file.exists()) {
@@ -46,7 +49,8 @@ public class FileSystemLocation implements ResourceLocation {
     /**
      * @see ResourceLocation#getResourceAsStream(String)
      */
-    public InputStream getResourceAsStream(String ref) {
+    @Nullable
+    public InputStream getResourceAsStream(@Nonnull String ref) {
         try {
             File file = new File(root, ref);
             if (!file.exists()) {

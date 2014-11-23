@@ -9,10 +9,10 @@ import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -37,7 +37,8 @@ import org.newdawn.slick.font.effects.ConfigurableEffect.Value;
  */
 public class EffectUtil {
     /** A graphics 2D temporary surface to be used when generating effects */
-    static private BufferedImage scratchImage = new BufferedImage(GlyphPage.MAX_GLYPH_SIZE, GlyphPage.MAX_GLYPH_SIZE,
+    @Nonnull
+    static private final BufferedImage scratchImage = new BufferedImage(GlyphPage.MAX_GLYPH_SIZE, GlyphPage.MAX_GLYPH_SIZE,
         BufferedImage.TYPE_INT_ARGB);
 
     /**
@@ -45,6 +46,7 @@ public class EffectUtil {
      *
      * @return The scratch image used for temporary operations
      */
+    @Nonnull
     static public BufferedImage getScratchImage() {
         Graphics2D g = (Graphics2D)scratchImage.getGraphics();
         g.setComposite(AlphaComposite.Clear);
@@ -61,7 +63,8 @@ public class EffectUtil {
      * @param currentValue The default value that should be selected
      * @return The value selected
      */
-    static public Value colorValue(String name, Color currentValue) {
+    @Nullable
+    static public Value colorValue(String name, @Nullable Color currentValue) {
         return new DefaultValue(name, EffectUtil.toString(currentValue)) {
             public void showDialog () {
                 Color newColor = JColorChooser.showDialog(null, "Choose a color", EffectUtil.fromString(value));
@@ -82,6 +85,7 @@ public class EffectUtil {
      * @param description The help text to provide
      * @return The value selected by the user
      */
+    @Nonnull
     static public Value intValue (String name, final int currentValue, final String description) {
         return new DefaultValue(name, String.valueOf(currentValue)) {
             public void showDialog () {
@@ -105,6 +109,7 @@ public class EffectUtil {
      * @param max The maximum value to allow
      * @return The value selected by the user
      */
+    @Nonnull
     static public Value floatValue (String name, final float currentValue, final float min, final float max,
         final String description) {
         return new DefaultValue(name, String.valueOf(currentValue)) {
@@ -127,6 +132,7 @@ public class EffectUtil {
      * @param description The help text to provide
      * @return The value selected by the user
      */
+    @Nonnull
     static public Value booleanValue (String name, final boolean currentValue, final String description) {
         return new DefaultValue(name, String.valueOf(currentValue)) {
             public void showDialog () {
@@ -154,8 +160,9 @@ public class EffectUtil {
      * @param description The description of the value
      * @return The value selected by the user
      */
-    static public Value optionValue (String name, final String currentValue, final String[][] options, final String description) {
-        return new DefaultValue(name, currentValue.toString()) {
+    @Nonnull
+    static public Value optionValue (String name, final String currentValue, @Nonnull final String[][] options, final String description) {
+        return new DefaultValue(name, currentValue) {
             public void showDialog () {
                 int selectedIndex = -1;
                 DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
@@ -175,7 +182,7 @@ public class EffectUtil {
 
             public String toString () {
                 for (int i = 0; i < options.length; i++)
-                    if (getValue(i).equals(value)) return options[i][0].toString();
+                    if (getValue(i).equals(value)) return options[i][0];
                 return "";
             }
 
@@ -191,7 +198,8 @@ public class EffectUtil {
      * @param color The color to encode to a string
      * @return The colour as a string
      */
-    static public String toString (Color color) {
+    @Nonnull
+    private static String toString(@Nullable Color color) {
         if (color == null) throw new IllegalArgumentException("color cannot be null.");
         String r = Integer.toHexString(color.getRed());
         if (r.length() == 1) r = "0" + r;
@@ -208,7 +216,7 @@ public class EffectUtil {
      * @param rgb The string encoding the colour
      * @return The colour represented by the given encoded string
      */
-    static public Color fromString (String rgb) {
+    private static Color fromString(@Nullable String rgb) {
         if (rgb == null || rgb.length() != 6) return Color.white;
         return new Color(Integer.parseInt(rgb.substring(0, 2), 16), Integer.parseInt(rgb.substring(2, 4), 16), Integer.parseInt(rgb
             .substring(4, 6), 16));
@@ -221,7 +229,7 @@ public class EffectUtil {
         /** The value being held */
         String value;
         /** The key/name of the value */
-        String name;
+        final String name;
 
         /**
          * Create a default value
@@ -262,7 +270,7 @@ public class EffectUtil {
             if (value == null) {
                 return "";
             }
-            return value.toString();
+            return value;
         }
 
         /**
@@ -272,22 +280,20 @@ public class EffectUtil {
          * @param description The description of the value being prompted for
          * @return True if the value was configured
          */
-        public boolean showValueDialog(final JComponent component, String description) {
+        public boolean showValueDialog(@Nonnull final JComponent component, String description) {
             ValueDialog dialog = new ValueDialog(component, name, description);
             dialog.setTitle(name);
             dialog.setLocationRelativeTo(null);
-            EventQueue.invokeLater(new Runnable() {
-                public void run () {
-                    JComponent focusComponent = component;
-                    if (focusComponent instanceof JSpinner)
-                        focusComponent = ((JSpinner.DefaultEditor)((JSpinner)component).getEditor()).getTextField();
-                    focusComponent.requestFocusInWindow();
-                }
+            EventQueue.invokeLater(() -> {
+                JComponent focusComponent = component;
+                if (focusComponent instanceof JSpinner)
+                    focusComponent = ((JSpinner.DefaultEditor)((JSpinner)component).getEditor()).getTextField();
+                focusComponent.requestFocusInWindow();
             });
             dialog.setVisible(true);
             return dialog.okPressed;
         }
-    };
+    }
 
     /**
      * Provides generic functionality for a dialog to configure a value.
@@ -349,21 +355,15 @@ public class EffectUtil {
             {
                 JButton okButton = new JButton("OK");
                 buttonPanel.add(okButton);
-                okButton.addActionListener(new ActionListener() {
-                    public void actionPerformed (ActionEvent evt) {
-                        okPressed = true;
-                        setVisible(false);
-                    }
+                okButton.addActionListener(evt -> {
+                    okPressed = true;
+                    setVisible(false);
                 });
             }
             {
                 JButton cancelButton = new JButton("Cancel");
                 buttonPanel.add(cancelButton);
-                cancelButton.addActionListener(new ActionListener() {
-                    public void actionPerformed (ActionEvent evt) {
-                        setVisible(false);
-                    }
-                });
+                cancelButton.addActionListener(evt -> setVisible(false));
             }
 
             setSize(new Dimension(320, 175));

@@ -9,6 +9,8 @@ import org.lwjgl.opengl.GL11;
 
 import com.jed.util.Rectangle;
 
+import javax.annotation.Nonnull;
+
 /**
  * 
  * @author jlinde, Peter Colapietro
@@ -34,6 +36,7 @@ public class QuadTree implements Displayable {
     /**
      * 
      */
+    @Nonnull
     private final List<AbstractEntity> objects;
     
     /**
@@ -44,6 +47,7 @@ public class QuadTree implements Displayable {
     /**
      * 
      */
+    @Nonnull
     private final QuadTree[] nodes;
 
     /**
@@ -90,7 +94,7 @@ public class QuadTree implements Displayable {
      * @param returnObjects list of entities
      * @param o other entity
      */
-    public void retrieve(List<AbstractEntity> returnObjects, AbstractEntity o) {
+    public void retrieve(@Nonnull List<AbstractEntity> returnObjects, @Nonnull AbstractEntity o) {
         int index = getIndex(o);
         if (index != -1) {
             if (nodes[0] != null) {
@@ -106,6 +110,7 @@ public class QuadTree implements Displayable {
      * 
      * @return ret
      */
+    @Nonnull
     List<AbstractEntity> getObjects() {
         List<AbstractEntity> ret = new ArrayList<>();
         ret.addAll(objects);
@@ -123,7 +128,7 @@ public class QuadTree implements Displayable {
      * @param o other entity
      * @return index in quad tree, range is 0-3 inclusive.
      */
-    private int getIndex(AbstractEntity o) {
+    private int getIndex(@Nonnull AbstractEntity o) {
         int verticalMidpoint = (int) (position.x + (rectangle.getWidth() / 2));
         int horizontalMidpoint = (int) (position.y + (rectangle.getHeight() / 2));
 
@@ -172,7 +177,7 @@ public class QuadTree implements Displayable {
      * 
      * @param o other entity to insert
      */
-    public void insert(AbstractEntity o) {
+    public void insert(@Nonnull AbstractEntity o) {
         if (nodes[0] != null) {
             int index = getIndex(o);
 

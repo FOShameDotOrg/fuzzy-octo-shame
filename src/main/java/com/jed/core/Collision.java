@@ -257,7 +257,7 @@ public class Collision implements Comparable<Collision> {
          * @param boundary boundary
          * @param axis axis
          */
-        public MinMax(Boundary boundary, Vector3f axis) {
+        public MinMax(@Nonnull Boundary boundary, Vector3f axis) {
             max = boundary.vertices[0].add(boundary.getWorldPosition()).dotProduct(axis);
             min = boundary.vertices[0].add(boundary.getWorldPosition()).dotProduct(axis);
 
@@ -279,7 +279,7 @@ public class Collision implements Comparable<Collision> {
          * @param b another minmax
          * @return interval distance
          */
-        public double getIntervalDistance(MinMax b) {
+        public double getIntervalDistance(@Nonnull MinMax b) {
             if (this.min < b.min) {
                 return b.min - this.max;
             } else {

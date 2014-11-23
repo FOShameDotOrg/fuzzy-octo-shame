@@ -14,6 +14,8 @@ import org.newdawn.slick.opengl.SlickCallable;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.Log;
 
+import javax.annotation.Nonnull;
+
 /**
  * A graphics implementation that renders to an FBO
  *
@@ -21,7 +23,7 @@ import org.newdawn.slick.util.Log;
  */
 public class FBOGraphics extends Graphics {
     /** The image we're we're sort of rendering to */
-    private Image image;
+    private final Image image;
     /** The ID of the FBO in use */
     private int FBO;
     /** True if this context is valid */
@@ -33,7 +35,7 @@ public class FBOGraphics extends Graphics {
      * @param image The image we're rendering to
      * @throws SlickException Indicates a failure to use pbuffers
      */
-    public FBOGraphics(Image image) throws SlickException {
+    public FBOGraphics(@Nonnull Image image) throws SlickException {
         super(InternalTextureLoader.get2Fold(image.getWidth()), InternalTextureLoader.get2Fold(image.getHeight()));
         this.image = image;
 
@@ -186,7 +188,7 @@ public class FBOGraphics extends Graphics {
     /**
      * Initialise the GL context
      */
-    protected void initGL() {
+    void initGL() {
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glShadeModel(GL11.GL_SMOOTH);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
@@ -208,7 +210,7 @@ public class FBOGraphics extends Graphics {
     /**
      * Enter the orthographic mode
      */
-    protected void enterOrtho() {
+    void enterOrtho() {
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
         GL11.glOrtho(0, screenWidth, 0, screenHeight, 1, -1);

@@ -1,5 +1,7 @@
 package org.newdawn.slick.opengl.renderer;
 
+import javax.annotation.Nonnull;
+
 /**
  * A line strip renderer that uses quads to generate lines
  * 
@@ -7,25 +9,26 @@ package org.newdawn.slick.opengl.renderer;
  */
 public class QuadBasedLineStripRenderer implements LineStripRenderer {
     /** The renderer used to interact with GL */
-    private SGL GL = Renderer.get();
+    private final SGL GL = Renderer.get();
 
     /** Maximum number of points allowed in a single strip */
-    public static int MAX_POINTS = 10000;
+    private static final int MAX_POINTS = 10000;
     /** True if antialiasing is currently enabled */
     private boolean antialias;
     /** The width of the lines to draw */
     private float width = 1;
     /** The points to draw */
-    private float[] points;
+    private final float[] points;
     /** The colours to draw */
-    private float[] colours;
+    private final float[] colours;
     /** The number of points to draw */
     private int pts;
     /** The number of colour points recorded */
     private int cpt;
 
     /** The default renderer used when width = 1 */
-    private DefaultLineStripRenderer def = new DefaultLineStripRenderer();
+    @Nonnull
+    private final DefaultLineStripRenderer def = new DefaultLineStripRenderer();
     /** Indicates need to render half colour */
     private boolean renderHalf;
 
@@ -116,7 +119,7 @@ public class QuadBasedLineStripRenderer implements LineStripRenderer {
      * @param points The points to be rendered as lines
      * @param count The number of points to render
      */
-    public void renderLines(float[] points, int count) {
+    void renderLines(float[] points, int count) {
         if (antialias) {
             GL.glEnable(SGL.GL_POLYGON_SMOOTH);
             renderLinesImpl(points,count,width+1f);
@@ -137,7 +140,7 @@ public class QuadBasedLineStripRenderer implements LineStripRenderer {
      * @param count The number of points to render
      * @param w The width to render at
      */
-    public void renderLinesImpl(float[] points, int count, float w) {
+    void renderLinesImpl(float[] points, int count, float w) {
         float width = w / 2;
 
         float lastx1 = 0;

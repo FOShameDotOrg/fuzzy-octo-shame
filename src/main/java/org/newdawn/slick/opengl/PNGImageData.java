@@ -6,6 +6,8 @@ import java.nio.ByteBuffer;
 import org.lwjgl.BufferUtils;
 import org.newdawn.slick.util.Log;
 
+import javax.annotation.Nullable;
+
 /**
  * The PNG imge data source that is pure java reading PNGs
  * 
@@ -20,8 +22,6 @@ public class PNGImageData implements LoadableImageData {
     private int texHeight;
     /** The texture width */
     private int texWidth;
-    /** The decoder used to load the PNG */
-    private PNGDecoder decoder;
     /** The data format of this PNG */
     private Format format;
     /** The scratch buffer storing the image data */
@@ -65,14 +65,14 @@ public class PNGImageData implements LoadableImageData {
     /**
      * @see org.newdawn.slick.opengl.LoadableImageData#loadImage(java.io.InputStream, boolean, int[])
      */
-    public ByteBuffer loadImage(InputStream fis, boolean flipped, int[] transparent) throws IOException {
+    public ByteBuffer loadImage(InputStream fis, boolean flipped, @Nullable int[] transparent) throws IOException {
         return loadImage(fis, flipped, false, transparent);
     }
 
     /**
      * @see org.newdawn.slick.opengl.LoadableImageData#loadImage(java.io.InputStream, boolean, boolean, int[])
      */
-    public ByteBuffer loadImage(InputStream fis, boolean flipped, boolean forceAlpha, int[] transparent) throws IOException {
+    public ByteBuffer loadImage(InputStream fis, boolean flipped, boolean forceAlpha, @Nullable int[] transparent) throws IOException {
         if (transparent != null) {
             forceAlpha = true;
         }
