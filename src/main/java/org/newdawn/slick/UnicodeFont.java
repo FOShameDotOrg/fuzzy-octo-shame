@@ -422,7 +422,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
 	}
 
 	/**
-	 * Identical to {@link #drawString(float, float, String, Color, int, int)} but returns a 
+	 * Identical to {@link #drawString(float, float, CharSequence, Color, int, int)} but returns a
 	 * DisplayList which provides access to the width and height of the text drawn.
 	 * 
 	 * @param text The text to render
@@ -618,7 +618,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
 	}
 
 	/**
-	 * @see org.newdawn.slick.Font#getWidth(java.lang.String)
+	 * @see org.newdawn.slick.Font#getWidth(CharSequence)
 	 */
 	public int getWidth (CharSequence text) {
 		if (text == null) throw new IllegalArgumentException("text cannot be null.");
@@ -672,7 +672,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
 	
 	
 	/**
-	 * @see org.newdawn.slick.Font#getHeight(java.lang.String)
+	 * @see org.newdawn.slick.Font#getHeight(CharSequence)
 	 */
 	public int getHeight (CharSequence text) {
 		if (text == null) throw new IllegalArgumentException("text cannot be null.");

@@ -20,6 +20,8 @@ import org.newdawn.slick.util.Log;
  * An image loaded from a file and renderable to the canvas
  *
  * @author kevin
+ * @author liamzebedee #drawEmbedded(float, float, float, float, byte)
+ *
  */
 public class Image implements Renderable {
 
@@ -1612,7 +1614,6 @@ public class Image implements Renderable {
 	 * <li> 0x02 - Flip on X axis
 	 * <li> 0x04 - Flip on Y axis
 	 * 
-	 * @author liamzebedee
 	 * @param x
 	 *            The x location to draw the image at
 	 * @param y
