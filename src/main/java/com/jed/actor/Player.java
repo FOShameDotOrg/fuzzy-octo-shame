@@ -47,13 +47,12 @@ public class Player extends AbstractEntity implements StateManager {
     /**
      * 
      */
-    //Player Direction
-    private final int PLAYER_RIGHT = 1;
+    private static final int PLAYER_RIGHT = 1;
     
     /**
      * 
      */
-    private final int PLAYER_LEFT = 0;
+    private static final int PLAYER_LEFT = 0;
 
     /**
      * 
