@@ -375,14 +375,14 @@ public class AngelCodeFont implements Font {
 	}
 
 	/**
-	 * @see org.newdawn.slick.Font#drawString(float, float, java.lang.String)
+	 * @see org.newdawn.slick.Font#drawString(float, float, CharSequence)
 	 */
 	public void drawString(float x, float y, CharSequence text) {
 		drawString(x, y, text, Color.white);
 	}
 
 	/**
-	 * @see org.newdawn.slick.Font#drawString(float, float, java.lang.String,
+	 * @see org.newdawn.slick.Font#drawString(float, float, CharSequence,
 	 *      org.newdawn.slick.Color)
 	 */
 	public void drawString(float x, float y, CharSequence text, Color col) {
@@ -390,7 +390,7 @@ public class AngelCodeFont implements Font {
 	}
 
 	/**
-	 * @see Font#drawString(float, float, String, Color, int, int)
+	 * @see Font#drawString(float, float, CharSequence, Color, int, int)
 	 */
 	public void drawString(float x, float y, CharSequence text, Color col,
 			int startIndex, int endIndex) {
@@ -499,7 +499,7 @@ public class AngelCodeFont implements Font {
 	}
 
 	/**
-	 * @see org.newdawn.slick.Font#getHeight(java.lang.String)
+	 * @see org.newdawn.slick.Font#getHeight(CharSequence)
 	 */
 	public int getHeight(CharSequence text) {
 		DisplayList displayList = null;
@@ -538,7 +538,7 @@ public class AngelCodeFont implements Font {
 	}
 
 	/**
-	 * @see org.newdawn.slick.Font#getWidth(java.lang.String)
+	 * @see org.newdawn.slick.Font#getWidth(CharSequence)
 	 */
 	public int getWidth(CharSequence text) {
 		DisplayList displayList = null;
