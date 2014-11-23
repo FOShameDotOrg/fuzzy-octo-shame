@@ -1623,7 +1623,7 @@ public class Image implements Renderable {
 
         if (flipX) {
             x+=width;
-            width*=-1;;
+            width*=-1;
         }
         if (flipY) {
             y+=height;

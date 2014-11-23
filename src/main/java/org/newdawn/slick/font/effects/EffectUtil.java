@@ -287,7 +287,7 @@ public class EffectUtil {
             dialog.setVisible(true);
             return dialog.okPressed;
         }
-    };
+    }
 
     /**
      * Provides generic functionality for a dialog to configure a value.
