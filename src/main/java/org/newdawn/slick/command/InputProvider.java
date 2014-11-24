@@ -64,13 +64,12 @@ public final class InputProvider {
      *            The command to be invoked
      * @return The list of controls that can cause the command (@see Control)
      */
-    List getControlsFor(Command command) {
+    List<Control> getControlsFor(Command command) {
         List<Control> controlsForCommand = new ArrayList<>();
 
         for (Map.Entry<Control, Command> controlCommandEntry : commands.entrySet()) {
-            Map.Entry entry = (Map.Entry) controlCommandEntry;
-            Control key = (Control) entry.getKey();
-            Command value = (Command) entry.getValue();
+            Control key = (Control) controlCommandEntry.getKey();
+            Command value = (Command) controlCommandEntry.getValue();
 
             if (value == command) {
                 controlsForCommand.add(key);
@@ -142,10 +141,10 @@ public final class InputProvider {
      * @param command The command whose controls should be unbound
      */
     public void clearCommand(Command command) {
-        List controls = getControlsFor(command);
+        List<Control> controls = getControlsFor(command);
 
-        for (Object control : controls) {
-            unbindCommand((Control) control);
+        for (Control control : controls) {
+            unbindCommand( control);
         }
     }
 
