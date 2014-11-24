@@ -57,8 +57,7 @@ class InputProvider {
     public List getUniqueCommands() {
         final List<Command> uniqueCommands = new ArrayList<>();
 
-        for (Iterator<Command> it = commands.values().iterator(); it.hasNext();) {
-            Command command = it.next();
+        for (Command command : commands.values()) {
             if (!uniqueCommands.contains(command)) {
                 uniqueCommands.add(command);
             }
@@ -78,8 +77,8 @@ class InputProvider {
     List getControlsFor(Command command) {
         List<Control> controlsForCommand = new ArrayList<>();
 
-        for (Iterator it = commands.entrySet().iterator(); it.hasNext();) {
-            Map.Entry entry = (Map.Entry) it.next();
+        for (Map.Entry<Control, Command> controlCommandEntry : commands.entrySet()) {
+            Map.Entry entry = (Map.Entry) controlCommandEntry;
             Control key = (Control) entry.getKey();
             Command value = (Command) entry.getValue();
 
@@ -155,8 +154,8 @@ class InputProvider {
     public void clearCommand(Command command) {
         List controls = getControlsFor(command);
 
-        for (int i=0;i<controls.size();i++) {
-            unbindCommand((Control) controls.get(i));
+        for (Object control : controls) {
+            unbindCommand((Control) control);
         }
     }
 
@@ -225,8 +224,8 @@ class InputProvider {
             return;
         }
 
-        for (int i = 0; i < listeners.size(); i++) {
-            listeners.get(i).controlPressed(command);
+        for (InputProviderListener listener : listeners) {
+            listener.controlPressed(command);
         }
     }
 
@@ -244,8 +243,8 @@ class InputProvider {
             return;
         }
 
-        for (int i = 0; i < listeners.size(); i++) {
-            listeners.get(i).controlReleased(command);
+        for (InputProviderListener listener : listeners) {
+            listener.controlReleased(command);
         }
     }
 
