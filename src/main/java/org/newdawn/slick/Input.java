@@ -322,40 +322,40 @@ public class Input {
     /** True if the controllers system has been initialised. */
     private static boolean controllersInited = false;
     /** The list of controllers. */
-    private static List<Controller> controllers = new ArrayList<>();
+    private static final List<Controller> controllers = new ArrayList<>();
 
     /** The last recorded mouse x position. */
     private int lastMouseX;
     /** The last recorded mouse y position. */
     private int lastMouseY;
     /** THe state of the mouse buttons. */
-    protected boolean[] mousePressed = new boolean[10];
+    protected final boolean[] mousePressed = new boolean[10];
     /** THe state of the controller buttons. */
-    private boolean[][] controllerPressed = new boolean[100][MAX_BUTTONS];
+    private final boolean[][] controllerPressed = new boolean[100][MAX_BUTTONS];
 
     /** The character values representing the pressed keys. */
-    protected char[] keys = new char[1024];
+    protected final char[] keys = new char[1024];
     /** True if the key has been pressed since last queries. */
-    protected boolean[] pressed = new boolean[1024];
+    protected final boolean[] pressed = new boolean[1024];
     /** The time since the next key repeat to be fired for the key. */
-    protected long[] nextRepeat = new long[1024];
+    protected final long[] nextRepeat = new long[1024];
 
     /** The control states from the controllers. */
-    private boolean[][] controls = new boolean[10][MAX_BUTTONS+10];
+    private final boolean[][] controls = new boolean[10][MAX_BUTTONS+10];
     /** True if the event has been consumed. */
     protected boolean consumed = false;
     /** A list of listeners to be notified of input events. */
-    protected Set<ControlledInputReceiver> allListeners = new HashSet<>();
+    protected final Set<ControlledInputReceiver> allListeners = new HashSet<>();
     /** The listeners to notify of key events. */
-    protected List<KeyListener> keyListeners = new ArrayList<>();
+    protected final List<KeyListener> keyListeners = new ArrayList<>();
     /** The listener to add. */
-    protected List<KeyListener> keyListenersToAdd = new ArrayList<>();
+    protected final List<KeyListener> keyListenersToAdd = new ArrayList<>();
     /** The listeners to notify of mouse events. */
-    protected List<MouseListener> mouseListeners = new ArrayList<>();
+    protected final List<MouseListener> mouseListeners = new ArrayList<>();
     /** The listener to add. */
-    protected List<MouseListener> mouseListenersToAdd = new ArrayList<>();
+    protected final List<MouseListener> mouseListenersToAdd = new ArrayList<>();
     /** The listener to nofiy of controller events. */
-    protected List<ControllerListener> controllerListeners = new ArrayList<>();
+    protected final List<ControllerListener> controllerListeners = new ArrayList<>();
     /** The current value of the wheel. */
     private int wheel;
     /** The height of the display. */
