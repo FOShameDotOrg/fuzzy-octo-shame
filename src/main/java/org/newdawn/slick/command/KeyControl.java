@@ -19,21 +19,35 @@ class KeyControl implements Control {
         this.keycode = keycode;
     }
 
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    public boolean equals(Object o) {
-        if (o instanceof KeyControl) {
-            return ((KeyControl)o).keycode == keycode;
-        }
-        
-        return false;
-    }
-    
-    /**
+    /* (non-Javadoc)
      * @see java.lang.Object#hashCode()
      */
+    @Override
     public int hashCode() {
-        return keycode;
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + keycode;
+        return result;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof KeyControl)) {
+            return false;
+        }
+        KeyControl other = (KeyControl) obj;
+        if (keycode != other.keycode) {
+            return false;
+        }
+        return true;
     }
 }

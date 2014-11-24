@@ -37,25 +37,46 @@ abstract class ControllerControl implements Control {
         this.button = button;
         this.controllerNumber = controllerNumber;
     }
-    
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    public boolean equals(Object o) {
-        if(o == null)
-            return false;
-        if(!(o instanceof ControllerControl))
-            return false;
-        
-        ControllerControl c = (ControllerControl)o;
-        
-        return c.controllerNumber == controllerNumber && c.event == event && c.button == button;
-    }
-    
-    /**
+
+    /* (non-Javadoc)
      * @see java.lang.Object#hashCode()
      */
+    @Override
     public int hashCode() {
-        return event + button + controllerNumber;
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + button;
+        result = prime * result + controllerNumber;
+        result = prime * result + event;
+        return result;
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof ControllerControl)) {
+            return false;
+        }
+        ControllerControl other = (ControllerControl) obj;
+        if (button != other.button) {
+            return false;
+        }
+        if (controllerNumber != other.controllerNumber) {
+            return false;
+        }
+        if (event != other.event) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }
