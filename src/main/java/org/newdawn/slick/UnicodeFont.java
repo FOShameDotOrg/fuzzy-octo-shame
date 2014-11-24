@@ -330,7 +330,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      * @return True if the glyphs were loaded entirely
      * @throws SlickException if the glyphs could not be loaded.
      */
-    public boolean loadGlyphs () throws SlickException {
+    public boolean loadGlyphs () {
         return loadGlyphs(-1);
     }
 
