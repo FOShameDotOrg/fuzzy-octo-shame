@@ -1148,12 +1148,12 @@ public class Input {
         }
 
         // add any listeners requested since last time
-        for (int i=0;i<keyListenersToAdd.size();i++) {
-            addKeyListenerImpl(keyListenersToAdd.get(i));
+        for (KeyListener aKeyListenersToAdd : keyListenersToAdd) {
+            addKeyListenerImpl(aKeyListenersToAdd);
         }
         keyListenersToAdd.clear();
-        for (int i=0;i<mouseListenersToAdd.size();i++) {
-            addMouseListenerImpl(mouseListenersToAdd.get(i));
+        for (MouseListener aMouseListenersToAdd : mouseListenersToAdd) {
+            addMouseListenerImpl(aMouseListenersToAdd);
         }
         mouseListenersToAdd.clear();
 
@@ -1180,9 +1180,7 @@ public class Input {
                 nextRepeat[eventKey] = System.currentTimeMillis() + keyRepeatInitial;
 
                 consumed = false;
-                for (int i=0;i<keyListeners.size();i++) {
-                    KeyListener listener = keyListeners.get(i);
-
+                for (KeyListener listener : keyListeners) {
                     if (listener.isAcceptingInput()) {
                         listener.keyPressed(eventKey, Keyboard.getEventCharacter());
                         if (consumed) {
@@ -1195,8 +1193,7 @@ public class Input {
                 nextRepeat[eventKey] = 0;
 
                 consumed = false;
-                for (int i=0;i<keyListeners.size();i++) {
-                    KeyListener listener = keyListeners.get(i);
+                for (KeyListener listener : keyListeners) {
                     if (listener.isAcceptingInput()) {
                         listener.keyReleased(eventKey, keys[eventKey]);
                         if (consumed) {
@@ -1216,8 +1213,7 @@ public class Input {
                     pressedX = (int) (xoffset + (Mouse.getEventX() * scaleX));
                     pressedY =  (int) (yoffset + ((height-Mouse.getEventY()) * scaleY));
 
-                    for (int i=0;i<mouseListeners.size();i++) {
-                        MouseListener listener = mouseListeners.get(i);
+                    for (MouseListener listener : mouseListeners) {
                         if (listener.isAcceptingInput()) {
                             listener.mousePressed(Mouse.getEventButton(), pressedX, pressedY);
                             if (consumed) {
@@ -1239,8 +1235,7 @@ public class Input {
                         pressedX = pressedY = -1;
                     }
 
-                    for (int i=0;i<mouseListeners.size();i++) {
-                        MouseListener listener = mouseListeners.get(i);
+                    for (MouseListener listener : mouseListeners) {
                         if (listener.isAcceptingInput()) {
                             listener.mouseReleased(Mouse.getEventButton(), releasedX, releasedY);
                             if (consumed) {
@@ -1253,8 +1248,7 @@ public class Input {
                 if (Mouse.isGrabbed() && displayActive) {
                     if ((Mouse.getEventDX() != 0) || (Mouse.getEventDY() != 0)) {
                         consumed = false;
-                        for (int i=0;i<mouseListeners.size();i++) {
-                            MouseListener listener = mouseListeners.get(i);
+                        for (MouseListener listener : mouseListeners) {
                             if (listener.isAcceptingInput()) {
                                 if (anyMouseDown()) {
                                     listener.mouseDragged(0, 0, Mouse.getEventDX(), -Mouse.getEventDY());
@@ -1274,8 +1268,7 @@ public class Input {
                 wheel += dwheel;
                 if (dwheel != 0) {
                     consumed = false;
-                    for (int i=0;i<mouseListeners.size();i++) {
-                        MouseListener listener = mouseListeners.get(i);
+                    for (MouseListener listener : mouseListeners) {
                         if (listener.isAcceptingInput()) {
                             listener.mouseWheelMoved(dwheel);
                             if (consumed) {
@@ -1293,13 +1286,12 @@ public class Input {
         } else {
             if ((lastMouseX != getMouseX()) || (lastMouseY != getMouseY())) {
                 consumed = false;
-                for (int i=0;i<mouseListeners.size();i++) {
-                    MouseListener listener = mouseListeners.get(i);
+                for (MouseListener listener : mouseListeners) {
                     if (listener.isAcceptingInput()) {
                         if (anyMouseDown()) {
-                            listener.mouseDragged(lastMouseX ,  lastMouseY, getMouseX(), getMouseY());
+                            listener.mouseDragged(lastMouseX, lastMouseY, getMouseX(), getMouseY());
                         } else {
-                            listener.mouseMoved(lastMouseX ,  lastMouseY, getMouseX(), getMouseY());
+                            listener.mouseMoved(lastMouseX, lastMouseY, getMouseX(), getMouseY());
                         }
                         if (consumed) {
                             break;
@@ -1334,9 +1326,7 @@ public class Input {
                     if (System.currentTimeMillis() > nextRepeat[i]) {
                         nextRepeat[i] = System.currentTimeMillis() + keyRepeatInterval;
                         consumed = false;
-                        for (int j=0;j<keyListeners.size();j++) {
-                            KeyListener listener = keyListeners.get(j);
-
+                        for (KeyListener listener : keyListeners) {
                             if (listener.isAcceptingInput()) {
                                 listener.keyPressed(i, keys[i]);
                                 if (consumed) {
@@ -1405,26 +1395,25 @@ public class Input {
      */
     private void fireControlPress(int index, int controllerIndex) {
         consumed = false;
-        for (int i=0;i<controllerListeners.size();i++) {
-            ControllerListener listener = controllerListeners.get(i);
+        for (ControllerListener listener : controllerListeners) {
             if (listener.isAcceptingInput()) {
                 switch (index) {
-                case LEFT:
-                    listener.controllerLeftPressed(controllerIndex);
-                    break;
-                case RIGHT:
-                    listener.controllerRightPressed(controllerIndex);
-                    break;
-                case UP:
-                    listener.controllerUpPressed(controllerIndex);
-                    break;
-                case DOWN:
-                    listener.controllerDownPressed(controllerIndex);
-                    break;
-                default:
-                    // assume button pressed
-                    listener.controllerButtonPressed(controllerIndex, (index - BUTTON1) + 1);
-                    break;
+                    case LEFT:
+                        listener.controllerLeftPressed(controllerIndex);
+                        break;
+                    case RIGHT:
+                        listener.controllerRightPressed(controllerIndex);
+                        break;
+                    case UP:
+                        listener.controllerUpPressed(controllerIndex);
+                        break;
+                    case DOWN:
+                        listener.controllerDownPressed(controllerIndex);
+                        break;
+                    default:
+                        // assume button pressed
+                        listener.controllerButtonPressed(controllerIndex, (index - BUTTON1) + 1);
+                        break;
                 }
                 if (consumed) {
                     break;
@@ -1441,26 +1430,25 @@ public class Input {
      */
     private void fireControlRelease(int index, int controllerIndex) {
         consumed = false;
-        for (int i=0;i<controllerListeners.size();i++) {
-            ControllerListener listener = controllerListeners.get(i);
+        for (ControllerListener listener : controllerListeners) {
             if (listener.isAcceptingInput()) {
                 switch (index) {
-                case LEFT:
-                    listener.controllerLeftReleased(controllerIndex);
-                    break;
-                case RIGHT:
-                    listener.controllerRightReleased(controllerIndex);
-                    break;
-                case UP:
-                    listener.controllerUpReleased(controllerIndex);
-                    break;
-                case DOWN:
-                    listener.controllerDownReleased(controllerIndex);
-                    break;
-                default:
-                    // assume button release
-                    listener.controllerButtonReleased(controllerIndex, (index - BUTTON1) + 1);
-                    break;
+                    case LEFT:
+                        listener.controllerLeftReleased(controllerIndex);
+                        break;
+                    case RIGHT:
+                        listener.controllerRightReleased(controllerIndex);
+                        break;
+                    case UP:
+                        listener.controllerUpReleased(controllerIndex);
+                        break;
+                    case DOWN:
+                        listener.controllerDownReleased(controllerIndex);
+                        break;
+                    default:
+                        // assume button release
+                        listener.controllerButtonReleased(controllerIndex, (index - BUTTON1) + 1);
+                        break;
                 }
                 if (consumed) {
                     break;
@@ -1525,8 +1513,7 @@ public class Input {
      */
     private void fireMouseClicked(int button, int x, int y, int clickCount) {
         consumed = false;
-        for (int i=0;i<mouseListeners.size();i++) {
-            MouseListener listener = mouseListeners.get(i);
+        for (MouseListener listener : mouseListeners) {
             if (listener.isAcceptingInput()) {
                 listener.mouseClicked(button, x, y, clickCount);
                 if (consumed) {
