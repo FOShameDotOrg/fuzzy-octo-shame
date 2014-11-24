@@ -17,7 +17,7 @@ import org.newdawn.slick.util.InputAdapter;
  * 
  * @author joverton
  */
-public class InputProvider {
+class InputProvider {
     /** The commands that have been defined */
     private final Map<Control, Command> commands;
 
@@ -76,7 +76,7 @@ public class InputProvider {
      *            The command to be invoked
      * @return The list of controls that can cause the command (@see Control)
      */
-    public List getControlsFor(Command command) {
+    List getControlsFor(Command command) {
         List<Control> controlsForCommand = new ArrayList<>();
 
         for (Iterator it = commands.entrySet().iterator(); it.hasNext();) {
@@ -106,7 +106,7 @@ public class InputProvider {
      *
      * @return True if this provider should be sending events
      */
-    public boolean isActive() {
+    boolean isActive() {
         return active;
     }
 
@@ -167,7 +167,7 @@ public class InputProvider {
      * @param control
      *            The control to remove
      */
-    public void unbindCommand(Control control) {
+    void unbindCommand(Control control) {
         Command command = (Command) commands.remove(control);
         if (command != null) {
             if (!commands.keySet().contains(command)) {
@@ -218,7 +218,7 @@ public class InputProvider {
      * @param command
      *            The command that has been pressed
      */
-    protected void firePressed(Command command) {
+    void firePressed(Command command) {
         getState(command).down = true;
         getState(command).pressed = true;
 
@@ -238,7 +238,7 @@ public class InputProvider {
      * @param command
      *            The command that has been pressed
      */
-    protected void fireReleased(Command command) {
+    void fireReleased(Command command) {
         getState(command).down = false;
 
         if (!isActive()) {

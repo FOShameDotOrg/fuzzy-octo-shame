@@ -6,7 +6,7 @@ package org.newdawn.slick.command;
  * 
  * @author joverton
  */
-public interface InputProviderListener {
+interface InputProviderListener {
 
     /**
      * A control representing an control was pressed relating to a given command.

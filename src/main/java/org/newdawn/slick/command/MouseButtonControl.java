@@ -5,7 +5,7 @@ package org.newdawn.slick.command;
  * 
  * @author joverton
  */
-public class MouseButtonControl implements Control {
+class MouseButtonControl implements Control {
     /** The button to be pressed */
     private final int button;
     

@@ -5,7 +5,7 @@ package org.newdawn.slick.command;
  * 
  * @author kevin
  */
-public class BasicCommand implements Command {
+class BasicCommand implements Command {
     /** The name of the command */
     private final String name;
 

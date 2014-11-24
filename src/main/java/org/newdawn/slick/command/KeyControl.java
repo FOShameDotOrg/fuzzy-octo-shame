@@ -6,7 +6,7 @@ package org.newdawn.slick.command;
  * 
  * @author joverton
  */
-public class KeyControl implements Control {
+class KeyControl implements Control {
     /** The key code that needs to be pressed */
     private final int keycode;
     

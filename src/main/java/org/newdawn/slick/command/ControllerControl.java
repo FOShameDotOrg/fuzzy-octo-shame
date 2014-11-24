@@ -8,15 +8,15 @@ package org.newdawn.slick.command;
  */
 abstract class ControllerControl implements Control {
     /** Indicates a button was pressed */
-    protected static final int BUTTON_EVENT = 0;
+    static final int BUTTON_EVENT = 0;
     /** Indicates left was pressed */
-    protected static final int LEFT_EVENT = 1;
+    static final int LEFT_EVENT = 1;
     /** Indicates right was pressed */
-    protected static final int RIGHT_EVENT = 2;
+    static final int RIGHT_EVENT = 2;
     /** Indicates up was pressed */
-    protected static final int UP_EVENT = 3;
+    static final int UP_EVENT = 3;
     /** Indicates down was pressed */
-    protected static final int DOWN_EVENT = 4;
+    static final int DOWN_EVENT = 4;
     
     /** The type of event we're looking for */
     private final int event;
@@ -32,7 +32,7 @@ abstract class ControllerControl implements Control {
      * @param event The event to react to
      * @param button The button index to react to on a BUTTON event
      */
-    protected ControllerControl(int controllerNumber, int event, int button) {
+    ControllerControl(int controllerNumber, int event, int button) {
         this.event = event;
         this.button = button;
         this.controllerNumber = controllerNumber;

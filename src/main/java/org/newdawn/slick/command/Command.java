@@ -7,6 +7,6 @@ package org.newdawn.slick.command;
  *
  * @author kevin
  */
-public interface Command {
+interface Command {
 
 }

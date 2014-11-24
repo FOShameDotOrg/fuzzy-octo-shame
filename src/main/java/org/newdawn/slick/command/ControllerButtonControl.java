@@ -6,7 +6,7 @@ package org.newdawn.slick.command;
  *
  * @author kevin
  */
-public class ControllerButtonControl extends ControllerControl {
+class ControllerButtonControl extends ControllerControl {
 
     /**
      * Create a new control based on a controller input
