@@ -2,10 +2,7 @@ package org.newdawn.slick;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Controller;
@@ -320,7 +317,7 @@ public class Input {
     /** True if the controllers system has been initialised */
     private static boolean controllersInited = false;
     /** The list of controllers */
-    private static ArrayList controllers = new ArrayList();
+    private static List<Controller> controllers = new ArrayList<>();
 
     /** The last recorded mouse x position */
     private int lastMouseX;
@@ -343,17 +340,17 @@ public class Input {
     /** True if the event has been consumed */
     protected boolean consumed = false;
     /** A list of listeners to be notified of input events */
-    protected HashSet allListeners = new HashSet();
+    protected Set<ControlledInputReciever> allListeners = new HashSet<>();
     /** The listeners to notify of key events */
-	protected ArrayList keyListeners = new ArrayList();
+    protected List<KeyListener> keyListeners = new ArrayList<>();
     /** The listener to add */
-	protected ArrayList keyListenersToAdd = new ArrayList();
+    protected List<KeyListener> keyListenersToAdd = new ArrayList<>();
     /** The listeners to notify of mouse events */
-	protected ArrayList mouseListeners = new ArrayList();
+    protected List<MouseListener> mouseListeners = new ArrayList<>();
     /** The listener to add */
-	protected ArrayList mouseListenersToAdd = new ArrayList();
+    protected List<MouseListener> mouseListenersToAdd = new ArrayList<>();
     /** The listener to nofiy of controller events */
-	protected ArrayList controllerListeners = new ArrayList();
+    protected List<ControllerListener> controllerListeners = new ArrayList<>();
     /** The current value of the wheel */
     private int wheel;
     /** The height of the display */

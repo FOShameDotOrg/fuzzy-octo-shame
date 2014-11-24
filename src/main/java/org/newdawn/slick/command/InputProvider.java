@@ -19,16 +19,16 @@ import org.newdawn.slick.util.InputAdapter;
  */
 public class InputProvider {
     /** The commands that have been defined */
-    private HashMap commands;
+    private Map<Control, Command> commands;
 
     /** The list of listeners that may be listening */
-    private ArrayList listeners = new ArrayList();
+    private List<InputProviderListener> listeners = new ArrayList<>();
 
     /** The input context we're responding to */
     private Input input;
 
     /** The command input states */
-    private HashMap commandState = new HashMap();
+    private Map<Command, CommandState> commandState = new HashMap<>();
 
     /** True if this provider is actively sending events */
     private boolean active = true;
@@ -44,7 +44,7 @@ public class InputProvider {
         this.input = input;
 
         input.addListener(new InputListenerImpl());
-        commands = new HashMap();
+        commands = new HashMap<>();
     }
 
     /**
@@ -55,7 +55,7 @@ public class InputProvider {
      *         provider
      */
     public List getUniqueCommands() {
-        List uniqueCommands = new ArrayList();
+        final List<Command> uniqueCommands = new ArrayList<>();
 
         for (Iterator it = commands.values().iterator(); it.hasNext();) {
             Command command = (Command) it.next();
@@ -77,7 +77,7 @@ public class InputProvider {
      * @return The list of controls that can cause the command (@see Control)
      */
     public List getControlsFor(Command command) {
-        List controlsForCommand = new ArrayList();
+        List<Control> controlsForCommand = new ArrayList<>();
 
         for (Iterator it = commands.entrySet().iterator(); it.hasNext();) {
             Map.Entry entry = (Map.Entry) it.next();
@@ -460,5 +460,5 @@ public class InputProvider {
                 fireReleased(command);
             }
         }
-    };
+    }
 }
