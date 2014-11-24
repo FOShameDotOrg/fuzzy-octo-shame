@@ -1,6 +1,7 @@
 package com.jed.util;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
@@ -34,8 +35,8 @@ public class Util {
 
         String type = path.substring(path.lastIndexOf('.') + 1).toUpperCase();
 
-        try {
-            texture = TextureLoader.getTexture(type, ResourceLoader.getResourceAsStream(path));
+        try (final InputStream resourceAsStream = ResourceLoader.getResourceAsStream(path)){
+            texture = TextureLoader.getTexture(type, resourceAsStream);
             LOGGER.debug("Texture loaded: " + texture);
             LOGGER.debug(">> Image width: " + texture.getImageWidth());
             LOGGER.debug(">> Image height: " + texture.getImageHeight());
