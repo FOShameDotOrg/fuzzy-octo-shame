@@ -1165,9 +1165,7 @@ public class Input {
 
         this.height = height;
 
-        Iterator<ControlledInputReceiver> allStarts = allListeners.iterator();
-        while (allStarts.hasNext()) {
-            ControlledInputReceiver listener = allStarts.next();
+        for (ControlledInputReceiver listener : allListeners) {
             listener.inputStarted();
         }
 
@@ -1340,9 +1338,7 @@ public class Input {
         }
 
 
-        Iterator<ControlledInputReceiver> all = allListeners.iterator();
-        while (all.hasNext()) {
-            ControlledInputReceiver listener = all.next();
+        for (ControlledInputReceiver listener : allListeners) {
             listener.inputEnded();
         }
 
