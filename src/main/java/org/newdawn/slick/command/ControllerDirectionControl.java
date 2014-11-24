@@ -17,7 +17,7 @@ public class ControllerDirectionControl extends ControllerControl {
     public static final Direction RIGHT = new Direction(RIGHT_EVENT);
 
     /**
-     * Create a new input that indicates a direcitonal control must be pressed.
+     * Create a new input that indicates a directional control must be pressed.
      *
      * @param controllerIndex The index of the controller to listen to
      * @param dir The direction to wait for

@@ -1,8 +1,8 @@
 package org.newdawn.slick.command;
 
 /**
- * Description of any class wishing to recieve notifications of command invocations. Implementations
- * should be added to an appropriate input provider to recieve input notification
+ * Description of any class wishing to receive notifications of command invocations. Implementations
+ * should be added to an appropriate input provider to receive input notification
  * 
  * @author joverton
  */

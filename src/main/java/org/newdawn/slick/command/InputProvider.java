@@ -34,7 +34,7 @@ class InputProvider {
     private boolean active = true;
 
     /**
-     * Create a new input proider which will provide abstract input descriptions
+     * Create a new input provider which will provide abstract input descriptions
      * based on the input from the supplied context.
      *
      * @param input
@@ -122,7 +122,7 @@ class InputProvider {
 
     /**
      * Remove a listener from this provider. The listener will no longer be
-     * provided with notification of commands performe.
+     * provided with notification of commands performed.
      *
      * @param listener
      *            The listener to be removed
@@ -187,7 +187,7 @@ class InputProvider {
     }
 
     /**
-     * Check if the last control event we recieved related to the given command
+     * Check if the last control event we received related to the given command
      * indicated that a control was down.
      *
      * @param command
