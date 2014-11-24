@@ -12,19 +12,20 @@ import java.util.Map;
  */
 public enum ControllerEvenIndex {
 
-    /** Indicates the event was caused by a button */
+    /** Indicates the event was caused by a button. */
     BUTTON(1),
-    /** Indicates the event was caused by a axis */
+    /** Indicates the event was caused by a axis. */
     AXIS(2),
-    /** Indicates the event was caused by a pov X */
+    /** Indicates the event was caused by a pov. X */
     POVX(3),
-    /** Indicates the event was caused by a pov Y */
+    /** Indicates the event was caused by a pov. Y */
     POVY(4);
 
     /**
      *
      */
-    private static final Map<ControllerEvenIndex, Integer> CONTROLLER_EVEN_INDEX_TO_INTEGER_MAP = Collections.synchronizedMap(new EnumMap<>(ControllerEvenIndex.class));
+    private static final Map<ControllerEvenIndex, Integer> CONTROLLER_EVEN_INDEX_TO_INTEGER_MAP =
+            Collections.synchronizedMap(new EnumMap<>(ControllerEvenIndex.class));
 
     /**
      *

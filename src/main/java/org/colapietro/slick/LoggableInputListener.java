@@ -64,7 +64,9 @@ public final class LoggableInputListener extends AbstractInputListener {
     public void controllerButtonPressed(int controller, int button) {
         super.controllerButtonPressed(controller, button);
         LOGGER.debug("org.colapietro.slick.LoggableInputListener#controllerButtonPressed");
-        LOGGER.info("controllerButtonPressed[controller: {}, button: {}]", controller, Xbox360ControllerButton.valueOf(button, true));
+        LOGGER.info("controllerButtonPressed[controller: {}, button: {}]",
+                controller,
+                Xbox360ControllerButton.valueOf(button, true));
     }
 
     @Override
