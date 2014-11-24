@@ -7,22 +7,20 @@ import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import com.jed.actor.AbstractEntity;
-import com.jed.core.MotherBrainConstants;
-import com.jed.util.Vector3f;
+import javax.annotation.Nullable;
+
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
+import com.jed.actor.AbstractEntity;
 import com.jed.actor.Player;
 import com.jed.core.Collision;
+import com.jed.core.MotherBrainConstants;
 import com.jed.core.QuadTree;
 import com.jed.util.Rectangle;
 import com.jed.util.Util;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.annotation.Nullable;
+import com.jed.util.Vector3f;
 
 
 /**
@@ -34,10 +32,6 @@ import javax.annotation.Nullable;
  */
 public final class GameMap extends AbstractDisplayableState {
 
-    /**
-     *
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(GameMap.class);
     /**
      *
      */
