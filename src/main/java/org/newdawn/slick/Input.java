@@ -24,7 +24,7 @@ import org.newdawn.slick.util.Log;
  */
 public class Input {
     /** The controller index to pass to check all controllers. */
-    public static final int ANY_CONTROLLER = -1;
+    private static final int ANY_CONTROLLER = -1;
 
     /** The maximum number of buttons on controllers. */
     private static final int MAX_BUTTONS = 100;
@@ -54,7 +54,7 @@ public class Input {
     /** */
     public static final int KEY_MINUS           = 0x0C; /* - on main keyboard. */
     /** */
-    public static final int KEY_EQUALS          = 0x0D;
+    private static final int KEY_EQUALS          = 0x0D;
     /** */
     public static final int KEY_BACK            = 0x0E; /* backspace. */
     /** */
@@ -142,7 +142,7 @@ public class Input {
     /** */
     public static final int KEY_MULTIPLY        = 0x37; /* * on numeric keypad */
     /** */
-    public static final int KEY_LMENU           = 0x38; /* left Alt */
+    private static final int KEY_LMENU           = 0x38; /* left Alt */
     /** */
     public static final int KEY_SPACE           = 0x39;
     /** */
@@ -244,7 +244,7 @@ public class Input {
     /** */
     public static final int KEY_SYSRQ           = 0xB7;
     /** */
-    public static final int KEY_RMENU           = 0xB8; /* right Alt */
+    private static final int KEY_RMENU           = 0xB8; /* right Alt */
     /** */
     public static final int KEY_PAUSE           = 0xC5; /* Pause */
     /** */
@@ -329,33 +329,33 @@ public class Input {
     /** The last recorded mouse y position. */
     private int lastMouseY;
     /** THe state of the mouse buttons. */
-    protected final boolean[] mousePressed = new boolean[10];
+    private final boolean[] mousePressed = new boolean[10];
     /** THe state of the controller buttons. */
     private final boolean[][] controllerPressed = new boolean[100][MAX_BUTTONS];
 
     /** The character values representing the pressed keys. */
-    protected final char[] keys = new char[1024];
+    private final char[] keys = new char[1024];
     /** True if the key has been pressed since last queries. */
-    protected final boolean[] pressed = new boolean[1024];
+    private final boolean[] pressed = new boolean[1024];
     /** The time since the next key repeat to be fired for the key. */
-    protected final long[] nextRepeat = new long[1024];
+    private final long[] nextRepeat = new long[1024];
 
     /** The control states from the controllers. */
     private final boolean[][] controls = new boolean[10][MAX_BUTTONS+10];
     /** True if the event has been consumed. */
-    protected boolean consumed = false;
+    private boolean consumed = false;
     /** A list of listeners to be notified of input events. */
-    protected final Set<ControlledInputReceiver> allListeners = new HashSet<>();
+    private final Set<ControlledInputReceiver> allListeners = new HashSet<>();
     /** The listeners to notify of key events. */
-    protected final List<KeyListener> keyListeners = new ArrayList<>();
+    private final List<KeyListener> keyListeners = new ArrayList<>();
     /** The listener to add. */
-    protected final List<KeyListener> keyListenersToAdd = new ArrayList<>();
+    private final List<KeyListener> keyListenersToAdd = new ArrayList<>();
     /** The listeners to notify of mouse events. */
-    protected final List<MouseListener> mouseListeners = new ArrayList<>();
+    private final List<MouseListener> mouseListeners = new ArrayList<>();
     /** The listener to add. */
-    protected final List<MouseListener> mouseListenersToAdd = new ArrayList<>();
+    private final List<MouseListener> mouseListenersToAdd = new ArrayList<>();
     /** The listener to nofiy of controller events. */
-    protected final List<ControllerListener> controllerListeners = new ArrayList<>();
+    private final List<ControllerListener> controllerListeners = new ArrayList<>();
     /** The current value of the wheel. */
     private int wheel;
     /** The height of the display. */
@@ -447,7 +447,7 @@ public class Input {
      * @param scaleX The scaling to apply to the horizontal axis
      * @param scaleY The scaling to apply to the vertical axis
      */
-    public void setScale(float scaleX, float scaleY) {
+    void setScale(float scaleX, float scaleY) {
         this.scaleX = scaleX;
         this.scaleY = scaleY;
     }
@@ -458,7 +458,7 @@ public class Input {
      * @param xoffset The offset on the x-axis
      * @param yoffset The offset on the y-axis
      */
-    public void setOffset(float xoffset, float yoffset) {
+    void setOffset(float xoffset, float yoffset) {
         this.xoffset = xoffset;
         this.yoffset = yoffset;
     }
@@ -487,7 +487,7 @@ public class Input {
      *
      * @param listener The listener to be notified
      */
-    public void addKeyListener(KeyListener listener) {
+    void addKeyListener(KeyListener listener) {
         keyListenersToAdd.add(listener);
     }
 
@@ -509,7 +509,7 @@ public class Input {
      *
      * @param listener The listener to be notified
      */
-    public void addMouseListener(MouseListener listener) {
+    void addMouseListener(MouseListener listener) {
         mouseListenersToAdd.add(listener);
     }
 
@@ -531,7 +531,7 @@ public class Input {
      *
      * @param listener The listener to be notified
      */
-    public void addControllerListener(ControllerListener listener) {
+    void addControllerListener(ControllerListener listener) {
         if (controllerListeners.contains(listener)) {
             return;
         }
@@ -551,7 +551,7 @@ public class Input {
     /**
      * Remove all the key listeners from this input.
      */
-    public void removeAllKeyListeners() {
+    void removeAllKeyListeners() {
         allListeners.removeAll(keyListeners);
         keyListeners.clear();
     }
@@ -559,7 +559,7 @@ public class Input {
     /**
      * Remove all the mouse listeners from this input.
      */
-    public void removeAllMouseListeners() {
+    void removeAllMouseListeners() {
         allListeners.removeAll(mouseListeners);
         mouseListeners.clear();
     }
@@ -567,7 +567,7 @@ public class Input {
     /**
      * Remove all the controller listeners from this input.
      */
-    public void removeAllControllerListeners() {
+    void removeAllControllerListeners() {
         allListeners.removeAll(controllerListeners);
         controllerListeners.clear();
     }
@@ -593,7 +593,7 @@ public class Input {
      *
      * @param listener The listen to be removed
      */
-    public void removeListener(InputListener listener) {
+    void removeListener(InputListener listener) {
         removeKeyListener(listener);
         removeMouseListener(listener);
         removeControllerListener(listener);
@@ -604,7 +604,7 @@ public class Input {
      *
      * @param listener The listen to be removed
      */
-    public void removeKeyListener(KeyListener listener) {
+    void removeKeyListener(KeyListener listener) {
         keyListeners.remove(listener);
 
         if (!mouseListeners.contains(listener) && !controllerListeners.contains(listener)) {
@@ -617,7 +617,7 @@ public class Input {
      *
      * @param listener The listen to be removed
      */
-    public void removeControllerListener(ControllerListener listener) {
+    void removeControllerListener(ControllerListener listener) {
         controllerListeners.remove(listener);
 
         if (!mouseListeners.contains(listener) && !keyListeners.contains(listener)) {
@@ -630,7 +630,7 @@ public class Input {
      *
      * @param listener The listen to be removed
      */
-    public void removeMouseListener(MouseListener listener) {
+    void removeMouseListener(MouseListener listener) {
         mouseListeners.remove(listener);
 
         if (!controllerListeners.contains(listener) && !keyListeners.contains(listener)) {
@@ -709,7 +709,7 @@ public class Input {
      * @param button The button to check for (note that this includes directional controls first)
      * @return True if the button has been pressed since last time
      */
-    public boolean isControlPressed(int button, int controller) {
+    boolean isControlPressed(int button, int controller) {
         if (controllerPressed[controller][button]) {
             controllerPressed[controller][button] = false;
             return true;
@@ -722,7 +722,7 @@ public class Input {
      * Clear the state for isControlPressed method. This will reset all
      * controls to not pressed.
      */
-    public void clearControlPressedRecord() {
+    void clearControlPressedRecord() {
         for (int i=0;i<controllers.size();i++) {
             Arrays.fill(controllerPressed[i], false);
         }
@@ -733,7 +733,7 @@ public class Input {
      * resort in all keys returning that they haven't been pressed, until
      * they are pressed again
      */
-    public void clearKeyPressedRecord() {
+    void clearKeyPressedRecord() {
         Arrays.fill(pressed, false);
     }
 
@@ -742,7 +742,7 @@ public class Input {
      * resort in all mouse buttons returning that they haven't been pressed, until
      * they are pressed again.
      */
-    public void clearMousePressedRecord() {
+    void clearMousePressedRecord() {
         Arrays.fill(mousePressed, false);
     }
 
@@ -779,7 +779,7 @@ public class Input {
      *
      * @return The x position of the mouse cursor
      */
-    public int getMouseX() {
+    int getMouseX() {
         return (int) ((Mouse.getX() * scaleX)+xoffset);
     }
 
@@ -788,7 +788,7 @@ public class Input {
      *
      * @return The y position of the mouse cursor
      */
-    public int getMouseY() {
+    int getMouseY() {
         return (int) (((height-Mouse.getY() - 1) * scaleY)+yoffset);
     }
 
@@ -822,7 +822,7 @@ public class Input {
      *
      * @return The number of controllers available
      */
-    public int getControllerCount() {
+    int getControllerCount() {
         try {
             initControllers();
         } catch (SlickException e) {
@@ -870,7 +870,7 @@ public class Input {
      * @param controller The index of the controller to check
      * @return True if the controller is pressed to the left
      */
-    public boolean isControllerLeft(int controller) {
+    boolean isControllerLeft(int controller) {
         if (controller >= getControllerCount()) {
             return false;
         }
@@ -895,7 +895,7 @@ public class Input {
      * @param controller The index of the controller to check
      * @return True if the controller is pressed to the right
      */
-    public boolean isControllerRight(int controller) {
+    boolean isControllerRight(int controller) {
         if (controller >= getControllerCount()) {
             return false;
         }
@@ -920,7 +920,7 @@ public class Input {
      * @param controller The index of the controller to check
      * @return True if the controller is pressed to the up
      */
-    public boolean isControllerUp(int controller) {
+    boolean isControllerUp(int controller) {
         if (controller >= getControllerCount()) {
             return false;
         }
@@ -944,7 +944,7 @@ public class Input {
      * @param controller The index of the controller to check
      * @return True if the controller is pressed to the down
      */
-    public boolean isControllerDown(int controller) {
+    boolean isControllerDown(int controller) {
         if (controller >= getControllerCount()) {
             return false;
         }
@@ -971,7 +971,7 @@ public class Input {
      * @param index The index of the button to check
      * @return True if the button is pressed
      */
-    public boolean isButtonPressed(int index, int controller) {
+    boolean isButtonPressed(int index, int controller) {
         if (controller >= getControllerCount()) {
             return false;
         }
@@ -1024,7 +1024,7 @@ public class Input {
      *
      * @throws org.newdawn.slick.SlickException Indicates a failure to use the hardware
      */
-    public void initControllers() throws SlickException {
+    void initControllers() throws SlickException {
         if (controllersInited) {
             return;
         }
@@ -1106,7 +1106,7 @@ public class Input {
      * @param x The location of the mouse
      * @param y The location of the mouse
      */
-    public void considerDoubleClick(int button, int x, int y) {
+    void considerDoubleClick(int button, int x, int y) {
         if (doubleClickTimeout == 0) {
             clickX = x;
             clickY = y;
