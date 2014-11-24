@@ -19,16 +19,16 @@ import org.newdawn.slick.util.InputAdapter;
  */
 public class InputProvider {
     /** The commands that have been defined */
-    private Map<Control, Command> commands;
+    private final Map<Control, Command> commands;
 
     /** The list of listeners that may be listening */
-    private List<InputProviderListener> listeners = new ArrayList<>();
+    private final List<InputProviderListener> listeners = new ArrayList<>();
 
     /** The input context we're responding to */
-    private Input input;
+    private final Input input;
 
     /** The command input states */
-    private Map<Command, CommandState> commandState = new HashMap<>();
+    private final Map<Command, CommandState> commandState = new HashMap<>();
 
     /** True if this provider is actively sending events */
     private boolean active = true;

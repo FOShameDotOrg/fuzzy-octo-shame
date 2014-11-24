@@ -7,7 +7,7 @@ package org.newdawn.slick.command;
  */
 public class MouseButtonControl implements Control {
     /** The button to be pressed */
-    private int button;
+    private final int button;
     
     /**
      * Create a new control that indicates a mouse button to be pressed or released

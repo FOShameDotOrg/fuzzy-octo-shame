@@ -8,7 +8,7 @@ package org.newdawn.slick.command;
  */
 public class KeyControl implements Control {
     /** The key code that needs to be pressed */
-    private int keycode;
+    private final int keycode;
     
     /**
      * Create a new control that caused an command to be fired on a key pressed/released

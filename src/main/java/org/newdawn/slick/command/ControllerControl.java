@@ -19,11 +19,11 @@ abstract class ControllerControl implements Control {
     protected static final int DOWN_EVENT = 4;
     
     /** The type of event we're looking for */
-    private int event;
+    private final int event;
     /** The index of the button we're waiting for */
-    private int button;
+    private final int button;
     /** The index of the controller we're waiting on */
-    private int controllerNumber;
+    private final int controllerNumber;
     
     /**
      * Create a new controller control

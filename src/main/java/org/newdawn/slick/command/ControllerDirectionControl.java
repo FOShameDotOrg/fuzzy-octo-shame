@@ -33,7 +33,7 @@ public class ControllerDirectionControl extends ControllerControl {
      */
     private static class Direction {
         /** The event to be fired for this direction */
-        private int event;
+        private final int event;
 
         /**
          * Create a new direction indicator/enum value

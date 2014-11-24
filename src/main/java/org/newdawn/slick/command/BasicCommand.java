@@ -7,7 +7,7 @@ package org.newdawn.slick.command;
  */
 public class BasicCommand implements Command {
     /** The name of the command */
-    private String name;
+    private final String name;
 
     /**
      * Create a new basic command
