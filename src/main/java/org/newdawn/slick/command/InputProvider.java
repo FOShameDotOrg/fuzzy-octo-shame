@@ -3,10 +3,7 @@ package org.newdawn.slick.command;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.util.InputAdapter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The central provider that maps real device input into abstract commands
@@ -16,7 +13,7 @@ import java.util.Map;
  * 
  * @author joverton
  */
-class InputProvider {
+public class InputProvider {
     /** The commands that have been defined. */
     private final Map<Control, Command> commands;
 
@@ -53,11 +50,9 @@ class InputProvider {
      * @return The list of commands (@see Command) that can be issued from this
      *         provider
      */
-    public List getUniqueCommands() {
-        final List<Command> uniqueCommands = new ArrayList<>();
-
+    public Set<Command> getUniqueCommands() {
+        final Set<Command> uniqueCommands = new HashSet<>();
         commands.values().stream().filter(command -> !uniqueCommands.contains(command)).forEach(uniqueCommands::add);
-
         return uniqueCommands;
     }
 

@@ -1015,7 +1015,7 @@ public class Input {
      *
      * @throws org.newdawn.slick.SlickException Indicates a failure to use the hardware
      */
-    void initControllers() throws SlickException {
+    public void initControllers() throws SlickException {
         if (controllersInited) {
             return;
         }

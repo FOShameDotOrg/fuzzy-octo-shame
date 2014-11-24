@@ -1,7 +1,7 @@
 package org.newdawn.slick;
 
 /**
- * A listener that will be notified of keyboard, mouse and controller events
+ * A listener that will be notified of keyboard, mouse and controller events.
  *
  * @author kevin
  */
