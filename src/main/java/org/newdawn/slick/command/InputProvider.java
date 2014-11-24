@@ -38,8 +38,7 @@ public final class InputProvider {
      */
     public InputProvider(Input input) {
         this.input = input;
-
-        input.addListener(new InputListenerImpl());
+        this.input.addListener(new InputListenerImpl());
         commands = new HashMap<>();
     }
 
