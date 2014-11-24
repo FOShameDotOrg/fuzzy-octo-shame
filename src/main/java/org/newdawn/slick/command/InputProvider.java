@@ -67,8 +67,8 @@ public final class InputProvider {
         List<Control> controlsForCommand = new ArrayList<>();
 
         for (Map.Entry<Control, Command> controlCommandEntry : commands.entrySet()) {
-            Control key = (Control) controlCommandEntry.getKey();
-            Command value = (Command) controlCommandEntry.getValue();
+            Control key = controlCommandEntry.getKey();
+            Command value = controlCommandEntry.getValue();
 
             if (value == command) {
                 controlsForCommand.add(key);
