@@ -1346,7 +1346,7 @@ public class Input {
      * Enable key repeat for this input context. This will cause keyPressed to get called repeatedly
      * at a set interval while the key is pressed.
      *
-     * @param initial The interval before key repreating starts after a key press
+     * @param initial The interval before key repeating starts after a key press
      * @param interval The interval between key repeats in ms
      * @deprecated
      */
