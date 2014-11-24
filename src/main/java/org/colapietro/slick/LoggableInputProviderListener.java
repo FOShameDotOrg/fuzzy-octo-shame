@@ -1,6 +1,5 @@
 package org.colapietro.slick;
 
-import org.colapietro.lang.NotImplementedException;
 import org.newdawn.slick.command.Command;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
