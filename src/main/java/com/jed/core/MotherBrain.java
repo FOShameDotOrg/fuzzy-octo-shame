@@ -118,6 +118,11 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
      */
     private final Command jump = new BasicCommand("jump");
 
+    /**
+     *
+     */
+    private Command moveRight = new BasicCommand("moveRight");
+
 
     /**
      * @param args Command-line arguments
@@ -173,8 +178,13 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
 
         inputProvider.bindCommand(new ControllerDirectionControl(0, ControllerDirectionControl.LEFT,
                 valueOf(DPAD_LEFT, true)), moveLeft);
+        inputProvider.bindCommand(new ControllerButtonControl(0,valueOf(DPAD_LEFT, true)), moveLeft);
         inputProvider.bindCommand(new KeyControl(Keyboard.KEY_LEFT), moveLeft);
-        inputProvider.bindCommand(new KeyControl(Keyboard.KEY_LEFT), moveLeft);
+
+        inputProvider.bindCommand(new ControllerDirectionControl(0, ControllerDirectionControl.RIGHT,
+                valueOf(DPAD_RIGHT, true)), moveRight);
+        inputProvider.bindCommand(new ControllerButtonControl(0,valueOf(DPAD_RIGHT, true)), moveRight);
+        inputProvider.bindCommand(new KeyControl(Keyboard.KEY_RIGHT), moveRight);
 
         //inputProvider.addListener(inputProviderListener);
 

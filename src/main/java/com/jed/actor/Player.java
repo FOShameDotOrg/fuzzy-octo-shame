@@ -28,6 +28,11 @@ public class Player extends AbstractEntity implements StateManager, InputProvide
      *
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(Player.class);
+
+    /**
+     *
+     */
+    public static final double X_MOVEMENT_SCALAR = 0.5d;
     /**
      * 
      */
@@ -163,39 +168,8 @@ public class Player extends AbstractEntity implements StateManager, InputProvide
         changeState(fallingState);
     }
 
-    /**
-     * Key Hold Events (walking etc).
-     */
-    private void keyHoldEvent() {
-
-        //Constant key "hold" events
-        if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-            if (movement.x < 0) {
-                movement.x += .5;
-            } else {
-                movement.x += acceleration;
-                xDir = PLAYER_RIGHT;
-            }
-        } else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-            if (movement.x > 0) {
-                movement.x -= .5;
-            } else {
-                movement.x -= acceleration;
-                xDir = PLAYER_LEFT;
-            }
-        } else if (movement.x != 0) {
-            movement.x = movement.x - Math.min(Math.abs(movement.x), FRICTION) * Math.signum(movement.x);
-        }
-
-        if (!Keyboard.isKeyDown(Keyboard.KEY_SPACE) && !currentState.falling) {
-            jumpCount = 0;
-        }
-    }
-
     @Override
     public void update() {
-        currentState.handleInput();
-
         if (!currentState.falling && !collideDown) {
             changeState(fallingState);
         }
@@ -246,10 +220,6 @@ public class Player extends AbstractEntity implements StateManager, InputProvide
             falling = false;
         }
 
-        /**
-         * 
-         */
-        public abstract void handleInput();
     }
 
     /**
@@ -312,11 +282,6 @@ public class Player extends AbstractEntity implements StateManager, InputProvide
                     changeState(idleState);
                 }
             }
-        }
-
-        @Override
-        public void handleInput() {
-            keyHoldEvent();
         }
 
         @Override
@@ -446,11 +411,6 @@ public class Player extends AbstractEntity implements StateManager, InputProvide
         }
 
         @Override
-        public void handleInput() {
-            keyHoldEvent();
-        }
-
-        @Override
         public void render() {
             Color.white.bind();
             texture.bind();
@@ -508,11 +468,6 @@ public class Player extends AbstractEntity implements StateManager, InputProvide
         public void entered() {
             frame = 0;
             ticks = 0;
-        }
-
-        @Override
-        public void handleInput() {
-            keyHoldEvent();
         }
 
         @Override
@@ -576,6 +531,28 @@ public class Player extends AbstractEntity implements StateManager, InputProvide
                 jumpCount++;
                 changeState(jumpingState);
             }
+        }
+
+        if(command.equals(new BasicCommand("moveRight"))) {
+            if (movement.x < 0) {
+                movement.x += X_MOVEMENT_SCALAR;
+            } else {
+                movement.x += acceleration;
+                xDir = PLAYER_RIGHT;
+            }
+        } else if(command.equals(new BasicCommand("moveLeft"))) {
+            if (movement.x > 0) {
+                movement.x -= X_MOVEMENT_SCALAR;
+            } else {
+                movement.x -= acceleration;
+                xDir = PLAYER_LEFT;
+            }
+        } else if (movement.x != 0) {
+            movement.x = movement.x - Math.min(Math.abs(movement.x), FRICTION) * Math.signum(movement.x);
+        }
+
+        if (!command.equals(new BasicCommand("jump")) && !currentState.falling) {
+            jumpCount = 0;
         }
     }
 

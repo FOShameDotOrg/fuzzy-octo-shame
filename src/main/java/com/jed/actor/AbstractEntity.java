@@ -35,7 +35,7 @@ public abstract class AbstractEntity implements Displayable, State, Collidable {
     /**
      * 
      */
-    public float acceleration = 0;
+    protected float acceleration = 0;
 
     /**
      *
@@ -94,6 +94,14 @@ public abstract class AbstractEntity implements Displayable, State, Collidable {
     public void collideRight(AbstractEntity entity) throws NotImplementedException {
         throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
     }
-    
+
+    /**
+     *
+     * @return acceleration
+     */
+    public float getAcceleration() {
+        return acceleration;
+    }
+
     //TODO Implement Equals/hashCode
 }
