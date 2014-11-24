@@ -18,19 +18,19 @@ import java.util.Map;
  * @author joverton
  */
 class InputProvider {
-    /** The commands that have been defined */
+    /** The commands that have been defined. */
     private final Map<Control, Command> commands;
 
-    /** The list of listeners that may be listening */
+    /** The list of listeners that may be listening. */
     private final List<InputProviderListener> listeners = new ArrayList<>();
 
-    /** The input context we're responding to */
+    /** The input context we're responding to. */
     private final Input input;
 
-    /** The command input states */
+    /** The command input states. */
     private final Map<Command, CommandState> commandState = new HashMap<>();
 
-    /** True if this provider is actively sending events */
+    /** True if this provider is actively sending events. */
     private boolean active = true;
 
     /**
@@ -49,7 +49,7 @@ class InputProvider {
 
     /**
      * Get the list of commands that have been registered with the provider,
-     * i.e. the commands that can be issued to the listeners
+     * i.e. the commands that can be issued to the listeners.
      *
      * @return The list of commands (@see Command) that can be issued from this
      *         provider
@@ -69,7 +69,7 @@ class InputProvider {
 
     /**
      * Get a list of the registered controls (@see Control) that can cause a
-     * particular command to be invoked
+     * particular command to be invoked.
      *
      * @param command
      *            The command to be invoked
@@ -91,7 +91,7 @@ class InputProvider {
     }
 
     /**
-     * Indicate whether this provider should be sending events
+     * Indicate whether this provider should be sending events.
      *
      * @param active
      *            True if this provider should be sending events
@@ -101,7 +101,7 @@ class InputProvider {
     }
 
     /**
-     * Check if this provider should be sending events
+     * Check if this provider should be sending events.
      *
      * @return True if this provider should be sending events
      */
@@ -148,7 +148,7 @@ class InputProvider {
     }
 
     /**
-     * Clear all the controls that have been configured for a given command
+     * Clear all the controls that have been configured for a given command.
      *
      * @param command The command whose controls should be unbound
      */
@@ -161,7 +161,7 @@ class InputProvider {
     }
 
     /**
-     * Unbinds the command associated with this control
+     * Unbinds the command associated with this control.
      *
      * @param control
      *            The control to remove
@@ -176,7 +176,7 @@ class InputProvider {
     }
 
     /**
-     * Get the recorded state for a given command
+     * Get the recorded state for a given command.
      *
      * @param command
      *            The command to get the state for
@@ -188,7 +188,7 @@ class InputProvider {
 
     /**
      * Check if the last control event we recieved related to the given command
-     * indicated that a control was down
+     * indicated that a control was down.
      *
      * @param command
      *            The command to check
@@ -200,7 +200,7 @@ class InputProvider {
 
     /**
      * Check if one of the controls related to the command specified has been
-     * pressed since we last called this method
+     * pressed since we last called this method.
      *
      * @param command
      *            The command to check
@@ -212,7 +212,7 @@ class InputProvider {
 
     /**
      * Fire notification to any interested listeners that a control has been
-     * pressed indication an particular command
+     * pressed indication an particular command.
      *
      * @param command
      *            The command that has been pressed
@@ -232,7 +232,7 @@ class InputProvider {
 
     /**
      * Fire notification to any interested listeners that a control has been
-     * released indication an particular command should be stopped
+     * released indication an particular command should be stopped.
      *
      * @param command
      *            The command that has been pressed
@@ -251,15 +251,15 @@ class InputProvider {
 
     /**
      * A token representing the state of all the controls causing an command to
-     * be invoked
+     * be invoked.
      *
      * @author kevin
      */
     private class CommandState {
-        /** True if one of the controls for this command is down */
+        /** True if one of the controls for this command is down. */
         private boolean down;
 
-        /** True if one of the controls for this command is pressed */
+        /** True if one of the controls for this command is pressed. */
         private boolean pressed;
 
         /**
@@ -277,7 +277,7 @@ class InputProvider {
         }
 
         /**
-         * Check if the last event we had indicated the control was pressed
+         * Check if the last event we had indicated the control was pressed.
          *
          * @return True if the control was pressed
          */
@@ -287,7 +287,7 @@ class InputProvider {
     }
 
     /**
-     * A simple listener to respond to input and look up any required commands
+     * A simple listener to respond to input and look up any required commands.
      *
      * @author kevin
      */

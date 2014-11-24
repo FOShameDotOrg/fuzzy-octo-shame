@@ -1,16 +1,16 @@
 package org.newdawn.slick.command;
 
 /**
- * A simple named command
+ * A simple named command.
  * 
  * @author kevin
  */
 class BasicCommand implements Command {
-    /** The name of the command */
+    /** The name of the command. */
     private final String name;
 
     /**
-     * Create a new basic command
+     * Create a new basic command.
      *
      * @param name The name to give this command
      */
@@ -19,7 +19,7 @@ class BasicCommand implements Command {
     }
 
     /**
-     * Get the name given for this basic command
+     * Get the name given for this basic command.
      *
      * @return The name given for this basic command
      */
