@@ -2,10 +2,10 @@ package com.jed.core;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-
 import com.jed.actor.Player;
 import com.jed.state.*;
 import com.jed.util.ExitStatusCode;
+
 import org.colapietro.lwjgl.AbstractLwjglGameLoopable;
 import org.colapietro.lwjgl.controllers.ButtonState;
 import org.colapietro.lwjgl.controllers.Xbox360ControllerButton;
@@ -74,6 +74,7 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
     /**
      *
      */
+    @SuppressWarnings("unused")
     private InputProviderListener inputProviderListener;
 
     /**
@@ -318,6 +319,7 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
     /**
      *
      */
+    @SuppressWarnings("unused")
     private void logFirstController() {
         if(controllers.size() >= 1) {
             final Controller firstController = controllers.get(0);

@@ -357,6 +357,7 @@ public final class Input {
     /** The listener to nofiy of controller events. */
     private final List<ControllerListener> controllerListeners = new ArrayList<>();
     /** The current value of the wheel. */
+    @SuppressWarnings("unused")
     private int wheel;
     /** The height of the display. */
     private int height;
@@ -388,8 +389,10 @@ public final class Input {
     private long doubleClickTimeout = 0;
 
     /** The clicked x position. */
+    @SuppressWarnings("unused")
     private int clickX;
     /** The clicked y position. */
+    @SuppressWarnings("unused")
     private int clickY;
     /** The clicked button. */
     private int clickButton;
@@ -1060,6 +1063,7 @@ public final class Input {
      *
      * @author kevin
      */
+    @SuppressWarnings("unused")
     private final class NullOutputStream extends OutputStream {
         /**
          * @see java.io.OutputStream#write(int)

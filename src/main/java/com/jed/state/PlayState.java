@@ -1,6 +1,7 @@
 package com.jed.state;
 
 import com.jed.util.MapLoader;
+
 import org.newdawn.slick.command.BasicCommand;
 import org.newdawn.slick.command.Command;
 import org.newdawn.slick.command.InputProviderListener;
@@ -40,6 +41,7 @@ public class PlayState extends AbstractGameState implements StateManager, InputP
     /**
      * 
      */
+    @SuppressWarnings("unused")
     private final boolean isDebugViewEnabled;
     
     /**
