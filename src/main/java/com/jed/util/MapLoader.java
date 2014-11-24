@@ -50,7 +50,7 @@ public class MapLoader {
             doc = dBuilder.parse(resourceAsStream);
         } catch (Exception e) {
             LOGGER.error("{}", e);
-            System.exit(StatusCode.ERROR.getStatusCode());
+            System.exit(ExitStatusCode.ERROR.getStatusCode());
         }
 
         final Element docElement = doc.getDocumentElement();

@@ -3,7 +3,7 @@ package com.jed.core;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-import com.jed.util.StatusCode;
+import com.jed.util.ExitStatusCode;
 import org.colapietro.lwjgl.AbstractLwjglGameLoopable;
 import org.colapietro.lwjgl.controllers.ButtonState;
 import org.colapietro.lwjgl.controllers.Xbox360ControllerButton;
@@ -187,7 +187,7 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
             Display.create();
         } catch (LWJGLException e) {
             LOGGER.error("An exception occurred while creating the display", e);
-            System.exit(StatusCode.ERROR.getStatusCode());
+            System.exit(ExitStatusCode.ERROR.getStatusCode());
         }
     }
 
