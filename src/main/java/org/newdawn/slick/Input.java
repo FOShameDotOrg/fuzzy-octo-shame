@@ -454,7 +454,7 @@ public class Input {
     }
 
     /**
-     * Set the offset to apply to the screen coodinates.
+     * Set the offset to apply to the screen coordinates.
      *
      * @param xoffset The offset on the x-axis
      * @param yoffset The offset on the y-axis
@@ -819,7 +819,7 @@ public class Input {
     }
 
     /**
-     * Get a count of the number of controlles available.
+     * Get a count of the number of controllers available.
      *
      * @return The number of controllers available
      */
@@ -834,7 +834,7 @@ public class Input {
     }
 
     /**
-     * Get the number of axis that are avaiable on a given controller.
+     * Get the number of axis that are available on a given controller.
      *
      * @param controller The index of the controller to check
      * @return The number of axis available on the controller
@@ -1054,7 +1054,7 @@ public class Input {
             }
             throw new SlickException("Unable to create controllers");
         } catch (NoClassDefFoundError e) {
-            // forget it, no jinput availble
+            // forget it, no jinput available
         }
     }
 
@@ -1076,7 +1076,7 @@ public class Input {
          */
         @Override
         public void write(int b) throws IOException {
-            // null implemetnation
+            // null implementation
         }
 
     }
