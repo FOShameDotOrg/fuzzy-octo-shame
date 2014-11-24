@@ -2,7 +2,12 @@ package org.newdawn.slick;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.Iterator;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Controller;
@@ -10,6 +15,7 @@ import org.lwjgl.input.Controllers;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
+
 import org.newdawn.slick.util.Log;
 
 /**
@@ -1159,7 +1165,7 @@ public class Input {
 
         this.height = height;
 
-        Iterator allStarts = allListeners.iterator();
+        Iterator<ControlledInputReciever> allStarts = allListeners.iterator();
         while (allStarts.hasNext()) {
             ControlledInputReciever listener = (ControlledInputReciever) allStarts.next();
             listener.inputStarted();
@@ -1344,7 +1350,7 @@ public class Input {
         }
 
 
-        Iterator all = allListeners.iterator();
+        Iterator<ControlledInputReciever> all = allListeners.iterator();
         while (all.hasNext()) {
             ControlledInputReciever listener = (ControlledInputReciever) all.next();
             listener.inputEnded();
