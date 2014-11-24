@@ -606,10 +606,7 @@ public class Input {
      */
     void removeKeyListener(KeyListener listener) {
         keyListeners.remove(listener);
-
-        if (!mouseListeners.contains(listener) && !controllerListeners.contains(listener)) {
-            allListeners.remove(listener);
-        }
+        allListeners.remove(listener);
     }
 
     /**
@@ -619,10 +616,7 @@ public class Input {
      */
     void removeControllerListener(ControllerListener listener) {
         controllerListeners.remove(listener);
-
-        if (!mouseListeners.contains(listener) && !keyListeners.contains(listener)) {
-            allListeners.remove(listener);
-        }
+        allListeners.remove(listener);
     }
 
     /**
@@ -632,10 +626,7 @@ public class Input {
      */
     void removeMouseListener(MouseListener listener) {
         mouseListeners.remove(listener);
-
-        if (!controllerListeners.contains(listener) && !keyListeners.contains(listener)) {
-            allListeners.remove(listener);
-        }
+        allListeners.remove(listener);
     }
 
     /**
