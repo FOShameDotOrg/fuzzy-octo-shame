@@ -142,9 +142,7 @@ public final class InputProvider {
     public void clearCommand(Command command) {
         List<Control> controls = getControlsFor(command);
 
-        for (Control control : controls) {
-            unbindCommand( control);
-        }
+        controls.forEach(this::unbindCommand);
     }
 
     /**
