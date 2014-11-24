@@ -5,12 +5,21 @@ import com.google.inject.Injector;
 
 import com.jed.util.StatusCode;
 import org.colapietro.lwjgl.AbstractLwjglGameLoopable;
+import org.colapietro.slick.BasicInputListener;
+import org.colapietro.slick.InputListenable;
+import org.colapietro.slick.InputProviderListenable;
+import org.colapietro.slick.LoggableInputProviderListener;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Controllers;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.InputListener;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.command.*;
 import org.newdawn.slick.util.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +32,8 @@ import com.jed.state.PlayState;
 /**
  * @author jlinde, Peter Colapietro
  */
-public final class MotherBrain extends AbstractLwjglGameLoopable implements Startable {
+public final class MotherBrain extends AbstractLwjglGameLoopable implements Startable, InputListenable,
+        InputProviderListenable {
 
     /**
      * 
@@ -46,11 +56,37 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
     private GameStateManager stateManager;
 
     /**
+     *
+     */
+    private InputProvider inputProvider;
+
+    /**
+     *
+     */
+    private InputListener inputListener;
+
+    /**
+     *
+     */
+    private InputProviderListener inputProviderListener;
+
+    /**
+     *
+     */
+    private Command moveLeft = new BasicCommand("moveLeft");
+
+
+    /**
      * @param args Command-line arguments
      */
     public static void main(String[] args) {
         final Injector injector = Guice.createInjector(new MotherBrainModule());
         final MotherBrain motherBrain = injector.getInstance(MotherBrain.class);
+        final InputListener basicInputListener = injector.getInstance(BasicInputListener.class);
+        final InputProviderListener loggableInputProviderListener =
+                injector.getInstance(LoggableInputProviderListener.class);
+        motherBrain.setInputListener(basicInputListener);
+        motherBrain.setInputProviderListener(loggableInputProviderListener);
         motherBrain.start();
     }
 
@@ -59,19 +95,33 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
      */
     @Override
     public void initialize() {
-        try {
-            Log.debug("org.lwjgl.input.Controllers#create");
-            Controllers.create();
-            for (int i = 0; i < Controllers.getControllerCount(); i++) {
-                Log.debug(Controllers.getController(i).toString());
-            }
-        } catch (LWJGLException e) {
-            Log.error("{}",e);
-        }
+        initializeInputs();
         initializeDisplay();
         initializeOpenGl();
         initializeStateManager();
         initializeFrames();
+    }
+
+    /**
+     *
+     */
+    private void initializeInputs() {
+        final Input input = new Input(MotherBrainConstants.HEIGHT);
+        try {
+            input.initControllers();
+        } catch (SlickException e) {
+            Log.error(e);
+        };
+        inputListener.setInput(input);
+        input.addListener(inputListener);
+        inputProvider = new InputProvider(input);
+        inputProvider.addListener(inputProviderListener);
+        inputProvider.bindCommand(new ControllerDirectionControl(0, ControllerDirectionControl.LEFT), moveLeft);
+        inputProvider.bindCommand(new KeyControl(Keyboard.KEY_LEFT), moveLeft);
+        Log.debug("org.lwjgl.input.Controllers#create");
+        for (int i = 0; i < Controllers.getControllerCount(); i++) {
+            Log.debug(Controllers.getController(i).toString());
+        }
     }
 
     /**
@@ -189,4 +239,13 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
         fps++;
     }
 
+    @Override
+    public void setInputListener(InputListener inputListener) {
+        this.inputListener = inputListener;
+    }
+
+    @Override
+    public void setInputProviderListener(InputProviderListener inputProviderListener) {
+        this.inputProviderListener = inputProviderListener;
+    }
 }

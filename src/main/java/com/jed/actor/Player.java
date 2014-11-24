@@ -277,11 +277,7 @@ public class Player extends AbstractEntity implements StateManager {
 
         @Override
         public void entered() {
-            try {
-                super.entered();
-            } catch (NotImplementedException e) {
-                LOGGER.debug("{}", e);
-            }
+            LOGGER.debug("com.jed.actor.Player.AbstractNonEnterablePlayerState#entered");
         }
     }
 
