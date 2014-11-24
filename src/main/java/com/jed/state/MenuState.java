@@ -73,11 +73,7 @@ public class MenuState extends AbstractGameState {
         font = new UnicodeFont(awtFont);
         font.getEffects().add(new ColorEffect(java.awt.Color.RED));
         font.addAsciiGlyphs();
-        try {
-            font.loadGlyphs();
-        } catch (SlickException e) {
-            LOGGER.error("Failed to load Font!", e);
-        }
+        font.loadGlyphs();
     }
 
     @Override
