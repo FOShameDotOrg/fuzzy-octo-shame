@@ -162,7 +162,7 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
             input.initControllers();
         } catch (SlickException e) {
             Log.error(e);
-        };
+        }
 
         inputProvider = new InputProvider(input);
         inputProvider.bindCommand(new ControllerButtonControl(0,valueOf(START, true)), pauseToggle);
