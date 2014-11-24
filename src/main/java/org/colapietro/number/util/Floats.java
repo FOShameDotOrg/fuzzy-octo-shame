@@ -6,7 +6,7 @@ import static org.colapietro.number.util.FloatingPointArithmeticConstants.MACHIN
  * @author Peter Colapietro
  *
  */
-public final class Floats {
+final class Floats {
 
     /**
      *

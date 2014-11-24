@@ -1,81 +1,99 @@
 package com.jed.actor;
 
+import com.jed.state.*;
+import com.jed.util.Vector3f;
+import org.colapietro.lang.NotImplementedException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.command.BasicCommand;
+import org.newdawn.slick.command.Command;
+import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.opengl.Texture;
 
-import com.jed.state.GameMap;
-import com.jed.state.State;
-import com.jed.state.StateManager;
-import com.jed.util.MapLoader;
 import com.jed.util.Util;
-import com.jed.util.Vector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.annotation.Nullable;
 
 /**
  * 
  * @author jlinde, Peter Colapietro
  *
  */
-public class Player extends Entity implements StateManager {
+public class Player extends AbstractEntity implements StateManager, InputProviderListener {
 
+    /**
+     *
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(Player.class);
+
+    /**
+     *
+     */
+    public static final double X_MOVEMENT_SCALAR = 0.5d;
     /**
      * 
      */
-    public int height, width;
+    public final int height;
+
+    /**
+     *
+     */
+    public final int width;
     
     /**
      * 
      */
-    public int xDir;
+    private int xDir;
 
     /**
-     * 
+     *
      */
-    //Texture(s)
-    private final String TEXTURE_PATH = MapLoader.RESOURCES_DIRECTORY + "MEGA_MAN_SH.png";
+    private static final String TEXTURE_PATH = "MEGA_MAN_SH.png";
     
     /**
      * 
      */
+    @Nullable
     private Texture texture;
 
     /**
      * 
      */
-    //Player Direction
-    public final int PLAYER_RIGHT = 1;
+    private static final int PLAYER_RIGHT = 1;
     
     /**
      * 
      */
-    public final int PLAYER_LEFT = 0;
+    private static final int PLAYER_LEFT = 0;
 
     /**
      * 
      */
     //Player States
-    private PlayerState currentState;
+    private AbstractPlayerState currentState;
     
     /**
      * 
      */
-    private PlayerState fallingState;
+    private AbstractPlayerState fallingState;
     
     /**
      * 
      */
-    private PlayerState idleState;
+    private AbstractPlayerState idleState;
     
     /**
      * 
      */
-    private PlayerState walkingState;
+    private AbstractPlayerState walkingState;
     
     /**
      * 
      */
-    private PlayerState jumpingState;
+    private AbstractPlayerState jumpingState;
 
     /**
      * 
@@ -87,7 +105,7 @@ public class Player extends Entity implements StateManager {
      * 
      */
     //TODO: Friction should come from the individual map tiles or from the tileset
-    private float friction = .046875f;
+    private static final float FRICTION = .046875f;
     
     /**
      * 
@@ -97,7 +115,7 @@ public class Player extends Entity implements StateManager {
     /**
      * 
      */
-    private GameMap map;
+    private final GameMap map;
 
     /**
      * 
@@ -106,20 +124,19 @@ public class Player extends Entity implements StateManager {
      * @param width width
      * @param map game map
      */
-    public Player(Vector position, int height, int width, GameMap map) {
-
+    public Player(Vector3f position, int height, int width, GameMap map) {
         //TODO: The Bounds should be scaled to the size of the player sprite so that
         //it can be scaled
         super(
                 position,
-                new Vector(0, 0),
+                new Vector3f(0, 0),
                 new PolygonBoundary(
-                        new Vector(110, 130),
-                        new Vector[]{
-                                new Vector(0, 0),
-                                new Vector(40, 0),
-                                new Vector(40, 120),
-                                new Vector(0, 120)
+                        new Vector3f(110, 130),
+                        new Vector3f[]{
+                                new Vector3f(0, 0),
+                                new Vector3f(40, 0),
+                                new Vector3f(40, 120),
+                                new Vector3f(0, 120)
                         })
         );
 
@@ -134,7 +151,7 @@ public class Player extends Entity implements StateManager {
      * @param state state to change current player to.
      */
     public void changeState(State state) {
-        currentState = (PlayerState) state;
+        currentState = (AbstractPlayerState) state;
         currentState.entered();
     }
 
@@ -152,64 +169,14 @@ public class Player extends Entity implements StateManager {
     }
 
     @Override
-    public void leaving() {
-    }
-
-    /**
-     * Key press events.
-     */
-    public void keyPressEvent() {
-        if (Keyboard.getEventKey() == Keyboard.KEY_SPACE && Keyboard.getEventKeyState()) {
-            boolean isJumpCountLessThanTwo = jumpCount < 2;
-            int heightOffsetWithYPostion = Math.round(position.y) + height; //TODO Test me.
-            if (isJumpCountLessThanTwo || heightOffsetWithYPostion == map.height * map.tileHeight) {
-                movement.y = -8;
-                jumpCount++;
-                changeState(jumpingState);
-            }
-        }
-    }
-
-    /**
-     * Key Hold Events (walking etc).
-     */
-    private void keyHoldEvent() {
-
-        //Constant key "hold" events
-        if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-            if (movement.x < 0) {
-                movement.x += .5;
-            } else {
-                movement.x += acceleration;
-                xDir = PLAYER_RIGHT;
-            }
-        } else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-            if (movement.x > 0) {
-                movement.x -= .5;
-            } else {
-                movement.x -= acceleration;
-                xDir = PLAYER_LEFT;
-            }
-        } else if (movement.x != 0) {
-            movement.x = movement.x - Math.min(Math.abs(movement.x), friction) * Math.signum(movement.x);
-        }
-
-        if (!Keyboard.isKeyDown(Keyboard.KEY_SPACE) && !currentState.falling) {
-            jumpCount = 0;
-        }
-    }
-
-    @Override
     public void update() {
-        currentState.handleInput();
-
         if (!currentState.falling && !collideDown) {
             changeState(fallingState);
         }
         collideDown = false;
 
         if (currentState.falling) {
-            movement.y += map.gravity;
+            movement.y += map.getGravity();
         }
 
         position.x = this.position.x + movement.x;
@@ -219,17 +186,16 @@ public class Player extends Entity implements StateManager {
     }
 
     @Override
-    public void draw() {
-        currentState.draw();
-        bounds.draw();
+    public void render() {
+        currentState.render();
+        bounds.render();
     }
 
     //TODO: Name this something else or refactor... indicates player has just landed on a tile
     //and to stop "Falling" (changes animation)
     @Override
-    public void collideDown(Entity sEntity) {
+    public void collideDown(AbstractEntity sEntity) {
         collideDown = true;
-
         if (currentState.falling) {
             changeState(idleState);
         }
@@ -240,27 +206,36 @@ public class Player extends Entity implements StateManager {
      * @author jlinde, Peter Colapietro
      *
      */
-    private abstract class PlayerState implements State {
+    private abstract class AbstractPlayerState extends AbstractDisplayableState {
         
         /**
          * 
          */
-        protected boolean falling;
+        boolean falling;
 
         /**
          * 
          */
-        public PlayerState() {
+        public AbstractPlayerState() {
             falling = false;
         }
 
+    }
+
+    /**
+     *
+     */
+    private abstract class AbstractNonEnterablePlayerState extends AbstractPlayerState {
+
         /**
-         * 
+         *
          */
-        public abstract void handleInput();
+        final Logger LOGGER = LoggerFactory.getLogger(AbstractNonEnterablePlayerState.class);
 
         @Override
-        public void drawChildVertex2f(final float x, final float y) {}
+        public void entered() {
+            LOGGER.debug("com.jed.actor.Player.AbstractNonEnterablePlayerState#entered");
+        }
     }
 
     /**
@@ -268,7 +243,7 @@ public class Player extends Entity implements StateManager {
      * @author jlinde, Peter Colapietro
      *
      */
-    private class Falling extends PlayerState {
+    private class Falling extends AbstractNonEnterablePlayerState {
         
         /**
          * 
@@ -298,10 +273,6 @@ public class Player extends Entity implements StateManager {
         }
 
         @Override
-        public void entered() {
-        }
-
-        @Override
         public void update() {
             //Player Landed on something
             if (movement.y == 0) {
@@ -314,17 +285,7 @@ public class Player extends Entity implements StateManager {
         }
 
         @Override
-        public void leaving() {
-        }
-
-
-        @Override
-        public void handleInput() {
-            keyHoldEvent();
-        }
-
-        @Override
-        public void draw() {
+        public void render() {
             Color.white.bind();
             texture.bind();
             GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -361,17 +322,17 @@ public class Player extends Entity implements StateManager {
      * @author jlinde, Peter Colapietro
      *
      */
-    private class Jumping extends Falling {
+    private final class Jumping extends Falling {
 
         /**
          * 
          */
-        float[] animation = {.0625f, .125f, .1875f, .25f, .3125f, .375f, .4375f};
+        final float[] animation = {.0625f, .125f, .1875f, .25f, .3125f, .375f, .4375f};
         
         /**
          * 
          */
-        float frameWidth = .0625f;
+        final float frameWidth = .0625f;
         
         /**
          * 
@@ -402,7 +363,7 @@ public class Player extends Entity implements StateManager {
         }
 
         @Override
-        public void draw() {
+        public void render() {
             Color.white.bind();
             texture.bind();
             GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -438,11 +399,7 @@ public class Player extends Entity implements StateManager {
      * @author jlinde, Peter Colapietro
      *
      */
-    private class Idle extends PlayerState {
-
-        @Override
-        public void entered() {
-        }
+    private final class Idle extends AbstractNonEnterablePlayerState {
 
         @Override
         public void update() {
@@ -454,16 +411,7 @@ public class Player extends Entity implements StateManager {
         }
 
         @Override
-        public void leaving() {
-        }
-
-        @Override
-        public void handleInput() {
-            keyHoldEvent();
-        }
-
-        @Override
-        public void draw() {
+        public void render() {
             Color.white.bind();
             texture.bind();
             GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -499,17 +447,17 @@ public class Player extends Entity implements StateManager {
      * @author jlinde, Peter Colapietro
      *
      */
-    private class Walking extends PlayerState {
+    private final class Walking extends AbstractPlayerState {
 
         /**
          * 
          */
-        float[] animation = {.125f, .1875f, .25f, .3125f, .375f, .4375f, .5f, .5625f, .625f, .6875f, .75f};
+        final float[] animation = {.125f, .1875f, .25f, .3125f, .375f, .4375f, .5f, .5625f, .625f, .6875f, .75f};
         
         /**
          * 
          */
-        float frameWidth = .0625f;
+        final float frameWidth = .0625f;
         
         /**
          * 
@@ -520,15 +468,6 @@ public class Player extends Entity implements StateManager {
         public void entered() {
             frame = 0;
             ticks = 0;
-        }
-
-        @Override
-        public void leaving() {
-        }
-
-        @Override
-        public void handleInput() {
-            keyHoldEvent();
         }
 
         @Override
@@ -544,7 +483,7 @@ public class Player extends Entity implements StateManager {
         }
 
         @Override
-        public void draw() {
+        public void render() {
             Color.white.bind();
             texture.bind();
             GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -576,6 +515,51 @@ public class Player extends Entity implements StateManager {
     @Override
     public void drawChildVertex2f(float x, float y) {
         map.drawChildVertex2f(position.x + x, position.y + y);
+    }
+
+
+    @Override
+    public void controlPressed(Command command) {
+        LOGGER.debug("Pressed ",command.toString());
+        LOGGER.info("Command {}",command.toString());
+        if (command.equals(new BasicCommand("jump"))) {
+            boolean isJumpCountLessThanTwo = jumpCount < 2;
+            int heightOffsetWithYPosition = Math.round(position.y) + height;
+            if (isJumpCountLessThanTwo || heightOffsetWithYPosition == map.getHeight() * map.getTileHeight()) {
+                final int fallSpeedScalar = -8;
+                movement.y = fallSpeedScalar;
+                jumpCount++;
+                changeState(jumpingState);
+            }
+        }
+
+        if(command.equals(new BasicCommand("moveRight"))) {
+            if (movement.x < 0) {
+                movement.x += X_MOVEMENT_SCALAR;
+            } else {
+                movement.x += acceleration;
+                xDir = PLAYER_RIGHT;
+            }
+        } else if(command.equals(new BasicCommand("moveLeft"))) {
+            if (movement.x > 0) {
+                movement.x -= X_MOVEMENT_SCALAR;
+            } else {
+                movement.x -= acceleration;
+                xDir = PLAYER_LEFT;
+            }
+        } else if (movement.x != 0) {
+            movement.x = movement.x - Math.min(Math.abs(movement.x), FRICTION) * Math.signum(movement.x);
+        }
+
+        if (!command.equals(new BasicCommand("jump")) && !currentState.falling) {
+            jumpCount = 0;
+        }
+    }
+
+    @Override
+    public void controlReleased(Command command) {
+        LOGGER.debug("Released ",command.toString());
+        LOGGER.info("Command {}",command.toString());
     }
 
 }

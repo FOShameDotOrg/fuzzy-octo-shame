@@ -1,8 +1,9 @@
 package com.jed.actor;
 
+import com.jed.util.Vector3f;
 import org.lwjgl.opengl.GL11;
 
-import com.jed.util.Vector;
+import javax.annotation.Nonnull;
 
 /**
  * 
@@ -34,13 +35,13 @@ public class PolygonBoundary extends Boundary {
     /**
      * 
      * @param position position vector
-     * @param verticies array of vertices
+     * @param vertices array of vertices
      */
-    public PolygonBoundary(final Vector position, final Vector[] verticies) {
-        super(position, verticies);
+    public PolygonBoundary(final Vector3f position, @Nonnull final Vector3f[] vertices) {
+        super(position, vertices);
 
         //Find Max Bounds for quad tree
-        for (final Vector vertex: verticies) {
+        for (final Vector3f vertex: vertices) {
             if (vertex.x > rightBound) {
                 rightBound = vertex.x;
             }
@@ -87,12 +88,12 @@ public class PolygonBoundary extends Boundary {
     }
 
     @Override
-    public void draw() {
+    public void render() {
         //Bounding Box
         GL11.glColor3f(1f, 0, 0);
 
         GL11.glBegin(GL11.GL_LINE_LOOP);
-        for (final Vector vertex : verticies) {
+        for (final Vector3f vertex : vertices) {
             owner.drawChildVertex2f(position.x + vertex.x, position.y + vertex.y);
         }
         GL11.glEnd();

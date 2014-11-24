@@ -1,20 +1,29 @@
 package com.jed.state;
 
+import org.colapietro.lwjgl.input.Inputable;
 import org.lwjgl.input.Keyboard;
 
 import com.jed.util.MapLoader;
+import org.newdawn.slick.command.BasicCommand;
+import org.newdawn.slick.command.Command;
+import org.newdawn.slick.command.InputProviderListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.annotation.Nonnull;
 
 /**
  * 
  * @author jlinde, Peter Colapietro
  *
  */
-public class PlayState extends GameState implements StateManager {
+public class PlayState extends AbstractGameState implements StateManager, InputProviderListener {
 
     /**
-     * FIXME Make relative to classpath.
+     *
      */
-    public static final String LEVEL_ONE_PATH = MapLoader.RESOURCES_DIRECTORY + "POC_MAP.tmx";
+    private static final Logger LOGGER = LoggerFactory.getLogger(PlayState.class);
+
 
     /**
      * 
@@ -30,59 +39,79 @@ public class PlayState extends GameState implements StateManager {
      * 
      */
     private boolean stepFrame = false;
-
+    
     /**
      * 
-     * @param manager game state manager
      */
-    public PlayState(GameStateManager manager) {
-        super(manager);
+    private final boolean isDebugViewEnabled;
+    
+    /**
+     * @since 0.1.8
+     */
+    public PlayState() {
+        isDebugViewEnabled = false;
+    }
+    
+    /**
+     * @since 0.1.8
+     * 
+     * @param isDebugViewEnabled isDebugViewEnabled
+     */
+    public PlayState(boolean isDebugViewEnabled) {
+        this.isDebugViewEnabled = isDebugViewEnabled;
+        currentMap = MapLoader.loadMap();
+        currentMap.setDebugViewEnabled(isDebugViewEnabled);
     }
 
     @Override
-    public void changeState(State state) {
+    public void changeState(@Nonnull State state) {
         state.entered();
     }
 
     @Override
     public void entered() {
-        currentMap = MapLoader.loadMap(LEVEL_ONE_PATH);
-        changeState(currentMap);
-    }
-
-    @Override
-    public void leaving() {
+       changeState(currentMap);
     }
 
     @Override
     public void update() {
-        getInput();
         if (!paused || stepFrame) {
             currentMap.update();
         }
         stepFrame = false;
     }
 
-    /**
-     * 
-     */
-    private void getInput() {
-        while (Keyboard.next()) {
-            currentMap.keyPress();
-            if (Keyboard.getEventKey() == Keyboard.KEY_LMENU && Keyboard.getEventKeyState()) {
-                paused = !paused;
-            }
+    @Override
+    public void render() {
+        currentMap.render();
+    }
 
+    @Override
+    public void controlPressed(Command command) {
+        LOGGER.debug("com.jed.state.PlayState#controlPressed");
+        LOGGER.info("Command {}",command.toString());
+        //currentMap.keyPress();
+        if(command.equals(new BasicCommand("pauseToggle"))) {
+            paused = !paused;
+        }
+        if(command.equals(new BasicCommand("stepFrame"))) {
             if (paused) {
-                if (Keyboard.getEventKey() == Keyboard.KEY_RMENU && Keyboard.getEventKeyState()) {
-                    stepFrame = true;
-                }
+                stepFrame = true;
             }
         }
     }
 
     @Override
-    public void draw() {
-        currentMap.draw();
+    public void controlReleased(Command command) {
+        LOGGER.debug("com.jed.state.PlayState#controlReleased");
+        LOGGER.info("Command {}",command.toString());
+    }
+
+    /**
+     *
+     * @return currentMap
+     */
+    public GameMap getCurrentMap() {
+        return currentMap;
     }
 }

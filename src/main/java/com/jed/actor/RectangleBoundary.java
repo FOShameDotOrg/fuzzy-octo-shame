@@ -1,9 +1,9 @@
 package com.jed.actor;
 
+import com.jed.util.Vector3f;
 import org.lwjgl.opengl.GL11;
 
 import com.jed.util.Rectangle;
-import com.jed.util.Vector;
 
 /**
  * 
@@ -15,15 +15,15 @@ public class RectangleBoundary extends Boundary {
     /**
      * 
      */
-    private Rectangle rectangle;
+    private final Rectangle rectangle;
 
     /**
      * 
      * @param rectangle rectangle
      * @param position position of rectangle boundary
      */
-    public RectangleBoundary(Rectangle rectangle, Vector position) {
-        super(position, new Vector[]{});
+    public RectangleBoundary(Rectangle rectangle, Vector3f position) {
+        super(position, new Vector3f[]{});
         this.rectangle = rectangle;
     }
 
@@ -58,7 +58,7 @@ public class RectangleBoundary extends Boundary {
     }
 
     @Override
-    public void draw() {
+    public void render() {
         //Bounding Box
         GL11.glColor3f(1f, 0, 0);
 

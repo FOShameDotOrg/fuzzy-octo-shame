@@ -1,5 +1,8 @@
 package com.jed.state;
 
+import org.colapietro.lwjgl.input.Inputable;
+
+import javax.annotation.Nonnull;
 import java.util.Stack;
 
 /**
@@ -12,13 +15,13 @@ public class GameStateManager {
     /**
      * 
      */
-    Stack<GameState> states = new GameStateStack<GameState>();
+    private final Stack<AbstractGameState> states = new GameStateStack();
 
     /**
      * 
      * @param state to change to
      */
-    public void changeState(GameState state) {
+    public void changeState(AbstractGameState state) {
         clear();
         states.push(state);
     }
@@ -27,7 +30,7 @@ public class GameStateManager {
      * 
      * @param state state to push onto stack
      */
-    public void push(GameState state) {
+    public void push(AbstractGameState state) {
         states.push(state);
     }
 
@@ -35,14 +38,14 @@ public class GameStateManager {
      * 
      * @return state from top of stack
      */
-    public GameState pop() {
+    public AbstractGameState pop() {
         return states.pop();
     }
 
     /**
      * 
      */
-    public void clear() {
+    void clear() {
         while (!states.isEmpty()) {
             states.pop();
         }
@@ -52,7 +55,7 @@ public class GameStateManager {
      * 
      */
     public void update() {
-        for (GameState eachState : states) {
+        for (AbstractGameState eachState : states) {
             eachState.update();
         }
     }
@@ -60,9 +63,9 @@ public class GameStateManager {
     /**
      * 
      */
-    public void draw() {
-        for (GameState eachState : states) {
-            eachState.draw();
+    public void render() {
+        for (AbstractGameState eachState : states) {
+            eachState.render();
         }
     }
 
@@ -71,24 +74,25 @@ public class GameStateManager {
      * @author jlinde, Peter Colapietro
      *
      */
-    private class GameStateStack<E> extends Stack<E> {
+    private final class GameStateStack extends Stack<AbstractGameState> {
 
         /**
          * 
          */
         private static final long serialVersionUID = 1L;
 
+        @Nonnull
         @Override
-        public E push(E o) {
+        public AbstractGameState push(@Nonnull AbstractGameState o) {
             super.push(o);
-            ((GameState) o).entered();
+            o.entered();
             return o;
         }
 
         @Override
-        public synchronized E pop() {
-            E o = super.pop();
-            ((GameState) o).leaving();
+        public synchronized AbstractGameState pop() {
+            AbstractGameState o = super.pop();
+            o.leaving();
             return o;
         }
 

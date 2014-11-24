@@ -1,6 +1,6 @@
 package com.jed.core;
 
-import com.jed.util.Vector;
+import com.jed.util.Vector3f;
 
 /**
  * Created by Peter Colapietro on 11/22/14.
@@ -28,7 +28,7 @@ public class MotherBrainConstants {
     /**
      *
      */
-    public static final Vector MENU_STATE_COORDINATES = new Vector(20,20);
+    public static final Vector3f MENU_STATE_COORDINATES = new Vector3f(20,20);
     /**
      *
      */
@@ -45,4 +45,12 @@ public class MotherBrainConstants {
      *
      */
     public static final int HI_RESOLUTION_TIMER_TICKS_SCALAR = 1000;
+    /**
+     * 
+     */
+    public static final boolean IS_DEBUG_VIEW_ENABLED = true;
+    /**
+     *
+     */
+    public static final String MOTHER_BRAIN_INJECTOR = "MOTHER_BRAIN_INJECTOR";
 }
