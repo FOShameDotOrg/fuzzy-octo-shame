@@ -13,15 +13,15 @@ import org.lwjgl.opengl.Display;
 import org.newdawn.slick.util.Log;
 
 /**
- * A wrapped for all keyboard, mouse and controller input
+ * A wrapper for all keyboard, mouse and controller input.
  *
  * @author kevin
  */
 public class Input {
-    /** The controller index to pass to check all controllers */
+    /** The controller index to pass to check all controllers. */
     public static final int ANY_CONTROLLER = -1;
 
-    /** The maximum number of buttons on controllers */
+    /** The maximum number of buttons on controllers. */
     private static final int MAX_BUTTONS = 100;
 
     /** */
@@ -47,11 +47,11 @@ public class Input {
     /** */
     public static final int KEY_0               = 0x0B;
     /** */
-    public static final int KEY_MINUS           = 0x0C; /* - on main keyboard */
+    public static final int KEY_MINUS           = 0x0C; /* - on main keyboard. */
     /** */
     public static final int KEY_EQUALS          = 0x0D;
     /** */
-    public static final int KEY_BACK            = 0x0E; /* backspace */
+    public static final int KEY_BACK            = 0x0E; /* backspace. */
     /** */
     public static final int KEY_TAB             = 0x0F;
     /** */
@@ -273,129 +273,129 @@ public class Input {
     /** */
     public static final int KEY_SLEEP           = 0xDF;
 
-    /** A helper for left ALT */
+    /** A helper for left ALT. */
     public static final int KEY_LALT = KEY_LMENU;
-    /** A helper for right ALT */
+    /** A helper for right ALT. */
     public static final int KEY_RALT = KEY_RMENU;
 
-    /** Control index */
+    /** Control index. */
     private static final int LEFT = 0;
-    /** Control index */
+    /** Control index. */
     private static final int RIGHT = 1;
-    /** Control index */
+    /** Control index. */
     private static final int UP = 2;
-    /** Control index */
+    /** Control index. */
     private static final int DOWN = 3;
-    /** Control index */
+    /** Control index. */
     private static final int BUTTON1 = 4;
-    /** Control index */
+    /** Control index. */
     private static final int BUTTON2 = 5;
-    /** Control index */
+    /** Control index. */
     private static final int BUTTON3 = 6;
-    /** Control index */
+    /** Control index. */
     private static final int BUTTON4 = 7;
-    /** Control index */
+    /** Control index. */
     private static final int BUTTON5 = 8;
-    /** Control index */
+    /** Control index. */
     private static final int BUTTON6 = 9;
-    /** Control index */
+    /** Control index. */
     private static final int BUTTON7 = 10;
-    /** Control index */
+    /** Control index. */
     private static final int BUTTON8 = 11;
-    /** Control index */
+    /** Control index. */
     private static final int BUTTON9 = 12;
-    /** Control index */
+    /** Control index. */
     private static final int BUTTON10 = 13;
 
-    /** The left mouse button indicator */
+    /** The left mouse button indicator. */
     public static final int MOUSE_LEFT_BUTTON = 0;
-    /** The right mouse button indicator */
+    /** The right mouse button indicator. */
     public static final int MOUSE_RIGHT_BUTTON = 1;
-    /** The middle mouse button indicator */
+    /** The middle mouse button indicator. */
     public static final int MOUSE_MIDDLE_BUTTON = 2;
 
-    /** True if the controllers system has been initialised */
+    /** True if the controllers system has been initialised. */
     private static boolean controllersInited = false;
-    /** The list of controllers */
+    /** The list of controllers. */
     private static List<Controller> controllers = new ArrayList<>();
 
-    /** The last recorded mouse x position */
+    /** The last recorded mouse x position. */
     private int lastMouseX;
-    /** The last recorded mouse y position */
+    /** The last recorded mouse y position. */
     private int lastMouseY;
-    /** THe state of the mouse buttons */
+    /** THe state of the mouse buttons. */
     protected boolean[] mousePressed = new boolean[10];
-    /** THe state of the controller buttons */
+    /** THe state of the controller buttons. */
     private boolean[][] controllerPressed = new boolean[100][MAX_BUTTONS];
 
-    /** The character values representing the pressed keys */
+    /** The character values representing the pressed keys. */
     protected char[] keys = new char[1024];
-    /** True if the key has been pressed since last queries */
+    /** True if the key has been pressed since last queries. */
     protected boolean[] pressed = new boolean[1024];
-    /** The time since the next key repeat to be fired for the key */
+    /** The time since the next key repeat to be fired for the key. */
     protected long[] nextRepeat = new long[1024];
 
-    /** The control states from the controllers */
+    /** The control states from the controllers. */
     private boolean[][] controls = new boolean[10][MAX_BUTTONS+10];
-    /** True if the event has been consumed */
+    /** True if the event has been consumed. */
     protected boolean consumed = false;
-    /** A list of listeners to be notified of input events */
+    /** A list of listeners to be notified of input events. */
     protected Set<ControlledInputReciever> allListeners = new HashSet<>();
-    /** The listeners to notify of key events */
+    /** The listeners to notify of key events. */
     protected List<KeyListener> keyListeners = new ArrayList<>();
-    /** The listener to add */
+    /** The listener to add. */
     protected List<KeyListener> keyListenersToAdd = new ArrayList<>();
-    /** The listeners to notify of mouse events */
+    /** The listeners to notify of mouse events. */
     protected List<MouseListener> mouseListeners = new ArrayList<>();
-    /** The listener to add */
+    /** The listener to add. */
     protected List<MouseListener> mouseListenersToAdd = new ArrayList<>();
-    /** The listener to nofiy of controller events */
+    /** The listener to nofiy of controller events. */
     protected List<ControllerListener> controllerListeners = new ArrayList<>();
-    /** The current value of the wheel */
+    /** The current value of the wheel. */
     private int wheel;
-    /** The height of the display */
+    /** The height of the display. */
     private int height;
 
-    /** True if the display is active */
+    /** True if the display is active. */
     private boolean displayActive = true;
 
-    /** True if key repeat is enabled */
+    /** True if key repeat is enabled. */
     private boolean keyRepeat;
-    /** The initial delay for key repeat starts */
+    /** The initial delay for key repeat starts. */
     private int keyRepeatInitial;
-    /** The interval of key repeat */
+    /** The interval of key repeat. */
     private int keyRepeatInterval;
 
-    /** True if the input is currently paused */
+    /** True if the input is currently paused. */
     private boolean paused;
-    /** The scale to apply to screen coordinates */
+    /** The scale to apply to screen coordinates. */
     private float scaleX = 1;
-    /** The scale to apply to screen coordinates */
+    /** The scale to apply to screen coordinates. */
     private float scaleY = 1;
-    /** The offset to apply to screen coordinates */
+    /** The offset to apply to screen coordinates. */
     private float xoffset = 0;
-    /** The offset to apply to screen coordinates */
+    /** The offset to apply to screen coordinates. */
     private float yoffset = 0;
 
-    /** The delay before determining a single or double click */
+    /** The delay before determining a single or double click. */
     private int doubleClickDelay = 250;
-    /** The timer running out for a single click */
+    /** The timer running out for a single click. */
     private long doubleClickTimeout = 0;
 
-    /** The clicked x position */
+    /** The clicked x position. */
     private int clickX;
-    /** The clicked y position */
+    /** The clicked y position. */
     private int clickY;
-    /** The clicked button */
+    /** The clicked button. */
     private int clickButton;
 
-    /** The x position location the mouse was pressed */
+    /** The x position location the mouse was pressed. */
     private int pressedX = -1;
 
-    /** The x position location the mouse was pressed */
+    /** The x position location the mouse was pressed. */
     private int pressedY = -1;
 
-    /** The pixel distance the mouse can move to accept a mouse click */
+    /** The pixel distance the mouse can move to accept a mouse click. */
     private int mouseClickTolerance = 5;
 
     /**
@@ -407,7 +407,7 @@ public class Input {
     }
 
     /**
-     * Create a new input with the height of the screen
+     * Create a new input with the height of the screen.
      *
      * @param height The height of the screen
      */
@@ -437,7 +437,7 @@ public class Input {
     }
 
     /**
-     * Set the scaling to apply to screen coordinates
+     * Set the scaling to apply to screen coordinates.
      *
      * @param scaleX The scaling to apply to the horizontal axis
      * @param scaleY The scaling to apply to the vertical axis
@@ -448,7 +448,7 @@ public class Input {
     }
 
     /**
-     * Set the offset to apply to the screen coodinates
+     * Set the offset to apply to the screen coodinates.
      *
      * @param xoffset The offset on the x-axis
      * @param yoffset The offset on the y-axis
@@ -459,7 +459,7 @@ public class Input {
     }
 
     /**
-     * Reset the transformation being applied to the input to the default
+     * Reset the transformation being applied to the input to the default.
      */
     public void resetInputTransform() {
         setOffset(0, 0);
@@ -467,7 +467,7 @@ public class Input {
     }
 
     /**
-     * Add a listener to be notified of input events
+     * Add a listener to be notified of input events.
      *
      * @param listener The listener to be notified
      */
@@ -478,7 +478,7 @@ public class Input {
     }
 
     /**
-     * Add a key listener to be notified of key input events
+     * Add a key listener to be notified of key input events.
      *
      * @param listener The listener to be notified
      */
@@ -487,7 +487,7 @@ public class Input {
     }
 
     /**
-     * Add a key listener to be notified of key input events
+     * Add a key listener to be notified of key input events.
      *
      * @param listener The listener to be notified
      */
@@ -500,7 +500,7 @@ public class Input {
     }
 
     /**
-     * Add a mouse listener to be notified of mouse input events
+     * Add a mouse listener to be notified of mouse input events.
      *
      * @param listener The listener to be notified
      */
@@ -509,7 +509,7 @@ public class Input {
     }
 
     /**
-     * Add a mouse listener to be notified of mouse input events
+     * Add a mouse listener to be notified of mouse input events.
      *
      * @param listener The listener to be notified
      */
@@ -522,7 +522,7 @@ public class Input {
     }
 
     /**
-     * Add a controller listener to be notified of controller input events
+     * Add a controller listener to be notified of controller input events.
      *
      * @param listener The listener to be notified
      */
@@ -535,7 +535,7 @@ public class Input {
     }
 
     /**
-     * Remove all the listeners from this input
+     * Remove all the listeners from this input.
      */
     public void removeAllListeners() {
         removeAllKeyListeners();
@@ -544,7 +544,7 @@ public class Input {
     }
 
     /**
-     * Remove all the key listeners from this input
+     * Remove all the key listeners from this input.
      */
     public void removeAllKeyListeners() {
         allListeners.removeAll(keyListeners);
@@ -552,7 +552,7 @@ public class Input {
     }
 
     /**
-     * Remove all the mouse listeners from this input
+     * Remove all the mouse listeners from this input.
      */
     public void removeAllMouseListeners() {
         allListeners.removeAll(mouseListeners);
@@ -560,7 +560,7 @@ public class Input {
     }
 
     /**
-     * Remove all the controller listeners from this input
+     * Remove all the controller listeners from this input.
      */
     public void removeAllControllerListeners() {
         allListeners.removeAll(controllerListeners);
@@ -584,7 +584,7 @@ public class Input {
     }
 
     /**
-     * Remove a listener that will no longer be notified
+     * Remove a listener that will no longer be notified.
      *
      * @param listener The listen to be removed
      */
@@ -595,7 +595,7 @@ public class Input {
     }
 
     /**
-     * Remove a key listener that will no longer be notified
+     * Remove a key listener that will no longer be notified.
      *
      * @param listener The listen to be removed
      */
@@ -608,7 +608,7 @@ public class Input {
     }
 
     /**
-     * Remove a controller listener that will no longer be notified
+     * Remove a controller listener that will no longer be notified.
      *
      * @param listener The listen to be removed
      */
@@ -621,7 +621,7 @@ public class Input {
     }
 
     /**
-     * Remove a mouse listener that will no longer be notified
+     * Remove a mouse listener that will no longer be notified.
      *
      * @param listener The listen to be removed
      */
@@ -634,7 +634,7 @@ public class Input {
     }
 
     /**
-     * Initialise the input system
+     * Initialise the input system.
      *
      * @param height The height of the window
      */
@@ -645,7 +645,7 @@ public class Input {
     }
 
     /**
-     * Get the character representation of the key identified by the specified code
+     * Get the character representation of the key identified by the specified code.
      *
      * @param code The key code of the key to retrieve the name of
      * @return The name or character representation of the key requested
@@ -656,7 +656,7 @@ public class Input {
 
     /**
      * Check if a particular key has been pressed since this method
-     * was last called for the specified key
+     * was last called for the specified key.
      *
      * @param code The key code of the key to check
      * @return True if the key has been pressed
@@ -671,7 +671,7 @@ public class Input {
     }
 
     /**
-     * Check if a mouse button has been pressed since last call
+     * Check if a mouse button has been pressed since last call.
      *
      * @param button The button to check
      * @return True if the button has been pressed since last call
@@ -687,7 +687,7 @@ public class Input {
 
     /**
      * Check if a controller button has been pressed since last
-     * time
+     * time.
      *
      * @param button The button to check for (note that this includes directional controls first)
      * @return True if the button has been pressed since last time
@@ -698,7 +698,7 @@ public class Input {
 
     /**
      * Check if a controller button has been pressed since last
-     * time
+     * time.
      *
      * @param controller The index of the controller to check
      * @param button The button to check for (note that this includes directional controls first)
@@ -715,7 +715,7 @@ public class Input {
 
     /**
      * Clear the state for isControlPressed method. This will reset all
-     * controls to not pressed
+     * controls to not pressed.
      */
     public void clearControlPressedRecord() {
         for (int i=0;i<controllers.size();i++) {
@@ -735,14 +735,14 @@ public class Input {
     /**
      * Clear the state for the <code>isMousePressed</code> method. This will
      * resort in all mouse buttons returning that they haven't been pressed, until
-     * they are pressed again
+     * they are pressed again.
      */
     public void clearMousePressedRecord() {
         Arrays.fill(mousePressed, false);
     }
 
     /**
-     * Check if a particular key is down
+     * Check if a particular key is down.
      *
      * @param code The key code of the key to check
      * @return True if the key is down
@@ -752,7 +752,7 @@ public class Input {
     }
 
     /**
-     * Get the absolute x position of the mouse cursor within the container
+     * Get the absolute x position of the mouse cursor within the container.
      *
      * @return The absolute x position of the mouse cursor
      */
@@ -761,7 +761,7 @@ public class Input {
     }
 
     /**
-     * Get the absolute y position of the mouse cursor within the container
+     * Get the absolute y position of the mouse cursor within the container.
      *
      * @return The absolute y position of the mouse cursor
      */
@@ -770,7 +770,7 @@ public class Input {
     }
 
     /**
-     * Get the x position of the mouse cursor
+     * Get the x position of the mouse cursor.
      *
      * @return The x position of the mouse cursor
      */
@@ -779,7 +779,7 @@ public class Input {
     }
 
     /**
-     * Get the y position of the mouse cursor
+     * Get the y position of the mouse cursor.
      *
      * @return The y position of the mouse cursor
      */
@@ -788,7 +788,7 @@ public class Input {
     }
 
     /**
-     * Check if a given mouse button is down
+     * Check if a given mouse button is down.
      *
      * @param button The index of the button to check (starting at 0)
      * @return True if the mouse button is down
@@ -798,7 +798,7 @@ public class Input {
     }
 
     /**
-     * Check if any mouse button is down
+     * Check if any mouse button is down.
      *
      * @return True if any mouse button is down
      */
@@ -813,7 +813,7 @@ public class Input {
     }
 
     /**
-     * Get a count of the number of controlles available
+     * Get a count of the number of controlles available.
      *
      * @return The number of controllers available
      */
@@ -828,7 +828,7 @@ public class Input {
     }
 
     /**
-     * Get the number of axis that are avaiable on a given controller
+     * Get the number of axis that are avaiable on a given controller.
      *
      * @param controller The index of the controller to check
      * @return The number of axis available on the controller
@@ -838,7 +838,7 @@ public class Input {
     }
 
     /**
-     * Get the value of the axis with the given index
+     * Get the value of the axis with the given index.
      *
      * @param controller The index of the controller to check
      * @param axis The index of the axis to read
@@ -849,7 +849,7 @@ public class Input {
     }
 
     /**
-     * Get the name of the axis with the given index
+     * Get the name of the axis with the given index.
      *
      * @param controller The index of the controller to check
      * @param axis The index of the axis to read
@@ -860,7 +860,7 @@ public class Input {
     }
 
     /**
-     * Check if the controller has the left direction pressed
+     * Check if the controller has the left direction pressed.
      *
      * @param controller The index of the controller to check
      * @return True if the controller is pressed to the left
@@ -885,7 +885,7 @@ public class Input {
     }
 
     /**
-     * Check if the controller has the right direction pressed
+     * Check if the controller has the right direction pressed.
      *
      * @param controller The index of the controller to check
      * @return True if the controller is pressed to the right
@@ -910,7 +910,7 @@ public class Input {
     }
 
     /**
-     * Check if the controller has the up direction pressed
+     * Check if the controller has the up direction pressed.
      *
      * @param controller The index of the controller to check
      * @return True if the controller is pressed to the up
@@ -934,7 +934,7 @@ public class Input {
     }
 
     /**
-     * Check if the controller has the down direction pressed
+     * Check if the controller has the down direction pressed.
      *
      * @param controller The index of the controller to check
      * @return True if the controller is pressed to the down
@@ -960,7 +960,7 @@ public class Input {
     }
 
     /**
-     * Check if controller button is pressed
+     * Check if controller button is pressed.
      *
      * @param controller The index of the controller to check
      * @param index The index of the button to check
@@ -985,7 +985,7 @@ public class Input {
     }
 
     /**
-     * Check if button 1 is pressed
+     * Check if button 1 is pressed.
      *
      * @param controller The index of the controller to check
      * @return True if the button is pressed
@@ -995,7 +995,7 @@ public class Input {
     }
 
     /**
-     * Check if button 2 is pressed
+     * Check if button 2 is pressed.
      *
      * @param controller The index of the controller to check
      * @return True if the button is pressed
@@ -1005,7 +1005,7 @@ public class Input {
     }
 
     /**
-     * Check if button 3 is pressed
+     * Check if button 3 is pressed.
      *
      * @param controller The index of the controller to check
      * @return True if the button is pressed
@@ -1015,7 +1015,7 @@ public class Input {
     }
 
     /**
-     * Initialise the controllers system
+     * Initialise the controllers system.
      *
      * @throws org.newdawn.slick.SlickException Indicates a failure to use the hardware
      */
@@ -1043,7 +1043,8 @@ public class Input {
             }
         } catch (LWJGLException e) {
             if (e.getCause() instanceof ClassNotFoundException) {
-                throw new SlickException("Unable to create controller - no jinput found - add jinput.jar to your classpath");
+                throw new SlickException(
+                        "Unable to create controller - no jinput found - add jinput.jar to your classpath");
             }
             throw new SlickException("Unable to create controllers");
         } catch (NoClassDefFoundError e) {
@@ -1052,14 +1053,14 @@ public class Input {
     }
 
     /**
-     * Notification from an event handle that an event has been consumed
+     * Notification from an event handle that an event has been consumed.
      */
     public void consumeEvent() {
         consumed = true;
     }
 
     /**
-     * A null stream to clear out those horrid errors
+     * A null stream to clear out those horrid errors.
      *
      * @author kevin
      */
@@ -1067,6 +1068,7 @@ public class Input {
         /**
          * @see java.io.OutputStream#write(int)
          */
+        @Override
         public void write(int b) throws IOException {
             // null implemetnation
         }
@@ -1093,7 +1095,7 @@ public class Input {
 
     /**
      * Notification that the mouse has been pressed and hence we
-     * should consider what we're doing with double clicking
+     * should consider what we're doing with double clicking.
      *
      * @param button The button pressed/released
      * @param x The location of the mouse
@@ -1117,7 +1119,7 @@ public class Input {
     }
 
     /**
-     * Poll the state of the input
+     * Poll the state of the input.
      *
      * @param width The width of the game view
      * @param height The height of the game view
@@ -1355,7 +1357,7 @@ public class Input {
 
     /**
      * Enable key repeat for this input context. This will cause keyPressed to get called repeatedly
-     * at a set interval while the key is pressed
+     * at a set interval while the key is pressed.
      *
      * @param initial The interval before key repreating starts after a key press
      * @param interval The interval between key repeats in ms
@@ -1374,14 +1376,14 @@ public class Input {
     }
 
     /**
-     * Disable key repeat for this input context
+     * Disable key repeat for this input context.
      */
     public void disableKeyRepeat() {
         Keyboard.enableRepeatEvents(false);
     }
 
     /**
-     * Check if key repeat is enabled
+     * Check if key repeat is enabled.
      *
      * @return True if key repeat is enabled
      */
@@ -1390,7 +1392,7 @@ public class Input {
     }
 
     /**
-     * Fire an event indicating that a control has been pressed
+     * Fire an event indicating that a control has been pressed.
      *
      * @param index The index of the control pressed
      * @param controllerIndex The index of the controller on which the control was pressed
@@ -1426,7 +1428,7 @@ public class Input {
     }
 
     /**
-     * Fire an event indicating that a control has been released
+     * Fire an event indicating that a control has been released.
      *
      * @param index The index of the control released
      * @param controllerIndex The index of the controller on which the control was released
@@ -1462,7 +1464,7 @@ public class Input {
     }
 
     /**
-     * Check if a particular control is currently pressed
+     * Check if a particular control is currently pressed.
      *
      * @param index The index of the control
      * @param controllerIndex The index of the control to which the control belongs
@@ -1508,7 +1510,7 @@ public class Input {
     }
 
     /**
-     * Notify listeners that the mouse button has been clicked
+     * Notify listeners that the mouse button has been clicked.
      *
      * @param button The button that has been clicked
      * @param x The location at which the button was clicked
