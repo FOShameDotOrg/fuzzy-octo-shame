@@ -5,12 +5,15 @@ import com.google.inject.Injector;
 
 import com.jed.util.StatusCode;
 import org.colapietro.lwjgl.AbstractLwjglGameLoopable;
+import org.colapietro.lwjgl.controllers.ButtonState;
+import org.colapietro.lwjgl.controllers.Xbox360ControllerButton;
 import org.colapietro.slick.BasicInputListener;
 import org.colapietro.slick.InputListenable;
 import org.colapietro.slick.InputProviderListenable;
 import org.colapietro.slick.LoggableInputProviderListener;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
+import org.lwjgl.input.Controller;
 import org.lwjgl.input.Controllers;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
@@ -28,6 +31,8 @@ import com.jed.state.DiscoState;
 import com.jed.state.GameStateManager;
 import com.jed.state.MenuState;
 import com.jed.state.PlayState;
+
+import java.util.*;
 
 /**
  * @author jlinde, Peter Colapietro
@@ -58,23 +63,13 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
     /**
      *
      */
-    private InputProvider inputProvider;
+    private final List<Controller> controllers = new ArrayList<>();
 
     /**
      *
      */
-    private InputListener inputListener;
-
-    /**
-     *
-     */
-    private InputProviderListener inputProviderListener;
-
-    /**
-     *
-     */
-    private Command moveLeft = new BasicCommand("moveLeft");
-
+    private final Map<Xbox360ControllerButton, ButtonState> buttonStateMap =
+            new EnumMap<>(Xbox360ControllerButton.class);
 
     /**
      * @param args Command-line arguments
@@ -95,7 +90,34 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
      */
     @Override
     public void initialize() {
-        initializeInputs();
+        try {
+            Log.debug("org.lwjgl.input.Controllers#create");
+            Controllers.create();
+            for (int i = 0; i < Controllers.getControllerCount(); i++) {
+                final Controller controller = Controllers.getController(i);
+                Log.debug(controller.getName());
+                final int controllerAxisCount = controller.getAxisCount();
+                Log.debug("org.lwjgl.input.Controller#getAxisName");
+                for (int j = 0; j < controllerAxisCount; j++) {
+                    Log.debug(controller.getAxisName(j));
+                }
+                final int controllerButtonCount = controller.getButtonCount();
+                Log.debug("org.lwjgl.input.Controller#getButtonCount");
+                Log.debug(String.valueOf(controllerButtonCount));
+                Log.debug("org.lwjgl.input.Controller#getButtonName");
+                for (int j = 0; j < controllerButtonCount; j++) {
+                    Log.debug(controller.getButtonName(j));
+                }
+                final int controllerRumblerCount = controller.getRumblerCount();
+                Log.debug("org.lwjgl.input.Controller#getRumblerName");
+                for (int j = 0; j < controllerRumblerCount; j++) {
+                    Log.debug(controller.getRumblerName(j));
+                }
+                controllers.add(controller);
+            }
+        } catch (LWJGLException e) {
+            Log.error("{}",e);
+        }
         initializeDisplay();
         initializeOpenGl();
         initializeStateManager();
@@ -196,11 +218,53 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
     public void start() {
         initialize();
         while (!Display.isCloseRequested()) {
+            processInput();
             update();
             render();
         }
 
         Display.destroy();
+    }
+
+    @Override
+    public void processInput() {
+        //Controllers.poll();
+        if(controllers.size() >= 1) {
+            final Controller firstController = controllers.get(0);
+            while(Controllers.next()) {
+                if(Controllers.getEventSource().equals(firstController)) {
+                    /**
+                    if(Controllers.isEventAxis()) {
+                        Log.debug("isEventAxis");
+                            if(Controllers.isEventXAxis()) {
+                            Log.debug("isEventXAxis");
+                        }
+                        if(Controllers.isEventYAxis()) {
+                            Log.debug("isEventYAxis");
+                        }
+                    }
+                     */
+                    if(Controllers.isEventButton()) {
+                        final int eventControlIndex = Controllers.getEventControlIndex();
+                        final Xbox360ControllerButton xbox360ControllerButton =
+                                Xbox360ControllerButton.valueOf(eventControlIndex);
+                        final ButtonState buttonState = ButtonState.valueOf(Controllers.getEventButtonState());
+                        buttonStateMap.put(xbox360ControllerButton, buttonState);
+                        final Set<Map.Entry<Xbox360ControllerButton, ButtonState>> entrySet = buttonStateMap.entrySet();
+                        for (Map.Entry<Xbox360ControllerButton, ButtonState> entry: entrySet) {
+                            Log.debug(entry.getKey().name() + entry.getValue().name());
+                        }
+                    }
+                    if(Controllers.isEventPovX()) {
+                        Log.debug("isEventPovX");
+                    }
+                    if(Controllers.isEventPovY()) {
+                        Log.debug("isEventPovY");
+                    }
+                }
+            }
+        }
+
     }
 
     @Override
