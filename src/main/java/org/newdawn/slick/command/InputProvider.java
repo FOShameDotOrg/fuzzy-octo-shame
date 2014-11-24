@@ -5,7 +5,6 @@ import org.newdawn.slick.util.InputAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -57,11 +56,7 @@ class InputProvider {
     public List getUniqueCommands() {
         final List<Command> uniqueCommands = new ArrayList<>();
 
-        for (Command command : commands.values()) {
-            if (!uniqueCommands.contains(command)) {
-                uniqueCommands.add(command);
-            }
-        }
+        commands.values().stream().filter(command -> !uniqueCommands.contains(command)).forEach(uniqueCommands::add);
 
         return uniqueCommands;
     }
