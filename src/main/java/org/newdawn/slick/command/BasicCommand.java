@@ -27,28 +27,40 @@ public class BasicCommand implements Command {
         return name;
     }
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    public int hashCode() {
-        return name.hashCode();
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    public boolean equals(Object other) {
-        if (other instanceof BasicCommand) {
-            return ((BasicCommand) other).name.equals(name);
-        }
-
-        return false;
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
+    @Override
     public String toString() {
         return "[Command="+name+"]";
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof BasicCommand)) {
+            return false;
+        }
+        BasicCommand other = (BasicCommand) obj;
+        if (name == null) { 
+            if (other.name != null) {
+                return false;
+            }
+        } else if (!name.equals(other.name)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }
