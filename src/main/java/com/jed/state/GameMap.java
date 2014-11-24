@@ -77,12 +77,12 @@ public final class GameMap extends AbstractDisplayableState {
     /**
      * 
      */
-    private Player player;
+    private final Player player;
     
     /**
      * 
      */
-    private Stack<AbstractEntity> scene;
+    private final Stack<AbstractEntity> scene;
 
     /**
      * 

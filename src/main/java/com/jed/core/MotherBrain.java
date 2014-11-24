@@ -85,17 +85,17 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
     /**
      *
      */
-    private Command moveLeft = new BasicCommand("moveLeft");
+    private final Command moveLeft = new BasicCommand("moveLeft");
 
     /**
      *
      */
-    private Command bindControllerLeftDpad = new BasicCommand("bindControllerLeftDpad");
+    private final Command bindControllerLeftDpad = new BasicCommand("bindControllerLeftDpad");
 
     /**
      *
      */
-    private Command pauseToggle = new BasicCommand("pauseToggle");
+    private final Command pauseToggle = new BasicCommand("pauseToggle");
 
 
     /**
@@ -122,7 +122,7 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
     /**
      *
      */
-    private Command moveRight = new BasicCommand("moveRight");
+    private final Command moveRight = new BasicCommand("moveRight");
 
 
     /**

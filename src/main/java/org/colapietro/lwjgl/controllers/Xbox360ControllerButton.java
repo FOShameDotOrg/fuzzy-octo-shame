@@ -77,7 +77,7 @@ public enum Xbox360ControllerButton {
     /**
      *
      */
-    private int controlIndex;
+    private final int controlIndex;
 
     /**
      *

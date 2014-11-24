@@ -17,15 +17,15 @@ public abstract class AbstractInputListener implements InputListener {
     /** The maximum number of controller buttons supported by the basic game. */
     private static final int MAX_CONTROLLER_BUTTONS = 100;
     /** The state of the left control. */
-    protected boolean[] controllerLeft = new boolean[MAX_CONTROLLERS];
+    protected final boolean[] controllerLeft = new boolean[MAX_CONTROLLERS];
     /** The state of the right control. */
-    protected boolean[] controllerRight = new boolean[MAX_CONTROLLERS];
+    protected final boolean[] controllerRight = new boolean[MAX_CONTROLLERS];
     /** The state of the up control. */
-    protected boolean[] controllerUp = new boolean[MAX_CONTROLLERS];
+    protected final boolean[] controllerUp = new boolean[MAX_CONTROLLERS];
     /** The state of the down control. */
-    protected boolean[] controllerDown = new boolean[MAX_CONTROLLERS];
+    protected final boolean[] controllerDown = new boolean[MAX_CONTROLLERS];
     /** The state of the button controls. */
-    protected boolean[][] controllerButton = new boolean[MAX_CONTROLLERS][MAX_CONTROLLER_BUTTONS];
+    protected final boolean[][] controllerButton = new boolean[MAX_CONTROLLERS][MAX_CONTROLLER_BUTTONS];
     /** */
     protected Input input;
 
