@@ -63,7 +63,27 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
     /**
      *
      */
+    private InputProvider inputProvider;
+
+    /**
+     *
+     */
+    private InputListener inputListener;
+
+    /**
+     *
+     */
+    private InputProviderListener inputProviderListener;
+
+    /**
+     *
+     */
     private final List<Controller> controllers = new ArrayList<>();
+
+    /**
+     *
+     */
+    private Command moveLeft = new BasicCommand("moveLeft");
 
     /**
      *
@@ -90,34 +110,7 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
      */
     @Override
     public void initialize() {
-        try {
-            Log.debug("org.lwjgl.input.Controllers#create");
-            Controllers.create();
-            for (int i = 0; i < Controllers.getControllerCount(); i++) {
-                final Controller controller = Controllers.getController(i);
-                Log.debug(controller.getName());
-                final int controllerAxisCount = controller.getAxisCount();
-                Log.debug("org.lwjgl.input.Controller#getAxisName");
-                for (int j = 0; j < controllerAxisCount; j++) {
-                    Log.debug(controller.getAxisName(j));
-                }
-                final int controllerButtonCount = controller.getButtonCount();
-                Log.debug("org.lwjgl.input.Controller#getButtonCount");
-                Log.debug(String.valueOf(controllerButtonCount));
-                Log.debug("org.lwjgl.input.Controller#getButtonName");
-                for (int j = 0; j < controllerButtonCount; j++) {
-                    Log.debug(controller.getButtonName(j));
-                }
-                final int controllerRumblerCount = controller.getRumblerCount();
-                Log.debug("org.lwjgl.input.Controller#getRumblerName");
-                for (int j = 0; j < controllerRumblerCount; j++) {
-                    Log.debug(controller.getRumblerName(j));
-                }
-                controllers.add(controller);
-            }
-        } catch (LWJGLException e) {
-            Log.error("{}",e);
-        }
+        initializeInputs();
         initializeDisplay();
         initializeOpenGl();
         initializeStateManager();
@@ -140,9 +133,27 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
         inputProvider.addListener(inputProviderListener);
         inputProvider.bindCommand(new ControllerDirectionControl(0, ControllerDirectionControl.LEFT), moveLeft);
         inputProvider.bindCommand(new KeyControl(Keyboard.KEY_LEFT), moveLeft);
-        Log.debug("org.lwjgl.input.Controllers#create");
         for (int i = 0; i < Controllers.getControllerCount(); i++) {
-            Log.debug(Controllers.getController(i).toString());
+            final Controller controller = Controllers.getController(i);
+            Log.debug(controller.getName());
+            final int controllerAxisCount = controller.getAxisCount();
+            Log.debug("org.lwjgl.input.Controller#getAxisName");
+            for (int j = 0; j < controllerAxisCount; j++) {
+                Log.debug(controller.getAxisName(j));
+            }
+            final int controllerButtonCount = controller.getButtonCount();
+            Log.debug("org.lwjgl.input.Controller#getButtonCount");
+            Log.debug(String.valueOf(controllerButtonCount));
+            Log.debug("org.lwjgl.input.Controller#getButtonName");
+            for (int j = 0; j < controllerButtonCount; j++) {
+                Log.debug(controller.getButtonName(j));
+            }
+            final int controllerRumblerCount = controller.getRumblerCount();
+            Log.debug("org.lwjgl.input.Controller#getRumblerName");
+            for (int j = 0; j < controllerRumblerCount; j++) {
+                Log.debug(controller.getRumblerName(j));
+            }
+            controllers.add(controller);
         }
     }
 
@@ -228,6 +239,7 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
 
     @Override
     public void processInput() {
+        inputListener
         //Controllers.poll();
         if(controllers.size() >= 1) {
             final Controller firstController = controllers.get(0);
