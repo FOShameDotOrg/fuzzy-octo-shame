@@ -1148,13 +1148,9 @@ public class Input {
         }
 
         // add any listeners requested since last time
-        for (KeyListener aKeyListenersToAdd : keyListenersToAdd) {
-            addKeyListenerImpl(aKeyListenersToAdd);
-        }
+        keyListenersToAdd.forEach(this::addKeyListenerImpl);
         keyListenersToAdd.clear();
-        for (MouseListener aMouseListenersToAdd : mouseListenersToAdd) {
-            addMouseListenerImpl(aMouseListenersToAdd);
-        }
+        mouseListenersToAdd.forEach(this::addMouseListenerImpl);
         mouseListenersToAdd.clear();
 
         if (doubleClickTimeout != 0) {
