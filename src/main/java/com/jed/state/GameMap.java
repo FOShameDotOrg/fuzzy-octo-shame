@@ -12,8 +12,6 @@ import com.jed.core.MotherBrainConstants;
 import com.jed.util.Vector3f;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.command.Command;
-import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.opengl.Texture;
 
 import com.jed.actor.Player;

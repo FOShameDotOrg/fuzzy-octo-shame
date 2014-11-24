@@ -1,8 +1,5 @@
 package com.jed.state;
 
-import org.colapietro.lwjgl.input.Inputable;
-import org.lwjgl.input.Keyboard;
-
 import com.jed.util.MapLoader;
 import org.newdawn.slick.command.BasicCommand;
 import org.newdawn.slick.command.Command;

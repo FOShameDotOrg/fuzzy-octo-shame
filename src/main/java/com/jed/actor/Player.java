@@ -2,8 +2,6 @@ package com.jed.actor;
 
 import com.jed.state.*;
 import com.jed.util.Vector3f;
-import org.colapietro.lang.NotImplementedException;
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.command.BasicCommand;
