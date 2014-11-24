@@ -1,13 +1,13 @@
 package org.newdawn.slick.command;
 
+import org.newdawn.slick.Input;
+import org.newdawn.slick.util.InputAdapter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.newdawn.slick.Input;
-import org.newdawn.slick.util.InputAdapter;
 
 /**
  * The central provider that maps real device input into abstract commands
@@ -57,9 +57,8 @@ class InputProvider {
     public List getUniqueCommands() {
         final List<Command> uniqueCommands = new ArrayList<>();
 
-        for (Iterator it = commands.values().iterator(); it.hasNext();) {
-            Command command = (Command) it.next();
-
+        for (Iterator<Command> it = commands.values().iterator(); it.hasNext();) {
+            Command command = it.next();
             if (!uniqueCommands.contains(command)) {
                 uniqueCommands.add(command);
             }
@@ -168,9 +167,9 @@ class InputProvider {
      *            The control to remove
      */
     void unbindCommand(Control control) {
-        Command command = (Command) commands.remove(control);
+        Command command = commands.remove(control);
         if (command != null) {
-            if (!commands.keySet().contains(command)) {
+            if (!commandState.keySet().contains(command)) {
                 commandState.remove(command);
             }
         }
