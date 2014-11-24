@@ -14,7 +14,6 @@ import org.lwjgl.input.Controllers;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
-
 import org.newdawn.slick.util.Log;
 
 /**
@@ -294,23 +293,23 @@ public final class Input {
     /** Control index. */
     private static final int BUTTON1 = 4;
     /** Control index. */
-    private static final int BUTTON2 = 5;
+    public static final int BUTTON2 = 5;
     /** Control index. */
-    private static final int BUTTON3 = 6;
+    public static final int BUTTON3 = 6;
     /** Control index. */
-    private static final int BUTTON4 = 7;
+    public static final int BUTTON4 = 7;
     /** Control index. */
-    private static final int BUTTON5 = 8;
+    public static final int BUTTON5 = 8;
     /** Control index. */
-    private static final int BUTTON6 = 9;
+    public static final int BUTTON6 = 9;
     /** Control index. */
-    private static final int BUTTON7 = 10;
+    public static final int BUTTON7 = 10;
     /** Control index. */
-    private static final int BUTTON8 = 11;
+    public static final int BUTTON8 = 11;
     /** Control index. */
-    private static final int BUTTON9 = 12;
+    public static final int BUTTON9 = 12;
     /** Control index. */
-    private static final int BUTTON10 = 13;
+    public static final int BUTTON10 = 13;
 
     /** The left mouse button indicator. */
     public static final int MOUSE_LEFT_BUTTON = 0;
