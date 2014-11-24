@@ -5,7 +5,7 @@ package org.newdawn.slick;
  * 
  * @author kevin
  */
-public interface MouseListener extends ControlledInputReciever {
+public interface MouseListener extends ControlledInputReceiver {
 
     /**
      * Notification that the mouse wheel position was updated

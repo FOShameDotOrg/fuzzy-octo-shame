@@ -5,7 +5,7 @@ package org.newdawn.slick;
  * 
  * @author kevin
  */
-public interface ControllerListener extends ControlledInputReciever {
+public interface ControllerListener extends ControlledInputReceiver {
 
     /**
      * Notification that the left control has been pressed on

@@ -146,7 +146,7 @@ public class InputAdapter implements InputListener {
     }
 
     /**
-     * @see org.newdawn.slick.ControlledInputReciever#inputStarted()
+     * @see org.newdawn.slick.ControlledInputReceiver#inputStarted()
      */
     public void inputStarted() {
 

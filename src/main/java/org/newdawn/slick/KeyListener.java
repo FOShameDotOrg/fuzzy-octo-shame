@@ -5,7 +5,7 @@ package org.newdawn.slick;
  * 
  * @author kevin
  */
-public interface KeyListener extends ControlledInputReciever {
+public interface KeyListener extends ControlledInputReceiver {
     /**
      * Notification that a key was pressed
      *

@@ -13,7 +13,7 @@ package org.newdawn.slick;
  * 
  * @author kevin
  */
-public interface ControlledInputReciever {
+public interface ControlledInputReceiver {
 
     /**
      * Set the input that events are being sent from

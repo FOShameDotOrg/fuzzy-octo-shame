@@ -346,7 +346,7 @@ public class Input {
     /** True if the event has been consumed. */
     protected boolean consumed = false;
     /** A list of listeners to be notified of input events. */
-    protected Set<ControlledInputReciever> allListeners = new HashSet<>();
+    protected Set<ControlledInputReceiver> allListeners = new HashSet<>();
     /** The listeners to notify of key events. */
     protected List<KeyListener> keyListeners = new ArrayList<>();
     /** The listener to add. */
@@ -1165,9 +1165,9 @@ public class Input {
 
         this.height = height;
 
-        Iterator<ControlledInputReciever> allStarts = allListeners.iterator();
+        Iterator<ControlledInputReceiver> allStarts = allListeners.iterator();
         while (allStarts.hasNext()) {
-            ControlledInputReciever listener = allStarts.next();
+            ControlledInputReceiver listener = allStarts.next();
             listener.inputStarted();
         }
 
@@ -1350,9 +1350,9 @@ public class Input {
         }
 
 
-        Iterator<ControlledInputReciever> all = allListeners.iterator();
+        Iterator<ControlledInputReceiver> all = allListeners.iterator();
         while (all.hasNext()) {
-            ControlledInputReciever listener = all.next();
+            ControlledInputReceiver listener = all.next();
             listener.inputEnded();
         }
 
