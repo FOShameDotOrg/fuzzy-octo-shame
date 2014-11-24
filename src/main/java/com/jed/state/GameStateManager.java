@@ -1,5 +1,7 @@
 package com.jed.state;
 
+import org.colapietro.lwjgl.input.Inputable;
+
 import javax.annotation.Nonnull;
 import java.util.Stack;
 

@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
  * @author Peter Colapietro
  * @since 0.1.8
  */
-public class LoggableInputProviderListener extends AbstractInputProviderListener {
+public final class LoggableInputProviderListener extends AbstractInputProviderListener {
 
     /**
      *
@@ -20,6 +20,7 @@ public class LoggableInputProviderListener extends AbstractInputProviderListener
     @Override
     public void controlPressed(Command command) {
         LOGGER.debug("Pressed ",command.toString());
+        LOGGER.info("Command {}",command.toString());
     }
 
     @Override

@@ -183,7 +183,7 @@ public class Collision implements Comparable<Collision> {
                  */
 
                 //FIXME test
-                if (Doubles.compareDoubles(minXDistance, a.acceleration) || minXDistance < minYDistance) {
+                if (Doubles.compareDoubles(minXDistance, a.getAcceleration()) || minXDistance < minYDistance) {
                     if (xEntityMinMax.min > xSEntityMinMax.min) {
                         a.position.x += minXDistance;
                     } else {

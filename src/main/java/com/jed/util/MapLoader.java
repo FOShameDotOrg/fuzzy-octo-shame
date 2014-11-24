@@ -40,7 +40,7 @@ public class MapLoader {
      * @return gameMap
      */
     @Nonnull
-    public static GameMap loadMap() {
+    public synchronized static GameMap loadMap() {
         final GameMap map = new GameMap();
 
         Document doc = null;
@@ -50,7 +50,7 @@ public class MapLoader {
             doc = dBuilder.parse(resourceAsStream);
         } catch (Exception e) {
             LOGGER.error("{}", e);
-            System.exit(StatusCode.ERROR.getStatusCode());
+            System.exit(ExitStatusCode.ERROR.getStatusCode());
         }
 
         final Element docElement = doc.getDocumentElement();

@@ -45,7 +45,7 @@ public class Util {
             LOGGER.debug(">> Texture Alpha: " + texture.hasAlpha());
         } catch (IOException e) {
             LOGGER.error("An error occurred while loading texture", e);
-            System.exit(StatusCode.ERROR.getStatusCode());
+            System.exit(ExitStatusCode.ERROR.getStatusCode());
         }
         return texture;
     }
