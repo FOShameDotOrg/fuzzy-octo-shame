@@ -1060,7 +1060,7 @@ public final class Input {
      *
      * @author kevin
      */
-    private class NullOutputStream extends OutputStream {
+    private final class NullOutputStream extends OutputStream {
         /**
          * @see java.io.OutputStream#write(int)
          */
