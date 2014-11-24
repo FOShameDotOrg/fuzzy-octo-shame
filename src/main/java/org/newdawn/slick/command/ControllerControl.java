@@ -8,7 +8,7 @@ package org.newdawn.slick.command;
  */
 abstract class ControllerControl implements Control {
     /** Indicates a button was pressed */
-	protected static final int BUTTON_EVENT = 0;
+    protected static final int BUTTON_EVENT = 0;
     /** Indicates left was pressed */
     protected static final int LEFT_EVENT = 1;
     /** Indicates right was pressed */

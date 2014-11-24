@@ -7,7 +7,7 @@ package org.newdawn.slick.command;
  * @author joverton
  */
 public class KeyControl implements Control {
-	/** The key code that needs to be pressed */
+    /** The key code that needs to be pressed */
     private int keycode;
     
     /**
@@ -24,7 +24,7 @@ public class KeyControl implements Control {
      */
     public boolean equals(Object o) {
         if (o instanceof KeyControl) {
-        	return ((KeyControl)o).keycode == keycode;
+            return ((KeyControl)o).keycode == keycode;
         }
         
         return false;

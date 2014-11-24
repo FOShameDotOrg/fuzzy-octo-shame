@@ -6,7 +6,7 @@ package org.newdawn.slick.command;
  * @author joverton
  */
 public class MouseButtonControl implements Control {
-	/** The button to be pressed */
+    /** The button to be pressed */
     private int button;
     
     /**
@@ -24,7 +24,7 @@ public class MouseButtonControl implements Control {
     public boolean equals(Object o) {
         if (o instanceof MouseButtonControl) 
         {
-        	return ((MouseButtonControl)o).button == button;
+            return ((MouseButtonControl)o).button == button;
         }
         
         return false;
