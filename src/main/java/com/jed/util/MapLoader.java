@@ -40,7 +40,7 @@ public class MapLoader {
      * @return gameMap
      */
     @Nonnull
-    public static GameMap loadMap() {
+    public synchronized static GameMap loadMap() {
         final GameMap map = new GameMap();
 
         Document doc = null;

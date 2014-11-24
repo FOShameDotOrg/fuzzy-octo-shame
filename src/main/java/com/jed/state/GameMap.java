@@ -12,6 +12,8 @@ import com.jed.core.MotherBrainConstants;
 import com.jed.util.Vector3f;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.command.Command;
+import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.opengl.Texture;
 
 import com.jed.actor.Player;
@@ -19,6 +21,8 @@ import com.jed.core.Collision;
 import com.jed.core.QuadTree;
 import com.jed.util.Rectangle;
 import com.jed.util.Util;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
 
@@ -30,8 +34,12 @@ import javax.annotation.Nullable;
  * TODO Decouple from com.jed.core.MotherBrain / com.jed.core.MotherBrainConstants
  *
  */
-public class GameMap extends AbstractDisplayableState {
+public final class GameMap extends AbstractDisplayableState {
 
+    /**
+     *
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(GameMap.class);
     /**
      *
      */
@@ -99,14 +107,19 @@ public class GameMap extends AbstractDisplayableState {
      */
     private boolean isDebugViewEnabled;
 
-    @Override
-    public void entered() {
-        texture = Util.loadTexture(tileSetPath);
-
+    /**
+     *
+     */
+    public GameMap() {
         //TODO: initialize scene Stack by some data contained in the map i.e. start position or something like that...
         scene = new Stack<>();
         player = new Player(new Vector3f(50, 200), 256, 256, this);
         scene.push(player);
+    }
+
+    @Override
+    public void entered() {
+        texture = Util.loadTexture(tileSetPath);
 
         quadTree = new QuadTree(
                 new Vector3f(0, 0), 0,
@@ -121,13 +134,6 @@ public class GameMap extends AbstractDisplayableState {
         //Draw the map once prior to the first update to ensure the quad tree
         //is populated with map tiles on the first frame
         drawMap();
-    }
-
-    /**
-     * 
-     */
-    public void keyPress() {
-        player.keyPressEvent();
     }
 
     @Override
@@ -392,5 +398,13 @@ public class GameMap extends AbstractDisplayableState {
      */
     boolean isDebugViewEnabled() {
         return isDebugViewEnabled;
+    }
+
+    /**
+     *
+     * @return player
+     */
+    public Player getPlayer() {
+        return player;
     }
 }

@@ -1,13 +1,13 @@
 package org.newdawn.slick;
 
 /**
- * Describes classes capable of responding to key presses
+ * Describes classes capable of responding to key presses.
  * 
  * @author kevin
  */
 public interface KeyListener extends ControlledInputReceiver {
     /**
-     * Notification that a key was pressed
+     * Notification that a key was pressed.
      *
      * @param key The key code that was pressed (@see org.newdawn.slick.Input)
      * @param c The character of the key that was pressed
@@ -15,7 +15,7 @@ public interface KeyListener extends ControlledInputReceiver {
     public abstract void keyPressed(int key, char c);
 
     /**
-     * Notification that a key was released
+     * Notification that a key was released.
      *
      * @param key The key code that was released (@see org.newdawn.slick.Input)
      * @param c The character of the key that was released

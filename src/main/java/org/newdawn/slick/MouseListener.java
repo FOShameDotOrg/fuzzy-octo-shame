@@ -1,14 +1,14 @@
 package org.newdawn.slick;
 
 /**
- * Description of classes that respond to mouse related input events
+ * Description of classes that respond to mouse related input events.
  * 
  * @author kevin
  */
 public interface MouseListener extends ControlledInputReceiver {
 
     /**
-     * Notification that the mouse wheel position was updated
+     * Notification that the mouse wheel position was updated.
      *
      * @param change The amount of the wheel has moved
      */
@@ -29,7 +29,7 @@ public interface MouseListener extends ControlledInputReceiver {
     public abstract void mouseClicked(int button, int x, int y, int clickCount);
 
     /**
-     * Notification that a mouse button was pressed
+     * Notification that a mouse button was pressed.
      *
      * @param button The index of the button (starting at 0)
      * @param x The x position of the mouse when the button was pressed
@@ -38,7 +38,7 @@ public interface MouseListener extends ControlledInputReceiver {
     public abstract void mousePressed(int button, int x, int y);
 
     /**
-     * Notification that a mouse button was released
+     * Notification that a mouse button was released.
      *
      * @param button The index of the button (starting at 0)
      * @param x The x position of the mouse when the button was released
@@ -47,23 +47,23 @@ public interface MouseListener extends ControlledInputReceiver {
     public abstract void mouseReleased(int button, int x, int y);
 
     /**
-     * Notification that mouse cursor was moved
+     * Notification that mouse cursor was moved.
      *
-     * @param oldx The old x position of the mouse
-     * @param oldy The old y position of the mouse
-     * @param newx The new x position of the mouse
-     * @param newy The new y position of the mouse
+     * @param oldX The old x position of the mouse
+     * @param oldY The old y position of the mouse
+     * @param newX The new x position of the mouse
+     * @param newY The new y position of the mouse
      */
-    public abstract void mouseMoved(int oldx, int oldy, int newx, int newy);
+    public abstract void mouseMoved(int oldX, int oldY, int newX, int newY);
 
     /**
-     * Notification that mouse cursor was dragged
+     * Notification that mouse cursor was dragged.
      *
-     * @param oldx The old x position of the mouse
-     * @param oldy The old y position of the mouse
-     * @param newx The new x position of the mouse
-     * @param newy The new y position of the mouse
+     * @param oldX The old x position of the mouse
+     * @param oldY The old y position of the mouse
+     * @param newX The new x position of the mouse
+     * @param newY The new y position of the mouse
      */
-    public abstract void mouseDragged(int oldx, int oldy, int newx, int newy);
+    public abstract void mouseDragged(int oldX, int oldY, int newX, int newY);
 
 }

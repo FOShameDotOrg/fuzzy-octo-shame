@@ -27,6 +27,17 @@ public class ControllerDirectionControl extends ControllerControl {
     }
 
     /**
+     * Create a new input that indicates a directional control must be pressed.
+     *
+     * @param controllerIndex The index of the controller to listen to
+     * @param dir The direction to wait for
+     * @param leftControllerButton leftControllerButton
+     */
+    public ControllerDirectionControl(int controllerIndex, Direction dir, int leftControllerButton) {
+        super(controllerIndex, dir.event, leftControllerButton);
+    }
+
+    /**
      * Enum pretender.
      *
      * @author kevin

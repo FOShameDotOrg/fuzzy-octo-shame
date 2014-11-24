@@ -6,6 +6,9 @@ import org.colapietro.lang.NotImplementedException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.command.BasicCommand;
+import org.newdawn.slick.command.Command;
+import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.opengl.Texture;
 
 import com.jed.util.Util;
@@ -19,8 +22,12 @@ import javax.annotation.Nullable;
  * @author jlinde, Peter Colapietro
  *
  */
-public class Player extends AbstractEntity implements StateManager {
+public class Player extends AbstractEntity implements StateManager, InputProviderListener {
 
+    /**
+     *
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(Player.class);
     /**
      * 
      */
@@ -113,7 +120,6 @@ public class Player extends AbstractEntity implements StateManager {
      * @param map game map
      */
     public Player(Vector3f position, int height, int width, GameMap map) {
-
         //TODO: The Bounds should be scaled to the size of the player sprite so that
         //it can be scaled
         super(
@@ -155,25 +161,6 @@ public class Player extends AbstractEntity implements StateManager {
         jumpingState = new Jumping();
 
         changeState(fallingState);
-    }
-
-    @Override
-    public void leaving() {
-    }
-
-    /**
-     * Key press events.
-     */
-    public void keyPressEvent() {
-        if (Keyboard.getEventKey() == Keyboard.KEY_SPACE && Keyboard.getEventKeyState()) {
-            boolean isJumpCountLessThanTwo = jumpCount < 2;
-            int heightOffsetWithYPosition = Math.round(position.y) + height; //TODO Test me.
-            if (isJumpCountLessThanTwo || heightOffsetWithYPosition == map.getHeight() * map.getTileHeight()) {
-                movement.y = -8;
-                jumpCount++;
-                changeState(jumpingState);
-            }
-        }
     }
 
     /**
@@ -573,6 +560,29 @@ public class Player extends AbstractEntity implements StateManager {
     @Override
     public void drawChildVertex2f(float x, float y) {
         map.drawChildVertex2f(position.x + x, position.y + y);
+    }
+
+
+    @Override
+    public void controlPressed(Command command) {
+        LOGGER.debug("Pressed ",command.toString());
+        LOGGER.info("Command {}",command.toString());
+        if (command.equals(new BasicCommand("jump"))) {
+            boolean isJumpCountLessThanTwo = jumpCount < 2;
+            int heightOffsetWithYPosition = Math.round(position.y) + height;
+            if (isJumpCountLessThanTwo || heightOffsetWithYPosition == map.getHeight() * map.getTileHeight()) {
+                final int fallSpeedScalar = -8;
+                movement.y = fallSpeedScalar;
+                jumpCount++;
+                changeState(jumpingState);
+            }
+        }
+    }
+
+    @Override
+    public void controlReleased(Command command) {
+        LOGGER.debug("Released ",command.toString());
+        LOGGER.info("Command {}",command.toString());
     }
 
 }

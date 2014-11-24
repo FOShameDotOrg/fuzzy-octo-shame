@@ -1,5 +1,7 @@
 package org.colapietro.lwjgl.controllers;
 
+import java.util.Collections;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -82,11 +84,22 @@ public enum Xbox360ControllerButton {
      */
     private static final Map<Integer, Xbox360ControllerButton> MAP = new HashMap<>();
 
+    /**
+     *
+     */
+    private static final Map<Xbox360ControllerButton, Integer> REVERSE_MAP =
+            Collections.synchronizedMap(new EnumMap<>(Xbox360ControllerButton.class));
+
+
     static {
         for (Xbox360ControllerButton controllerEvenIndexEnum : Xbox360ControllerButton.values()) {
             MAP.put(
                     controllerEvenIndexEnum.getControlIndex(),
                     controllerEvenIndexEnum
+            );
+            REVERSE_MAP.put(
+                    controllerEvenIndexEnum,
+                    controllerEvenIndexEnum.getControlIndex()
             );
         }
     }
@@ -115,4 +128,42 @@ public enum Xbox360ControllerButton {
     public static Xbox360ControllerButton valueOf(int controlIndex) {
         return MAP.get(controlIndex);
     }
+
+    /**
+     *
+     * @param controlIndex controlIndex
+     * @param isOffByOne isOffByOne
+     * @return Xbox360ControllerButton
+     */
+    public static Xbox360ControllerButton valueOf(int controlIndex, boolean isOffByOne) {
+        if(isOffByOne) {
+            return MAP.get(controlIndex - 1);
+        } else {
+            return valueOf(controlIndex);
+        }
+    }
+
+    /**
+     *
+     * @param xbox360ControllerButton xbox360ControllerButton
+     * @return controlIndex
+     */
+    public static int valueOf(Xbox360ControllerButton xbox360ControllerButton) {
+        return REVERSE_MAP.get(xbox360ControllerButton);
+    }
+
+    /**
+     *
+     * @param xbox360ControllerButton xbox360ControllerButton
+     * @param isOffByOne isOffByOne
+     * @return controlIndex
+     */
+    public static int valueOf(Xbox360ControllerButton xbox360ControllerButton, boolean isOffByOne) {
+        if(isOffByOne) {
+            return REVERSE_MAP.get(xbox360ControllerButton) + 1;
+        } else {
+            return valueOf(xbox360ControllerButton);
+        }
+    }
+
 }

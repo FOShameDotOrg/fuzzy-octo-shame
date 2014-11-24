@@ -22,7 +22,7 @@ import org.newdawn.slick.util.Log;
  *
  * @author kevin
  */
-public class Input {
+public final class Input {
     /** The controller index to pass to check all controllers. */
     private static final int ANY_CONTROLLER = -1;
 
