@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
  * @author jlinde, Peter Colapietro
  *
  */
-public class PlayState extends AbstractGameState implements StateManager {
+public class PlayState extends AbstractGameState {
 
     /**
      * 
@@ -35,13 +35,6 @@ public class PlayState extends AbstractGameState implements StateManager {
     
     /**
      * @since 0.1.8
-     */
-    public PlayState() {
-        isDebugViewEnabled = false;
-    }
-    
-    /**
-     * @since 0.1.8
      * 
      * @param isDebugViewEnabled isDebugViewEnabled
      */
@@ -50,19 +43,10 @@ public class PlayState extends AbstractGameState implements StateManager {
     }
 
     @Override
-    public void changeState(@Nonnull State state) {
-        state.entered();
-    }
-
-    @Override
     public void entered() {
         currentMap = MapLoader.loadMap();
         currentMap.setDebugViewEnabled(isDebugViewEnabled);
-        changeState(currentMap);
-    }
-
-    @Override
-    public void leaving() {
+        currentMap.entered();
     }
 
     @Override
