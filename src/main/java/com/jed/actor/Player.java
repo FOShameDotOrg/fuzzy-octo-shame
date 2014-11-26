@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
  * @author jlinde, Peter Colapietro
  *
  */
-public class Player extends AbstractEntity implements StateManager {
+public class Player extends AbstractEntity {
 
     /**
      * 
