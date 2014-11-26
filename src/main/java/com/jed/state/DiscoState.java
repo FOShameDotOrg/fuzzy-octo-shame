@@ -141,10 +141,6 @@ public class DiscoState extends AbstractGameState {
     }
 
     @Override
-    public void leaving() {
-    }
-
-    @Override
     public void update() {
         quadTree.clear();
         scene.forEach(quadTree::insert);
