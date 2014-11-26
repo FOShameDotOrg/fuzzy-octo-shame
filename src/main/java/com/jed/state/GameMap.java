@@ -1,18 +1,5 @@
 package com.jed.state;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Stack;
-import java.util.concurrent.CopyOnWriteArrayList;
-
-import javax.annotation.Nullable;
-
-import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.opengl.Texture;
-
 import com.jed.actor.AbstractEntity;
 import com.jed.actor.Player;
 import com.jed.core.Collision;
@@ -21,7 +8,13 @@ import com.jed.core.QuadTree;
 import com.jed.util.Rectangle;
 import com.jed.util.Util;
 import com.jed.util.Vector3f;
+import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.opengl.Texture;
 
+import javax.annotation.Nonnull;
+import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * 
@@ -71,7 +64,7 @@ public final class GameMap extends AbstractDisplayableState {
     /**
      * 
      */
-    @Nullable
+    @Nonnull
     private Texture texture;
 
     /**
@@ -104,7 +97,7 @@ public final class GameMap extends AbstractDisplayableState {
      */
     public GameMap() {
         //TODO: initialize scene Stack by some data contained in the map i.e. start position or something like that...
-        scene = new Stack<>();
+        scene = new GameEntityStack<>();
         player = new Player(new Vector3f(50, 200), 256, 256, this);
         scene.push(player);
     }

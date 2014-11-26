@@ -2,10 +2,12 @@ package com.jed.actor;
 
 import com.jed.state.*;
 import com.jed.util.Vector3f;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.command.BasicCommand;
 import org.newdawn.slick.command.Command;
+import org.newdawn.slick.command.InputProvider;
 import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.opengl.Texture;
 
@@ -13,6 +15,7 @@ import com.jed.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -20,7 +23,7 @@ import javax.annotation.Nullable;
  * @author jlinde, Peter Colapietro
  *
  */
-public class Player extends AbstractEntity implements StateManager, InputProviderListener {
+public class Player extends AbstractEntity implements InputProviderListener {
 
     /**
      *
@@ -54,7 +57,7 @@ public class Player extends AbstractEntity implements StateManager, InputProvide
     /**
      * 
      */
-    @Nullable
+    @Nonnull
     private Texture texture;
 
     /**
@@ -142,7 +145,12 @@ public class Player extends AbstractEntity implements StateManager, InputProvide
         this.height = height;
         this.width = width;
         this.map = map;
-        entered(); // FIXME See: http://stackoverflow.com/a/3404369
+        texture = Util.loadTexture(TEXTURE_PATH);
+
+        fallingState = new Falling();
+        idleState = new Idle();
+        walkingState = new Walking();
+        jumpingState = new Jumping();
     }
 
     /**
@@ -155,15 +163,51 @@ public class Player extends AbstractEntity implements StateManager, InputProvide
 
     @Override
     public void entered() {
-
-        texture = Util.loadTexture(TEXTURE_PATH);
-
-        fallingState = new Falling();
-        idleState = new Idle();
-        walkingState = new Walking();
-        jumpingState = new Jumping();
-
         changeState(fallingState);
+    }
+
+    /**
+     * Key press events.
+     */
+    private void keyPressEvent() {
+        if (Keyboard.getEventKey() == Keyboard.KEY_SPACE && Keyboard.getEventKeyState()) {
+            boolean isJumpCountLessThanTwo = jumpCount < 2;
+            int heightOffsetWithYPosition = Math.round(position.y) + height; //TODO Test me.
+            if (isJumpCountLessThanTwo || heightOffsetWithYPosition == map.getHeight() * map.getTileHeight()) {
+                movement.y = -8;
+                jumpCount++;
+                changeState(jumpingState);
+            }
+        }
+    }
+
+    /**
+     * Key Hold Events (walking etc).
+     */
+    private void keyHoldEvent() {
+
+        //Constant key "hold" events
+        if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+            if (movement.x < 0) {
+                movement.x += .5;
+            } else {
+                movement.x += acceleration;
+                xDir = PLAYER_RIGHT;
+            }
+        } else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+            if (movement.x > 0) {
+                movement.x -= .5;
+            } else {
+                movement.x -= acceleration;
+                xDir = PLAYER_LEFT;
+            }
+        } else if (movement.x != 0) {
+            movement.x = movement.x - Math.min(Math.abs(movement.x), FRICTION) * Math.signum(movement.x);
+        }
+
+        if (!Keyboard.isKeyDown(Keyboard.KEY_SPACE) && !currentState.falling) {
+            jumpCount = 0;
+        }
     }
 
     @Override
@@ -557,7 +601,7 @@ public class Player extends AbstractEntity implements StateManager, InputProvide
     @Override
     public void controlReleased(Command command) {
         LOGGER.debug("Released ",command.toString());
-        LOGGER.info("Command {}",command.toString());
+        LOGGER.info("Command {}", command.toString());
     }
 
 }

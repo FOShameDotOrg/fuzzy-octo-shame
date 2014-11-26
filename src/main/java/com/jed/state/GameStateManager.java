@@ -1,6 +1,8 @@
 package com.jed.state;
 
-import javax.annotation.Nonnull;
+import org.colapietro.lang.LangConstants;
+import org.colapietro.lang.NotImplementedException;
+
 import java.util.Stack;
 
 /**
@@ -8,20 +10,21 @@ import java.util.Stack;
  * @author jlinde, Peter Colapietro
  *
  */
-public class GameStateManager {
+public final class GameStateManager implements StateManager {
 
     /**
      * 
      */
-    private final Stack<AbstractGameState> states = new GameStateStack();
+    private final Stack<AbstractDisplayableState> states = new GameStateStack<>();
 
     /**
      * 
      * @param state to change to
      */
-    public void changeState(AbstractGameState state) {
+    @Override
+    public <E extends State> void changeState(E state) {
         clear();
-        states.push(state);
+        states.push((AbstractDisplayableState)state);//FIXME
     }
 
     /**
@@ -36,7 +39,7 @@ public class GameStateManager {
      * 
      * @return state from top of stack
      */
-    public AbstractGameState pop() {
+    public State pop() {
         return states.pop();
     }
 
@@ -49,11 +52,23 @@ public class GameStateManager {
         }
     }
 
+    @Override
+    public void entered() throws NotImplementedException {
+        throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
+
+    }
+
+    @Override
+    public void leaving() throws NotImplementedException {
+        throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
+
+    }
+
     /**
      * 
      */
     public void update() {
-        for (AbstractGameState eachState : states) {
+        for (State eachState : states) {
             eachState.update();
         }
     }
@@ -62,38 +77,9 @@ public class GameStateManager {
      * 
      */
     public void render() {
-        for (AbstractGameState eachState : states) {
+        for (AbstractDisplayableState eachState : states) {
             eachState.render();
         }
-    }
-
-    /**
-     * 
-     * @author jlinde, Peter Colapietro
-     *
-     */
-    private final class GameStateStack extends Stack<AbstractGameState> {
-
-        /**
-         * 
-         */
-        private static final long serialVersionUID = 1L;
-
-        @Nonnull
-        @Override
-        public AbstractGameState push(@Nonnull AbstractGameState o) {
-            super.push(o);
-            o.entered();
-            return o;
-        }
-
-        @Override
-        public synchronized AbstractGameState pop() {
-            AbstractGameState o = super.pop();
-            o.leaving();
-            return o;
-        }
-
     }
 
 }

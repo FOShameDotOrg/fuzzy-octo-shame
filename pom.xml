@@ -98,6 +98,10 @@
     <!-- START: Build specific variables, probably should be associated with profiles.. -->
     <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>true</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>
     <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError>true</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError>
+    <!-- END: -->
+    <!-- START: -->
+    <main.class>com.jed.core.FuzzyOctoShame</main.class>
+    <!-- END: -->
   </properties>
   <!-- END: The Basics -->
 
@@ -331,7 +335,7 @@
             <index>true</index>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>com.jed.core.MotherBrain</mainClass>
+              <mainClass>${main.class}</mainClass>
             </manifest>
             <manifestEntries>
               <mode>development</mode>
@@ -346,7 +350,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.jed.core.MotherBrain</mainClass>
+              <mainClass>${main.class}</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>

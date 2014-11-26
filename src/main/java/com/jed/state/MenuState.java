@@ -77,14 +77,6 @@ public class MenuState extends AbstractGameState {
     }
 
     @Override
-    public void leaving() {
-    }
-
-    @Override
-    public void update() {
-    }
-
-    @Override
     public void render() {
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         font.drawString(coordinates.x, coordinates.y, daString);

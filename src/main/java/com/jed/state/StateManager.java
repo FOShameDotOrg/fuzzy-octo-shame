@@ -11,5 +11,6 @@ public interface StateManager extends State {
      * 
      * @param state state
      */
-    void changeState(State state);
+    <E extends State> void changeState(E state);
+
 }
