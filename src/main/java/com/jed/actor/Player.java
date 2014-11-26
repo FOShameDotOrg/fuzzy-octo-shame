@@ -133,7 +133,12 @@ public class Player extends AbstractEntity implements StateManager {
         this.height = height;
         this.width = width;
         this.map = map;
-        entered(); // FIXME See: http://stackoverflow.com/a/3404369
+        texture = Util.loadTexture(TEXTURE_PATH);
+
+        fallingState = new Falling();
+        idleState = new Idle();
+        walkingState = new Walking();
+        jumpingState = new Jumping();
     }
 
     /**
@@ -146,14 +151,6 @@ public class Player extends AbstractEntity implements StateManager {
 
     @Override
     public void entered() {
-
-        texture = Util.loadTexture(TEXTURE_PATH);
-
-        fallingState = new Falling();
-        idleState = new Idle();
-        walkingState = new Walking();
-        jumpingState = new Jumping();
-
         changeState(fallingState);
     }
 

@@ -67,33 +67,4 @@ public class GameStateManager {
         }
     }
 
-    /**
-     * 
-     * @author jlinde, Peter Colapietro
-     *
-     */
-    private final class GameStateStack extends Stack<AbstractGameState> {
-
-        /**
-         * 
-         */
-        private static final long serialVersionUID = 1L;
-
-        @Nonnull
-        @Override
-        public AbstractGameState push(@Nonnull AbstractGameState o) {
-            super.push(o);
-            o.entered();
-            return o;
-        }
-
-        @Override
-        public synchronized AbstractGameState pop() {
-            AbstractGameState o = super.pop();
-            o.leaving();
-            return o;
-        }
-
-    }
-
 }

@@ -57,7 +57,7 @@ public class DiscoState extends AbstractGameState {
         width = MotherBrainConstants.WIDTH;
         height = MotherBrainConstants.HEIGHT;
 
-        scene = new Stack<>();
+        scene = new GameEntityStack<>();
         quadTree = new QuadTree(new Vector3f(0, 0), 0, new Rectangle(width, height), this);
 
         Random rand = new Random();

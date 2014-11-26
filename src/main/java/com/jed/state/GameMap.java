@@ -104,7 +104,7 @@ public class GameMap extends AbstractDisplayableState {
         texture = Util.loadTexture(tileSetPath);
 
         //TODO: initialize scene Stack by some data contained in the map i.e. start position or something like that...
-        scene = new Stack<>();
+        scene = new GameEntityStack<>();
         player = new Player(new Vector3f(50, 200), 256, 256, this);
         scene.push(player);
 
@@ -392,5 +392,13 @@ public class GameMap extends AbstractDisplayableState {
      */
     boolean isDebugViewEnabled() {
         return isDebugViewEnabled;
+    }
+
+    /**
+     *
+     * @return player
+     */
+    public Player getPlayer() {
+        return player;
     }
 }
