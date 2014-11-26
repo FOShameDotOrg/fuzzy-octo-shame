@@ -12,6 +12,7 @@ import com.jed.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -44,7 +45,7 @@ public class Player extends AbstractEntity {
     /**
      * 
      */
-    @Nullable
+    @Nonnull
     private Texture texture;
 
     /**

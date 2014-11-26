@@ -20,6 +20,7 @@ import com.jed.core.QuadTree;
 import com.jed.util.Rectangle;
 import com.jed.util.Util;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 
@@ -71,7 +72,7 @@ public class GameMap extends AbstractDisplayableState {
     /**
      * 
      */
-    @Nullable
+    @Nonnull
     private Texture texture;
 
     /**
