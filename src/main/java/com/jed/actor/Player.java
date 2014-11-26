@@ -157,10 +157,6 @@ public class Player extends AbstractEntity implements StateManager {
         changeState(fallingState);
     }
 
-    @Override
-    public void leaving() {
-    }
-
     /**
      * Key press events.
      */
