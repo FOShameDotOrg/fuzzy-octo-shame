@@ -7,7 +7,6 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.command.BasicCommand;
 import org.newdawn.slick.command.Command;
-import org.newdawn.slick.command.InputProvider;
 import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.opengl.Texture;
 
@@ -16,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * 
@@ -97,15 +95,13 @@ public class Player extends AbstractEntity implements InputProviderListener {
     private AbstractPlayerState jumpingState;
 
     /**
-     * 
+     * Indicates the player is currently colliding with a map tile below it.
      */
-    //Indicates the player is currently colliding with a map tile below it
     private boolean collideDown = false;
 
     /**
-     * 
+     * TODO: Friction should come from the individual map tiles or from the tileset.
      */
-    //TODO: Friction should come from the individual map tiles or from the tileset
     private static final float FRICTION = .046875f;
     
     /**
@@ -119,6 +115,8 @@ public class Player extends AbstractEntity implements InputProviderListener {
     private final GameMap map;
 
     /**
+     *
+     * TODO: The Bounds should be scaled to the size of the player sprite so that it can be scaled.
      * 
      * @param position position vector
      * @param height height
@@ -126,8 +124,6 @@ public class Player extends AbstractEntity implements InputProviderListener {
      * @param map game map
      */
     public Player(Vector3f position, int height, int width, GameMap map) {
-        //TODO: The Bounds should be scaled to the size of the player sprite so that
-        //it can be scaled
         super(
                 position,
                 new Vector3f(0, 0),
@@ -183,10 +179,10 @@ public class Player extends AbstractEntity implements InputProviderListener {
 
     /**
      * Key Hold Events (walking etc).
+     *
+     * Constant key "hold" events
      */
     private void keyHoldEvent() {
-
-        //Constant key "hold" events
         if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
             if (movement.x < 0) {
                 movement.x += .5;
@@ -233,8 +229,13 @@ public class Player extends AbstractEntity implements InputProviderListener {
         bounds.render();
     }
 
-    //TODO: Name this something else or refactor... indicates player has just landed on a tile
-    //and to stop "Falling" (changes animation)
+    /**
+     *
+     * TODO: Name this something else or refactor.
+     * indicates player has just landed on a tile and to stop "Falling" (changes animation).
+     *
+     * @param sEntity
+     */
     @Override
     public void collideDown(AbstractEntity sEntity) {
         collideDown = true;
@@ -568,8 +569,7 @@ public class Player extends AbstractEntity implements InputProviderListener {
             boolean isJumpCountLessThanTwo = jumpCount < 2;
             int heightOffsetWithYPosition = Math.round(position.y) + height;
             if (isJumpCountLessThanTwo || heightOffsetWithYPosition == map.getHeight() * map.getTileHeight()) {
-                final int fallSpeedScalar = -8;
-                movement.y = fallSpeedScalar;
+                movement.y = -8;
                 jumpCount++;
                 changeState(jumpingState);
             }
