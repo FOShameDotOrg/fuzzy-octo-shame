@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.Nonnull;
 
 /**
- * 
+ *
  * @author jlinde, Peter Colapietro
  *
  */
@@ -42,9 +42,9 @@ public class Player extends AbstractEntity implements InputProviderListener {
      *
      */
     public final int width;
-    
+
     /**
-     * 
+     *
      */
     private int xDir;
 
@@ -52,46 +52,46 @@ public class Player extends AbstractEntity implements InputProviderListener {
      *
      */
     private static final String TEXTURE_PATH = "MEGA_MAN_SH.png";
-    
+
     /**
-     * 
+     *
      */
     @Nonnull
     private Texture texture;
 
     /**
-     * 
+     *
      */
     private static final int PLAYER_RIGHT = 1;
-    
+
     /**
-     * 
+     *
      */
     private static final int PLAYER_LEFT = 0;
 
     /**
-     * 
+     *
      */
     //Player States
     private AbstractPlayerState currentState;
-    
+
     /**
-     * 
+     *
      */
     private AbstractPlayerState fallingState;
-    
+
     /**
-     * 
+     *
      */
     private AbstractPlayerState idleState;
-    
+
     /**
-     * 
+     *
      */
     private AbstractPlayerState walkingState;
-    
+
     /**
-     * 
+     *
      */
     private AbstractPlayerState jumpingState;
 
@@ -104,14 +104,14 @@ public class Player extends AbstractEntity implements InputProviderListener {
      * TODO: Friction should come from the individual map tiles or from the tileset.
      */
     private static final float FRICTION = .046875f;
-    
+
     /**
-     * 
+     *
      */
     private int jumpCount = 0;
 
     /**
-     * 
+     *
      */
     private final GameMap map;
 
@@ -180,6 +180,8 @@ public class Player extends AbstractEntity implements InputProviderListener {
 
     @Override
     public void update() {
+        currentState.handleInput();
+
         if (!currentState.falling && !collideDown) {
             changeState(fallingState);
         }
@@ -217,24 +219,28 @@ public class Player extends AbstractEntity implements InputProviderListener {
     }
 
     /**
-     * 
+     *
      * @author jlinde, Peter Colapietro
      *
      */
     private abstract class AbstractPlayerState extends AbstractDisplayableState {
-        
+
         /**
-         * 
+         *
          */
         boolean falling;
 
         /**
-         * 
+         *
          */
         public AbstractPlayerState() {
             falling = false;
         }
 
+        /**
+         *
+         */
+        public abstract void handleInput();
     }
 
     /**
@@ -254,34 +260,34 @@ public class Player extends AbstractEntity implements InputProviderListener {
     }
 
     /**
-     * 
+     *
      * @author jlinde, Peter Colapietro
      *
      */
     private class Falling extends AbstractNonEnterablePlayerState {
-        
+
         /**
-         * 
+         *
          */
         private float bottomLeftX;
-        
+
         /**
-         * 
+         *
          */
         private float bottomRightX;
-        
+
         /**
-         * 
+         *
          */
         private float topRightX;
-        
+
         /**
-         * 
+         *
          */
         private float topLeftX;
 
         /**
-         * 
+         *
          */
         public Falling() {
             this.falling = true;
@@ -297,6 +303,11 @@ public class Player extends AbstractEntity implements InputProviderListener {
                     changeState(idleState);
                 }
             }
+        }
+
+        @Override
+        public void handleInput() {
+            keyHoldEvent();
         }
 
         @Override
@@ -333,29 +344,29 @@ public class Player extends AbstractEntity implements InputProviderListener {
     }
 
     /**
-     * 
+     *
      * @author jlinde, Peter Colapietro
      *
      */
     private final class Jumping extends Falling {
 
         /**
-         * 
+         *
          */
         final float[] animation = {.0625f, .125f, .1875f, .25f, .3125f, .375f, .4375f};
-        
+
         /**
-         * 
+         *
          */
         final float frameWidth = .0625f;
-        
+
         /**
-         * 
+         *
          */
         int frame, ticks;
 
         /**
-         * 
+         *
          */
         public Jumping() {
             this.falling = true;
@@ -410,7 +421,7 @@ public class Player extends AbstractEntity implements InputProviderListener {
     }
 
     /**
-     * 
+     *
      * @author jlinde, Peter Colapietro
      *
      */
@@ -423,6 +434,11 @@ public class Player extends AbstractEntity implements InputProviderListener {
             } else if (movement.x != 0) {
                 changeState(walkingState);
             }
+        }
+
+        @Override
+        public void handleInput() {
+            keyHoldEvent();
         }
 
         @Override
@@ -458,24 +474,24 @@ public class Player extends AbstractEntity implements InputProviderListener {
     }
 
     /**
-     * 
+     *
      * @author jlinde, Peter Colapietro
      *
      */
     private final class Walking extends AbstractPlayerState {
 
         /**
-         * 
+         *
          */
         final float[] animation = {.125f, .1875f, .25f, .3125f, .375f, .4375f, .5f, .5625f, .625f, .6875f, .75f};
-        
+
         /**
-         * 
+         *
          */
         final float frameWidth = .0625f;
-        
+
         /**
-         * 
+         *
          */
         int frame, ticks;
 
@@ -483,6 +499,11 @@ public class Player extends AbstractEntity implements InputProviderListener {
         public void entered() {
             frame = 0;
             ticks = 0;
+        }
+
+        @Override
+        public void handleInput() {
+            keyHoldEvent();
         }
 
         @Override
@@ -539,10 +560,10 @@ public class Player extends AbstractEntity implements InputProviderListener {
         LOGGER.info("controlPressed {}", command.toString());
         if(command.equals(BasicCommandConstants.MOVE_LEFT)) {
             isLeftKeyDown = true;
-        }
+}
         if(command.equals(BasicCommandConstants.MOVE_RIGHT)) {
             isRightKeyDown = true;
-        }
+    }
     }
 
     @Override
