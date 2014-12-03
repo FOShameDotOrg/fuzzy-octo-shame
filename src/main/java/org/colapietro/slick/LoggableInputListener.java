@@ -58,6 +58,7 @@ public final class LoggableInputListener extends AbstractInputListener {
     @Override
     public void keyReleased(int key, char c) {
         LOGGER.debug("org.colapietro.slick.LoggableInputListener#keyReleased");
+        LOGGER.info("keyReleased:[key: {} ,character:  {}]",key, c);
     }
 
     @Override

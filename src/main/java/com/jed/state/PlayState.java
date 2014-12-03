@@ -1,14 +1,11 @@
 package com.jed.state;
 
 import com.jed.util.MapLoader;
-
 import org.newdawn.slick.command.BasicCommand;
 import org.newdawn.slick.command.Command;
 import org.newdawn.slick.command.InputProviderListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.annotation.Nonnull;
 
 /**
  * 
@@ -78,8 +75,7 @@ public class PlayState extends AbstractGameState implements InputProviderListene
     @Override
     public void controlPressed(Command command) {
         LOGGER.debug("com.jed.state.PlayState#controlPressed");
-        LOGGER.info("Command {}",command.toString());
-        //currentMap.keyPress();
+        LOGGER.info("controlPressed {}",command.toString());
         if(command.equals(new BasicCommand("pauseToggle"))) {
             paused = !paused;
         }
@@ -93,7 +89,7 @@ public class PlayState extends AbstractGameState implements InputProviderListene
     @Override
     public void controlReleased(Command command) {
         LOGGER.debug("com.jed.state.PlayState#controlReleased");
-        LOGGER.info("Command {}",command.toString());
+        LOGGER.info("controlReleased {}",command.toString());
     }
 
     /**

@@ -10,6 +10,7 @@ import org.colapietro.lwjgl.AbstractLwjglGameLoopable;
 import org.colapietro.lwjgl.controllers.ButtonState;
 import org.colapietro.lwjgl.controllers.Xbox360ControllerButton;
 import org.colapietro.slick.InputListenable;
+import org.colapietro.slick.command.BasicCommandConstants;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Controller;
@@ -73,7 +74,7 @@ final class MotherBrain extends AbstractLwjglGameLoopable implements Startable, 
     /**
      *
      */
-    private final Command moveLeft = new BasicCommand("moveLeft");
+    private final Command moveLeft = new BasicCommand(BasicCommandConstants.MOVE_LEFT);
 
     /**
      *
@@ -105,12 +106,12 @@ final class MotherBrain extends AbstractLwjglGameLoopable implements Startable, 
     /**
      *
      */
-    private final Command jump = new BasicCommand("jump");
+    private final Command jump = new BasicCommand(BasicCommandConstants.JUMP);
 
     /**
      *
      */
-    private final Command moveRight = new BasicCommand("moveRight");
+    private final Command moveRight = new BasicCommand(BasicCommandConstants.MOVE_RIGHT);
 
     /**
      * 
@@ -291,7 +292,6 @@ final class MotherBrain extends AbstractLwjglGameLoopable implements Startable, 
             final Controller firstController = controllers.get(0);
             while(Controllers.next()) {
                 if(Controllers.getEventSource().equals(firstController)) {
-                    /**
                     if(Controllers.isEventAxis()) {
                         Log.debug("isEventAxis");
                             if(Controllers.isEventXAxis()) {
@@ -301,7 +301,6 @@ final class MotherBrain extends AbstractLwjglGameLoopable implements Startable, 
                             Log.debug("isEventYAxis");
                         }
                     }
-                     */
                     if(Controllers.isEventButton()) {
                         final int eventControlIndex = Controllers.getEventControlIndex();
                         final Xbox360ControllerButton xbox360ControllerButton =

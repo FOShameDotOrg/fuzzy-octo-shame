@@ -1,16 +1,17 @@
 package com.jed.actor;
 
-import com.jed.state.*;
+import com.jed.state.AbstractDisplayableState;
+import com.jed.state.GameMap;
+import com.jed.state.State;
+import com.jed.util.Util;
 import com.jed.util.Vector3f;
+import org.colapietro.slick.command.BasicCommandConstants;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.command.BasicCommand;
 import org.newdawn.slick.command.Command;
 import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.opengl.Texture;
-
-import com.jed.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -116,6 +117,21 @@ public class Player extends AbstractEntity implements InputProviderListener {
 
     /**
      *
+     */
+    private Boolean isRightKeyDown;
+
+    /**
+     *
+     */
+    private Boolean isLeftKeyDown;
+
+    /**
+     *
+     */
+    private Boolean isSpaceKeyDown;
+
+    /**
+     *
      * TODO: The Bounds should be scaled to the size of the player sprite so that it can be scaled.
      * 
      * @param position position vector
@@ -160,50 +176,6 @@ public class Player extends AbstractEntity implements InputProviderListener {
     @Override
     public void entered() {
         changeState(fallingState);
-    }
-
-    /**
-     * Key press events.
-     */
-    private void keyPressEvent() {
-        if (Keyboard.getEventKey() == Keyboard.KEY_SPACE && Keyboard.getEventKeyState()) {
-            boolean isJumpCountLessThanTwo = jumpCount < 2;
-            int heightOffsetWithYPosition = Math.round(position.y) + height; //TODO Test me.
-            if (isJumpCountLessThanTwo || heightOffsetWithYPosition == map.getHeight() * map.getTileHeight()) {
-                movement.y = -8;
-                jumpCount++;
-                changeState(jumpingState);
-            }
-        }
-    }
-
-    /**
-     * Key Hold Events (walking etc).
-     *
-     * Constant key "hold" events
-     */
-    private void keyHoldEvent() {
-        if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-            if (movement.x < 0) {
-                movement.x += .5;
-            } else {
-                movement.x += acceleration;
-                xDir = PLAYER_RIGHT;
-            }
-        } else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-            if (movement.x > 0) {
-                movement.x -= .5;
-            } else {
-                movement.x -= acceleration;
-                xDir = PLAYER_LEFT;
-            }
-        } else if (movement.x != 0) {
-            movement.x = movement.x - Math.min(Math.abs(movement.x), FRICTION) * Math.signum(movement.x);
-        }
-
-        if (!Keyboard.isKeyDown(Keyboard.KEY_SPACE) && !currentState.falling) {
-            jumpCount = 0;
-        }
     }
 
     @Override
@@ -563,28 +535,59 @@ public class Player extends AbstractEntity implements InputProviderListener {
 
     @Override
     public void controlPressed(Command command) {
-        LOGGER.debug("Pressed ",command.toString());
-        LOGGER.info("Command {}",command.toString());
-        if (command.equals(new BasicCommand("jump"))) {
+        LOGGER.debug("Pressed ", command.toString());
+        LOGGER.info("controlPressed {}", command.toString());
+        if(command.equals(BasicCommandConstants.MOVE_LEFT)) {
+            isLeftKeyDown = true;
+        }
+        if(command.equals(BasicCommandConstants.MOVE_RIGHT)) {
+            isRightKeyDown = true;
+        }
+    }
+
+    @Override
+    public void controlReleased(Command command) {
+        LOGGER.debug("Released ", command.toString());
+        LOGGER.info("controlReleased {}", command.toString());
+        if(command.equals(BasicCommandConstants.MOVE_LEFT)) {
+            isLeftKeyDown = false;
+        }
+        if(command.equals(BasicCommandConstants.MOVE_RIGHT)) {
+            isRightKeyDown = false;
+        }
+    }
+
+    /**
+     * Key press events.
+     */
+    private void keyPressEvent() {
+        if (Keyboard.getEventKey() == Keyboard.KEY_SPACE && Keyboard.getEventKeyState()) {
             boolean isJumpCountLessThanTwo = jumpCount < 2;
-            int heightOffsetWithYPosition = Math.round(position.y) + height;
+            int heightOffsetWithYPosition = Math.round(position.y) + height; //TODO Test me.
             if (isJumpCountLessThanTwo || heightOffsetWithYPosition == map.getHeight() * map.getTileHeight()) {
                 movement.y = -8;
                 jumpCount++;
                 changeState(jumpingState);
             }
         }
+    }
 
-        if(command.equals(new BasicCommand("moveRight"))) {
+    /**
+     * Key Hold Events (walking etc).
+     *
+     * Constant key "hold" events
+     */
+    private void keyHoldEvent() {
+        if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
             if (movement.x < 0) {
-                movement.x += X_MOVEMENT_SCALAR;
+                movement.x += .5;
             } else {
                 movement.x += acceleration;
                 xDir = PLAYER_RIGHT;
             }
-        } else if(command.equals(new BasicCommand("moveLeft"))) {
+        } else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
             if (movement.x > 0) {
-                movement.x -= X_MOVEMENT_SCALAR;
+                movement.x -= .5;
             } else {
                 movement.x -= acceleration;
                 xDir = PLAYER_LEFT;
@@ -593,15 +596,8 @@ public class Player extends AbstractEntity implements InputProviderListener {
             movement.x = movement.x - Math.min(Math.abs(movement.x), FRICTION) * Math.signum(movement.x);
         }
 
-        if (!command.equals(new BasicCommand("jump")) && !currentState.falling) {
+        if (!Keyboard.isKeyDown(Keyboard.KEY_SPACE) && !currentState.falling) {
             jumpCount = 0;
         }
     }
-
-    @Override
-    public void controlReleased(Command command) {
-        LOGGER.debug("Released ",command.toString());
-        LOGGER.info("Command {}", command.toString());
-    }
-
 }
