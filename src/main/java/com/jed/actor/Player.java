@@ -32,16 +32,16 @@ public class Player extends AbstractEntity implements InputProviderListener {
     /**
      *
      */
-    public static final double X_MOVEMENT_SCALAR = 0.5d;
+    private static final float X_MOVEMENT_SCALAR = 0.5f;
     /**
      * 
      */
-    public final int height;
+    private final int height;
 
     /**
      *
      */
-    public final int width;
+    private final int width;
 
     /**
      *
@@ -72,28 +72,32 @@ public class Player extends AbstractEntity implements InputProviderListener {
     /**
      *
      */
-    //Player States
+    @Nonnull
     private AbstractPlayerState currentState;
 
     /**
      *
      */
-    private AbstractPlayerState fallingState;
+    @Nonnull
+    private final AbstractPlayerState fallingState;
 
     /**
      *
      */
-    private AbstractPlayerState idleState;
+    @Nonnull
+    private final AbstractPlayerState idleState;
 
     /**
      *
      */
-    private AbstractPlayerState walkingState;
+    @Nonnull
+    private final AbstractPlayerState walkingState;
 
     /**
      *
      */
-    private AbstractPlayerState jumpingState;
+    @Nonnull
+    private final AbstractPlayerState jumpingState;
 
     /**
      * Indicates the player is currently colliding with a map tile below it.
@@ -114,21 +118,6 @@ public class Player extends AbstractEntity implements InputProviderListener {
      *
      */
     private final GameMap map;
-
-    /**
-     *
-     */
-    private Boolean isRightKeyDown;
-
-    /**
-     *
-     */
-    private Boolean isLeftKeyDown;
-
-    /**
-     *
-     */
-    private Boolean isSpaceKeyDown;
 
     /**
      *
@@ -153,16 +142,16 @@ public class Player extends AbstractEntity implements InputProviderListener {
                         })
         );
 
-        this.acceleration = .046875f;
+        this.acceleration = FRICTION;
         this.height = height;
         this.width = width;
         this.map = map;
-        texture = Util.loadTexture(TEXTURE_PATH);
+        this.texture = Util.loadTexture(TEXTURE_PATH);
 
-        fallingState = new Falling();
-        idleState = new Idle();
-        walkingState = new Walking();
-        jumpingState = new Jumping();
+        this.fallingState = new Falling();
+        this.idleState = new Idle();
+        this.walkingState = new Walking();
+        this.jumpingState = new Jumping();
     }
 
     /**
@@ -558,24 +547,23 @@ public class Player extends AbstractEntity implements InputProviderListener {
     public void controlPressed(Command command) {
         LOGGER.debug("Pressed ", command.toString());
         LOGGER.info("controlPressed {}", command.toString());
-        if(command.equals(BasicCommandConstants.MOVE_LEFT)) {
-            isLeftKeyDown = true;
-}
-        if(command.equals(BasicCommandConstants.MOVE_RIGHT)) {
-            isRightKeyDown = true;
-    }
+        if(command.getName().equals(BasicCommandConstants.MOVE_LEFT)) {
+            moveLeft();
+        }
+        if(command.getName().equals(BasicCommandConstants.MOVE_RIGHT)) {
+            moveRight();
+        }
     }
 
     @Override
     public void controlReleased(Command command) {
         LOGGER.debug("Released ", command.toString());
         LOGGER.info("controlReleased {}", command.toString());
-        if(command.equals(BasicCommandConstants.MOVE_LEFT)) {
-            isLeftKeyDown = false;
+        /*
+        if (Float.compare(movement.x, 0) != 0) {
+            movement.x = movement.x - Math.min(Math.abs(movement.x), FRICTION) * Math.signum(movement.x);
         }
-        if(command.equals(BasicCommandConstants.MOVE_RIGHT)) {
-            isRightKeyDown = false;
-        }
+        */
     }
 
     /**
@@ -592,31 +580,62 @@ public class Player extends AbstractEntity implements InputProviderListener {
         }
 
     /**
+     *
+     */
+    public void moveRight() {
+        LOGGER.info("moveRight");
+        if (Float.compare(movement.x, 0) < 0) {
+            movement.x += X_MOVEMENT_SCALAR;
+        } else {
+            movement.x += acceleration;
+            xDir = PLAYER_RIGHT;
+        }
+    }
+
+    /**
+     *
+     */
+    public void moveLeft() {
+        LOGGER.info("moveLeft");
+        if (Float.compare(movement.x, 0) > 0) {
+            movement.x -= X_MOVEMENT_SCALAR;
+        } else {
+            movement.x -= acceleration;
+            xDir = PLAYER_LEFT;
+        }
+    }
+
+    /**
      * Key Hold Events (walking etc).
      *
      * Constant key "hold" events
      */
     private void keyHoldEvent() {
-        if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-            if (movement.x < 0) {
-                movement.x += .5;
-            } else {
-                movement.x += acceleration;
-                xDir = PLAYER_RIGHT;
-            }
-        } else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-            if (movement.x > 0) {
-                movement.x -= .5;
-            } else {
-                movement.x -= acceleration;
-                xDir = PLAYER_LEFT;
-            }
+        if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+            moveLeft();
+        } else if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+            moveRight();
         } else if (movement.x != 0) {
             movement.x = movement.x - Math.min(Math.abs(movement.x), FRICTION) * Math.signum(movement.x);
         }
-
         if (!Keyboard.isKeyDown(Keyboard.KEY_SPACE) && !currentState.falling) {
             jumpCount = 0;
         }
+    }
+
+    /**
+     *
+     * @return height
+     */
+    public int getHeight() {
+        return height;
+    }
+
+    /**
+     *
+     * @return width
+     */
+    public int getWidth() {
+        return width;
     }
 }

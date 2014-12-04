@@ -131,11 +131,11 @@ public final class GameMap extends AbstractDisplayableState {
     }
 
     /**
-     * 
+     * FIXME.
      */
     private void scrollMap() {
         if (player.movement.y > 0) {
-            if ((player.position.y + (player.height / 2) - POSITION.y) > MotherBrainConstants.HEIGHT / 2) {
+            if ((player.position.y + (player.getHeight() / 2) - POSITION.y) > MotherBrainConstants.HEIGHT / 2) {
                 if (POSITION.y + player.movement.y > height * tileHeight - MotherBrainConstants.HEIGHT) {
                     POSITION.y = height * tileHeight - MotherBrainConstants.HEIGHT;
                 } else {
@@ -143,7 +143,7 @@ public final class GameMap extends AbstractDisplayableState {
                 }
             }
         } else if (player.movement.y < 0) {
-            if ((player.position.y + (player.height / 2) - POSITION.y) < MotherBrainConstants.HEIGHT / 2) {
+            if ((player.position.y + (player.getHeight() / 2) - POSITION.y) < MotherBrainConstants.HEIGHT / 2) {
                 if (player.movement.y + POSITION.y < 0) {
                     POSITION.y = 0;
                 } else {
@@ -153,7 +153,7 @@ public final class GameMap extends AbstractDisplayableState {
         }
 
         if (player.movement.x > 0) {
-            if ((player.position.x + (player.width / 2) - POSITION.x) > MotherBrainConstants.WIDTH / 2) {
+            if ((player.position.x + (player.getWidth() / 2) - POSITION.x) > MotherBrainConstants.WIDTH / 2) {
                 if (POSITION.x + player.movement.x > width * tileWidth - MotherBrainConstants.WIDTH) {
                     POSITION.x = width * tileWidth - MotherBrainConstants.WIDTH;
                 } else {
@@ -161,7 +161,7 @@ public final class GameMap extends AbstractDisplayableState {
                 }
             }
         } else if (player.movement.x < 0) {
-            if ((player.position.x + (player.width / 2) - POSITION.x) < MotherBrainConstants.WIDTH / 2) {
+            if ((player.position.x + (player.getWidth() / 2) - POSITION.x) < MotherBrainConstants.WIDTH / 2) {
                 if (player.movement.x + POSITION.x < 0) {
                     POSITION.x = 0;
                 } else {
