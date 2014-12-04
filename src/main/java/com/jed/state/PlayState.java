@@ -1,6 +1,7 @@
 package com.jed.state;
 
 import com.jed.util.MapLoader;
+import org.colapietro.slick.command.BasicCommandConstants;
 import org.newdawn.slick.command.BasicCommand;
 import org.newdawn.slick.command.Command;
 import org.newdawn.slick.command.InputProviderListener;
@@ -83,6 +84,9 @@ public class PlayState extends AbstractGameState implements InputProviderListene
             if (paused) {
                 stepFrame = true;
             }
+        }
+        if(command.getName().equals(BasicCommandConstants.JUMP)) {
+            currentMap.getPlayer().jump();
         }
     }
 

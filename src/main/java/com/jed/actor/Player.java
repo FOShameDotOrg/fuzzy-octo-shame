@@ -579,10 +579,9 @@ public class Player extends AbstractEntity implements InputProviderListener {
     }
 
     /**
-     * Key press events.
+     *
      */
-    private void keyPressEvent() {
-        if (Keyboard.getEventKey() == Keyboard.KEY_SPACE && Keyboard.getEventKeyState()) {
+    public void jump() {
             boolean isJumpCountLessThanTwo = jumpCount < 2;
             int heightOffsetWithYPosition = Math.round(position.y) + height; //TODO Test me.
             if (isJumpCountLessThanTwo || heightOffsetWithYPosition == map.getHeight() * map.getTileHeight()) {
@@ -591,7 +590,6 @@ public class Player extends AbstractEntity implements InputProviderListener {
                 changeState(jumpingState);
             }
         }
-    }
 
     /**
      * Key Hold Events (walking etc).
