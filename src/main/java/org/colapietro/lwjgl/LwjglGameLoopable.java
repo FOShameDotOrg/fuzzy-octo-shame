@@ -8,7 +8,7 @@ package org.colapietro.lwjgl;
  * Created by Peter Colapietro on 11/22/14.
  *
  */
-public interface LwjglGameLoopable {
+interface LwjglGameLoopable {
 
     /**
      *

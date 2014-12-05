@@ -16,6 +16,8 @@
  */
 package org.colapietro.lang;
 
+import javax.annotation.Nullable;
+
 /**
  * <p>Thrown to indicate that a block of code has not been implemented.
  * This exception supplements <code>UnsupportedOperationException</code>
@@ -96,7 +98,7 @@ public class NotImplementedException extends UnsupportedOperationException {
      * @param code code indicating a resource for more information regarding the lack of implementation
      * @since 0.1.7
      */
-    public NotImplementedException(final String message, final String code) {
+    public NotImplementedException(final String message, @Nullable final String code) {
         super(message);
         this.code = code;
     }
@@ -108,7 +110,7 @@ public class NotImplementedException extends UnsupportedOperationException {
      * @param code code indicating a resource for more information regarding the lack of implementation
      * @since 0.1.7
      */
-    public NotImplementedException(final Throwable cause, final String code) {
+    public NotImplementedException(final Throwable cause, @Nullable final String code) {
         super(cause);
         this.code = code;
     }
@@ -121,7 +123,7 @@ public class NotImplementedException extends UnsupportedOperationException {
      * @param code code indicating a resource for more information regarding the lack of implementation
      * @since 0.1.7
      */
-    public NotImplementedException(final String message, final Throwable cause, final String code) {
+    public NotImplementedException(final String message, final Throwable cause, @Nullable final String code) {
         super(message, cause);
         this.code = code;
     }
@@ -133,6 +135,7 @@ public class NotImplementedException extends UnsupportedOperationException {
      *
      * @return a code indicating a resource for more information regarding the lack of implementation
      */
+    @Nullable
     public String getCode() {
         return this.code;
     }

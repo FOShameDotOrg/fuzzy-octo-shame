@@ -5,8 +5,11 @@ import com.google.inject.Singleton;
 
 /**
  * Created by Peter Colapietro on 10/31/14.
+ *
+ * @author Peter Colapietro
+ * @since 0.1.1
  */
-public class MotherBrainModule extends AbstractModule {
+class MotherBrainModule extends AbstractModule {
 
     @Override
     protected void configure() {

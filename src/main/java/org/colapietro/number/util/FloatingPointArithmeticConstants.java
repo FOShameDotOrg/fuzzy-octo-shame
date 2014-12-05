@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  * @see <a href="http://en.wikipedia.org/wiki/Machine_epsilon#Approximation_using_Java">Approximation using Java</a>
  *
  */
-public final class FloatingPointArithmeticConstants {
+final class FloatingPointArithmeticConstants {
 
     /**
      *

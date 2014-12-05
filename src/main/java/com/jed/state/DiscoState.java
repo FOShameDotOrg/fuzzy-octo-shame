@@ -5,16 +5,18 @@ import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
+import com.jed.actor.AbstractEntity;
 import com.jed.core.MotherBrainConstants;
+import com.jed.util.Vector2f;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.jed.actor.Ball;
 import com.jed.actor.CircleBoundary;
-import com.jed.actor.Entity;
 import com.jed.core.QuadTree;
 import com.jed.util.Rectangle;
-import com.jed.util.Vector;
+
+import javax.annotation.Nonnull;
 
 /**
  * 
@@ -23,7 +25,7 @@ import com.jed.util.Vector;
  * TODO Decouple from com.jed.core.MotherBrain / com.jed.core.MotherBrainConstants
  *
  */
-public class DiscoState extends GameState {
+public class DiscoState extends AbstractGameState {
 
     /**
      * 
@@ -50,21 +52,13 @@ public class DiscoState extends GameState {
      */
     private int height;
 
-    /**
-     * 
-     * @param manager game state manager
-     */
-    public DiscoState(GameStateManager manager) {
-        super(manager);
-    }
-
     @Override
     public void entered() {
         width = MotherBrainConstants.WIDTH;
         height = MotherBrainConstants.HEIGHT;
 
-        scene = new Stack<Ball>();
-        quadTree = new QuadTree(new Vector(0, 0), 0, new Rectangle(width, height), this);
+        scene = new GameEntityStack<>();
+        quadTree = new QuadTree(new Vector2f(0, 0), 0, new Rectangle(width, height), this);
 
         Random rand = new Random();
 
@@ -82,8 +76,8 @@ public class DiscoState extends GameState {
             randBlue = rand.nextFloat();
 
             Ball newBall = new Ball(
-                    new Vector(randW, randH),
-                    new Vector(randXS, randYS),
+                    new Vector2f(randW, randH),
+                    new Vector2f(randXS, randYS),
                     new CircleBoundary(randR),
                     25,
                     randRed, randGreen, randBlue);
@@ -147,50 +141,39 @@ public class DiscoState extends GameState {
     }
 
     @Override
-    public void leaving() {
-    }
-
-    @Override
     public void update() {
         quadTree.clear();
-        for (Entity each : scene) {
-            quadTree.insert(each);
-        }
-
+        scene.forEach(quadTree::insert);
         handleCollisions();
     }
 
     @Override
-    public void draw() {
-        quadTree.draw();
-        for (Entity each : scene) {
-            each.draw();
-        }
+    public void render() {
+        quadTree.render();
+        scene.forEach(Ball::render);
     }
 
     /**
-     * 
+     *
      */
-    private void handleCollisions() {
+    private void handleCollisions() {//TODO Test handleCollisions().
         boolean collide = false;
-        for (int i = 0; i < scene.size(); i++) {
-            List<Entity> returnObjects = new ArrayList<Entity>();
-
-            quadTree.retrieve(returnObjects, scene.get(i));
-
-            for (int j = 0; j < returnObjects.size(); j++) {
-                if (!returnObjects.get(j).equals(scene.get(i))) {
-                    Ball p1 = scene.get(i);
-                    Ball p2 = (Ball) returnObjects.get(j);
-                    if (detectCollision(p1, p2)) {
+        final List<AbstractEntity> returnObjects = new ArrayList<>();
+        for (Ball aScene : scene) {
+            quadTree.retrieve(returnObjects, aScene);
+            for (AbstractEntity returnObject : returnObjects) {
+                if (!returnObject.equals(aScene)) {
+                    final Ball p2 = (Ball) returnObject;
+                    if (detectCollision(aScene, p2)) {
                         if (!collide) {
                             LOGGER.debug("Handling Collisions");
                             collide = true;
                         }
-                        collide(p1, p2);
+                        collide(aScene, p2);
                     }
                 }
             }
+            returnObjects.clear();
         }
 
         //Boundary collisions
@@ -227,13 +210,13 @@ public class DiscoState extends GameState {
      * @param p2 ball two
      * @return if ball one and two collided or not
      */
-    private boolean detectCollision(Ball p1, Ball p2) {
+    private boolean detectCollision(@Nonnull Ball p1, @Nonnull Ball p2) {
         /**
          * Subtract p2's movement vector from p1 the resultant vector
          * Represents where the two balls will collide, if they do
          * by assuming p2 is static
          */
-        Vector mv = p1.movement.subtract(p2.movement);
+        Vector2f mv = p1.movement.subtract(p2.movement);
 
         /**
          * The movement vector must be at least the distance between
@@ -252,12 +235,12 @@ public class DiscoState extends GameState {
         /**
          * Find c, the vector from the center of p1 to the center of p2
          */
-        Vector c = p2.position.subtract(p1.position);
+        Vector2f c = p2.position.subtract(p1.position);
 
         /**
          * Normalize the movement vector to determine if p1 is moving towards p2
          */
-        Vector mvN = mv.normalize();
+        Vector2f mvN = mv.normalize();
 
         /**
          * Dot product of the normalized movement vector and the difference
@@ -273,7 +256,7 @@ public class DiscoState extends GameState {
 
         /**
          * f is the distance between the center of p1 and the movement vector
-         * if this distance is greater than the radiuses squared, the balls
+         * if this distance is greater than the radii squared, the balls
          * will never touch
          */
         double lengthC = c.magnitude();
@@ -285,7 +268,7 @@ public class DiscoState extends GameState {
         }
 
         /**
-         * sqrt(t) represents the distance between the 90 degree intersection
+         * Math#sqrt(double) represents the distance between the 90 degree intersection
          * of the point on the movement vector and the ball minus the
          * 2 radii of the balls. So it's the square root of the distance along the movement
          * vector where the balls WILL intersect
@@ -294,7 +277,7 @@ public class DiscoState extends GameState {
 
         /**
          * If there is no such right triangle with sides length of
-         * sumRadii and sqrt(f), T will probably be less than 0.
+         * sumRadii and Math#sqrt(double), T will probably be less than 0.
          * Better to check now than perform a square root of a
          * negative number.
          */
@@ -304,7 +287,7 @@ public class DiscoState extends GameState {
 
         /**
          * The distance the circle has to travel along
-         *    movevec is D - sqrt(T)
+         *    move vector is D - Math#sqrt(double)
          */
         double mvDistance = d - Math.sqrt(t);
 
@@ -322,20 +305,7 @@ public class DiscoState extends GameState {
          * Adjust the displacement of p1 so that it doesn't become "entwined"
          * with the other ball. Place it right where the collision would have occurred
          */
-
-
-        float blarg = (float) (mvDistance / mv.magnitude());
-        blarg = blarg + (blarg > 0 ? .5f : -.5f);
-//        p1.setDisplacement(new Vector(0,0));
-//        p2.setDisplacement(p2.position.add(p2.movement.scale(blarg)));
-//
-//        LOGGER.debug("p1 mag = " + p1.movement.magnitude());
-//        LOGGER.debug(d);
-//        LOGGER.debug("SQRT T = " + Math.sqrt(t));
-//        LOGGER.debug("distance to move " + mvDistance);
         LOGGER.debug("result = " + mv.magnitude() / p1.movement.magnitude());
-//        LOGGER.debug("");
-
         return true;
     }
 
@@ -344,10 +314,10 @@ public class DiscoState extends GameState {
      * @param p1 ball one
      * @param p2 ball two
      */
-    private void collide(Ball p1, Ball p2) {
+    private void collide(@Nonnull Ball p1, @Nonnull Ball p2) {
         // First, find the normalized vector n from the center of
         // circle1 to the center of circle2
-        Vector n = (p1.position.subtract(p2.position)).normalize();
+        Vector2f n = (p1.position.subtract(p2.position)).normalize();
 
         // Find the length of the component of each of the movement
         // vectors along n.
@@ -360,11 +330,11 @@ public class DiscoState extends GameState {
 
         // Calculate v1', the new movement vector of circle1
         // v1' = v1 - optimizedP * m2 * n
-        Vector v1 = p1.movement.subtract(n.scale((float) (optimizedP * p2.mass())));
+        Vector2f v1 = p1.movement.subtract(n.scale((float) (optimizedP * p2.mass())));
 
         // Calculate v1', the new movement vector of circle1
         // v2' = v2 + optimizedP * m1 * n
-        Vector v2 = p2.movement.add(n.scale((float) (optimizedP * p1.mass())));
+        Vector2f v2 = p2.movement.add(n.scale((float) (optimizedP * p1.mass())));
 
         p1.movement = v1;
         p2.movement = v2;

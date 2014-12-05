@@ -1,48 +1,60 @@
 package com.jed.state;
 
+import com.jed.actor.AbstractEntity;
+import com.jed.util.Vector2f;
 import org.lwjgl.opengl.GL11;
 
 import com.jed.actor.Boundary;
-import com.jed.actor.Entity;
-import com.jed.util.Vector;
+
+import javax.annotation.Nonnull;
 
 /**
  * 
  * @author jlinde, Peter Colapietro
  *
  */
-public class MapTile extends Entity {
+public class MapTile extends AbstractEntity {
 
     /**
      * 
      */
-    public static final int NO_TILE = 0;
+    private float glTexX;
 
     /**
-     * 
+     *
      */
-    float glTexX, glTexY, glTexWidth, glTexHeight;
+    private float glTexY;
+
+    /**
+     *
+     */
+    private final float glTexWidth;
+
+    /**
+     *
+     */
+    private final float glTexHeight;
     
     /**
      * 
      */
-    int tileId;
+    private int tileId;
 
     /**
      * 
      */
-    GameMap map;
+    private final GameMap map;
 
     /**
      * 
      */
     //TODO: TEMPORARY!
-    public boolean colliding;
+    private boolean colliding;
     
     /**
      * 
      */
-    public boolean evaluating;
+    private boolean evaluating;
 
     /**
      * FIXME, the parameters is too damn high.
@@ -55,14 +67,14 @@ public class MapTile extends Entity {
      * @param tileId FIXME Javadoc
      * @param map FIXME Javadoc
      */
-    public MapTile( Vector position,
-                    Boundary bounds,
+    public MapTile( Vector2f position,
+                    @Nonnull Boundary bounds,
                     float glTexX,float glTexY,
                     float glTexWidth,
                     float glTexHeight,
                     int tileId,
                     GameMap map) {
-        super(position, new Vector(0, 0), bounds);
+        super(position, new Vector2f(0, 0), bounds);
 
         this.glTexX = glTexX;
         this.glTexY = glTexY;
@@ -127,7 +139,7 @@ public class MapTile extends Entity {
     }
 
     @Override
-    public void draw() {
+    public void render() {
         //TODO: Tile collision coloring is temporary...
         if (colliding) {
             GL11.glColor3f(0, 0, 1f);
@@ -153,7 +165,21 @@ public class MapTile extends Entity {
         map.drawChildVertex2f(position.x, position.y + bounds.getHeight());
 
         GL11.glEnd();
-//        }
     }
 
+    /**
+     *
+     * @param colliding colliding
+     */
+    public void setColliding(boolean colliding) {
+        this.colliding = colliding;
+    }
+
+    /**
+     *
+     * @param evaluating evaluating
+     */
+    public void setEvaluating(boolean evaluating) {
+        this.evaluating = evaluating;
+    }
 }

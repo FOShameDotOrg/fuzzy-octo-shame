@@ -1,5 +1,7 @@
 package org.newdawn.slick.util;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,50 +14,52 @@ import java.net.URL;
  * @author kevin
  */
 public class FileSystemLocation implements ResourceLocation {
-	/** The root of the file system to search */
-	private File root;
-	
-	/**
-	 * Create a new resoruce location based on the file system
-	 * 
-	 * @param root The root of the file system to search
-	 */
-	public FileSystemLocation(File root) {
-		this.root = root;
-	}
-	
-	/**
-	 * @see ResourceLocation#getResource(String)
-	 */
-	public URL getResource(String ref) {
-		try {
-			File file = new File(root, ref);
-			if (!file.exists()) {
-				file = new File(ref);
-			}
-			if (!file.exists()) {
-				return null;
-			}
-			
-			return file.toURI().toURL();
-		} catch (IOException e) {
-			return null;
-		}
-	}
+    /** The root of the file system to search */
+    private final File root;
 
-	/**
-	 * @see ResourceLocation#getResourceAsStream(String)
-	 */
-	public InputStream getResourceAsStream(String ref) {
-		try {
-			File file = new File(root, ref);
-			if (!file.exists()) {
-				file = new File(ref);
-			}
-			return new FileInputStream(file);
-		} catch (IOException e) {
-			return null;
-		}
-	}
+    /**
+     * Create a new resoruce location based on the file system
+     *
+     * @param root The root of the file system to search
+     */
+    public FileSystemLocation(File root) {
+        this.root = root;
+    }
+
+    /**
+     * @see ResourceLocation#getResource(String)
+     */
+    @Nullable
+    public URL getResource(@Nonnull String ref) {
+        try {
+            File file = new File(root, ref);
+            if (!file.exists()) {
+                file = new File(ref);
+            }
+            if (!file.exists()) {
+                return null;
+            }
+
+            return file.toURI().toURL();
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    /**
+     * @see ResourceLocation#getResourceAsStream(String)
+     */
+    @Nullable
+    public InputStream getResourceAsStream(@Nonnull String ref) {
+        try {
+            File file = new File(root, ref);
+            if (!file.exists()) {
+                file = new File(ref);
+            }
+            return new FileInputStream(file);
+        } catch (IOException e) {
+            return null;
+        }
+    }
 
 }

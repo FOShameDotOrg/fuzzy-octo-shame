@@ -1,7 +1,7 @@
 package com.jed.actor;
 
 import com.jed.util.BasicShapeRenderer;
-import com.jed.util.Vector;
+import com.jed.util.Vector2f;
 
 /**
  * 
@@ -13,22 +13,22 @@ public class Ball extends PhysicsEntity {
     /**
      * 
      */
-    private int segments;
+    private final int segments;
     
     /**
      * 
      */
-    private float g;
+    private final float g;
 
     /**
      * 
      */
-    private float r;
+    private final float r;
     
     /**
      * 
      */
-    private float b;
+    private final float b;
 
     /**
      * 
@@ -40,7 +40,7 @@ public class Ball extends PhysicsEntity {
      * @param g green.
      * @param b blue.
      */
-    public Ball(Vector displacement, Vector movement, Boundary bounds, int segments, float r, float g, float b) {
+    public Ball(Vector2f displacement, Vector2f movement, Boundary bounds, int segments, float r, float g, float b) {
         super(displacement, movement, bounds);
 
         this.r = r;
@@ -64,7 +64,7 @@ public class Ball extends PhysicsEntity {
     }
 
     @Override
-    public void draw() {
+    public void render() {
         position = position.add(movement);
         BasicShapeRenderer.drawFilledCircle(
                 position.x,
