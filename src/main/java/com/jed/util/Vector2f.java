@@ -1,11 +1,14 @@
 package com.jed.util;
 
+import javax.annotation.Nonnull;
+
 /**
  * 
  * @author jlinde, Peter Colapietro
+ * @since 0.1.8
  *
  */
-public class Vector {
+public class Vector2f {
 
     /**
      * 
@@ -20,7 +23,7 @@ public class Vector {
     /**
      * 
      */
-    public Vector() {
+    private Vector2f() {
     }
 
     /**
@@ -28,7 +31,7 @@ public class Vector {
      * @param x x
      * @param y y
      */
-    public Vector(float x, float y) {
+    public Vector2f(float x, float y) {
         super();
         this.x = x;
         this.y = y;
@@ -39,12 +42,11 @@ public class Vector {
      * @param o other vector
      * @return distance between the this and o.
      */
-    public double distance(final Vector o) {
+    public double distance(@Nonnull final Vector2f o) {
         double axBx = x - o.x;
-        axBx *= axBx;
+        axBx = Math.pow(axBx, 2.0d);
         double ayBy = (y - o.y);
-        ayBy *= ayBy;
-
+        ayBy = Math.pow(ayBy, 2.0d);
         return Math.sqrt(axBx + ayBy);
     }
 
@@ -53,8 +55,9 @@ public class Vector {
      * @param o other vector.
      * @return resultant vector of adding this and o. 
      */
-    public Vector add(Vector o) {
-        return new Vector(this.x + o.x, this.y + o.y);
+    @Nonnull
+    public Vector2f add(@Nonnull Vector2f o) {
+        return new Vector2f(this.x + o.x, this.y + o.y);
     }
 
     /**
@@ -62,8 +65,9 @@ public class Vector {
      * @param o other vector.
      * @return resultant vector of subtracting o from this.
      */
-    public Vector subtract(Vector o) {
-        return new Vector(o.x - this.x, o.y - this.y);
+    @Nonnull
+    public Vector2f subtract(@Nonnull Vector2f o) {
+        return new Vector2f(o.x - this.x, o.y - this.y);
     }
 
     /**
@@ -92,7 +96,7 @@ public class Vector {
      * @param v1 second operand operand, where this vector is the first.
      * @return dot product.
      */
-    public double dotProduct(Vector v1) {
+    public double dotProduct(@Nonnull Vector2f v1) {
         return x * v1.x + y * v1.y;
     }
 
@@ -100,8 +104,9 @@ public class Vector {
      * 
      * @return normalized vector.
      */
-    public Vector normalize() {
-        Vector v2 = new Vector();
+    @Nonnull
+    public Vector2f normalize() {
+        Vector2f v2 = new Vector2f();
 
         double length = magnitude();
         if (length != 0) {
@@ -117,17 +122,18 @@ public class Vector {
      * @param scaleFactor factor to scale vector by.
      * @return new scaled vector.
      */
-    public Vector scale(float scaleFactor) {
-        Vector v2 = new Vector(x * scaleFactor, y * scaleFactor);
-        return v2;
+    @Nonnull
+    public Vector2f scale(float scaleFactor) {
+        return new Vector2f(x * scaleFactor, y * scaleFactor);
     }
 
     /**
      * 
      * @return a copy of this vector.
      */
-    public Vector copy() {
-        return new Vector(x, y);
+    @Nonnull
+    public Vector2f copy() {
+        return new Vector2f(x, y);
     }
 
 }

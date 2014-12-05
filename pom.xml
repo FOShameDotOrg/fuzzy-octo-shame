@@ -5,7 +5,7 @@
   <!-- START: The Basics -->
   <groupId>com.jed</groupId>
   <artifactId>fuzzy-octo-shame</artifactId>
-  <version>0.1.7</version>
+  <version>0.1.8</version>
   <packaging>jar</packaging>
   <dependencies>
     <dependency>
@@ -49,6 +49,11 @@
       <artifactId>guice</artifactId>
       <version>${guice.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>annotations</artifactId>
+      <version>${annotations.version}</version>
+    </dependency>
   </dependencies>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -57,7 +62,7 @@
     <maven.version>2.2.1</maven.version>
     <!-- END: Environment Requirements -->
     <!-- START: Plugin Versions -->
-    <maven-assembly-plugin.version>2.5.1</maven-assembly-plugin.version>
+    <maven-assembly-plugin.version>2.5.2</maven-assembly-plugin.version>
     <maven-jxr-plugin.version>2.5</maven-jxr-plugin.version>
     <maven-surefire-plugin.version>2.18</maven-surefire-plugin.version>
     <maven-clean-plugin.version>2.6.1</maven-clean-plugin.version>
@@ -70,9 +75,9 @@
     <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
     <maven-compiler-plugin.version>3.2</maven-compiler-plugin.version>
     <maven-resources-plugin.version>2.7</maven-resources-plugin.version>
-    <maven-checkstyle-plugin.version>2.13</maven-checkstyle-plugin.version>
+    <maven-checkstyle-plugin.version>2.13</maven-checkstyle-plugin.version><!-- 2.14 -->
     <maven-jar-plugin.version>2.5</maven-jar-plugin.version>
-    <maven-pmd-plugin.version>3.2</maven-pmd-plugin.version>
+    <maven-pmd-plugin.version>3.3</maven-pmd-plugin.version>
     <maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
     <maven-source-plugin.version>2.4</maven-source-plugin.version>
     <maven-javadoc-plugin.version>2.10.1</maven-javadoc-plugin.version>
@@ -87,10 +92,16 @@
     <jinput.version>2.0.6</jinput.version>
     <slf4j.version>1.7.7</slf4j.version>
     <guice.version>4.0-beta5</guice.version>
+    <annotations.version>3.0.0</annotations.version>
+    <checkstyle.verion>6.1</checkstyle.verion>
     <!-- END: Dependencies Versions -->
     <!-- START: Build specific variables, probably should be associated with profiles.. -->
     <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>true</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>
     <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError>true</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError>
+    <!-- END: -->
+    <!-- START: -->
+    <main.class>com.jed.core.FuzzyOctoShame</main.class>
+    <!-- END: -->
   </properties>
   <!-- END: The Basics -->
 
@@ -145,6 +156,13 @@
         <plugin>
           <artifactId>maven-checkstyle-plugin</artifactId>
           <version>${maven-checkstyle-plugin.version}</version>
+          <dependencies>
+            <dependency>
+              <groupId>com.puppycrawl.tools</groupId>
+              <artifactId>checkstyle</artifactId>
+              <version>${checkstyle.verion}</version>
+            </dependency>
+          </dependencies>
         </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
@@ -172,9 +190,44 @@
           <version>${versions-maven-plugin.version}</version>
         </plugin>
         <plugin>
+          <!-- 
+            org.eclipse.m2e:lifecycle-mapping's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself if run from the command line. Because there is no m2e connector for maven-checkstyle-plugin we ignore it so that Eclipse does not show an error. If/Once a connector is available, the org.eclipse.m2e:lifecycle-mapping plugin can be removed from the plugins element. See: http://wiki.eclipse.org/M2E_plugin_execution_not_covered
+          -->
           <groupId>org.eclipse.m2e</groupId>
           <artifactId>lifecycle-mapping</artifactId>
           <version>${lifecycle-mapping.version}</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <versionRange>[2.13,)</versionRange>
+                    <goals>
+                      <goal>check</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <versionRange>[1.0.0,)</versionRange>
+                    <goals>
+                      <goal>enforce</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>org.colapietro.maven.plugins</groupId>
@@ -251,36 +304,6 @@
         </executions>
       </plugin>
       <plugin>
-        <!-- org.eclipse.m2e:lifecycle-mapping's configuration is used to store Eclipse m2e settings
-  only. It has no influence on the Maven build itself if run from the command line. Because there is no
-   m2e connector for maven-checkstyle-plugin we ignore it so that Eclipse does not show an error. If/Once a
-    connector is available, the org.eclipse.m2e:lifecycle-mapping plugin can be removed from the plugins
-     element. See: http://wiki.eclipse.org/M2E_plugin_execution_not_covered -->
-        <groupId>org.eclipse.m2e</groupId>
-        <artifactId>lifecycle-mapping</artifactId>
-        <configuration>
-          <lifecycleMappingMetadata>
-            <pluginExecutions>
-              <pluginExecution>
-                <pluginExecutionFilter>
-                  <!-- TEST ME AND REMOVE IF POSSIBLE
-                  <groupId>org.apache.maven.plugins</groupId>
-                  -->
-                  <artifactId>maven-checkstyle-plugin</artifactId>
-                  <versionRange>[2.13,)</versionRange>
-                  <goals>
-                    <goal>check</goal>
-                  </goals>
-                </pluginExecutionFilter>
-                <action>
-                  <ignore />
-                </action>
-              </pluginExecution>
-            </pluginExecutions>
-          </lifecycleMappingMetadata>
-        </configuration>
-      </plugin>
-      <plugin>
         <!-- see: https://github.com/virtuoushub/mavennatives and https://code.google.com/p/mavennatives/ and http://www.lwjgl.org/wiki/index.php?title=LWJGL_use_in_Maven -->
         <groupId>org.colapietro.maven.plugins</groupId>
         <artifactId>nativedependencies-maven-plugin</artifactId>
@@ -292,12 +315,12 @@
             </goals>
           </execution>
         </executions>
-        <!--
         <configuration>
           <platforms>
             <platform>osx</platform>
           </platforms>
         </configuration>
+        <!--
         <configuration>
           <platforms>
             <platform>windows</platform>
@@ -312,7 +335,7 @@
             <index>true</index>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>com.jed.core.MotherBrain</mainClass>
+              <mainClass>${main.class}</mainClass>
             </manifest>
             <manifestEntries>
               <mode>development</mode>
@@ -327,7 +350,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.jed.core.MotherBrain</mainClass>
+              <mainClass>${main.class}</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>

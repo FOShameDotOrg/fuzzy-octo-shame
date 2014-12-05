@@ -1,5 +1,8 @@
 package com.jed.state;
 
+import org.colapietro.lang.LangConstants;
+import org.colapietro.lang.NotImplementedException;
+
 import java.util.Stack;
 
 /**
@@ -7,27 +10,33 @@ import java.util.Stack;
  * @author jlinde, Peter Colapietro
  *
  */
-public class GameStateManager {
+public final class GameStateManager implements StateManager {
 
     /**
      * 
      */
-    Stack<GameState> states = new GameStateStack<GameState>();
+    private final Stack<AbstractDisplayableState> states = new GameStateStack<>();
+
+    /**
+     * For guice.
+     */
+    public GameStateManager() {}
 
     /**
      * 
      * @param state to change to
      */
-    public void changeState(GameState state) {
+    @Override
+    public <E extends State> void changeState(E state) {
         clear();
-        states.push(state);
+        states.push((AbstractDisplayableState)state);//FIXME
     }
 
     /**
      * 
      * @param state state to push onto stack
      */
-    public void push(GameState state) {
+    public void push(AbstractGameState state) {
         states.push(state);
     }
 
@@ -35,24 +44,36 @@ public class GameStateManager {
      * 
      * @return state from top of stack
      */
-    public GameState pop() {
+    public State pop() {
         return states.pop();
     }
 
     /**
      * 
      */
-    public void clear() {
+    void clear() {
         while (!states.isEmpty()) {
             states.pop();
         }
+    }
+
+    @Override
+    public void entered() throws NotImplementedException {
+        throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
+
+    }
+
+    @Override
+    public void leaving() throws NotImplementedException {
+        throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
+
     }
 
     /**
      * 
      */
     public void update() {
-        for (GameState eachState : states) {
+        for (State eachState : states) {
             eachState.update();
         }
     }
@@ -60,38 +81,10 @@ public class GameStateManager {
     /**
      * 
      */
-    public void draw() {
-        for (GameState eachState : states) {
-            eachState.draw();
+    public void render() {
+        for (AbstractDisplayableState eachState : states) {
+            eachState.render();
         }
-    }
-
-    /**
-     * 
-     * @author jlinde, Peter Colapietro
-     *
-     */
-    private class GameStateStack<E> extends Stack<E> {
-
-        /**
-         * 
-         */
-        private static final long serialVersionUID = 1L;
-
-        @Override
-        public E push(E o) {
-            super.push(o);
-            ((GameState) o).entered();
-            return o;
-        }
-
-        @Override
-        public synchronized E pop() {
-            E o = super.pop();
-            ((GameState) o).leaving();
-            return o;
-        }
-
     }
 
 }

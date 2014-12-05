@@ -3,7 +3,7 @@ package org.newdawn.slick.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.PrintStream;
+import javax.annotation.Nonnull;
 import java.util.Date;
 
 /**
@@ -17,7 +17,7 @@ public class DefaultLogSystem implements LogSystem {
     /**
      * The Logger for dumping the log out on
      */
-    public static final Logger out = LoggerFactory.getLogger(DefaultLogSystem.class);
+    private static final Logger out = LoggerFactory.getLogger(DefaultLogSystem.class);
 
     /**
      * Log an error
@@ -25,7 +25,7 @@ public class DefaultLogSystem implements LogSystem {
      * @param message The message describing the error
      * @param e       The exception causing the error
      */
-    public void error(String message, Throwable e) {
+    public void error(String message, @Nonnull Throwable e) {
         error(message);
         error(e);
     }
@@ -35,7 +35,7 @@ public class DefaultLogSystem implements LogSystem {
      *
      * @param e The exception causing the error
      */
-    public void error(Throwable e) {
+    public void error(@Nonnull Throwable e) {
         out.error(new Date() + " ERROR:" + e.getMessage());
     }
 

@@ -1,13 +1,13 @@
 package com.jed.actor;
 
-import com.jed.util.Vector;
+import com.jed.util.Vector2f;
 
 /**
  * 
  * @author jlinde, Peter Colapietro
  *
  */
-public abstract class PhysicsEntity extends Entity {
+abstract class PhysicsEntity extends AbstractEntity {
 
     /**
      * 
@@ -15,7 +15,7 @@ public abstract class PhysicsEntity extends Entity {
      * @param movement movement vector.
      * @param bounds bounds of entity.
      */
-    public PhysicsEntity(Vector position, Vector movement, Boundary bounds) {
+    PhysicsEntity(Vector2f position, Vector2f movement, Boundary bounds) {
         super(position, movement, bounds);
     }
 
