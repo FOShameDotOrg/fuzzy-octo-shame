@@ -5,11 +5,8 @@ import com.jed.state.GameMap;
 import com.jed.state.State;
 import com.jed.util.Util;
 import com.jed.util.Vector2f;
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.command.Command;
-import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.opengl.Texture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +18,7 @@ import javax.annotation.Nonnull;
  * @author jlinde, Peter Colapietro
  *
  */
-public class Player extends AbstractEntity implements InputProviderListener {
+public class Player extends AbstractEntity {
 
     /**
      *
@@ -117,6 +114,21 @@ public class Player extends AbstractEntity implements InputProviderListener {
      *
      */
     private final GameMap map;
+
+    /**
+     *
+     */
+    private boolean isMovingLeft;
+
+    /**
+     *
+     */
+    private boolean isMovingRight;
+
+    /**
+     *
+     */
+    private boolean isJumping;
 
     /**
      *
@@ -541,28 +553,10 @@ public class Player extends AbstractEntity implements InputProviderListener {
         map.drawChildVertex2f(position.x + x, position.y + y);
     }
 
-
-    @Override
-    public void controlPressed(Command command) {
-        LOGGER.debug("Pressed ", command.toString());
-        LOGGER.info("controlPressed {}", command.toString());
-    }
-
-    @Override
-    public void controlReleased(Command command) {
-        LOGGER.debug("Released ", command.toString());
-        LOGGER.info("controlReleased {}", command.toString());
-        /*
-        if (Float.compare(movement.x, 0) != 0) {
-            movement.x = movement.x - Math.min(Math.abs(movement.x), FRICTION) * Math.signum(movement.x);
-        }
-        */
-    }
-
     /**
      *
      */
-    public void jump() {
+    private void jump() {
             boolean isJumpCountLessThanTwo = jumpCount < 2;
             int heightOffsetWithYPosition = Math.round(position.y) + height; //TODO Test me.
             if (isJumpCountLessThanTwo || heightOffsetWithYPosition == map.getHeight() * map.getTileHeight()) {
@@ -570,12 +564,13 @@ public class Player extends AbstractEntity implements InputProviderListener {
                 jumpCount++;
                 changeState(jumpingState);
             }
-        }
+        isJumping = false;
+    }
 
     /**
      *
      */
-    public void moveRight() {
+    private void moveRight() {
         LOGGER.info("moveRight");
         if (Float.compare(movement.x, 0) < 0) {
             movement.x += X_MOVEMENT_SCALAR;
@@ -588,7 +583,7 @@ public class Player extends AbstractEntity implements InputProviderListener {
     /**
      *
      */
-    public void moveLeft() {
+    private void moveLeft() {
         LOGGER.info("moveLeft");
         if (Float.compare(movement.x, 0) > 0) {
             movement.x -= X_MOVEMENT_SCALAR;
@@ -604,14 +599,17 @@ public class Player extends AbstractEntity implements InputProviderListener {
      * Constant key "hold" events
      */
     private void keyHoldEvent() {
-        if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+        if(isJumping) {
+            jump();
+        }
+        if(isMovingLeft) {
             moveLeft();
-        } else if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+        } else if(isMovingRight) {
             moveRight();
         } else if (Float.compare(movement.x, 0) != 0) {
             movement.x = movement.x - Math.min(Math.abs(movement.x), FRICTION) * Math.signum(movement.x);
         }
-        if (!Keyboard.isKeyDown(Keyboard.KEY_SPACE) && !currentState.falling) {
+        if (!isJumping && !currentState.falling) {
             jumpCount = 0;
         }
     }
@@ -630,5 +628,29 @@ public class Player extends AbstractEntity implements InputProviderListener {
      */
     public int getWidth() {
         return width;
+    }
+
+    /**
+     *
+     * @param isMovingLeft isMovingLeft
+     */
+    public void setMovingLeft(boolean isMovingLeft) {
+        this.isMovingLeft = isMovingLeft;
+    }
+
+    /**
+     *
+     * @param isMovingRight isMovingRight
+     */
+    public void setMovingRight(boolean isMovingRight) {
+        this.isMovingRight = isMovingRight;
+    }
+
+    /**
+     *
+     * @param isJumping isJumping
+     */
+    public void setJumping(boolean isJumping) {
+        this.isJumping = isJumping;
     }
 }

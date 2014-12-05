@@ -1,6 +1,5 @@
 package com.jed.core;
 
-import com.jed.actor.Player;
 import com.jed.state.DiscoState;
 import com.jed.state.GameStateManager;
 import com.jed.state.MenuState;
@@ -200,11 +199,7 @@ final class MotherBrain extends AbstractLwjglGameLoopable implements Startable, 
     private void initializeStateManager() {
         pushDiscoStatesToStateManager(MotherBrainConstants.NUMBER_OF_DISCO_STATES);
         final PlayState playState = new PlayState(MotherBrainConstants.IS_DEBUG_VIEW_ENABLED);
-        final Player player = playState.getCurrentMap().getPlayer();
-
         inputProvider.addListener(playState);
-        inputProvider.addListener(player);
-
         stateManager.push(playState);
         if (MotherBrainConstants.IS_MENU_STATE_SHOWN) {
             pushMenuStateToStateManager();

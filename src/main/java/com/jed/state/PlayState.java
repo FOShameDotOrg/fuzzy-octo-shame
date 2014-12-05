@@ -79,14 +79,16 @@ public class PlayState extends AbstractGameState implements InputProviderListene
         LOGGER.info("controlPressed {}",command.toString());
         if(command.equals(new BasicCommand("pauseToggle"))) {
             paused = !paused;
-        }
-        if(command.equals(new BasicCommand("stepFrame"))) {
+        } else if(command.equals(new BasicCommand("stepFrame"))) {
             if (paused) {
                 stepFrame = true;
             }
-        }
-        if(command.getName().equals(BasicCommandConstants.JUMP)) {
-            currentMap.getPlayer().jump();
+        } else if(command.getName().equals(BasicCommandConstants.JUMP)) {
+            currentMap.getPlayer().setJumping(true);
+        } else if(command.getName().equals(BasicCommandConstants.MOVE_RIGHT)) {
+            currentMap.getPlayer().setMovingRight(true);
+        } else if(command.getName().equals(BasicCommandConstants.MOVE_LEFT)) {
+            currentMap.getPlayer().setMovingLeft(true);
         }
     }
 
@@ -94,6 +96,11 @@ public class PlayState extends AbstractGameState implements InputProviderListene
     public void controlReleased(Command command) {
         LOGGER.debug("com.jed.state.PlayState#controlReleased");
         LOGGER.info("controlReleased {}",command.toString());
+        if(command.getName().equals(BasicCommandConstants.MOVE_RIGHT)) {
+            currentMap.getPlayer().setMovingRight(false);
+        } else if(command.getName().equals(BasicCommandConstants.MOVE_LEFT)) {
+            currentMap.getPlayer().setMovingLeft(false);
+        }
     }
 
     /**
