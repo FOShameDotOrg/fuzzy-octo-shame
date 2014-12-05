@@ -7,7 +7,7 @@ import com.jed.core.MotherBrainConstants;
 import com.jed.core.QuadTree;
 import com.jed.util.Rectangle;
 import com.jed.util.Util;
-import com.jed.util.Vector3f;
+import com.jed.util.Vector2f;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
@@ -54,7 +54,7 @@ public final class GameMap extends AbstractDisplayableState {
      * 
      */
     //TODO: this should be set when the map loads...
-    private static final Vector3f POSITION = new Vector3f(0, 0);
+    private static final Vector2f POSITION = new Vector2f(0, 0);
 
     /**
      * 
@@ -98,7 +98,7 @@ public final class GameMap extends AbstractDisplayableState {
     public GameMap() {
         //TODO: initialize scene Stack by some data contained in the map i.e. start position or something like that...
         scene = new GameEntityStack<>();
-        player = new Player(new Vector3f(50, 200), 256, 256, this);
+        player = new Player(new Vector2f(50, 200), 256, 256, this);
         scene.push(player);
     }
 
@@ -107,7 +107,7 @@ public final class GameMap extends AbstractDisplayableState {
         texture = Util.loadTexture(tileSetPath);
 
         quadTree = new QuadTree(
-                new Vector3f(0, 0), 0,
+                new Vector2f(0, 0), 0,
                 new Rectangle(
                         width * tileWidth,
                         height * tileHeight),

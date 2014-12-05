@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jed.actor.AbstractEntity;
-import com.jed.util.Vector3f;
+import com.jed.util.Vector2f;
 import org.lwjgl.opengl.GL11;
 
 import com.jed.util.Rectangle;
@@ -58,7 +58,7 @@ public class QuadTree implements Displayable {
     /**
      * 
      */
-    private final Vector3f position;
+    private final Vector2f position;
 
     /**
      * 
@@ -67,7 +67,7 @@ public class QuadTree implements Displayable {
      * @param rectangle rectangle
      * @param parent parent
      */
-    public QuadTree(Vector3f position, int level, Rectangle rectangle, Displayable parent) {
+    public QuadTree(Vector2f position, int level, Rectangle rectangle, Displayable parent) {
         this.position = position;
         this.level = level;
         this.objects = new ArrayList<>();
@@ -167,10 +167,10 @@ public class QuadTree implements Displayable {
 
         Rectangle rect = new Rectangle(subWidth, subHeight);
 
-        this.nodes[0] = new QuadTree(new Vector3f(x + subWidth, y), this.level + 1, rect, parent);
-        this.nodes[1] = new QuadTree(new Vector3f(x, y), this.level + 1, rect, parent);
-        this.nodes[2] = new QuadTree(new Vector3f(x, y + subHeight), this.level + 1, rect, parent);
-        this.nodes[3] = new QuadTree(new Vector3f(x + subWidth, y + subHeight), this.level + 1, rect, parent);
+        this.nodes[0] = new QuadTree(new Vector2f(x + subWidth, y), this.level + 1, rect, parent);
+        this.nodes[1] = new QuadTree(new Vector2f(x, y), this.level + 1, rect, parent);
+        this.nodes[2] = new QuadTree(new Vector2f(x, y + subHeight), this.level + 1, rect, parent);
+        this.nodes[3] = new QuadTree(new Vector2f(x + subWidth, y + subHeight), this.level + 1, rect, parent);
     }
 
     /**

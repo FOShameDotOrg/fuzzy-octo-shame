@@ -4,7 +4,7 @@ import com.jed.state.AbstractDisplayableState;
 import com.jed.state.GameMap;
 import com.jed.state.State;
 import com.jed.util.Util;
-import com.jed.util.Vector3f;
+import com.jed.util.Vector2f;
 import org.colapietro.slick.command.BasicCommandConstants;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -128,17 +128,17 @@ public class Player extends AbstractEntity implements InputProviderListener {
      * @param width width
      * @param map game map
      */
-    public Player(Vector3f position, int height, int width, GameMap map) {
+    public Player(Vector2f position, int height, int width, GameMap map) {
         super(
                 position,
-                new Vector3f(0, 0),
+                new Vector2f(0, 0),
                 new PolygonBoundary(
-                        new Vector3f(110, 130),
-                        new Vector3f[]{
-                                new Vector3f(0, 0),
-                                new Vector3f(40, 0),
-                                new Vector3f(40, 120),
-                                new Vector3f(0, 120)
+                        new Vector2f(110, 130),
+                        new Vector2f[]{
+                                new Vector2f(0, 0),
+                                new Vector2f(40, 0),
+                                new Vector2f(40, 120),
+                                new Vector2f(0, 120)
                         })
         );
 
