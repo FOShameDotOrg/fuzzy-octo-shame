@@ -608,7 +608,7 @@ public class Player extends AbstractEntity implements InputProviderListener {
             moveLeft();
         } else if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
             moveRight();
-        } else if (movement.x != 0) {
+        } else if (Float.compare(movement.x, 0) != 0) {
             movement.x = movement.x - Math.min(Math.abs(movement.x), FRICTION) * Math.signum(movement.x);
         }
         if (!Keyboard.isKeyDown(Keyboard.KEY_SPACE) && !currentState.falling) {
