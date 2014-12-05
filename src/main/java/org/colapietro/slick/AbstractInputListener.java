@@ -110,12 +110,12 @@ public abstract class AbstractInputListener implements InputListener {
     }
 
     @Override
-    public void mouseMoved(int oldx, int oldy, int newx, int newy) throws NotImplementedException {
+    public void mouseMoved(int oldX, int oldY, int newX, int newY) throws NotImplementedException {
         throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
     }
 
     @Override
-    public void mouseDragged(int oldx, int oldy, int newx, int newy) throws NotImplementedException {
+    public void mouseDragged(int oldX, int oldY, int newX, int newY) throws NotImplementedException {
         throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
     }
 

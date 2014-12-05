@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
  * @since 0.1.8
  *
  */
-public class Vector3f {
+public class Vector2f {
 
     /**
      * 
@@ -23,7 +23,7 @@ public class Vector3f {
     /**
      * 
      */
-    private Vector3f() {
+    private Vector2f() {
     }
 
     /**
@@ -31,7 +31,7 @@ public class Vector3f {
      * @param x x
      * @param y y
      */
-    public Vector3f(float x, float y) {
+    public Vector2f(float x, float y) {
         super();
         this.x = x;
         this.y = y;
@@ -42,7 +42,7 @@ public class Vector3f {
      * @param o other vector
      * @return distance between the this and o.
      */
-    public double distance(@Nonnull final Vector3f o) {
+    public double distance(@Nonnull final Vector2f o) {
         double axBx = x - o.x;
         axBx = Math.pow(axBx, 2.0d);
         double ayBy = (y - o.y);
@@ -56,8 +56,8 @@ public class Vector3f {
      * @return resultant vector of adding this and o. 
      */
     @Nonnull
-    public Vector3f add(@Nonnull Vector3f o) {
-        return new Vector3f(this.x + o.x, this.y + o.y);
+    public Vector2f add(@Nonnull Vector2f o) {
+        return new Vector2f(this.x + o.x, this.y + o.y);
     }
 
     /**
@@ -66,8 +66,8 @@ public class Vector3f {
      * @return resultant vector of subtracting o from this.
      */
     @Nonnull
-    public Vector3f subtract(@Nonnull Vector3f o) {
-        return new Vector3f(o.x - this.x, o.y - this.y);
+    public Vector2f subtract(@Nonnull Vector2f o) {
+        return new Vector2f(o.x - this.x, o.y - this.y);
     }
 
     /**
@@ -96,7 +96,7 @@ public class Vector3f {
      * @param v1 second operand operand, where this vector is the first.
      * @return dot product.
      */
-    public double dotProduct(@Nonnull Vector3f v1) {
+    public double dotProduct(@Nonnull Vector2f v1) {
         return x * v1.x + y * v1.y;
     }
 
@@ -105,8 +105,8 @@ public class Vector3f {
      * @return normalized vector.
      */
     @Nonnull
-    public Vector3f normalize() {
-        Vector3f v2 = new Vector3f();
+    public Vector2f normalize() {
+        Vector2f v2 = new Vector2f();
 
         double length = magnitude();
         if (length != 0) {
@@ -123,8 +123,8 @@ public class Vector3f {
      * @return new scaled vector.
      */
     @Nonnull
-    public Vector3f scale(float scaleFactor) {
-        return new Vector3f(x * scaleFactor, y * scaleFactor);
+    public Vector2f scale(float scaleFactor) {
+        return new Vector2f(x * scaleFactor, y * scaleFactor);
     }
 
     /**
@@ -132,8 +132,8 @@ public class Vector3f {
      * @return a copy of this vector.
      */
     @Nonnull
-    public Vector3f copy() {
-        return new Vector3f(x, y);
+    public Vector2f copy() {
+        return new Vector2f(x, y);
     }
 
 }

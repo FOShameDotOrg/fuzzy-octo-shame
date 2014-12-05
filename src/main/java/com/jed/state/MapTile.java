@@ -1,7 +1,7 @@
 package com.jed.state;
 
 import com.jed.actor.AbstractEntity;
-import com.jed.util.Vector3f;
+import com.jed.util.Vector2f;
 import org.lwjgl.opengl.GL11;
 
 import com.jed.actor.Boundary;
@@ -67,14 +67,14 @@ public class MapTile extends AbstractEntity {
      * @param tileId FIXME Javadoc
      * @param map FIXME Javadoc
      */
-    public MapTile( Vector3f position,
+    public MapTile( Vector2f position,
                     @Nonnull Boundary bounds,
                     float glTexX,float glTexY,
                     float glTexWidth,
                     float glTexHeight,
                     int tileId,
                     GameMap map) {
-        super(position, new Vector3f(0, 0), bounds);
+        super(position, new Vector2f(0, 0), bounds);
 
         this.glTexX = glTexX;
         this.glTexY = glTexY;

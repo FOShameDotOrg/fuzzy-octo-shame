@@ -9,4 +9,10 @@ package org.newdawn.slick.command;
  */
 public interface Command {
 
+    /**
+     *
+     * @return name
+     */
+    String getName();
+
 }

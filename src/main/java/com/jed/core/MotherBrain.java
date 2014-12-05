@@ -1,20 +1,15 @@
 package com.jed.core;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.jed.actor.Player;
-import com.jed.state.*;
+import com.jed.state.DiscoState;
+import com.jed.state.GameStateManager;
+import com.jed.state.MenuState;
+import com.jed.state.PlayState;
 import com.jed.util.ExitStatusCode;
-
 import org.colapietro.lwjgl.AbstractLwjglGameLoopable;
 import org.colapietro.lwjgl.controllers.ButtonState;
 import org.colapietro.lwjgl.controllers.Xbox360ControllerButton;
-import org.colapietro.slick.LoggableInputListenerModule;
-import org.colapietro.slick.LoggableInputListener;
 import org.colapietro.slick.InputListenable;
-import org.colapietro.slick.InputProviderListenable;
-import org.colapietro.slick.LoggableInputProviderListener;
-import org.colapietro.slick.LoggableInputProviderListenerModule;
+import org.colapietro.slick.command.BasicCommandConstants;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Controller;
@@ -31,6 +26,7 @@ import org.newdawn.slick.util.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.util.*;
 
 import static org.colapietro.lwjgl.controllers.Xbox360ControllerButton.*;
@@ -38,8 +34,7 @@ import static org.colapietro.lwjgl.controllers.Xbox360ControllerButton.*;
 /**
  * @author jlinde, Peter Colapietro
  */
-public final class MotherBrain extends AbstractLwjglGameLoopable implements Startable, InputListenable,
-        InputProviderListenable {
+final class MotherBrain extends AbstractLwjglGameLoopable implements Startable, InputListenable {
 
     /**
      * 
@@ -59,6 +54,7 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
     /**
      * 
      */
+    @Inject
     private GameStateManager stateManager;
 
     /**
@@ -74,18 +70,12 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
     /**
      *
      */
-    @SuppressWarnings("unused")
-    private InputProviderListener inputProviderListener;
-
-    /**
-     *
-     */
     private final List<Controller> controllers = new ArrayList<>();
 
     /**
      *
      */
-    private final Command moveLeft = new BasicCommand("moveLeft");
+    private final Command moveLeft = new BasicCommand(BasicCommandConstants.MOVE_LEFT);
 
     /**
      *
@@ -117,31 +107,12 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
     /**
      *
      */
-    private final Command jump = new BasicCommand("jump");
+    private final Command jump = new BasicCommand(BasicCommandConstants.JUMP);
 
     /**
      *
      */
-    private final Command moveRight = new BasicCommand("moveRight");
-
-
-    /**
-     * @param args Command-line arguments
-     */
-    public static void main(String[] args) {
-        final Injector injector = Guice.createInjector(
-                new MotherBrainModule(),
-                new LoggableInputListenerModule(),
-                new LoggableInputProviderListenerModule()
-        );
-        final MotherBrain motherBrain = injector.getInstance(MotherBrain.class);
-        final InputListener basicInputListener = injector.getInstance(LoggableInputListener.class);
-        final InputProviderListener loggableInputProviderListener =
-                injector.getInstance(LoggableInputProviderListener.class);
-        motherBrain.setInputListener(basicInputListener);
-        motherBrain.setInputProviderListener(loggableInputProviderListener);
-        motherBrain.start();
-    }
+    private final Command moveRight = new BasicCommand(BasicCommandConstants.MOVE_RIGHT);
 
     /**
      * 
@@ -187,11 +158,9 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
         inputProvider.bindCommand(new ControllerButtonControl(0,valueOf(DPAD_RIGHT, true)), moveRight);
         inputProvider.bindCommand(new KeyControl(Keyboard.KEY_RIGHT), moveRight);
 
-        //inputProvider.addListener(inputProviderListener);
-
         inputListener.setInput(input);
 
-        input.addListener(inputListener);
+        input.addPrimaryListener(inputListener);
 
         logAllControllers();
     }
@@ -228,14 +197,9 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
      *
      */
     private void initializeStateManager() {
-        stateManager = new GameStateManager();
         pushDiscoStatesToStateManager(MotherBrainConstants.NUMBER_OF_DISCO_STATES);
         final PlayState playState = new PlayState(MotherBrainConstants.IS_DEBUG_VIEW_ENABLED);
-        final Player player = playState.getCurrentMap().getPlayer();
-
         inputProvider.addListener(playState);
-        inputProvider.addListener(player);
-
         stateManager.push(playState);
         if (MotherBrainConstants.IS_MENU_STATE_SHOWN) {
             pushMenuStateToStateManager();
@@ -312,7 +276,6 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
 
     @Override
     public void processInput() {
-        //stateManager.processInput();
         input.poll(MotherBrainConstants.WIDTH, MotherBrainConstants.HEIGHT);
     }
 
@@ -325,7 +288,6 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
             final Controller firstController = controllers.get(0);
             while(Controllers.next()) {
                 if(Controllers.getEventSource().equals(firstController)) {
-                    /**
                     if(Controllers.isEventAxis()) {
                         Log.debug("isEventAxis");
                             if(Controllers.isEventXAxis()) {
@@ -335,7 +297,6 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
                             Log.debug("isEventYAxis");
                         }
                     }
-                     */
                     if(Controllers.isEventButton()) {
                         final int eventControlIndex = Controllers.getEventControlIndex();
                         final Xbox360ControllerButton xbox360ControllerButton =
@@ -399,8 +360,4 @@ public final class MotherBrain extends AbstractLwjglGameLoopable implements Star
         this.inputListener = inputListener;
     }
 
-    @Override
-    public void setInputProviderListener(InputProviderListener inputProviderListener) {
-        this.inputProviderListener = inputProviderListener;
-    }
 }

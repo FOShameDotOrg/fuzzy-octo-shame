@@ -1,8 +1,7 @@
 package com.jed.state;
 
-import com.jed.util.Vector3f;
+import com.jed.util.Vector2f;
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.font.effects.ColorEffect;
 import org.slf4j.Logger;
@@ -33,7 +32,7 @@ public class MenuState extends AbstractGameState {
     /**
      * 
      */
-    private Vector3f coordinates;
+    private Vector2f coordinates;
 
     /**
      * 
@@ -55,7 +54,7 @@ public class MenuState extends AbstractGameState {
      * 
      * @return coordinates
      */
-    public Vector3f getCoordinates() {
+    public Vector2f getCoordinates() {
         return coordinates;
     }
 
@@ -63,7 +62,7 @@ public class MenuState extends AbstractGameState {
      * 
      * @param coordinates coordinates
      */
-    public void setCoordinates(Vector3f coordinates) {
+    public void setCoordinates(Vector2f coordinates) {
         this.coordinates = coordinates;
     }
 
@@ -74,14 +73,6 @@ public class MenuState extends AbstractGameState {
         font.getEffects().add(new ColorEffect(java.awt.Color.RED));
         font.addAsciiGlyphs();
         font.loadGlyphs();
-    }
-
-    @Override
-    public void leaving() {
-    }
-
-    @Override
-    public void update() {
     }
 
     @Override

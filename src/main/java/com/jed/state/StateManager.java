@@ -6,10 +6,13 @@ package com.jed.state;
  *
  */
 public interface StateManager extends State {
-    
+
+
     /**
-     * 
+     *
      * @param state state
+     * @param <E> Type which extends com.jed.state.State
      */
-    void changeState(State state);
+    <E extends State> void changeState(E state);
+
 }
