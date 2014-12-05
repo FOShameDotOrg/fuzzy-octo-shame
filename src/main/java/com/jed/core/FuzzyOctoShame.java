@@ -2,6 +2,7 @@ package com.jed.core;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import org.colapietro.guice.StateManagerModule;
 import org.colapietro.slick.LoggableInputListener;
 import org.colapietro.slick.LoggableInputListenerModule;
 import org.newdawn.slick.InputListener;
@@ -21,7 +22,8 @@ public class FuzzyOctoShame {
     public static void main(String[] args) {
         final Injector injector = Guice.createInjector(
                 new MotherBrainModule(),
-                new LoggableInputListenerModule()
+                new LoggableInputListenerModule(),
+                new StateManagerModule()
         );
         final MotherBrain motherBrain = injector.getInstance(MotherBrain.class);
         final InputListener basicInputListener = injector.getInstance(LoggableInputListener.class);

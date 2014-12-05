@@ -18,6 +18,11 @@ public final class GameStateManager implements StateManager {
     private final Stack<AbstractDisplayableState> states = new GameStateStack<>();
 
     /**
+     * For guice.
+     */
+    public GameStateManager() {}
+
+    /**
      * 
      * @param state to change to
      */

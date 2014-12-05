@@ -27,6 +27,7 @@ import org.newdawn.slick.util.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.util.*;
 
 import static org.colapietro.lwjgl.controllers.Xbox360ControllerButton.*;
@@ -54,6 +55,7 @@ final class MotherBrain extends AbstractLwjglGameLoopable implements Startable, 
     /**
      * 
      */
+    @Inject
     private GameStateManager stateManager;
 
     /**
@@ -196,7 +198,6 @@ final class MotherBrain extends AbstractLwjglGameLoopable implements Startable, 
      *
      */
     private void initializeStateManager() {
-        stateManager = new GameStateManager();
         pushDiscoStatesToStateManager(MotherBrainConstants.NUMBER_OF_DISCO_STATES);
         final PlayState playState = new PlayState(MotherBrainConstants.IS_DEBUG_VIEW_ENABLED);
         final Player player = playState.getCurrentMap().getPlayer();
