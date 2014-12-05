@@ -226,8 +226,4 @@ public class QuadTree implements Displayable {
             }
         }
     }
-
-    @Override
-    public void drawChildVertex2f(float x, float y) {
-    }
 }

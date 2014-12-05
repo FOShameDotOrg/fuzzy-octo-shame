@@ -91,11 +91,4 @@ public abstract class Boundary implements Displayable {
         return getWorldPosition().add(owner.movement);
     }
 
-    @Override
-    public void render() {
-    }
-
-    @Override
-    public void drawChildVertex2f(float x, float y) {
-    }
 }
