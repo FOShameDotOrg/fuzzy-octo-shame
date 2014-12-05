@@ -5,7 +5,6 @@ import com.jed.state.GameMap;
 import com.jed.state.State;
 import com.jed.util.Util;
 import com.jed.util.Vector2f;
-import org.colapietro.slick.command.BasicCommandConstants;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
@@ -547,12 +546,6 @@ public class Player extends AbstractEntity implements InputProviderListener {
     public void controlPressed(Command command) {
         LOGGER.debug("Pressed ", command.toString());
         LOGGER.info("controlPressed {}", command.toString());
-        if(command.getName().equals(BasicCommandConstants.MOVE_LEFT)) {
-            moveLeft();
-        }
-        if(command.getName().equals(BasicCommandConstants.MOVE_RIGHT)) {
-            moveRight();
-        }
     }
 
     @Override
