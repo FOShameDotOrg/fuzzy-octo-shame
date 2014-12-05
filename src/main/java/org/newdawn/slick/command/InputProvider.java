@@ -38,8 +38,7 @@ public final class InputProvider {
      */
     public InputProvider(Input input) {
         this.input = input;
-
-        input.addListener(new InputListenerImpl());
+        this.input.addListener(new InputListenerImpl());
         commands = new HashMap<>();
     }
 
@@ -64,13 +63,12 @@ public final class InputProvider {
      *            The command to be invoked
      * @return The list of controls that can cause the command (@see Control)
      */
-    List getControlsFor(Command command) {
+    List<Control> getControlsFor(Command command) {
         List<Control> controlsForCommand = new ArrayList<>();
 
         for (Map.Entry<Control, Command> controlCommandEntry : commands.entrySet()) {
-            Map.Entry entry = (Map.Entry) controlCommandEntry;
-            Control key = (Control) entry.getKey();
-            Command value = (Command) entry.getValue();
+            Control key = controlCommandEntry.getKey();
+            Command value = controlCommandEntry.getValue();
 
             if (value == command) {
                 controlsForCommand.add(key);
@@ -142,11 +140,9 @@ public final class InputProvider {
      * @param command The command whose controls should be unbound
      */
     public void clearCommand(Command command) {
-        List controls = getControlsFor(command);
+        List<Control> controls = getControlsFor(command);
 
-        for (Object control : controls) {
-            unbindCommand((Control) control);
-        }
+        controls.forEach(this::unbindCommand);
     }
 
     /**

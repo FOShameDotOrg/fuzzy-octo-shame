@@ -23,6 +23,7 @@ public class BasicCommand implements Command {
      *
      * @return The name given for this basic command
      */
+    @Override
     public String getName() {
         return name;
     }

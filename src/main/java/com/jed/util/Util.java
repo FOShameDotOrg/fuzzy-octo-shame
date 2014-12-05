@@ -1,6 +1,7 @@
 package com.jed.util;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
@@ -9,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * 
@@ -28,14 +28,20 @@ public class Util {
      * @param path path to texture file
      * @return texture object loaded from file
      */
-    @Nullable
+    @Nonnull
     public static Texture loadTexture(@Nonnull String path) {
         Texture texture = null;
 
         String type = path.substring(path.lastIndexOf('.') + 1).toUpperCase();
 
-        try {
-            texture = TextureLoader.getTexture(type, ResourceLoader.getResourceAsStream(path));
+        try (final InputStream resourceAsStream = ResourceLoader.getResourceAsStream(path)) {
+            if(resourceAsStream == null) {
+                throw new IOException("");//FIXME
+            }
+            texture = TextureLoader.getTexture(type, resourceAsStream);
+            if(texture == null) {
+                throw new IOException("");//FIXME
+            }
             LOGGER.debug("Texture loaded: " + texture);
             LOGGER.debug(">> Image width: " + texture.getImageWidth());
             LOGGER.debug(">> Image height: " + texture.getImageHeight());

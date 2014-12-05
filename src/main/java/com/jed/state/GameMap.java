@@ -1,31 +1,20 @@
 package com.jed.state;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Stack;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import com.jed.actor.AbstractEntity;
-import com.jed.core.MotherBrainConstants;
-import com.jed.util.Vector3f;
-import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.command.Command;
-import org.newdawn.slick.command.InputProviderListener;
-import org.newdawn.slick.opengl.Texture;
-
 import com.jed.actor.Player;
 import com.jed.core.Collision;
+import com.jed.core.MotherBrainConstants;
 import com.jed.core.QuadTree;
 import com.jed.util.Rectangle;
 import com.jed.util.Util;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.jed.util.Vector2f;
+import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.opengl.Texture;
 
-import javax.annotation.Nullable;
-
+import javax.annotation.Nonnull;
+import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * 
@@ -36,10 +25,6 @@ import javax.annotation.Nullable;
  */
 public final class GameMap extends AbstractDisplayableState {
 
-    /**
-     *
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(GameMap.class);
     /**
      *
      */
@@ -69,7 +54,7 @@ public final class GameMap extends AbstractDisplayableState {
      * 
      */
     //TODO: this should be set when the map loads...
-    private static final Vector3f POSITION = new Vector3f(0, 0);
+    private static final Vector2f POSITION = new Vector2f(0, 0);
 
     /**
      * 
@@ -79,18 +64,18 @@ public final class GameMap extends AbstractDisplayableState {
     /**
      * 
      */
-    @Nullable
+    @Nonnull
     private Texture texture;
 
     /**
      * 
      */
-    private Player player;
+    private final Player player;
     
     /**
      * 
      */
-    private Stack<AbstractEntity> scene;
+    private final Stack<AbstractEntity> scene;
 
     /**
      * 
@@ -112,8 +97,8 @@ public final class GameMap extends AbstractDisplayableState {
      */
     public GameMap() {
         //TODO: initialize scene Stack by some data contained in the map i.e. start position or something like that...
-        scene = new Stack<>();
-        player = new Player(new Vector3f(50, 200), 256, 256, this);
+        scene = new GameEntityStack<>();
+        player = new Player(new Vector2f(50, 200), 256, 256, this);
         scene.push(player);
     }
 
@@ -122,7 +107,7 @@ public final class GameMap extends AbstractDisplayableState {
         texture = Util.loadTexture(tileSetPath);
 
         quadTree = new QuadTree(
-                new Vector3f(0, 0), 0,
+                new Vector2f(0, 0), 0,
                 new Rectangle(
                         width * tileWidth,
                         height * tileHeight),
@@ -146,11 +131,11 @@ public final class GameMap extends AbstractDisplayableState {
     }
 
     /**
-     * 
+     * FIXME.
      */
     private void scrollMap() {
         if (player.movement.y > 0) {
-            if ((player.position.y + (player.height / 2) - POSITION.y) > MotherBrainConstants.HEIGHT / 2) {
+            if ((player.position.y + (player.getHeight() / 2) - POSITION.y) > MotherBrainConstants.HEIGHT / 2) {
                 if (POSITION.y + player.movement.y > height * tileHeight - MotherBrainConstants.HEIGHT) {
                     POSITION.y = height * tileHeight - MotherBrainConstants.HEIGHT;
                 } else {
@@ -158,7 +143,7 @@ public final class GameMap extends AbstractDisplayableState {
                 }
             }
         } else if (player.movement.y < 0) {
-            if ((player.position.y + (player.height / 2) - POSITION.y) < MotherBrainConstants.HEIGHT / 2) {
+            if ((player.position.y + (player.getHeight() / 2) - POSITION.y) < MotherBrainConstants.HEIGHT / 2) {
                 if (player.movement.y + POSITION.y < 0) {
                     POSITION.y = 0;
                 } else {
@@ -168,7 +153,7 @@ public final class GameMap extends AbstractDisplayableState {
         }
 
         if (player.movement.x > 0) {
-            if ((player.position.x + (player.width / 2) - POSITION.x) > MotherBrainConstants.WIDTH / 2) {
+            if ((player.position.x + (player.getWidth() / 2) - POSITION.x) > MotherBrainConstants.WIDTH / 2) {
                 if (POSITION.x + player.movement.x > width * tileWidth - MotherBrainConstants.WIDTH) {
                     POSITION.x = width * tileWidth - MotherBrainConstants.WIDTH;
                 } else {
@@ -176,7 +161,7 @@ public final class GameMap extends AbstractDisplayableState {
                 }
             }
         } else if (player.movement.x < 0) {
-            if ((player.position.x + (player.width / 2) - POSITION.x) < MotherBrainConstants.WIDTH / 2) {
+            if ((player.position.x + (player.getWidth() / 2) - POSITION.x) < MotherBrainConstants.WIDTH / 2) {
                 if (player.movement.x + POSITION.x < 0) {
                     POSITION.x = 0;
                 } else {

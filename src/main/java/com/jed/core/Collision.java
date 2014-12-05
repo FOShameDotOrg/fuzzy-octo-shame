@@ -1,7 +1,7 @@
 package com.jed.core;
 
 import com.jed.actor.AbstractEntity;
-import com.jed.util.Vector3f;
+import com.jed.util.Vector2f;
 import org.colapietro.number.util.Doubles;
 import com.jed.actor.Boundary;
 import com.jed.state.MapTile;
@@ -114,8 +114,8 @@ public class Collision implements Comparable<Collision> {
 
         //TODO: must take into account relative motion vector when dealing w/ 2 moving objects for swept test!!!
 
-        Vector3f xAxis = new Vector3f(1, 0);
-        Vector3f yAxis = new Vector3f(0, 1);
+        Vector2f xAxis = new Vector2f(1, 0);
+        Vector2f yAxis = new Vector2f(0, 1);
 
         xEntityMinMax = new MinMax(a.bounds, xAxis);
         xSEntityMinMax = new MinMax(b.bounds, xAxis);
@@ -257,7 +257,7 @@ public class Collision implements Comparable<Collision> {
          * @param boundary boundary
          * @param axis axis
          */
-        public MinMax(@Nonnull Boundary boundary, Vector3f axis) {
+        public MinMax(@Nonnull Boundary boundary, Vector2f axis) {
             max = boundary.vertices[0].add(boundary.getWorldPosition()).dotProduct(axis);
             min = boundary.vertices[0].add(boundary.getWorldPosition()).dotProduct(axis);
 

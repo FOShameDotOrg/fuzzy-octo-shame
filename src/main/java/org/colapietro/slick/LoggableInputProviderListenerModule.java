@@ -2,7 +2,6 @@ package org.colapietro.slick;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
-import org.newdawn.slick.InputListener;
 import org.newdawn.slick.command.InputProviderListener;
 
 /**

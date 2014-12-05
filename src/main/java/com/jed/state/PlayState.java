@@ -1,23 +1,19 @@
 package com.jed.state;
 
-import org.colapietro.lwjgl.input.Inputable;
-import org.lwjgl.input.Keyboard;
-
 import com.jed.util.MapLoader;
+import org.colapietro.slick.command.BasicCommandConstants;
 import org.newdawn.slick.command.BasicCommand;
 import org.newdawn.slick.command.Command;
 import org.newdawn.slick.command.InputProviderListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nonnull;
-
 /**
  * 
  * @author jlinde, Peter Colapietro
  *
  */
-public class PlayState extends AbstractGameState implements StateManager, InputProviderListener {
+public class PlayState extends AbstractGameState implements InputProviderListener {
 
     /**
      *
@@ -43,14 +39,8 @@ public class PlayState extends AbstractGameState implements StateManager, InputP
     /**
      * 
      */
+    @SuppressWarnings("unused")
     private final boolean isDebugViewEnabled;
-    
-    /**
-     * @since 0.1.8
-     */
-    public PlayState() {
-        isDebugViewEnabled = false;
-    }
     
     /**
      * @since 0.1.8
@@ -64,13 +54,10 @@ public class PlayState extends AbstractGameState implements StateManager, InputP
     }
 
     @Override
-    public void changeState(@Nonnull State state) {
-        state.entered();
-    }
-
-    @Override
     public void entered() {
-       changeState(currentMap);
+        currentMap = MapLoader.loadMap();
+        currentMap.setDebugViewEnabled(isDebugViewEnabled);
+        currentMap.entered();
     }
 
     @Override
@@ -89,22 +76,31 @@ public class PlayState extends AbstractGameState implements StateManager, InputP
     @Override
     public void controlPressed(Command command) {
         LOGGER.debug("com.jed.state.PlayState#controlPressed");
-        LOGGER.info("Command {}",command.toString());
-        //currentMap.keyPress();
+        LOGGER.info("controlPressed {}",command.toString());
         if(command.equals(new BasicCommand("pauseToggle"))) {
             paused = !paused;
-        }
-        if(command.equals(new BasicCommand("stepFrame"))) {
+        } else if(command.equals(new BasicCommand("stepFrame"))) {
             if (paused) {
                 stepFrame = true;
             }
+        } else if(command.getName().equals(BasicCommandConstants.JUMP)) {
+            currentMap.getPlayer().setJumping(true);
+        } else if(command.getName().equals(BasicCommandConstants.MOVE_RIGHT)) {
+            currentMap.getPlayer().setMovingRight(true);
+        } else if(command.getName().equals(BasicCommandConstants.MOVE_LEFT)) {
+            currentMap.getPlayer().setMovingLeft(true);
         }
     }
 
     @Override
     public void controlReleased(Command command) {
         LOGGER.debug("com.jed.state.PlayState#controlReleased");
-        LOGGER.info("Command {}",command.toString());
+        LOGGER.info("controlReleased {}",command.toString());
+        if(command.getName().equals(BasicCommandConstants.MOVE_RIGHT)) {
+            currentMap.getPlayer().setMovingRight(false);
+        } else if(command.getName().equals(BasicCommandConstants.MOVE_LEFT)) {
+            currentMap.getPlayer().setMovingLeft(false);
+        }
     }
 
     /**

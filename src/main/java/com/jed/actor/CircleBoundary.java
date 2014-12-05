@@ -1,6 +1,6 @@
 package com.jed.actor;
 
-import com.jed.util.Vector3f;
+import com.jed.util.Vector2f;
 
 /**
  * 
@@ -19,7 +19,7 @@ public class CircleBoundary extends Boundary {
      * @param radius initial radius.
      */
     public CircleBoundary(final int radius) {
-        super(new Vector3f(0, 0), new Vector3f[]{});
+        super(new Vector2f(0, 0), new Vector2f[]{});
         this.radius = radius;
     }
 

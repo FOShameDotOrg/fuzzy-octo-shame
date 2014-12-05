@@ -2,7 +2,7 @@ package com.jed.actor;
 
 import com.jed.core.Displayable;
 import com.jed.state.State;
-import com.jed.util.Vector3f;
+import com.jed.util.Vector2f;
 import org.colapietro.lang.LangConstants;
 import org.colapietro.lang.NotImplementedException;
 import org.colapietro.lwjgl.physics.Collidable;
@@ -19,7 +19,7 @@ public abstract class AbstractEntity implements Displayable, State, Collidable {
     /**
      * 
      */
-    public Vector3f position;
+    public Vector2f position;
     
     /**
      * 
@@ -30,7 +30,7 @@ public abstract class AbstractEntity implements Displayable, State, Collidable {
     /**
      * 
      */
-    public Vector3f movement;
+    public Vector2f movement;
     
     /**
      * 
@@ -43,7 +43,7 @@ public abstract class AbstractEntity implements Displayable, State, Collidable {
      * @param movement movement vector.
      * @param bounds entity's bounds.
      */
-    protected AbstractEntity(Vector3f position, Vector3f movement, @Nonnull Boundary bounds) {
+    protected AbstractEntity(Vector2f position, Vector2f movement, @Nonnull Boundary bounds) {
         this.position = position;
         this.bounds = bounds;
         bounds.owner = this;

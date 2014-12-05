@@ -24,7 +24,7 @@ public final class LoggableInputListener extends AbstractInputListener {
     }
 
     @Override
-    public void mouseMoved(int oldx, int oldy, int newx, int newy) {
+    public void mouseMoved(int oldX, int oldY, int newX, int newY) {
         LOGGER.debug("org.colapietro.slick.LoggableInputListener#mouseMoved");
     }
 
@@ -45,7 +45,7 @@ public final class LoggableInputListener extends AbstractInputListener {
     }
 
     @Override
-    public void mouseDragged(int oldx, int oldy, int newx, int newy) throws NotImplementedException {
+    public void mouseDragged(int oldX, int oldY, int newX, int newY) throws NotImplementedException {
         LOGGER.debug("org.colapietro.slick.LoggableInputListener#mouseDragged");
     }
 
@@ -58,6 +58,7 @@ public final class LoggableInputListener extends AbstractInputListener {
     @Override
     public void keyReleased(int key, char c) {
         LOGGER.debug("org.colapietro.slick.LoggableInputListener#keyReleased");
+        LOGGER.info("keyReleased:[key: {} ,character:  {}]",key, c);
     }
 
     @Override

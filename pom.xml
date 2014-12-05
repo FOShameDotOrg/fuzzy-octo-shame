@@ -5,7 +5,7 @@
   <!-- START: The Basics -->
   <groupId>com.jed</groupId>
   <artifactId>fuzzy-octo-shame</artifactId>
-  <version>0.1.8-SNAPSHOT</version>
+  <version>0.1.9-SNAPSHOT</version>
   <packaging>jar</packaging>
   <dependencies>
     <dependency>
@@ -62,7 +62,7 @@
     <maven.version>2.2.1</maven.version>
     <!-- END: Environment Requirements -->
     <!-- START: Plugin Versions -->
-    <maven-assembly-plugin.version>2.5.1</maven-assembly-plugin.version>
+    <maven-assembly-plugin.version>2.5.2</maven-assembly-plugin.version>
     <maven-jxr-plugin.version>2.5</maven-jxr-plugin.version>
     <maven-surefire-plugin.version>2.18</maven-surefire-plugin.version>
     <maven-clean-plugin.version>2.6.1</maven-clean-plugin.version>
@@ -77,7 +77,7 @@
     <maven-resources-plugin.version>2.7</maven-resources-plugin.version>
     <maven-checkstyle-plugin.version>2.13</maven-checkstyle-plugin.version><!-- 2.14 -->
     <maven-jar-plugin.version>2.5</maven-jar-plugin.version>
-    <maven-pmd-plugin.version>3.2</maven-pmd-plugin.version>
+    <maven-pmd-plugin.version>3.3</maven-pmd-plugin.version>
     <maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
     <maven-source-plugin.version>2.4</maven-source-plugin.version>
     <maven-javadoc-plugin.version>2.10.1</maven-javadoc-plugin.version>
@@ -98,14 +98,10 @@
     <!-- START: Build specific variables, probably should be associated with profiles. -->
     <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>true</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>
     <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError>true</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError>
-    <!-- END: Build specific variables, probably should be associated with profiles. -->
-    <!-- START: miscellaneous -->
-    <main.resources.directory>src/main/resources</main.resources.directory><!-- ${project.build.resources[0].directory} dear god, the kludge. http://stackoverflow.com/a/15004792 -->
-    <checkstyle.configuration.file.name>checkstyle.xml</checkstyle.configuration.file.name>
-    <checkstyle.suppressions.file.name>suppressions.xml</checkstyle.suppressions.file.name>
-    <checkstyle.configuration.file.location>${main.resources.directory}/${checkstyle.configuration.file.name}</checkstyle.configuration.file.location>
-    <checktyle.suppressions.file.location>${main.resources.directory}/${checkstyle.suppressions.file.name}</checktyle.suppressions.file.location>
-    <!-- END: miscellaneous -->
+    <!-- END: -->
+    <!-- START: -->
+    <main.class>com.jed.core.FuzzyOctoShame</main.class>
+    <!-- END: -->
   </properties>
   <!-- END: The Basics -->
 
@@ -348,7 +344,7 @@
             <index>true</index>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>com.jed.core.MotherBrain</mainClass>
+              <mainClass>${main.class}</mainClass>
             </manifest>
             <manifestEntries>
               <mode>development</mode>
@@ -363,7 +359,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.jed.core.MotherBrain</mainClass>
+              <mainClass>${main.class}</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>
