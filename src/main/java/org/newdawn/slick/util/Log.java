@@ -9,28 +9,28 @@ import java.security.PrivilegedAction;
  * @author kevin
  */
 public final class Log {
-    /** True if we're doing verbose logging INFO and DEBUG */
+    /** True if we're doing verbose logging INFO and DEBUG. */
     private static boolean verbose = true;
-    /** true if activated by the system property "org.newdawn.slick.forceVerboseLog" */
+    /** true if activated by the system property "org.newdawn.slick.forceVerboseLog". */
     private static boolean forcedVerbose = false;
 
     /**
      * The debug property which can be set via JNLP or startup parameter to switch
      * logging mode to verbose for games that were released without verbose logging
-     * value must be "true"
+     * value must be "true".
      */
     private static final String forceVerboseProperty = "org.newdawn.slick.forceVerboseLog";
 
     /**
-     * the verbose property must be set to "true" to switch on verbose logging
+     * the verbose property must be set to "true" to switch on verbose logging.
      */
     private static final String forceVerbosePropertyOnValue = "true";
 
-    /** The log system plugin in use */
+    /** The log system plugin in use. */
     private static LogSystem logSystem = new DefaultLogSystem();
 
     /**
-     * The log is a simple static utility, no construction
+     * The log is a simple static utility, no construction.
      */
     private Log() {
 
@@ -70,7 +70,6 @@ public final class Log {
                 if ((val != null) && (val.equalsIgnoreCase(Log.forceVerbosePropertyOnValue))) {
                     Log.setForcedVerboseOn();
                 }
-
                 return null;
             });
         } catch (Throwable e) {
@@ -89,7 +88,7 @@ public final class Log {
     }
 
     /**
-     * Log an error
+     * Log an error.
      *
      * @param message The message describing the error
      * @param e The exception causing the error
@@ -99,7 +98,7 @@ public final class Log {
     }
 
     /**
-     * Log an error
+     * Log an error.
      *
      * @param e The exception causing the error
      */
@@ -108,7 +107,7 @@ public final class Log {
     }
 
     /**
-     * Log an error
+     * Log an error.
      *
      * @param message The message describing the error
      */
@@ -117,7 +116,7 @@ public final class Log {
     }
 
     /**
-     * Log a warning
+     * Log a warning.
      *
      * @param message The message describing the warning
      */
@@ -126,7 +125,7 @@ public final class Log {
     }
 
     /**
-     * Log a warning
+     * Log a warning.
      *
      * @param message The message describing the warning
      * @param e The issue causing the warning
@@ -136,9 +135,9 @@ public final class Log {
     }
 
     /**
-     * Log an information message
+     * Log an information message.
      *
-     * @param message The message describing the infomation
+     * @param message The message describing the information
      */
     public static void info(String message) {
         if (verbose || forcedVerbose) {
@@ -147,7 +146,7 @@ public final class Log {
     }
 
     /**
-     * Log a debug message
+     * Log a debug message.
      *
      * @param message The message describing the debug
      */

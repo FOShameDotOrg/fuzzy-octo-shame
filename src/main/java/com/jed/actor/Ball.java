@@ -4,11 +4,15 @@ import com.jed.util.BasicShapeRenderer;
 import com.jed.util.Vector2f;
 
 /**
+ *
+ * Concrete implementation of {@link com.jed.actor.PhysicsEntity} that represents a "Ball" or circle. The
+ * circle has a color which is represented as its respective Red, Green, and Blue values.
  * 
  * @author jlinde, Peter Colapietro
+ * @since 0.1.0
  *
  */
-public class Ball extends PhysicsEntity {
+public final class Ball extends PhysicsEntity {
 
     /**
      * 
@@ -16,17 +20,17 @@ public class Ball extends PhysicsEntity {
     private final int segments;
     
     /**
-     * 
+     * Ball color's Green value.
      */
     private final float g;
 
     /**
-     * 
+     * Ball color's Red value.
      */
     private final float r;
     
     /**
-     * 
+     * Ball color's Blue value.
      */
     private final float b;
 

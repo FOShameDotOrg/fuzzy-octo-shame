@@ -6,11 +6,16 @@ import org.lwjgl.opengl.GL11;
 import javax.annotation.Nonnull;
 
 /**
- * 
+ *
+ * Concrete implementation of {@link com.jed.actor.Boundary} which represents
+ * a polygon with an arbitrary number of sides. Use {@link com.jed.actor.RectangleBoundary}
+ * if you want a concrete implementation for a rectangle.
+ *
  * @author jlinde, Peter Colapietro
+ * @since 0.1.0
  *
  */
-public class PolygonBoundary extends Boundary {
+public final class PolygonBoundary extends Boundary {
 
     /**
      * 

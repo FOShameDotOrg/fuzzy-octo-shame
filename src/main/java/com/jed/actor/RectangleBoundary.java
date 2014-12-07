@@ -6,8 +6,13 @@ import org.lwjgl.opengl.GL11;
 import com.jed.util.Rectangle;
 
 /**
- * 
+ *
+ * Concrete implementation of {@link com.jed.actor.Boundary} which represents
+ * a {@link com.jed.util.Rectangle}. Use {@link com.jed.actor.PolygonBoundary}
+ * if you want a concrete implementation for a polygon that is not rectangle.
+ *
  * @author jlinde, Peter Colapietro
+ * @since 0.1.0
  *
  */
 public class RectangleBoundary extends Boundary {
