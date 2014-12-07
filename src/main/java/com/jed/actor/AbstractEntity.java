@@ -10,6 +10,9 @@ import org.colapietro.lwjgl.physics.Collidable;
 import javax.annotation.Nonnull;
 
 /**
+ *
+ * Abstract class whose subclasses are displayable, collidable, and contain various states. It is also
+ * composed of a position and movement vector, acceleration, and a {@literal Boundary}.
  * 
  * @author jlinde, Peter Colapietro
  *
@@ -19,23 +22,23 @@ public abstract class AbstractEntity implements Displayable, State, Collidable {
     /**
      * 
      */
-    public Vector2f position;
+    private Vector2f position;
     
     /**
      * 
      */
     @Nonnull
-    public final Boundary bounds;
+    private final Boundary bounds;
     
     /**
      * 
      */
-    public Vector2f movement;
+    private Vector2f movement;
     
     /**
      * 
      */
-    protected float acceleration = 0;
+    private float acceleration = 0;
 
     /**
      *
@@ -46,7 +49,7 @@ public abstract class AbstractEntity implements Displayable, State, Collidable {
     protected AbstractEntity(Vector2f position, Vector2f movement, @Nonnull Boundary bounds) {
         this.position = position;
         this.bounds = bounds;
-        bounds.owner = this;
+        this.bounds.setOwner(this);
         this.movement = movement;
     }
 
@@ -101,6 +104,55 @@ public abstract class AbstractEntity implements Displayable, State, Collidable {
      */
     public float getAcceleration() {
         return acceleration;
+    }
+
+    /**
+     *
+     * @param acceleration acceleration
+     */
+    public void setAcceleration(float acceleration) {
+        this.acceleration = acceleration;
+    }
+
+    /**
+     *
+     * @return bounds
+     */
+    @Nonnull
+    public Boundary getBounds() {
+        return bounds;
+    }
+
+    /**
+     *
+     * @return position
+     */
+    public Vector2f getPosition() {
+        return position;
+    }
+
+    /**
+     *
+     * @param position position
+     */
+    public void setPosition(Vector2f position) {
+        this.position = position;
+    }
+
+    /**
+     *
+     * @return movement
+     */
+    public Vector2f getMovement() {
+        return movement;
+    }
+
+    /**
+     *
+     * @param movement movement
+     */
+    public void setMovement(Vector2f movement) {
+        this.movement = movement;
     }
 
     //TODO Implement Equals/hashCode

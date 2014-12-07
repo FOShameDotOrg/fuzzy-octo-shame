@@ -59,22 +59,22 @@ public class PolygonBoundary extends Boundary {
 
     @Override
     public double getRightBound() {
-        return owner.position.x + position.x + rightBound;
+        return getOwner().getPosition().x + getPosition().x + rightBound;
     }
 
     @Override
     public double getLeftBound() {
-        return owner.position.x + position.x + leftBound;
+        return getOwner().getPosition().x + getPosition().x + leftBound;
     }
 
     @Override
     public double getUpperBound() {
-        return owner.position.y + position.y + upperBound;
+        return getOwner().getPosition().y + getPosition().y + upperBound;
     }
 
     @Override
     public double getLowerBound() {
-        return owner.position.y + position.y + lowerBound;
+        return getOwner().getPosition().y + getPosition().y + lowerBound;
     }
 
     @Override
@@ -94,7 +94,7 @@ public class PolygonBoundary extends Boundary {
 
         GL11.glBegin(GL11.GL_LINE_LOOP);
         for (final Vector2f vertex : vertices) {
-            owner.drawChildVertex2f(position.x + vertex.x, position.y + vertex.y);
+            getOwner().drawChildVertex2f(getPosition().x + vertex.x, getPosition().y + vertex.y);
         }
         GL11.glEnd();
     }

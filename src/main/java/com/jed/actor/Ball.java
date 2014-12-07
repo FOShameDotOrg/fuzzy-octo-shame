@@ -60,15 +60,15 @@ public class Ball extends PhysicsEntity {
      * @return radius of ball.
      */
     public int getRadius() {
-        return ((CircleBoundary) bounds).radius;
+        return ((CircleBoundary) getBounds()).radius;
     }
 
     @Override
     public void render() {
-        position = position.add(movement);
+        setPosition(getPosition().add(getMovement()));
         BasicShapeRenderer.drawFilledCircle(
-                position.x,
-                position.y,
+                getPosition().x,
+                getPosition().y,
                 getRadius(),
                 segments,
                 r, g, b);

@@ -49,22 +49,22 @@ public class CircleBoundary extends Boundary {
 
     @Override
     public double getRightBound() {
-        return owner.position.x + radius;
+        return getOwner().getPosition().x + radius;
     }
 
     @Override
     public double getLeftBound() {
-        return owner.position.x - radius;
+        return getOwner().getPosition().x - radius;
     }
 
     @Override
     public double getUpperBound() {
-        return owner.position.y - radius;
+        return getOwner().getPosition().y - radius;
     }
 
     @Override
     public double getLowerBound() {
-        return owner.position.y + radius;
+        return getOwner().getPosition().y + radius;
     }
 
     @Override
