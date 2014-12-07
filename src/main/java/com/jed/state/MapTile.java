@@ -153,16 +153,16 @@ public class MapTile extends AbstractEntity {
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glBegin(GL11.GL_QUADS);
         GL11.glTexCoord2f(glTexX, glTexY);
-        map.drawChildVertex2f(position.x, position.y);
+        map.drawChildVertex2f(getPosition().x, getPosition().y);
 
         GL11.glTexCoord2f(glTexX + glTexWidth, glTexY);
-        map.drawChildVertex2f(position.x + bounds.getWidth(), position.y);
+        map.drawChildVertex2f(getPosition().x + getBounds().getWidth(), getPosition().y);
 
         GL11.glTexCoord2f(glTexX + glTexWidth, glTexY + glTexHeight);
-        map.drawChildVertex2f(position.x + bounds.getWidth(), position.y + bounds.getHeight());
+        map.drawChildVertex2f(getPosition().x + getBounds().getWidth(), getPosition().y + getBounds().getHeight());
 
         GL11.glTexCoord2f(glTexX, glTexY + glTexHeight);
-        map.drawChildVertex2f(position.x, position.y + bounds.getHeight());
+        map.drawChildVertex2f(getPosition().x, getPosition().y + getBounds().getHeight());
 
         GL11.glEnd();
     }

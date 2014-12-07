@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
  * @since 0.1.8
  *
  */
-public class Vector2f {
+public final class Vector2f {
 
     /**
      * 
@@ -24,6 +24,7 @@ public class Vector2f {
      * 
      */
     private Vector2f() {
+        super();
     }
 
     /**
@@ -32,7 +33,7 @@ public class Vector2f {
      * @param y y
      */
     public Vector2f(float x, float y) {
-        super();
+        this();
         this.x = x;
         this.y = y;
     }
