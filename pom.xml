@@ -316,12 +316,12 @@
             </goals>
           </execution>
         </executions>
+        <!--
         <configuration>
           <platforms>
             <platform>osx</platform>
           </platforms>
         </configuration>
-        <!--
         <configuration>
           <platforms>
             <platform>windows</platform>
