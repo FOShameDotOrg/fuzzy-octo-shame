@@ -107,15 +107,6 @@
 
   <!-- START: Build Settings -->
   <build>
-    <resources>
-      <resource>
-        <directory>${main.resources.directory}</directory>
-        <excludes>
-          <exclude>${checkstyle.configuration.file.name}</exclude>
-          <exclude>${checkstyle.suppressions.file.name}</exclude>
-        </excludes>
-      </resource>
-    </resources>
     <pluginManagement>
       <plugins>
         <plugin>
