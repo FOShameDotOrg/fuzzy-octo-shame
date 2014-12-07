@@ -1,11 +1,13 @@
 package com.jed.util;
 
 /**
+ * Data object consisting of a height and width that is used to represent a Rectangle.
  * 
  * @author jlinde, Peter Colapietro
+ * @since 0.1.0
  *
  */
-public class Rectangle {
+public final class Rectangle {
     
     /**
      * 

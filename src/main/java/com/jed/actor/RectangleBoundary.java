@@ -6,8 +6,13 @@ import org.lwjgl.opengl.GL11;
 import com.jed.util.Rectangle;
 
 /**
- * 
+ *
+ * Concrete implementation of {@link com.jed.actor.Boundary} which represents
+ * a {@link com.jed.util.Rectangle}. Use {@link com.jed.actor.PolygonBoundary}
+ * if you want a concrete implementation for a polygon that is not rectangle.
+ *
  * @author jlinde, Peter Colapietro
+ * @since 0.1.0
  *
  */
 public class RectangleBoundary extends Boundary {
@@ -29,22 +34,22 @@ public class RectangleBoundary extends Boundary {
 
     @Override
     public double getRightBound() {
-        return owner.position.x + position.x + rectangle.getWidth();
+        return getOwner().getPosition().x + getPosition().x + rectangle.getWidth();
     }
 
     @Override
     public double getLeftBound() {
-        return owner.position.x + position.x;
+        return getOwner().getPosition().x + getPosition().x;
     }
 
     @Override
     public double getUpperBound() {
-        return owner.position.y + position.y;
+        return getOwner().getPosition().y + getPosition().y;
     }
 
     @Override
     public double getLowerBound() {
-        return owner.position.y + position.y + rectangle.getHeight();
+        return getOwner().getPosition().y + getPosition().y + rectangle.getHeight();
     }
 
     @Override
@@ -61,13 +66,11 @@ public class RectangleBoundary extends Boundary {
     public void render() {
         //Bounding Box
         GL11.glColor3f(1f, 0, 0);
-
-
         GL11.glBegin(GL11.GL_LINE_LOOP);
-        owner.drawChildVertex2f(position.x, position.y);
-        owner.drawChildVertex2f(position.x + getWidth(), position.y);
-        owner.drawChildVertex2f(position.x + getWidth(), position.y + getHeight());
-        owner.drawChildVertex2f(position.x, position.y + getHeight());
+        getOwner().drawChildVertex2f(getPosition().x, getPosition().y);
+        getOwner().drawChildVertex2f(getPosition().x + getWidth(), getPosition().y);
+        getOwner().drawChildVertex2f(getPosition().x + getWidth(), getPosition().y + getHeight());
+        getOwner().drawChildVertex2f(getPosition().x, getPosition().y + getHeight());
         GL11.glEnd();
     }
 }
