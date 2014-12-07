@@ -607,7 +607,8 @@ public class Player extends AbstractEntity {
         } else if(isMovingRight) {
             moveRight();
         } else if (Float.compare(getMovement().x, 0) != 0) {
-            getMovement().x = getMovement().x - Math.min(Math.abs(getMovement().x), FRICTION) * Math.signum(getMovement().x);
+            getMovement().x = getMovement().x - Math.min(Math.abs(getMovement().x), FRICTION)
+                    * Math.signum(getMovement().x);
         }
         if (!isJumping && !currentState.falling) {
             jumpCount = 0;

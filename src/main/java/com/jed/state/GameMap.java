@@ -54,7 +54,7 @@ public final class GameMap extends AbstractDisplayableState {
      * 
      */
     //TODO: this should be set when the map loads...
-    private static final Vector2f ENTITY_POSITION = new Vector2f(0, 0);
+    private static final Vector2f INITIAL_POSITION = new Vector2f(0, 0);
 
     /**
      * 
@@ -134,38 +134,39 @@ public final class GameMap extends AbstractDisplayableState {
      * FIXME.
      */
     private void scrollMap() {
+        final float playerHeightMinusInitialPosition = (player.getHeight() / 2) - INITIAL_POSITION.y;
         if (player.getMovement().y > 0) {
-            if ((player.getPosition().y + (player.getHeight() / 2) - ENTITY_POSITION.y) > MotherBrainConstants.HEIGHT / 2) {
-                if (ENTITY_POSITION.y + player.getMovement().y > height * tileHeight - MotherBrainConstants.HEIGHT) {
-                    ENTITY_POSITION.y = height * tileHeight - MotherBrainConstants.HEIGHT;
+            if ((player.getPosition().y + playerHeightMinusInitialPosition) > MotherBrainConstants.HEIGHT / 2) {
+                if (INITIAL_POSITION.y + player.getMovement().y > height * tileHeight - MotherBrainConstants.HEIGHT) {
+                    INITIAL_POSITION.y = height * tileHeight - MotherBrainConstants.HEIGHT;
                 } else {
-                    ENTITY_POSITION.y += player.getMovement().y;
+                    INITIAL_POSITION.y += player.getMovement().y;
                 }
             }
         } else if (player.getMovement().y < 0) {
-            if ((player.getPosition().y + (player.getHeight() / 2) - ENTITY_POSITION.y) < MotherBrainConstants.HEIGHT / 2) {
-                if (player.getMovement().y + ENTITY_POSITION.y < 0) {
-                    ENTITY_POSITION.y = 0;
+            if ((player.getPosition().y + playerHeightMinusInitialPosition) < MotherBrainConstants.HEIGHT / 2) {
+                if (player.getMovement().y + INITIAL_POSITION.y < 0) {
+                    INITIAL_POSITION.y = 0;
                 } else {
-                    ENTITY_POSITION.y += player.getMovement().y;
+                    INITIAL_POSITION.y += player.getMovement().y;
                 }
             }
         }
-
+        final float playerWidthMinusInitialPosition = (player.getWidth() / 2) - INITIAL_POSITION.x;
         if (player.getMovement().x > 0) {
-            if ((player.getPosition().x + (player.getWidth() / 2) - ENTITY_POSITION.x) > MotherBrainConstants.WIDTH / 2) {
-                if (ENTITY_POSITION.x + player.getMovement().x > width * tileWidth - MotherBrainConstants.WIDTH) {
-                    ENTITY_POSITION.x = width * tileWidth - MotherBrainConstants.WIDTH;
+            if ((player.getPosition().x + playerWidthMinusInitialPosition) > MotherBrainConstants.WIDTH / 2) {
+                if (INITIAL_POSITION.x + player.getMovement().x > width * tileWidth - MotherBrainConstants.WIDTH) {
+                    INITIAL_POSITION.x = width * tileWidth - MotherBrainConstants.WIDTH;
                 } else {
-                    ENTITY_POSITION.x += player.getMovement().x;
+                    INITIAL_POSITION.x += player.getMovement().x;
                 }
             }
         } else if (player.getMovement().x < 0) {
-            if ((player.getPosition().x + (player.getWidth() / 2) - ENTITY_POSITION.x) < MotherBrainConstants.WIDTH / 2) {
-                if (player.getMovement().x + ENTITY_POSITION.x < 0) {
-                    ENTITY_POSITION.x = 0;
+            if ((player.getPosition().x + playerWidthMinusInitialPosition) < MotherBrainConstants.WIDTH / 2) {
+                if (player.getMovement().x + INITIAL_POSITION.x < 0) {
+                    INITIAL_POSITION.x = 0;
                 } else {
-                    ENTITY_POSITION.x += player.getMovement().x;
+                    INITIAL_POSITION.x += player.getMovement().x;
                 }
             }
         }
@@ -229,10 +230,10 @@ public final class GameMap extends AbstractDisplayableState {
         texture.bind();
         GL11.glEnable(GL11.GL_TEXTURE_2D);
 
-        final float tileOffsetY = ENTITY_POSITION.y / tileHeight;
+        final float tileOffsetY = INITIAL_POSITION.y / tileHeight;
         final double pixelOffsetY = tileHeight * (tileOffsetY % 1);
 
-        final float tileOffsetX = ENTITY_POSITION.x / tileWidth;
+        final float tileOffsetX = INITIAL_POSITION.x / tileWidth;
         final double pixelOffsetX = tileWidth * (tileOffsetX % 1);
 
         int tileIndex = (int) (width * (Math.floor(tileOffsetY)) + tileOffsetX);
@@ -262,7 +263,7 @@ public final class GameMap extends AbstractDisplayableState {
      * @param y y
      */
     public void drawChildVertex2f(float x, float y) {
-        GL11.glVertex2f(x - ENTITY_POSITION.x, y - ENTITY_POSITION.y);
+        GL11.glVertex2f(x - INITIAL_POSITION.x, y - INITIAL_POSITION.y);
     }
 
     /**

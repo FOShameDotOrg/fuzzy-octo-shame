@@ -14,9 +14,6 @@ import javax.annotation.Nonnull;
  * Abstract class whose subclasses are displayable, collidable, and contain various states. It is also
  * composed of a position and movement vector, acceleration, and a {@literal Boundary}.
  * 
- * Abstract class whose subclasses are displayable, collidable, and contain various states. It is also
- * composed of a position and movement vector, acceleration, and a {@link Boundary}.
- * 
  * @author jlinde, Peter Colapietro
  * @since 0.1.0
  * @see com.jed.core.Displayable
