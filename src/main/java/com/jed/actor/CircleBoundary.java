@@ -1,6 +1,8 @@
 package com.jed.actor;
 
 import com.jed.util.Vector2f;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 
@@ -8,7 +10,13 @@ import com.jed.util.Vector2f;
  *
  */
 public class CircleBoundary extends Boundary {
-    
+
+    /**
+     *
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(CircleBoundary.class);
+
+
     /**
      * 
      */
@@ -67,5 +75,10 @@ public class CircleBoundary extends Boundary {
     @Override
     public int getHeight() {
         return getWidth();
+    }
+
+    @Override
+    public void render() {
+        LOGGER.warn("{}","No OP com.jed.actor.CircleBoundary#render");
     }
 }

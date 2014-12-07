@@ -2,6 +2,8 @@ package com.jed.actor;
 
 import com.jed.core.Displayable;
 import com.jed.util.Vector2f;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 
@@ -11,6 +13,11 @@ import javax.annotation.Nonnull;
  *
  */
 public abstract class Boundary implements Displayable {
+
+    /**
+     *
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(Boundary.class);
 
     /**
      * 
@@ -91,4 +98,8 @@ public abstract class Boundary implements Displayable {
         return getWorldPosition().add(owner.movement);
     }
 
+    @Override
+    public void drawChildVertex2f(float x, float y) {
+        LOGGER.warn("{}","No OP com.jed.actor.Boundary#drawChildVertex2f");
+    }
 }

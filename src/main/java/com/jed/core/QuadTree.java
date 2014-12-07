@@ -1,15 +1,15 @@
 package com.jed.core;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jed.actor.AbstractEntity;
+import com.jed.util.Rectangle;
 import com.jed.util.Vector2f;
 import org.lwjgl.opengl.GL11;
-
-import com.jed.util.Rectangle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -17,6 +17,11 @@ import javax.annotation.Nonnull;
  *
  */
 public class QuadTree implements Displayable {
+
+    /**
+     *
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(QuadTree.class);
 
     /**
      * 
@@ -225,5 +230,10 @@ public class QuadTree implements Displayable {
                 eachNode.render();
             }
         }
+    }
+
+    @Override
+    public void drawChildVertex2f(float x, float y) {
+        LOGGER.warn("{}","No OP com.jed.core.QuadTree#drawChildVertex2f");
     }
 }
