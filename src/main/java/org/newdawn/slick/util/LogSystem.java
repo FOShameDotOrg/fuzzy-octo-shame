@@ -47,7 +47,7 @@ interface LogSystem {
     /**
      * Log an information message.
      *
-     * @param message The message describing the infomation
+     * @param message The message describing the information
      */
     public void info(String message);
 
