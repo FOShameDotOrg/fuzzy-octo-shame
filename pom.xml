@@ -403,6 +403,13 @@
           <noDeploy>true</noDeploy>
         </configuration>
       </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <forkMode>once</forkMode>
+          <argLine>-Djava.library.path=${project.build.directory}/natives</argLine>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
   <reporting>
