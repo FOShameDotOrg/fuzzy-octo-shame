@@ -1,16 +1,27 @@
 package com.jed.actor;
 
 import com.jed.util.Vector2f;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
+ * Concrete implementation of {@link com.jed.actor.Boundary} which represents a circle.
  * 
  * @author jlinde, Peter Colapietro
+ * @since 0.1.0
  *
+ * @see com.jed.actor.Boundary
  */
-public class CircleBoundary extends Boundary {
-    
+public final class CircleBoundary extends Boundary {
+
     /**
-     * 
+     *
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(CircleBoundary.class);
+
+
+    /**
+     * Radius of the circle.
      */
     public int radius;
 
@@ -41,22 +52,22 @@ public class CircleBoundary extends Boundary {
 
     @Override
     public double getRightBound() {
-        return owner.position.x + radius;
+        return getOwner().getPosition().x + radius;
     }
 
     @Override
     public double getLeftBound() {
-        return owner.position.x - radius;
+        return getOwner().getPosition().x - radius;
     }
 
     @Override
     public double getUpperBound() {
-        return owner.position.y - radius;
+        return getOwner().getPosition().y - radius;
     }
 
     @Override
     public double getLowerBound() {
-        return owner.position.y + radius;
+        return getOwner().getPosition().y + radius;
     }
 
     @Override
@@ -67,5 +78,10 @@ public class CircleBoundary extends Boundary {
     @Override
     public int getHeight() {
         return getWidth();
+    }
+
+    @Override
+    public void render() {
+        LOGGER.warn("{}","No OP com.jed.actor.CircleBoundary#render");
     }
 }
