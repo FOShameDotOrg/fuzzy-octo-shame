@@ -1,15 +1,13 @@
 package com.jed.core;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jed.actor.AbstractEntity;
+import com.jed.util.Rectangle;
 import com.jed.util.Vector2f;
 import org.lwjgl.opengl.GL11;
 
-import com.jed.util.Rectangle;
-
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -132,16 +130,16 @@ public class QuadTree implements Displayable {
         int verticalMidpoint = (int) (position.x + (rectangle.getWidth() / 2));
         int horizontalMidpoint = (int) (position.y + (rectangle.getHeight() / 2));
 
-        boolean topQuadrant = o.bounds.getNextWorldPosition().y + o.bounds.getHeight() < horizontalMidpoint;
-        boolean bottomQuadrant = o.bounds.getNextWorldPosition().y > horizontalMidpoint;
+        boolean topQuadrant = o.getBounds().getNextWorldPosition().y + o.getBounds().getHeight() < horizontalMidpoint;
+        boolean bottomQuadrant = o.getBounds().getNextWorldPosition().y > horizontalMidpoint;
 
-        if (o.bounds.getNextWorldPosition().x + o.bounds.getWidth() < verticalMidpoint) {
+        if (o.getBounds().getNextWorldPosition().x + o.getBounds().getWidth() < verticalMidpoint) {
             if (topQuadrant) {
                 return 1;
             } else if (bottomQuadrant) {
                 return 2;
             }
-        } else if (o.bounds.getNextWorldPosition().x > verticalMidpoint) {
+        } else if (o.getBounds().getNextWorldPosition().x > verticalMidpoint) {
             if (topQuadrant) {
                 return 0;
             } else if (bottomQuadrant) {

@@ -153,7 +153,7 @@ public class Player extends AbstractEntity {
                         })
         );
 
-        this.acceleration = FRICTION;
+        this.setAcceleration(FRICTION);
         this.height = height;
         this.width = width;
         this.map = map;
@@ -188,11 +188,11 @@ public class Player extends AbstractEntity {
         collideDown = false;
 
         if (currentState.falling) {
-            movement.y += map.getGravity();
+            getMovement().y += map.getGravity();
         }
 
-        position.x = this.position.x + movement.x;
-        position.y = position.y + movement.y;
+        getPosition().x = this.getPosition().x + getMovement().x;
+        getPosition().y = getPosition().y + getMovement().y;
 
         currentState.update();
     }
@@ -200,7 +200,7 @@ public class Player extends AbstractEntity {
     @Override
     public void render() {
         currentState.render();
-        bounds.render();
+        getBounds().render();
     }
 
     /**
@@ -296,8 +296,8 @@ public class Player extends AbstractEntity {
         @Override
         public void update() {
             //Player Landed on something
-            if (movement.y == 0) {
-                if (movement.x != 0) {
+            if (getMovement().y == 0) {
+                if (getMovement().x != 0) {
                     changeState(walkingState);
                 } else {
                     changeState(idleState);
@@ -318,25 +318,25 @@ public class Player extends AbstractEntity {
             GL11.glBegin(GL11.GL_QUADS);
 
             if (xDir == PLAYER_LEFT) {
-                bottomLeftX  = position.x + width;
-                bottomRightX = position.x;
-                topLeftX     = position.x;
-                topRightX    = position.x + width;
+                bottomLeftX  = getPosition().x + width;
+                bottomRightX = getPosition().x;
+                topLeftX     = getPosition().x;
+                topRightX    = getPosition().x + width;
             } else {
-                bottomLeftX  = position.x;
-                bottomRightX = position.x + width;
-                topLeftX     = position.x + width;
-                topRightX    = position.x;
+                bottomLeftX  = getPosition().x;
+                bottomRightX = getPosition().x + width;
+                topLeftX     = getPosition().x + width;
+                topRightX    = getPosition().x;
             }
 
             GL11.glTexCoord2f(.25f, .5f);
-            map.drawChildVertex2f(bottomLeftX, position.y);
+            map.drawChildVertex2f(bottomLeftX, getPosition().y);
             GL11.glTexCoord2f(.3125f, .5f);
-            map.drawChildVertex2f(bottomRightX, position.y);
+            map.drawChildVertex2f(bottomRightX, getPosition().y);
             GL11.glTexCoord2f(.3125f, 1);
-            map.drawChildVertex2f(topLeftX, position.y + height);
+            map.drawChildVertex2f(topLeftX, getPosition().y + height);
             GL11.glTexCoord2f(.25f, 1);
-            map.drawChildVertex2f(topRightX, position.y + height);
+            map.drawChildVertex2f(topRightX, getPosition().y + height);
             GL11.glEnd();
             GL11.glDisable(GL11.GL_TEXTURE_2D);
         }
@@ -396,22 +396,22 @@ public class Player extends AbstractEntity {
             GL11.glBegin(GL11.GL_QUADS);
             if (xDir != PLAYER_LEFT) {
                 GL11.glTexCoord2f(animation[frame] - frameWidth, .5f);
-                map.drawChildVertex2f(position.x, position.y);
+                map.drawChildVertex2f(getPosition().x, getPosition().y);
                 GL11.glTexCoord2f(animation[frame], .5f);
-                map.drawChildVertex2f(position.x + width, position.y);
+                map.drawChildVertex2f(getPosition().x + width, getPosition().y);
                 GL11.glTexCoord2f(animation[frame], 1);
-                map.drawChildVertex2f(position.x + width, position.y + height);
+                map.drawChildVertex2f(getPosition().x + width, getPosition().y + height);
                 GL11.glTexCoord2f(animation[frame] - frameWidth, 1);
-                map.drawChildVertex2f(position.x, position.y + height);
+                map.drawChildVertex2f(getPosition().x, getPosition().y + height);
             } else {
                 GL11.glTexCoord2f(animation[frame] - frameWidth, .5f);
-                map.drawChildVertex2f(position.x + width, position.y);
+                map.drawChildVertex2f(getPosition().x + width, getPosition().y);
                 GL11.glTexCoord2f(animation[frame], .5f);
-                map.drawChildVertex2f(position.x, position.y);
+                map.drawChildVertex2f(getPosition().x, getPosition().y);
                 GL11.glTexCoord2f(animation[frame], 1);
-                map.drawChildVertex2f(position.x, position.y + height);
+                map.drawChildVertex2f(getPosition().x, getPosition().y + height);
                 GL11.glTexCoord2f(animation[frame] - frameWidth, 1);
-                map.drawChildVertex2f(position.x + width, position.y + height);
+                map.drawChildVertex2f(getPosition().x + width, getPosition().y + height);
             }
             GL11.glEnd();
             GL11.glDisable(GL11.GL_TEXTURE_2D);
@@ -429,9 +429,9 @@ public class Player extends AbstractEntity {
 
         @Override
         public void update() {
-            if (movement.y != 0) {
+            if (getMovement().y != 0) {
                 changeState(fallingState);
-            } else if (movement.x != 0) {
+            } else if (getMovement().x != 0) {
                 changeState(walkingState);
             }
         }
@@ -450,22 +450,22 @@ public class Player extends AbstractEntity {
 
             if (xDir == PLAYER_LEFT) {
                 GL11.glTexCoord2f(0, 0);
-                map.drawChildVertex2f(position.x + width, position.y);
+                map.drawChildVertex2f(getPosition().x + width, getPosition().y);
                 GL11.glTexCoord2f(.0625f, 0);
-                map.drawChildVertex2f(position.x, position.y);
+                map.drawChildVertex2f(getPosition().x, getPosition().y);
                 GL11.glTexCoord2f(.0625f, .5f);
-                map.drawChildVertex2f(position.x, position.y + height);
+                map.drawChildVertex2f(getPosition().x, getPosition().y + height);
                 GL11.glTexCoord2f(0, .5f);
-                map.drawChildVertex2f(position.x + width, position.y + height);
+                map.drawChildVertex2f(getPosition().x + width, getPosition().y + height);
             } else {
                 GL11.glTexCoord2f(0, 0);
-                map.drawChildVertex2f(position.x, position.y);
+                map.drawChildVertex2f(getPosition().x, getPosition().y);
                 GL11.glTexCoord2f(.0625f, 0);
-                map.drawChildVertex2f(position.x + width, position.y);
+                map.drawChildVertex2f(getPosition().x + width, getPosition().y);
                 GL11.glTexCoord2f(.0625f, .5f);
-                map.drawChildVertex2f(position.x + width, position.y + height);
+                map.drawChildVertex2f(getPosition().x + width, getPosition().y + height);
                 GL11.glTexCoord2f(0, .5f);
-                map.drawChildVertex2f(position.x, position.y + height);
+                map.drawChildVertex2f(getPosition().x, getPosition().y + height);
             }
             GL11.glEnd();
             GL11.glDisable(GL11.GL_TEXTURE_2D);
@@ -513,7 +513,7 @@ public class Player extends AbstractEntity {
                 frame = frame == animation.length - 1 ? 1 : frame + 1;
             }
 
-            if (movement.x == 0) {
+            if (getMovement().x == 0) {
                 changeState(idleState);
             }
         }
@@ -524,24 +524,24 @@ public class Player extends AbstractEntity {
             texture.bind();
             GL11.glEnable(GL11.GL_TEXTURE_2D);
             GL11.glBegin(GL11.GL_QUADS);
-            if (movement.x > 0) {
+            if (getMovement().x > 0) {
                 GL11.glTexCoord2f(animation[frame] - frameWidth, 0);
-                map.drawChildVertex2f(position.x, position.y);
+                map.drawChildVertex2f(getPosition().x, getPosition().y);
                 GL11.glTexCoord2f(animation[frame], 0);
-                map.drawChildVertex2f(position.x + width, position.y);
+                map.drawChildVertex2f(getPosition().x + width, getPosition().y);
                 GL11.glTexCoord2f(animation[frame], .5f);
-                map.drawChildVertex2f(position.x + width, position.y + height);
+                map.drawChildVertex2f(getPosition().x + width, getPosition().y + height);
                 GL11.glTexCoord2f(animation[frame] - frameWidth, .5f);
-                map.drawChildVertex2f(position.x, position.y + height);
+                map.drawChildVertex2f(getPosition().x, getPosition().y + height);
             } else {
                 GL11.glTexCoord2f(animation[frame] - frameWidth, 0);
-                map.drawChildVertex2f(position.x + width, position.y);
+                map.drawChildVertex2f(getPosition().x + width, getPosition().y);
                 GL11.glTexCoord2f(animation[frame], 0);
-                map.drawChildVertex2f(position.x, position.y);
+                map.drawChildVertex2f(getPosition().x, getPosition().y);
                 GL11.glTexCoord2f(animation[frame], .5f);
-                map.drawChildVertex2f(position.x, position.y + height);
+                map.drawChildVertex2f(getPosition().x, getPosition().y + height);
                 GL11.glTexCoord2f(animation[frame] - frameWidth, .5f);
-                map.drawChildVertex2f(position.x + width, position.y + height);
+                map.drawChildVertex2f(getPosition().x + width, getPosition().y + height);
             }
             GL11.glEnd();
             GL11.glDisable(GL11.GL_TEXTURE_2D);
@@ -550,7 +550,7 @@ public class Player extends AbstractEntity {
 
     @Override
     public void drawChildVertex2f(float x, float y) {
-        map.drawChildVertex2f(position.x + x, position.y + y);
+        map.drawChildVertex2f(getPosition().x + x, getPosition().y + y);
     }
 
     /**
@@ -558,9 +558,9 @@ public class Player extends AbstractEntity {
      */
     private void jump() {
             boolean isJumpCountLessThanTwo = jumpCount < 2;
-            int heightOffsetWithYPosition = Math.round(position.y) + height; //TODO Test me.
+            int heightOffsetWithYPosition = Math.round(getPosition().y) + height; //TODO Test me.
             if (isJumpCountLessThanTwo || heightOffsetWithYPosition == map.getHeight() * map.getTileHeight()) {
-                movement.y = -8;
+                getMovement().y = -8;
                 jumpCount++;
                 changeState(jumpingState);
             }
@@ -572,10 +572,10 @@ public class Player extends AbstractEntity {
      */
     private void moveRight() {
         LOGGER.info("moveRight");
-        if (Float.compare(movement.x, 0) < 0) {
-            movement.x += X_MOVEMENT_SCALAR;
+        if (Float.compare(getMovement().x, 0) < 0) {
+            getMovement().x += X_MOVEMENT_SCALAR;
         } else {
-            movement.x += acceleration;
+            getMovement().x += getAcceleration();
             xDir = PLAYER_RIGHT;
         }
     }
@@ -585,10 +585,10 @@ public class Player extends AbstractEntity {
      */
     private void moveLeft() {
         LOGGER.info("moveLeft");
-        if (Float.compare(movement.x, 0) > 0) {
-            movement.x -= X_MOVEMENT_SCALAR;
+        if (Float.compare(getMovement().x, 0) > 0) {
+            getMovement().x -= X_MOVEMENT_SCALAR;
         } else {
-            movement.x -= acceleration;
+            getMovement().x -= getAcceleration();
             xDir = PLAYER_LEFT;
         }
     }
@@ -606,8 +606,8 @@ public class Player extends AbstractEntity {
             moveLeft();
         } else if(isMovingRight) {
             moveRight();
-        } else if (Float.compare(movement.x, 0) != 0) {
-            movement.x = movement.x - Math.min(Math.abs(movement.x), FRICTION) * Math.signum(movement.x);
+        } else if (Float.compare(getMovement().x, 0) != 0) {
+            getMovement().x = getMovement().x - Math.min(Math.abs(getMovement().x), FRICTION) * Math.signum(getMovement().x);
         }
         if (!isJumping && !currentState.falling) {
             jumpCount = 0;
