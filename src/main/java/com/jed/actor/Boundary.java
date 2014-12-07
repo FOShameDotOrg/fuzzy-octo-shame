@@ -8,8 +8,13 @@ import org.colapietro.lang.NotImplementedException;
 import javax.annotation.Nonnull;
 
 /**
+ * Abstract class who associates another {@link com.jed.actor.AbstractEntity} as an "owner." The owner's
+ * boundary is defined by a subclass of {@link com.jed.actor.Boundary}'s implementation.
  * 
  * @author jlinde, Peter Colapietro
+ * @since 0.1.0
+ *
+ * @see com.jed.core.Displayable
  *
  */
 public abstract class Boundary implements Displayable {

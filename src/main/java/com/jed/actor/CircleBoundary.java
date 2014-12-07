@@ -3,14 +3,17 @@ package com.jed.actor;
 import com.jed.util.Vector2f;
 
 /**
+ * Concrete implementation of {@link com.jed.actor.Boundary} which represents a circle.
  * 
  * @author jlinde, Peter Colapietro
+ * @since 0.1.0
  *
+ * @see com.jed.actor.Boundary
  */
-public class CircleBoundary extends Boundary {
+public final class CircleBoundary extends Boundary {
     
     /**
-     * 
+     * Radius of the circle.
      */
     public int radius;
 

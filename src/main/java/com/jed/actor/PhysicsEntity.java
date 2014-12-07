@@ -4,8 +4,8 @@ import com.jed.util.Vector2f;
 
 /**
  *
- * Abstract class identical to {@link AbstractEntity} except for the addition of
- * com.jed.actor.PhysicsEntity#mass().
+ * Abstract class identical to {@link com.jed.actor.AbstractEntity} except for the addition of
+ * {@link com.jed.actor.PhysicsEntity#mass()}.
  * 
  * @author jlinde, Peter Colapietro
  * @since 0.1.0

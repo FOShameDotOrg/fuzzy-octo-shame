@@ -15,7 +15,12 @@ import javax.annotation.Nonnull;
 
 /**
  *
+ * Base class representing a player. The player in this context is only applicable to an entity in a
+ * two dimensional side scrolling game world. Future implementations might allow for additional game genre
+ * types to be used with this class, however at this time that is not the case.
+ *
  * @author jlinde, Peter Colapietro
+ * @since 0.1.0
  *
  */
 public class Player extends AbstractEntity {

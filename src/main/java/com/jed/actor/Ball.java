@@ -20,17 +20,17 @@ public final class Ball extends PhysicsEntity {
     private final int segments;
     
     /**
-     * 
+     * Ball color's Green value.
      */
     private final float g;
 
     /**
-     * 
+     * Ball color's Red value.
      */
     private final float r;
     
     /**
-     * 
+     * Ball color's Blue value.
      */
     private final float b;
 
