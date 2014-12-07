@@ -1,26 +1,31 @@
 package com.jed.state;
 
-import com.jed.core.Displayable;
+import org.colapietro.lang.NotImplementedException;
 
 /**
  * 
  * @author jlinde, Peter Colapietro
+ * @since 0.1.0
  *
  */
-public interface State extends Displayable {
+public interface State {
     
     /**
-     * 
+     *
+     * @throws NotImplementedException NotImplementedException
      */
-    void entered();
+    void entered() throws NotImplementedException;
 
     /**
-     * 
+     *
+     * @throws NotImplementedException NotImplementedException
      */
-    void leaving();
+    void leaving() throws NotImplementedException;
 
     /**
-     * 
+     *
+     * @throws NotImplementedException NotImplementedException
      */
-    void update();
+    void update() throws NotImplementedException;
+
 }

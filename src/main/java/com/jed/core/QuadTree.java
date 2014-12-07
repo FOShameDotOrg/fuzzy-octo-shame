@@ -1,13 +1,13 @@
 package com.jed.core;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.jed.actor.AbstractEntity;
+import com.jed.util.Rectangle;
+import com.jed.util.Vector2f;
 import org.lwjgl.opengl.GL11;
 
-import com.jed.actor.Entity;
-import com.jed.util.Rectangle;
-import com.jed.util.Vector;
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -19,42 +19,44 @@ public class QuadTree implements Displayable {
     /**
      * 
      */
-    private final int MAX_OBJECTS = 2;
+    private static final int MAX_OBJECTS = 2;
     
     /**
      * 
      */
-    private final int MAX_LEVELS = 5;
+    private static final int MAX_LEVELS = 5;
 
     /**
      * 
      */
-    private int level;
+    private final int level;
     
     /**
      * 
      */
-    private List<Entity> objects;
+    @Nonnull
+    private final List<AbstractEntity> objects;
     
     /**
      * 
      */
-    private Rectangle rectangle;
+    private final Rectangle rectangle;
     
     /**
      * 
      */
-    private QuadTree[] nodes;
+    @Nonnull
+    private final QuadTree[] nodes;
 
     /**
      * 
      */
-    private Displayable parent;
+    private final Displayable parent;
 
     /**
      * 
      */
-    private Vector position;
+    private final Vector2f position;
 
     /**
      * 
@@ -63,10 +65,10 @@ public class QuadTree implements Displayable {
      * @param rectangle rectangle
      * @param parent parent
      */
-    public QuadTree(Vector position, int level, Rectangle rectangle, Displayable parent) {
+    public QuadTree(Vector2f position, int level, Rectangle rectangle, Displayable parent) {
         this.position = position;
         this.level = level;
-        this.objects = new ArrayList<Entity>();
+        this.objects = new ArrayList<>();
         this.rectangle = rectangle;
         this.nodes = new QuadTree[4];
         this.parent = parent;
@@ -90,7 +92,7 @@ public class QuadTree implements Displayable {
      * @param returnObjects list of entities
      * @param o other entity
      */
-    public void retrieve(List<Entity> returnObjects, Entity o) {
+    public void retrieve(@Nonnull List<AbstractEntity> returnObjects, @Nonnull AbstractEntity o) {
         int index = getIndex(o);
         if (index != -1) {
             if (nodes[0] != null) {
@@ -106,8 +108,9 @@ public class QuadTree implements Displayable {
      * 
      * @return ret
      */
-    public List<Entity> getObjects() {
-        List<Entity> ret = new ArrayList<Entity>();
+    @Nonnull
+    List<AbstractEntity> getObjects() {
+        List<AbstractEntity> ret = new ArrayList<>();
         ret.addAll(objects);
         if (nodes[0] != null) {
             ret.addAll(nodes[0].getObjects());
@@ -123,20 +126,20 @@ public class QuadTree implements Displayable {
      * @param o other entity
      * @return index in quad tree, range is 0-3 inclusive.
      */
-    private int getIndex(Entity o) {
+    private int getIndex(@Nonnull AbstractEntity o) {
         int verticalMidpoint = (int) (position.x + (rectangle.getWidth() / 2));
         int horizontalMidpoint = (int) (position.y + (rectangle.getHeight() / 2));
 
-        boolean topQuadrant = o.bounds.getNextWorldPosition().y + o.bounds.getHeight() < horizontalMidpoint;
-        boolean bottomQuadrant = o.bounds.getNextWorldPosition().y > horizontalMidpoint;
+        boolean topQuadrant = o.getBounds().getNextWorldPosition().y + o.getBounds().getHeight() < horizontalMidpoint;
+        boolean bottomQuadrant = o.getBounds().getNextWorldPosition().y > horizontalMidpoint;
 
-        if (o.bounds.getNextWorldPosition().x + o.bounds.getWidth() < verticalMidpoint) {
+        if (o.getBounds().getNextWorldPosition().x + o.getBounds().getWidth() < verticalMidpoint) {
             if (topQuadrant) {
                 return 1;
             } else if (bottomQuadrant) {
                 return 2;
             }
-        } else if (o.bounds.getNextWorldPosition().x > verticalMidpoint) {
+        } else if (o.getBounds().getNextWorldPosition().x > verticalMidpoint) {
             if (topQuadrant) {
                 return 0;
             } else if (bottomQuadrant) {
@@ -152,9 +155,9 @@ public class QuadTree implements Displayable {
      */
     private void split() {
         //TODO START pc 2014-10-31: Test me
-        float halfWidth = Float.valueOf(rectangle.getWidth()) / 2.0f;
+        float halfWidth = rectangle.getWidth() / 2.0f;
         int subWidth = Math.round(halfWidth);
-        float halfHeight = Float.valueOf(rectangle.getHeight()) / 2.0f;
+        float halfHeight = rectangle.getHeight() / 2.0f;
         int subHeight = Math.round(halfHeight);
         //TODO END pc 2014-10-31: Test me
         int x = Math.round(position.x);
@@ -162,17 +165,17 @@ public class QuadTree implements Displayable {
 
         Rectangle rect = new Rectangle(subWidth, subHeight);
 
-        this.nodes[0] = new QuadTree(new Vector(x + subWidth, y), this.level + 1, rect, parent);
-        this.nodes[1] = new QuadTree(new Vector(x, y), this.level + 1, rect, parent);
-        this.nodes[2] = new QuadTree(new Vector(x, y + subHeight), this.level + 1, rect, parent);
-        this.nodes[3] = new QuadTree(new Vector(x + subWidth, y + subHeight), this.level + 1, rect, parent);
+        this.nodes[0] = new QuadTree(new Vector2f(x + subWidth, y), this.level + 1, rect, parent);
+        this.nodes[1] = new QuadTree(new Vector2f(x, y), this.level + 1, rect, parent);
+        this.nodes[2] = new QuadTree(new Vector2f(x, y + subHeight), this.level + 1, rect, parent);
+        this.nodes[3] = new QuadTree(new Vector2f(x + subWidth, y + subHeight), this.level + 1, rect, parent);
     }
 
     /**
      * 
      * @param o other entity to insert
      */
-    public void insert(Entity o) {
+    public void insert(@Nonnull AbstractEntity o) {
         if (nodes[0] != null) {
             int index = getIndex(o);
 
@@ -202,7 +205,7 @@ public class QuadTree implements Displayable {
     }
 
     @Override
-    public void draw() {
+    public void render() {
         GL11.glColor3f(0.5f, 0.5f, 1.0f);
 
         GL11.glBegin(GL11.GL_LINE_LOOP);
@@ -217,7 +220,7 @@ public class QuadTree implements Displayable {
 
         if (nodes[0] != null) {
             for (QuadTree eachNode : nodes) {
-                eachNode.draw();
+                eachNode.render();
             }
         }
     }

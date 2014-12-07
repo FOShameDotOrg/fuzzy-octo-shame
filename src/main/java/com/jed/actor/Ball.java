@@ -1,34 +1,38 @@
 package com.jed.actor;
 
 import com.jed.util.BasicShapeRenderer;
-import com.jed.util.Vector;
+import com.jed.util.Vector2f;
 
 /**
+ *
+ * Concrete implementation of {@link com.jed.actor.PhysicsEntity} that represents a "Ball" or circle. The
+ * circle has a color which is represented as its respective Red, Green, and Blue values.
  * 
  * @author jlinde, Peter Colapietro
+ * @since 0.1.0
  *
  */
-public class Ball extends PhysicsEntity {
+public final class Ball extends PhysicsEntity {
 
     /**
      * 
      */
-    private int segments;
+    private final int segments;
     
     /**
-     * 
+     * Ball color's Green value.
      */
-    private float g;
+    private final float g;
 
     /**
-     * 
+     * Ball color's Red value.
      */
-    private float r;
+    private final float r;
     
     /**
-     * 
+     * Ball color's Blue value.
      */
-    private float b;
+    private final float b;
 
     /**
      * 
@@ -40,7 +44,7 @@ public class Ball extends PhysicsEntity {
      * @param g green.
      * @param b blue.
      */
-    public Ball(Vector displacement, Vector movement, Boundary bounds, int segments, float r, float g, float b) {
+    public Ball(Vector2f displacement, Vector2f movement, Boundary bounds, int segments, float r, float g, float b) {
         super(displacement, movement, bounds);
 
         this.r = r;
@@ -60,15 +64,15 @@ public class Ball extends PhysicsEntity {
      * @return radius of ball.
      */
     public int getRadius() {
-        return ((CircleBoundary) bounds).radius;
+        return ((CircleBoundary) getBounds()).radius;
     }
 
     @Override
-    public void draw() {
-        position = position.add(movement);
+    public void render() {
+        setPosition(getPosition().add(getMovement()));
         BasicShapeRenderer.drawFilledCircle(
-                position.x,
-                position.y,
+                getPosition().x,
+                getPosition().y,
                 getRadius(),
                 segments,
                 r, g, b);

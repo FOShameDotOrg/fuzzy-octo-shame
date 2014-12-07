@@ -1,11 +1,20 @@
 package com.jed.actor;
 
 import com.jed.core.Displayable;
-import com.jed.util.Vector;
+import com.jed.util.Vector2f;
+import org.colapietro.lang.LangConstants;
+import org.colapietro.lang.NotImplementedException;
+
+import javax.annotation.Nonnull;
 
 /**
+ * Abstract class who associates another {@link com.jed.actor.AbstractEntity} as an "owner." The owner's
+ * boundary is defined by a subclass of {@link com.jed.actor.Boundary}'s implementation.
  * 
  * @author jlinde, Peter Colapietro
+ * @since 0.1.0
+ *
+ * @see com.jed.core.Displayable
  *
  */
 public abstract class Boundary implements Displayable {
@@ -13,17 +22,17 @@ public abstract class Boundary implements Displayable {
     /**
      * 
      */
-    public Entity owner;
+    private AbstractEntity owner;
     
     /**
      * 
      */
-    public Vector position;
+    private final Vector2f position;
     
     /**
      * 
      */
-    public Vector[] verticies;
+    public final Vector2f[] vertices;
 
     /**
      * 
@@ -64,10 +73,10 @@ public abstract class Boundary implements Displayable {
     /**
      * 
      * @param position position.
-     * @param verticies verticies. 
+     * @param vertices vertices.
      */
-    public Boundary(Vector position, Vector[] verticies) {
-        this.verticies = verticies;
+    Boundary(Vector2f position, Vector2f[] vertices) {
+        this.vertices = vertices;
         this.position = position;
     }
 
@@ -75,23 +84,51 @@ public abstract class Boundary implements Displayable {
      * 
      * @return world position.
      */
-    public Vector getWorldPosition() {
-        return owner.position.add(position);
+    @Nonnull
+    public Vector2f getWorldPosition() {
+        return owner.getPosition().add(position);
     }
 
     /**
      * 
      * @return next world position.
      */
-    public Vector getNextWorldPosition() {
-        return getWorldPosition().add(owner.movement);
+    @Nonnull
+    public Vector2f getNextWorldPosition() {
+        return getWorldPosition().add(owner.getMovement());
+    }
+
+    /**
+     *
+     * @return position
+     */
+    public Vector2f getPosition() {
+        return position;
+    }
+
+    /**
+     *
+     * @return owner
+     */
+    public AbstractEntity getOwner() {
+        return owner;
+    }
+
+    /**
+     *
+     * @param owner owner
+     */
+    public void setOwner(AbstractEntity owner) {
+        this.owner = owner;
     }
 
     @Override
-    public void draw() {
+    public void render() throws NotImplementedException {
+        throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
     }
 
     @Override
-    public void drawChildVertex2f(float x, float y) {
+    public void drawChildVertex2f(float x, float y) throws NotImplementedException {
+        throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
     }
 }

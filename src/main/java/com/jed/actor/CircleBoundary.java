@@ -1,16 +1,19 @@
 package com.jed.actor;
 
-import com.jed.util.Vector;
+import com.jed.util.Vector2f;
 
 /**
+ * Concrete implementation of {@link com.jed.actor.Boundary} which represents a circle.
  * 
  * @author jlinde, Peter Colapietro
+ * @since 0.1.0
  *
+ * @see com.jed.actor.Boundary
  */
-public class CircleBoundary extends Boundary {
+public final class CircleBoundary extends Boundary {
     
     /**
-     * 
+     * Radius of the circle.
      */
     public int radius;
 
@@ -19,7 +22,7 @@ public class CircleBoundary extends Boundary {
      * @param radius initial radius.
      */
     public CircleBoundary(final int radius) {
-        super(new Vector(0, 0), new Vector[]{});
+        super(new Vector2f(0, 0), new Vector2f[]{});
         this.radius = radius;
     }
 
@@ -41,22 +44,22 @@ public class CircleBoundary extends Boundary {
 
     @Override
     public double getRightBound() {
-        return owner.position.x + radius;
+        return getOwner().getPosition().x + radius;
     }
 
     @Override
     public double getLeftBound() {
-        return owner.position.x - radius;
+        return getOwner().getPosition().x - radius;
     }
 
     @Override
     public double getUpperBound() {
-        return owner.position.y - radius;
+        return getOwner().getPosition().y - radius;
     }
 
     @Override
     public double getLowerBound() {
-        return owner.position.y + radius;
+        return getOwner().getPosition().y + radius;
     }
 
     @Override

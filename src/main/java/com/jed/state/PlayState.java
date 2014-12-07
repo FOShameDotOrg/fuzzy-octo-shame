@@ -1,20 +1,25 @@
 package com.jed.state;
 
-import org.lwjgl.input.Keyboard;
-
 import com.jed.util.MapLoader;
+import org.colapietro.slick.command.BasicCommandConstants;
+import org.newdawn.slick.command.BasicCommand;
+import org.newdawn.slick.command.Command;
+import org.newdawn.slick.command.InputProviderListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 
  * @author jlinde, Peter Colapietro
  *
  */
-public class PlayState extends GameState implements StateManager {
+public class PlayState extends AbstractGameState implements InputProviderListener {
 
     /**
-     * FIXME Make relative to classpath.
+     *
      */
-    public static final String LEVEL_ONE_PATH = MapLoader.RESOURCES_DIRECTORY + "POC_MAP.tmx";
+    private static final Logger LOGGER = LoggerFactory.getLogger(PlayState.class);
+
 
     /**
      * 
@@ -30,59 +35,79 @@ public class PlayState extends GameState implements StateManager {
      * 
      */
     private boolean stepFrame = false;
-
+    
     /**
      * 
-     * @param manager game state manager
      */
-    public PlayState(GameStateManager manager) {
-        super(manager);
-    }
-
-    @Override
-    public void changeState(State state) {
-        state.entered();
+    @SuppressWarnings("unused")
+    private final boolean isDebugViewEnabled;
+    
+    /**
+     * @since 0.1.8
+     * 
+     * @param isDebugViewEnabled isDebugViewEnabled
+     */
+    public PlayState(boolean isDebugViewEnabled) {
+        this.isDebugViewEnabled = isDebugViewEnabled;
+        currentMap = MapLoader.loadMap();
+        currentMap.setDebugViewEnabled(isDebugViewEnabled);
     }
 
     @Override
     public void entered() {
-        currentMap = MapLoader.loadMap(LEVEL_ONE_PATH);
-        changeState(currentMap);
-    }
-
-    @Override
-    public void leaving() {
+        currentMap = MapLoader.loadMap();
+        currentMap.setDebugViewEnabled(isDebugViewEnabled);
+        currentMap.entered();
     }
 
     @Override
     public void update() {
-        getInput();
         if (!paused || stepFrame) {
             currentMap.update();
         }
         stepFrame = false;
     }
 
-    /**
-     * 
-     */
-    private void getInput() {
-        while (Keyboard.next()) {
-            currentMap.keyPress();
-            if (Keyboard.getEventKey() == Keyboard.KEY_LMENU && Keyboard.getEventKeyState()) {
-                paused = !paused;
-            }
+    @Override
+    public void render() {
+        currentMap.render();
+    }
 
+    @Override
+    public void controlPressed(Command command) {
+        LOGGER.debug("com.jed.state.PlayState#controlPressed");
+        LOGGER.info("controlPressed {}",command.toString());
+        if(command.equals(new BasicCommand("pauseToggle"))) {
+            paused = !paused;
+        } else if(command.equals(new BasicCommand("stepFrame"))) {
             if (paused) {
-                if (Keyboard.getEventKey() == Keyboard.KEY_RMENU && Keyboard.getEventKeyState()) {
-                    stepFrame = true;
-                }
+                stepFrame = true;
             }
+        } else if(command.getName().equals(BasicCommandConstants.JUMP)) {
+            currentMap.getPlayer().setJumping(true);
+        } else if(command.getName().equals(BasicCommandConstants.MOVE_RIGHT)) {
+            currentMap.getPlayer().setMovingRight(true);
+        } else if(command.getName().equals(BasicCommandConstants.MOVE_LEFT)) {
+            currentMap.getPlayer().setMovingLeft(true);
         }
     }
 
     @Override
-    public void draw() {
-        currentMap.draw();
+    public void controlReleased(Command command) {
+        LOGGER.debug("com.jed.state.PlayState#controlReleased");
+        LOGGER.info("controlReleased {}",command.toString());
+        if(command.getName().equals(BasicCommandConstants.MOVE_RIGHT)) {
+            currentMap.getPlayer().setMovingRight(false);
+        } else if(command.getName().equals(BasicCommandConstants.MOVE_LEFT)) {
+            currentMap.getPlayer().setMovingLeft(false);
+        }
+    }
+
+    /**
+     *
+     * @return currentMap
+     */
+    public GameMap getCurrentMap() {
+        return currentMap;
     }
 }

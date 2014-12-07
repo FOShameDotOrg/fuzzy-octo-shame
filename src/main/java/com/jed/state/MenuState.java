@@ -1,20 +1,18 @@
 package com.jed.state;
 
+import com.jed.util.Vector2f;
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.font.effects.ColorEffect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.jed.util.Vector;
 
 /**
  * 
  * @author jlinde, Peter Colapietro
  *
  */
-public class MenuState extends GameState {
+public class MenuState extends AbstractGameState {
 
     /**
      * 
@@ -34,15 +32,7 @@ public class MenuState extends GameState {
     /**
      * 
      */
-    private Vector coords;
-
-    /**
-     * 
-     * @param manager game state manager
-     */
-    public MenuState(GameStateManager manager) {
-        super(manager);
-    }
+    private Vector2f coordinates;
 
     /**
      * 
@@ -62,46 +52,33 @@ public class MenuState extends GameState {
 
     /**
      * 
-     * @return coords
+     * @return coordinates
      */
-    public Vector getCoords() {
-        return coords;
+    public Vector2f getCoordinates() {
+        return coordinates;
     }
 
     /**
      * 
-     * @param coords coords
+     * @param coordinates coordinates
      */
-    public void setCoords(Vector coords) {
-        this.coords = coords;
+    public void setCoordinates(Vector2f coordinates) {
+        this.coordinates = coordinates;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void entered() {
         java.awt.Font awtFont = new java.awt.Font("Arial", java.awt.Font.PLAIN, 24);
         font = new UnicodeFont(awtFont);
         font.getEffects().add(new ColorEffect(java.awt.Color.RED));
         font.addAsciiGlyphs();
-        try {
-            font.loadGlyphs();
-        } catch (SlickException e) {
-            LOGGER.error("Failed to load Font!", e);
-        }
+        font.loadGlyphs();
     }
 
     @Override
-    public void leaving() {
-    }
-
-    @Override
-    public void update() {
-    }
-
-    @Override
-    public void draw() {
+    public void render() {
         GL11.glEnable(GL11.GL_TEXTURE_2D);
-        font.drawString(coords.x, coords.y, daString);
+        font.drawString(coordinates.x, coordinates.y, daString);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
     }
 

@@ -1,10 +1,12 @@
 package com.jed.core;
 
-import com.colapietro.number.util.Doubles;
+import com.jed.actor.AbstractEntity;
+import com.jed.util.Vector2f;
+import org.colapietro.number.util.Doubles;
 import com.jed.actor.Boundary;
-import com.jed.actor.Entity;
 import com.jed.state.MapTile;
-import com.jed.util.Vector;
+
+import javax.annotation.Nonnull;
 
 /**
  * 
@@ -16,32 +18,37 @@ public class Collision implements Comparable<Collision> {
     /**
      * 
      */
-    public static final int NONE = 0;
+    private static final int NONE = 0;
     
     /**
      * 
      */
-    public static final int SAT = 1;
+    private static final int SAT = 1;
     
     /**
      * 
      */
-    public static final int SWEPT_X = 2;
+    private static final int SWEPT_X = 2;
     
     /**
      * 
      */
-    public static final int SWEPT_Y = 3;
+    private static final int SWEPT_Y = 3;
 
     /**
      * 
      */
-    public int collisionType = NONE;
+    private int collisionType = NONE;
 
     /**
      * 
      */
-    public Entity a, b;
+    private final AbstractEntity a;
+
+    /**
+     *
+     */
+    private final AbstractEntity b;
     
     /**
      * 
@@ -57,15 +64,38 @@ public class Collision implements Comparable<Collision> {
      * 
      */
     private MinMax xEntityMinMax, xSEntityMinMax, yEntityMinMax, ySEntityMinMax;
+    
+    /**
+     * 
+     */
+    private final boolean isDebugViewEnabled;
 
     /**
      * 
+     * Use {@link #Collision(AbstractEntity, AbstractEntity, boolean)}.
+     * 
      * @param a entity a.
      * @param b entity b.
+     * 
      */
-    public Collision(Entity a, Entity b) {
+    @Deprecated
+    public Collision(AbstractEntity a, AbstractEntity b) {
         this.a = a;
         this.b = b;
+        this.isDebugViewEnabled = false;
+    }
+    
+    /**
+     * @since 0.1.8
+     * 
+     * @param a entity a.
+     * @param b entity b.
+     * @param isDebugViewEnabled isDebugViewEnabled
+     */
+    public Collision(AbstractEntity a, AbstractEntity b, boolean isDebugViewEnabled) {
+        this.a = a;
+        this.b = b;
+        this.isDebugViewEnabled = isDebugViewEnabled ;
     }
 
     /**
@@ -84,15 +114,15 @@ public class Collision implements Comparable<Collision> {
 
         //TODO: must take into account relative motion vector when dealing w/ 2 moving objects for swept test!!!
 
-        Vector xAxis = new Vector(1, 0);
-        Vector yAxis = new Vector(0, 1);
+        Vector2f xAxis = new Vector2f(1, 0);
+        Vector2f yAxis = new Vector2f(0, 1);
 
-        xEntityMinMax = new MinMax(a.bounds, xAxis);
-        xSEntityMinMax = new MinMax(b.bounds, xAxis);
+        xEntityMinMax = new MinMax(a.getBounds(), xAxis);
+        xSEntityMinMax = new MinMax(b.getBounds(), xAxis);
         minXDistance = Math.abs(xEntityMinMax.getIntervalDistance(xSEntityMinMax));
 
-        yEntityMinMax = new MinMax(a.bounds, yAxis);
-        ySEntityMinMax = new MinMax(b.bounds, yAxis);
+        yEntityMinMax = new MinMax(a.getBounds(), yAxis);
+        ySEntityMinMax = new MinMax(b.getBounds(), yAxis);
         minYDistance = Math.abs(yEntityMinMax.getIntervalDistance(ySEntityMinMax));
 
         boolean separateX =
@@ -109,12 +139,12 @@ public class Collision implements Comparable<Collision> {
         } else
 
             //Swept Separating Axis Theorem
-            if (a.movement.x != 0 || a.movement.y != 0) {
-                if (Math.abs(a.movement.dotProduct(yAxis)) > minYDistance &&
+            if (a.getMovement().x != 0 || a.getMovement().y != 0) {
+                if (Math.abs(a.getMovement().dotProduct(yAxis)) > minYDistance &&
                         !(xEntityMinMax.max <= xSEntityMinMax.min || xSEntityMinMax.max <= xEntityMinMax.min)) {
 
                     collisionType = SWEPT_Y;
-                } else if (Math.abs(a.movement.dotProduct(xAxis)) > minXDistance &&
+                } else if (Math.abs(a.getMovement().dotProduct(xAxis)) > minXDistance &&
                         !(yEntityMinMax.max <= ySEntityMinMax.min || ySEntityMinMax.max <= yEntityMinMax.min)) {
 
                     collisionType = SWEPT_X;
@@ -124,10 +154,12 @@ public class Collision implements Comparable<Collision> {
         smallestDisplacement = minXDistance < minYDistance ? minXDistance : minYDistance;
 
         //TODO: Temporary!
-        if (collisionType != NONE) {
-            ((MapTile) b).colliding = true;
-        } else {
-            ((MapTile) b).evaluating = true;
+        if(isDebugViewEnabled) {
+            if (collisionType != NONE) {
+                ((MapTile) b).setColliding(true);
+            } else {
+                ((MapTile) b).setEvaluating(true);
+            }
         }
 
         return collisionType != NONE;
@@ -151,30 +183,30 @@ public class Collision implements Comparable<Collision> {
                  */
 
                 //FIXME test
-                if (Doubles.compareDoubles(minXDistance, a.acceleration) || minXDistance < minYDistance) {
+                if (Doubles.compareDoubles(minXDistance, a.getAcceleration()) || minXDistance < minYDistance) {
                     if (xEntityMinMax.min > xSEntityMinMax.min) {
-                        a.position.x += minXDistance;
+                        a.getPosition().x += minXDistance;
                     } else {
-                        a.position.x -= minXDistance;
+                        a.getPosition().x -= minXDistance;
                     }
 
-                    a.movement.x = 0;
+                    a.getMovement().x = 0;
                 }
                 //Resolve Ceiling / Floor Collisions
                 else {
                     if (yEntityMinMax.min > ySEntityMinMax.min) {
-                        a.position.y += minYDistance;
+                        a.getPosition().y += minYDistance;
                     } else {
-                        a.position.y -= minYDistance;
+                        a.getPosition().y -= minYDistance;
                         a.collideDown(b);
                     }
-                    a.movement.y = 0;
+                    a.getMovement().y = 0;
 
                 }
             }
 
             //Notify Entity they're standing on a platform and don't have to start falling...
-            if (minYDistance == 0 && a.movement.y == 0 && yEntityMinMax.min < ySEntityMinMax.min) {
+            if (minYDistance == 0 && a.getMovement().y == 0 && yEntityMinMax.min < ySEntityMinMax.min) {
                 a.collideDown(b);
             }
         }
@@ -183,15 +215,15 @@ public class Collision implements Comparable<Collision> {
 
             if (yEntityMinMax.min > ySEntityMinMax.min) {
                 //Closest Edge is above the entity, only collide if moving towards it
-                if (a.movement.y <= 0 && minXDistance != 0) {
-                    a.position.y -= minYDistance;
-                    a.movement.y = 0;
+                if (a.getMovement().y <= 0 && minXDistance != 0) {
+                    a.getPosition().y -= minYDistance;
+                    a.getMovement().y = 0;
                 }
             } else {
                 //Closest Edge is below the entity, only collide if moving towards it
-                if (a.movement.y >= 0 && minXDistance != 0) {
-                    a.movement.y = 0;
-                    a.position.y += minYDistance;
+                if (a.getMovement().y >= 0 && minXDistance != 0) {
+                    a.getMovement().y = 0;
+                    a.getPosition().y += minYDistance;
                     a.collideDown(b);
                 }
             }
@@ -200,9 +232,9 @@ public class Collision implements Comparable<Collision> {
         //X Collision on the next game update - accounts for fast moving objects
         else if (collisionType == SWEPT_X) {
             if (xEntityMinMax.min > xSEntityMinMax.min) {
-                a.position.x -= minXDistance;
+                a.getPosition().x -= minXDistance;
             } else {
-                a.position.x += minXDistance;
+                a.getPosition().x += minXDistance;
             }
         }
 
@@ -225,13 +257,13 @@ public class Collision implements Comparable<Collision> {
          * @param boundary boundary
          * @param axis axis
          */
-        public MinMax(Boundary boundary, Vector axis) {
-            max = boundary.verticies[0].add(boundary.getWorldPosition()).dotProduct(axis);
-            min = boundary.verticies[0].add(boundary.getWorldPosition()).dotProduct(axis);
+        public MinMax(@Nonnull Boundary boundary, Vector2f axis) {
+            max = boundary.vertices[0].add(boundary.getWorldPosition()).dotProduct(axis);
+            min = boundary.vertices[0].add(boundary.getWorldPosition()).dotProduct(axis);
 
             double current;
-            for (int i = 1; i < boundary.verticies.length; i++) {
-                current = boundary.verticies[i].add(boundary.getWorldPosition()).dotProduct(axis);
+            for (int i = 1; i < boundary.vertices.length; i++) {
+                current = boundary.vertices[i].add(boundary.getWorldPosition()).dotProduct(axis);
                 if (min > current) {
                     min = current;
                 }
@@ -247,7 +279,7 @@ public class Collision implements Comparable<Collision> {
          * @param b another minmax
          * @return interval distance
          */
-        public double getIntervalDistance(MinMax b) {
+        public double getIntervalDistance(@Nonnull MinMax b) {
             if (this.min < b.min) {
                 return b.min - this.max;
             } else {
@@ -258,7 +290,7 @@ public class Collision implements Comparable<Collision> {
     }
 
     @Override
-    public int compareTo(Collision c) {
+    public int compareTo(@Nonnull Collision c) {
         if (collisionType == SAT) {
             if (c.collisionType != SAT) {
                 return -1;

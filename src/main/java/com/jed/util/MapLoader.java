@@ -1,5 +1,6 @@
 package com.jed.util;
 
+import javax.annotation.Nonnull;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -14,6 +15,9 @@ import com.jed.actor.PolygonBoundary;
 import com.jed.state.GameMap;
 import com.jed.state.MapTile;
 
+import java.io.InputStream;
+import java.util.ArrayList;
+
 /**
  * 
  * @author jlinde, Peter Colapietro
@@ -27,43 +31,42 @@ public class MapLoader {
     private static final Logger LOGGER = LoggerFactory.getLogger(MapLoader.class);
 
     /**
-     * TODO refactor location of constant in Java source code.
+     *
      */
-    public static final String RESOURCES_DIRECTORY = "src/main/resources/";
+    private static final String LEVEL_ONE_PATH = "/POC_MAP.tmx";
 
     /**
      * 
-     * @param path path to game map file
      * @return gameMap
      */
-    public static GameMap loadMap(String path) {
-        GameMap map = new GameMap();
+    @Nonnull
+    public synchronized static GameMap loadMap() {
+        final GameMap map = new GameMap();
 
         Document doc = null;
-
-        try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            doc = dBuilder.parse(path);
+        try (final InputStream resourceAsStream = MapLoader.class.getResourceAsStream(LEVEL_ONE_PATH)) {
+            final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            doc = dBuilder.parse(resourceAsStream);
         } catch (Exception e) {
-            LOGGER.error("Failed to load map file: " + path, e);
-            System.exit(1);
+            LOGGER.error("{}", e);
+            System.exit(ExitStatusCode.ERROR.getStatusCode());
         }
 
-        Element docElement = doc.getDocumentElement();
-        map.width = Integer.parseInt(docElement.getAttribute("width"));
-        map.height = Integer.parseInt(docElement.getAttribute("height"));
+        final Element docElement = doc.getDocumentElement();
+        map.setWidth(Integer.parseInt(docElement.getAttribute("width")));
+        map.setHeight(Integer.parseInt(docElement.getAttribute("height")));
 
         int tileImageWidth = 0;
         int tileImageHeight = 0;
-        map.tileHeight = Integer.parseInt(docElement.getAttribute("tileheight"));
-        map.tileWidth = Integer.parseInt(docElement.getAttribute("tilewidth"));
+        map.setTileHeight(Integer.parseInt(docElement.getAttribute("tileheight")));
+        map.setTileWidth(Integer.parseInt(docElement.getAttribute("tilewidth")));
 
-        map.tiles = new MapTile[map.width * map.height];
+        map.setTiles(new ArrayList<>());//FIXME
 
         //Load Map properties
-        NodeList mapNodes = docElement.getChildNodes();
-        String nameNodeTextContent = null;//TODO once loop is refactored get rid of nameNodeTextContent
+        final NodeList mapNodes = docElement.getChildNodes();
+        String nameNodeTextContent;//TODO once loop is refactored get rid of nameNodeTextContent
         //FIXME this loop needs refactoring.
         for (int i = 0; i < mapNodes.getLength(); i++) {
             Node eachMapNode = mapNodes.item(i);
@@ -79,7 +82,7 @@ public class MapLoader {
                         if (nameNodeTextContent != null && nameNodeTextContent.equals("gravity")) {
                             Node valueNode = eachPropertyNode.getAttributes().getNamedItem("value");
                             if (valueNode != null && valueNode.getTextContent() != null) {
-                                map.gravity = Float.valueOf(valueNode.getTextContent());
+                                map.setGravity(Float.valueOf(valueNode.getTextContent()));
                             }
                         }
                     }
@@ -91,13 +94,13 @@ public class MapLoader {
         //TODO: Must ultimately be updated to handle multiple layers and tilesets...
 
         //Get the tileset file location
-        NodeList imageNodes = docElement.getElementsByTagName("image");
+        final NodeList imageNodes = docElement.getElementsByTagName("image");
         for (int i = 0; i < imageNodes.getLength(); i++) {
             Node eachImageNode = imageNodes.item(i);
             if (eachImageNode.getNodeType() == Node.ELEMENT_NODE) {
                 //TODO Make asset location relative
                 map.setTileSetPath(
-                        RESOURCES_DIRECTORY + eachImageNode.getAttributes()
+                        eachImageNode.getAttributes()
                                 .getNamedItem("source").getTextContent());
 
                 tileImageWidth =
@@ -111,17 +114,17 @@ public class MapLoader {
 
 
         //Get the tile layout data
-        NodeList dataNodes = docElement.getElementsByTagName("data");
-        int rowIndex = 0, columnIndex = 0, tileCount = 0;
-        int textureWidth = Util.getClosestPowerOfTwo(tileImageWidth);
-        int textureHeight = Util.getClosestPowerOfTwo(tileImageHeight);
+        final NodeList dataNodes = docElement.getElementsByTagName("data");
+        int rowIndex = 0, columnIndex = 0;
+        final int textureWidth = Util.getClosestPowerOfTwo(tileImageWidth);
+        final int textureHeight = Util.getClosestPowerOfTwo(tileImageHeight);
         //TODO START pc 2014-10-31 test me
-        float textureWidthOverMapTileWidth = (float) textureWidth / map.tileWidth;
-        float glWidth = 1 / textureWidthOverMapTileWidth;
-        float textureHeightOverMapTileHeight = (float) textureHeight / map.tileHeight;
-        float glHeight = 1 / textureHeightOverMapTileHeight;
+        final float textureWidthOverMapTileWidth = (float) textureWidth / map.getTileWidth();
+        final float glWidth = 1 / textureWidthOverMapTileWidth;
+        final float textureHeightOverMapTileHeight = (float) textureHeight / map.getTileHeight();
+        final float glHeight = 1 / textureHeightOverMapTileHeight;
         //TODO END pc 2014-10-31 test me
-        int tilesAcross = tileImageWidth / map.tileWidth;
+        final int tilesAcross = tileImageWidth / map.getTileWidth();
 
         for (int i = 0; i < dataNodes.getLength(); i++) {
             Node eachDataNode = dataNodes.item(i);
@@ -140,24 +143,24 @@ public class MapLoader {
                         float glX = glWidth * tileColumn;
                         float glY = glHeight * tileRow;
 
-                        map.tiles[tileCount++] = new MapTile(
-                                new Vector(columnIndex * map.tileHeight, rowIndex * map.tileWidth),
+                        map.getTiles().add(new MapTile(
+                                new Vector2f(columnIndex * map.getTileHeight(), rowIndex * map.getTileWidth()),
 
                                 new PolygonBoundary(
-                                        new Vector(0, 0),
-                                        new Vector[]{
-                                                new Vector(0, 0),
-                                                new Vector(map.tileWidth, 0),
-                                                new Vector(map.tileWidth, map.tileHeight),
-                                                new Vector(0, map.tileHeight)
+                                        new Vector2f(0, 0),
+                                        new Vector2f[]{
+                                                new Vector2f(0, 0),
+                                                new Vector2f(map.getTileWidth(), 0),
+                                                new Vector2f(map.getTileWidth(), map.getTileHeight()),
+                                                new Vector2f(0, map.getTileHeight())
                                         })
                                 ,
                                 glX, glY, glWidth, glHeight,
                                 tileId,
                                 map
-                        );
+                        ));
 
-                        if (columnIndex == map.width - 1) {
+                        if (columnIndex == map.getWidth() - 1) {
                             columnIndex = 0;
                             rowIndex++;
                         } else {
