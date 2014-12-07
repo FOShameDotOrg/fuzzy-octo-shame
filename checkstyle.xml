@@ -16,8 +16,8 @@
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
     <module name="LineLength">
-      <!-- Configuring the check to accept lines up to 120 characters long -->
-          <property name="max" value="120"/>
+      <!-- Configuring the check to accept lines up to 160 characters long -->
+          <property name="max" value="160"/>
       <!-- 
             Ignore Javadoc comments since references to other elements (@see
             tag, etc.) may get rather long and should not be truncated.

@@ -82,4 +82,8 @@ public class MenuState extends AbstractGameState {
         GL11.glDisable(GL11.GL_TEXTURE_2D);
     }
 
+    @Override
+    public void update() {
+        LOGGER.warn("{}","No OP com.jed.state.MenuState#update()");
+    }
 }

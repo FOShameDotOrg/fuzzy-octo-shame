@@ -5,7 +5,7 @@
   <!-- START: The Basics -->
   <groupId>com.jed</groupId>
   <artifactId>fuzzy-octo-shame</artifactId>
-  <version>0.1.8</version>
+  <version>0.1.9</version>
   <packaging>jar</packaging>
   <dependencies>
     <dependency>
@@ -309,18 +309,19 @@
         <artifactId>nativedependencies-maven-plugin</artifactId>
         <executions>
           <execution>
+            <phase>generate-resources</phase>
             <id>unpacknatives</id>
             <goals>
               <goal>copy</goal>
             </goals>
           </execution>
         </executions>
+        <!--
         <configuration>
           <platforms>
             <platform>osx</platform>
           </platforms>
         </configuration>
-        <!--
         <configuration>
           <platforms>
             <platform>windows</platform>
@@ -400,6 +401,13 @@
         <configuration>
           <allowSnapshots>true</allowSnapshots>
           <noDeploy>true</noDeploy>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <forkMode>once</forkMode>
+          <argLine>-Djava.library.path=${project.build.directory}/natives</argLine>
         </configuration>
       </plugin>
     </plugins>
