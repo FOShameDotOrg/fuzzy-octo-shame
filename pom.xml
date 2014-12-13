@@ -13,12 +13,12 @@
       <artifactId>lwjgl</artifactId>
       <version>${lwjgl.version}</version>
       <exclusions>
-        <!-- START Unnecessary explicit exclusion. Only here for verbosity. -->
+        <!-- START Unecessary explict exclusion. Only here for verbosity. -->
         <exclusion>
           <groupId>net.java.jinput</groupId>
           <artifactId>jinput</artifactId>
         </exclusion>
-        <!-- END Unnecessary explicit exclusion. Only here for verbosity. -->
+        <!-- END Unecessary explict exclusion. Only here for verbosity. -->
       </exclusions>
     </dependency>
     <!-- Start Overriding transitive version from lwjgl artifact -->
