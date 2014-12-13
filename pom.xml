@@ -13,12 +13,12 @@
       <artifactId>lwjgl</artifactId>
       <version>${lwjgl.version}</version>
       <exclusions>
-        <!-- START Unnecessary explicit exclusion. Only here for verbosity. -->
+        <!-- START Unecessary explict exclusion. Only here for verbosity. -->
         <exclusion>
           <groupId>net.java.jinput</groupId>
           <artifactId>jinput</artifactId>
         </exclusion>
-        <!-- END Unnecessary explicit exclusion. Only here for verbosity. -->
+        <!-- END Unecessary explict exclusion. Only here for verbosity. -->
       </exclusions>
     </dependency>
     <!-- Start Overriding transitive version from lwjgl artifact -->
@@ -95,7 +95,7 @@
     <annotations.version>3.0.0</annotations.version>
     <checkstyle.verion>6.1</checkstyle.verion>
     <!-- END: Dependencies Versions -->
-    <!-- START: Build specific variables, probably should be associated with profiles.. -->
+    <!-- START: Build specific variables, probably should be associated with profiles. -->
     <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>true</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>
     <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError>true</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError>
     <!-- END: -->
