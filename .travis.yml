@@ -6,7 +6,7 @@ install:
     - "sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test"
     - "sudo apt-get --qq update"
     - "sudo apt-get install --qq aptitude"
-    - "sudo aptitude -qq update""
+    - "sudo aptitude -qq update"
     - "sudo aptitude install -qq libx11-dev:i386"
     - "sudo aptitude install -qq libxrandr-dev:i386"
     - "sudo aptitude install -qq libxinerama-dev:i386"
