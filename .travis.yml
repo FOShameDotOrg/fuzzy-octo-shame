@@ -4,7 +4,9 @@ jdk:
 install:
     - "sudo add-apt-repository ppa:kubuntu-ppa/backports -y"
     - "sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test"
-    - sudo aptitude -qq update
+    - "sudo apt-get --qq update"
+    - "sudo apt-get install --qq aptitude"
+    - "sudo aptitude -qq update""
     - "sudo aptitude install -qq libx11-dev:i386"
     - "sudo aptitude install -qq libxrandr-dev:i386"
     - "sudo aptitude install -qq libxinerama-dev:i386"
