@@ -2,13 +2,5 @@
 [![Build Status](https://travis-ci.org/virtuoushub/fuzzy-octo-shame.svg?branch=develop)](https://travis-ci.org/virtuoushub/fuzzy-octo-shame)
 ### 2D Platformer skeleton built with LWJGL and Slick2D
 
-#### Useful stuff:
+Visit the [wiki](https://github.com/virtuoushub/fuzzy-octo-shame/wiki) for more information.
 
-* `mvn nativedependencies:copy`
-
-* `-Djava.library.path=/path/to/project/root/target/natives`
-        
-* `-Dorg.slf4j.simpleLogger.defaultLogLevel=debug`
-
-#### "How to configure slf4j-simple"
-* http://stackoverflow.com/a/14545138
