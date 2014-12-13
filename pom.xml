@@ -556,6 +556,48 @@
       </build>
       <id>eclipse</id>
     </profile>
+    <profile>
+      <id>linux</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>start-xvfb</id>
+                <phase>process-test-classes</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <target>
+                    <echo message="Starting xvfb ..." />
+                    <exec executable="Xvfb" spawn="true">
+                      <arg value=":1" />
+                    </exec>
+                  </target>
+                </configuration>
+              </execution>
+              <execution>
+                <id>shutdown-xvfb</id>
+                <phase>test</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <target>
+                    <echo message="Ending xvfb ..." />
+                    <exec executable="killall">
+                      <arg value="Xvfb" />
+                    </exec>
+                  </target>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
   <!-- END: Environment Settings -->
 
