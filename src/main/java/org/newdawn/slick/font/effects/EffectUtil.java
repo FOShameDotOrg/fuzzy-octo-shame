@@ -33,7 +33,7 @@ import org.newdawn.slick.font.effects.ConfigurableEffect.Value;
 /**
  * Provides utility methods for effects.
  * 
- * @author Nathan Sweet <misc@n4te.com>
+ * @author Nathan Sweet &lt;misc@n4te.com&gt;
  */
 public class EffectUtil {
     /** A graphics 2D temporary surface to be used when generating effects */

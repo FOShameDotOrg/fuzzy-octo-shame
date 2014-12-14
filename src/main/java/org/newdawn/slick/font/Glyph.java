@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 /**
  * Represents the glyph in a font for a unicode codepoint.
  * 
- * @author Nathan Sweet <misc@n4te.com>
+ * @author Nathan Sweet &lt;misc@n4te.com&gt;
  */
 public class Glyph {
     /** The code point in which this glyph is found */

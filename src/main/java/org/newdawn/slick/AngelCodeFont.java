@@ -32,52 +32,58 @@ import javax.annotation.Nullable;
  * supports the text BMFont format definition file.
  * 
  * @author kevin
- * @author Nathan Sweet <misc@n4te.com>
+ * @author Nathan Sweet &lt;misc@n4te.com&gt;
  */
 public class AngelCodeFont implements Font {
-    /** The renderer to use for all GL operations */
+    /** The renderer to use for all GL operations. */
     private static final SGL GL = Renderer.get();
 
     /**
      * The line cache size, this is how many lines we can render before starting
-     * to regenerate lists
+     * to regenerate lists.
      */
     private static final int DISPLAY_LIST_CACHE_SIZE = 200;
 
     /** The highest character that AngelCodeFont will support. */
     private static final int MAX_CHAR = 255;
 
-    /** True if this font should use display list caching */
+    /** True if this font should use display list caching. */
     private boolean displayListCaching = true;
 
-    /** The image containing the bitmap font */
+    /** The image containing the bitmap font. */
     private Image fontImage;
-    /** The characters building up the font */
+    /** The characters building up the font. */
     private Glyph[] chars;
-    /** The height of a line */
+    /** The height of a line. */
     private int lineHeight;
-    /** The first display list ID */
+    /** The first display list ID. */
     private int baseDisplayListID = -1;
-    /** The eldest display list ID */
+    /** The eldest display list ID. */
     private int eldestDisplayListID;
-    /** The eldest display list  */
+    /** The eldest display list.  */
     private DisplayList eldestDisplayList;
-
+    /** */
     private boolean singleCase = false;
+    /** */
     private short ascent;
+    /** */
     private short descent;
     
-    /** The display list cache for rendered lines */
+    /** The display list cache for rendered lines. */
     private final Map<CharSequence, DisplayList> displayLists = new LinkedHashMap<CharSequence, DisplayList>(DISPLAY_LIST_CACHE_SIZE, 1, true) {     
         /**
          * 
          */
         private static final long serialVersionUID = 1L;
 
+        /**
+         *
+         * @param eldest eldest
+         * @return false
+         */
         protected boolean removeEldestEntry(@Nonnull Entry<CharSequence, DisplayList> eldest) {
             eldestDisplayList = eldest.getValue();
             eldestDisplayListID = eldestDisplayList.id;
-
             return false;
         }
     };
@@ -201,11 +207,11 @@ public class AngelCodeFont implements Font {
     }
 
     /**
-     * Parse the font definition file
+     * Parse the font definition file.
      *
      * @param fntFile
      *            The stream from which the font file can be read
-     * @throws SlickException
+     * @throws SlickException org.newdawn.slick.AngelCodeFont#parseChar(java.lang.String) fails
      */
     private void parseFnt(@Nonnull InputStream fntFile) throws SlickException {
         if (displayListCaching) {
@@ -326,6 +332,12 @@ public class AngelCodeFont implements Font {
         return singleCase;
     }
 
+    /**
+     *
+     * @param str str
+     * @param sub sub
+     * @return TODO write some shit
+     */
     private short parseMetric(@Nonnull String str, @Nonnull String sub) {
         int ind = str.indexOf(sub);
         if (ind!=-1) {
@@ -337,7 +349,7 @@ public class AngelCodeFont implements Font {
     }
 
     /**
-     * Parse a single character line from the definition
+     * Parse a single character line from the definition.
      *
      * @param line
      *            The line to be parsed
@@ -382,24 +394,17 @@ public class AngelCodeFont implements Font {
         return new Glyph(id, x, y, width, height, xoffset, yoffset, xadvance, img);
     }
 
-    /**
-     * @see org.newdawn.slick.Font#drawString(float, float, CharSequence)
-     */
+    @Override
     public void drawString(float x, float y, @Nonnull CharSequence text) {
         drawString(x, y, text, Color.white);
     }
 
-    /**
-     * @see org.newdawn.slick.Font#drawString(float, float, CharSequence,
-     *      org.newdawn.slick.Color)
-     */
+    @Override
     public void drawString(float x, float y, @Nonnull CharSequence text, @Nonnull Color col) {
         drawString(x, y, text, col, 0, text.length() - 1);
     }
 
-    /**
-     * @see Font#drawString(float, float, CharSequence, Color, int, int)
-     */
+    @Override
     public void drawString(float x, float y, @Nonnull CharSequence text, @Nonnull Color col,
             int startIndex, int endIndex) {
         fontImage.bind();
@@ -435,7 +440,7 @@ public class AngelCodeFont implements Font {
     }
 
     /**
-     * Render based on immediate rendering
+     * Render based on immediate rendering.
      *
      * @param text The text to be rendered
      * @param start The index of the first character in the string to render
@@ -506,9 +511,7 @@ public class AngelCodeFont implements Font {
         return minYOffset;
     }
 
-    /**
-     * @see org.newdawn.slick.Font#getHeight(CharSequence)
-     */
+    @Override
     public int getHeight(@Nonnull CharSequence text) {
         DisplayList displayList = null;
         if (displayListCaching) {
@@ -545,9 +548,7 @@ public class AngelCodeFont implements Font {
         return maxHeight;
     }
 
-    /**
-     * @see org.newdawn.slick.Font#getWidth(CharSequence)
-     */
+    @Override
     public int getWidth(@Nonnull CharSequence text) {
         DisplayList displayList = null;
         if (displayListCaching) {
@@ -589,9 +590,7 @@ public class AngelCodeFont implements Font {
         return maxWidth;
     }
 
-    /**
-     * @see org.newdawn.slick.Font#getLineHeight()
-     */
+    @Override
     public int getLineHeight() {
         return lineHeight;
     }
@@ -603,6 +602,8 @@ public class AngelCodeFont implements Font {
      *
      * The descent is the distance from the font's baseline to the
      * bottom of most alphanumeric characters with descenders.
+     *
+     * @return descent
      */
     public int getDescent() {
         return descent;
@@ -615,6 +616,8 @@ public class AngelCodeFont implements Font {
      *
      * The ascent is the distance from the font's baseline to the top of most
      * alphanumeric characters.
+     *
+     * @return ascent
      */
     public int getAscent() {
         return ascent;
@@ -641,35 +644,47 @@ public class AngelCodeFont implements Font {
     }
 
     /**
-     * The definition of a single character as defined in the AngelCode file
+     * The definition of a single character as defined in the AngelCode file.
      * format
      *
      * @author kevin
      */
     public static class Glyph {
-        /** The id of the character */
+        /** The id of the character. */
         public final short id;
-        /** The x location on the sprite sheet */
+        /** The x location on the sprite sheet. */
         public final short x;
-        /** The y location on the sprite sheet */
+        /** The y location on the sprite sheet. */
         public final short y;
-        /** The width of the character image */
+        /** The width of the character image. */
         public final short width;
-        /** The height of the character image */
+        /** The height of the character image. */
         public final short height;
-        /** The amount the x position should be offset when drawing the image */
+        /** The amount the x position should be offset when drawing the image. */
         public final short xoffset;
-        /** The amount the y position should be offset when drawing the image */
+        /** The amount the y position should be offset when drawing the image. */
         public final short yoffset;
-        /** The amount to move the current position after drawing the character */
+        /** The amount to move the current position after drawing the character. */
         public final short xadvance;
-        /** The sub-image containing the character */
+        /** The sub-image containing the character. */
         public final Image image;
-        /** The display list index for this character */
+        /** The display list index for this character. */
         protected short dlIndex;
-        /** The kerning info for this character */
+        /** The kerning info for this character. */
         short[] kerning;
 
+        /**
+         *
+         * @param id id
+         * @param x x
+         * @param y y
+         * @param width width
+         * @param height height
+         * @param xoffset xoffset
+         * @param yoffset yoffset
+         * @param xadvance xadvance
+         * @param image image
+         */
         Glyph(short id, short x, short y, short width, short height,
               short xoffset, short yoffset, short xadvance, Image image) {
             this.id = id;
@@ -683,9 +698,7 @@ public class AngelCodeFont implements Font {
             this.image = image;
         }
 
-        /**
-         * @see java.lang.Object#toString()
-         */
+        @Override
         @Nonnull
         public String toString() {
             return "[CharDef id=" + id + " x=" + x + " y=" + y + "]";
@@ -716,20 +729,20 @@ public class AngelCodeFont implements Font {
     }
 
     /**
-     * A descriptor for a single display list
+     * A descriptor for a single display list.
      *
-     * @author Nathan Sweet <misc@n4te.com>
+     * @author Nathan Sweet &lt;misc@n4te.com&gt;
      */
     static private class DisplayList {
-        /** The if of the distance list */
+        /** The if of the distance list. */
         int id;
-        /** The offset of the line rendered */
+        /** The offset of the line rendered. */
         Short yOffset;
-        /** The width of the line rendered */
+        /** The width of the line rendered. */
         Short width;
-        /** The height of the line rendered */
+        /** The height of the line rendered. */
         Short height;
-        /** The text that the display list holds */
+        /** The text that the display list holds. */
         CharSequence text;
     }
 }

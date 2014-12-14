@@ -1,8 +1,5 @@
 package org.newdawn.slick.opengl.pbuffer;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.lwjgl.opengl.GLContext;
 import org.lwjgl.opengl.Pbuffer;
 import org.newdawn.slick.Graphics;
@@ -12,25 +9,27 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.Log;
 
 import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A factory to produce an appropriate render to texture graphics context based on current
- * hardware
+ * hardware.
  *
  * @author kevin
  */
 public class GraphicsFactory {
-    /** The graphics list of graphics contexts created */
+    /** The graphics list of graphics contexts created. */
     private static final Map<Texture, Graphics> graphics = new HashMap<>();
-    /** True if pbuffers are supported */
+    /** True if pbuffers are supported. */
     private static boolean pbuffer = true;
-    /** True if pbuffer render to texture are supported */
+    /** True if pbuffer render to texture are supported. */
     private static boolean pbufferRT = true;
-    /** True if fbo are supported */
+    /** True if fbo are supported. */
     private static boolean fbo = true;
     /**
      * Initialise offscreen rendering by checking what buffers are supported
-     * by the card
+     * by the card.
      *
      * @throws SlickException Indicates no buffers are supported
      */
@@ -42,14 +41,15 @@ public class GraphicsFactory {
         pbufferRT = (Pbuffer.getCapabilities() & Pbuffer.RENDER_TEXTURE_SUPPORTED) != 0;
 
         if (!fbo && !pbuffer && !pbufferRT) {
-            throw new SlickException("Your OpenGL card does not support offscreen buffers and hence can't handle the dynamic images required for this application.");
+            throw new SlickException("Your OpenGL card does not support offscreen buffers and hence can't handle the "
+                    + "dynamic images required for this application.");
         }
 
         Log.info("Offscreen Buffers FBO="+fbo+" PBUFFER="+pbuffer+" PBUFFERRT="+pbufferRT);
     }
 
     /**
-     * Force FBO use on or off
+     * Force FBO use on or off.
      *
      * @param useFBO True if we should try and use FBO for offscreen images
      */
@@ -58,7 +58,7 @@ public class GraphicsFactory {
     }
 
     /**
-     * Check if we're using FBO for dynamic textures
+     * Check if we're using FBO for dynamic textures.
      *
      * @return True if we're using FBOs
      */
@@ -67,7 +67,7 @@ public class GraphicsFactory {
     }
 
     /**
-     * Check if we're using PBuffer for dynamic textures
+     * Check if we're using PBuffer for dynamic textures.
      *
      * @return True if we're using PBuffer
      */
@@ -76,7 +76,7 @@ public class GraphicsFactory {
     }
 
     /**
-     * Get a graphics context for a particular image
+     * Get a graphics context for a particular image.
      *
      * @param image The image for which to retrieve the graphics context
      * @return The graphics context
@@ -95,10 +95,9 @@ public class GraphicsFactory {
     }
 
     /**
-     * Release any graphics context that is assocaited with the given image
+     * Release any graphics context that is associated with the given image.
      *
      * @param image The image to release
-     * @throws SlickException Indicates a failure to release the context
      */
     public static void releaseGraphicsForImage(@Nonnull Image image) {
         Graphics g = graphics.remove(image.getTexture());
@@ -109,11 +108,12 @@ public class GraphicsFactory {
     }
 
     /**
-     * Create an underlying graphics context for the given image
+     * Create an underlying graphics context for the given i
+     *
      *
      * @param image The image we want to render to
      * @return The graphics context created
-     * @throws SlickException
+     * @throws SlickException Failed to create offscreen buffer
      */
     @Nonnull
     private static Graphics createGraphics(@Nonnull Image image) throws SlickException {
