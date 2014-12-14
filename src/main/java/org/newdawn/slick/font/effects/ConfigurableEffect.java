@@ -8,7 +8,7 @@ import java.util.List;
  * An effect that has a number of configuration values. This allows the effect to be configured in the Hiero GUI and to be saved
  * and loaded to and from a file.
  * 
- * @author Nathan Sweet <misc@n4te.com>
+ * @author Nathan Sweet &lt;misc@n4te.com&gt;
  */
 public interface ConfigurableEffect extends Effect {
     /**

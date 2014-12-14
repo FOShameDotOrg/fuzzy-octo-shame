@@ -5,7 +5,7 @@
   <!-- START: The Basics -->
   <groupId>com.jed</groupId>
   <artifactId>fuzzy-octo-shame</artifactId>
-  <version>0.1.9</version>
+  <version>0.1.10</version>
   <packaging>jar</packaging>
   <dependencies>
     <dependency>
@@ -95,7 +95,7 @@
     <annotations.version>3.0.0</annotations.version>
     <checkstyle.verion>6.1</checkstyle.verion>
     <!-- END: Dependencies Versions -->
-    <!-- START: Build specific variables, probably should be associated with profiles.. -->
+    <!-- START: Build specific variables, probably should be associated with profiles. -->
     <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>true</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>
     <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError>true</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnError>
     <!-- END: -->

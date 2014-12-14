@@ -36,30 +36,30 @@ import javax.annotation.Nullable;
  * 
  * For efficiency, glyphs are packed on to textures. Glyphs can be loaded to the textures on the fly, when they are first needed
  * for display. However, it is best to load the glyphs that are known to be needed at startup.
- * @author Nathan Sweet <misc@n4te.com>
+ * @author Nathan Sweet &lt;misc@n4te.com&gt;
  */
 public class UnicodeFont implements org.newdawn.slick.Font {
-    /** The number of display lists that will be cached for strings from this font */
+    /** The number of display lists that will be cached for strings from this font. */
     private static final int DISPLAY_LIST_CACHE_SIZE = 200;
-    /** The highest glyph code allowed */
+    /** The highest glyph code allowed. */
     static private final int MAX_GLYPH_CODE = 0x10FFFF;
-    /** The number of glyphs on a page */
+    /** The number of glyphs on a page. */
     private static final int PAGE_SIZE = 512;
-    /** The number of pages */
+    /** The number of pages. */
     private static final int PAGES = MAX_GLYPH_CODE / PAGE_SIZE;
-    /** Interface to OpenGL */
+    /** Interface to OpenGL. */
     private static final SGL GL = Renderer.get();
-    /** A dummy display list used as a place holder */
+    /** A dummy display list used as a place holder. */
     private static final DisplayList EMPTY_DISPLAY_LIST = new DisplayList();
 
     /**
-     * Utility to create a Java font for a TTF file reference
+     * Utility to create a Java font for a TTF file reference.
      *
      * @param ttfFileRef The file system or classpath location of the TrueTypeFont file.
      * @return The font created
      * @throws SlickException Indicates a failure to locate or load the font into Java's font
      * system.
-     */
+    . */
     private static Font createFont (String ttfFileRef) throws SlickException {
         try {
             return Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream(ttfFileRef));
@@ -75,55 +75,55 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      */
     private static final Comparator<Glyph> heightComparator = (o1, o2) -> o1.getHeight() - o2.getHeight();
 
-    /** The AWT font that is being rendered */
+    /** The AWT font that is being rendered. */
     private Font font;
-    /** The reference to the True Type Font file that has kerning information */
+    /** The reference to the True Type Font file that has kerning information. */
     private String ttfFileRef;
-    /** The ascent of the font */
+    /** The ascent of the font. */
     private int ascent;
-    /** The decent of the font */
+    /** The decent of the font. */
     private int descent;
-    /** The leading edge of the font */
+    /** The leading edge of the font. */
     private int leading;
-    /** The width of a space for the font */
+    /** The width of a space for the font. */
     private int spaceWidth;
-    /** The glyphs that are available in this font */
+    /** The glyphs that are available in this font. */
     private final Glyph[][] glyphs = new Glyph[PAGES][];
-    /** The pages that have been loaded for this font */
+    /** The pages that have been loaded for this font. */
     private final List<GlyphPage> glyphPages = new ArrayList<>();
-    /** The glyphs queued up to be rendered */
+    /** The glyphs queued up to be rendered. */
     private final List<Glyph> queuedGlyphs = new ArrayList<>(256);
-    /** The effects that need to be applied to the font */
+    /** The effects that need to be applied to the font. */
     private final List<Effect> effects = new ArrayList<>();
 
-    /** The padding applied in pixels to the top of the glyph rendered area */
+    /** The padding applied in pixels to the top of the glyph rendered area. */
     private int paddingTop;
-    /** The padding applied in pixels to the left of the glyph rendered area */
+    /** The padding applied in pixels to the left of the glyph rendered area. */
     private int paddingLeft;
-    /** The padding applied in pixels to the bottom of the glyph rendered area */
+    /** The padding applied in pixels to the bottom of the glyph rendered area. */
     private int paddingBottom;
-    /** The padding applied in pixels to the right of the glyph rendered area */
+    /** The padding applied in pixels to the right of the glyph rendered area. */
     private int paddingRight;
-    /** The padding applied in pixels to horizontal advance for each glyph */
+    /** The padding applied in pixels to horizontal advance for each glyph. */
     private int paddingAdvanceX;
-    /** The padding applied in pixels to vertical advance for each glyph */
+    /** The padding applied in pixels to vertical advance for each glyph. */
     private int paddingAdvanceY;
-    /** The glyph to display for missing glyphs in code points */
+    /** The glyph to display for missing glyphs in code points. */
     @Nullable
     private Glyph missingGlyph;
 
-    /** The width of the glyph page generated */
+    /** The width of the glyph page generated. */
     private int glyphPageWidth = 512;
-    /** The height of the glyph page generated */
+    /** The height of the glyph page generated. */
     private int glyphPageHeight = 512;
 
-    /** True if display list caching is turned on */
+    /** True if display list caching is turned on. */
     private boolean displayListCaching = true;
-    /** The based display list ID */
+    /** The based display list ID. */
     private int baseDisplayListID = -1;
-    /** The ID of the display list that has been around the longest time */
+    /** The ID of the display list that has been around the longest time. */
     private int eldestDisplayListID;
-    /** The map fo the display list generated and cached - modified to allow removal of the oldest entry */
+    /** The map fo the display list generated and cached - modified to allow removal of the oldest entry. */
     @Nullable
     private final Map<CharSequence, DisplayList> displayLists = new LinkedHashMap<CharSequence, DisplayList>(DISPLAY_LIST_CACHE_SIZE, 1, true) {
         /**
@@ -131,6 +131,11 @@ public class UnicodeFont implements org.newdawn.slick.Font {
          */
         private static final long serialVersionUID = 1L;
 
+        /**
+         *
+         * @param eldest eldest
+         * @return true if size is greater than DISPLAY_LIST_CACHE_SIZE
+         */
         protected boolean removeEldestEntry (@Nonnull Entry<CharSequence, DisplayList> eldest) {
             DisplayList displayList = eldest.getValue();
             if (displayList != null) eldestDisplayListID = displayList.id;
@@ -139,7 +144,7 @@ public class UnicodeFont implements org.newdawn.slick.Font {
     };
 
     /**
-     * Create a new unicode font based on a TTF file
+     * Create a new unicode font based on a TTF file.
      *
      * @param ttfFileRef The file system or classpath location of the TrueTypeFont file.
      * @param hieroFileRef The file system or classpath location of the Hiero settings file.
@@ -328,7 +333,6 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      * to draw glyphs.
      *
      * @return True if the glyphs were loaded entirely
-     * @throws SlickException if the glyphs could not be loaded.
      */
     public boolean loadGlyphs () {
         return loadGlyphs(-1);
@@ -340,9 +344,9 @@ public class UnicodeFont implements org.newdawn.slick.Font {
      *
      * @param maxGlyphsToLoad The maximum number of glyphs to be loaded this time
      * @return True if the glyphs were loaded entirely
-     * @throws SlickException if the glyphs could not be loaded.
+     * @throws IllegalStateException if the glyphs could not be loaded.
      */
-    boolean loadGlyphs(int maxGlyphsToLoad) {
+    boolean loadGlyphs(int maxGlyphsToLoad) throws IllegalStateException {
         if (queuedGlyphs.isEmpty()) return false;
 
         if (effects.isEmpty())

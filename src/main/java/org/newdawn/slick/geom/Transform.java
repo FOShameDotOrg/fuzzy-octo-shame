@@ -87,7 +87,7 @@ public class Transform {
      * @param destination Array of floats to store the results.   
      * @param destOffset Where in the array to start storing   
      * @param numberOfPoints Number of points to be transformed   
-     * @throws ArrayIndexOutOfBoundsException if sourceOffset + numberOfPoints * 2 > source.length or the same operation on the destination array   
+     * @throws ArrayIndexOutOfBoundsException if sourceOffset + numberOfPoints * 2 &gt; source.length or the same operation on the destination array
      */   
     public void transform(float source[], int sourceOffset, float destination[], int destOffset, int numberOfPoints) {   
         //TODO performance can be improved by removing the safety to the destination array   

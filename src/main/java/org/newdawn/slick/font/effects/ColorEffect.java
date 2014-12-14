@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 /**
  * Makes glyphs a solid color.
  * 
- * @author Nathan Sweet <misc@n4te.com>
+ * @author Nathan Sweet &lt;misc@n4te.com&gt;
  */
 public class ColorEffect implements ConfigurableEffect {
     /** The colour that will be applied across the text */
