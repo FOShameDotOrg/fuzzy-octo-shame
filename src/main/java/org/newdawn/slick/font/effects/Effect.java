@@ -10,7 +10,7 @@ import org.newdawn.slick.font.Glyph;
 /**
  * A graphical effect that is applied to glyphs in a {@link UnicodeFont}.
  * 
- * @author Nathan Sweet <misc@n4te.com>
+ * @author Nathan Sweet &lt;misc@n4te.com&gt;
  */
 public interface Effect {
     /**

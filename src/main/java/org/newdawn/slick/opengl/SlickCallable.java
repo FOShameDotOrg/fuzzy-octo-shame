@@ -43,10 +43,10 @@ import javax.annotation.Nullable;
  * @author kevin
  */
 public abstract class SlickCallable {
-    /** The last texture used */
+    /** The last texture used. */
     @Nullable
     private static Texture lastUsed;
-    /** True if we're in a safe block */
+    /** True if we're in a safe block. */
     private static boolean inSafe = false;
 
 
@@ -105,9 +105,9 @@ public abstract class SlickCallable {
      * method will block until the GL operations have been performed.
      *
      * @throws SlickException Indicates a failure while performing the GL operations or
-     * maintaing SlickState
+     * maintaining SlickState
      */
-    public final void call() {
+    public final void call() throws SlickException {
         enterSafeBlock();
 
         performGLOperations();
@@ -121,5 +121,5 @@ public abstract class SlickCallable {
      *
      * @throws SlickException Indicates a failure of some sort. This is user exception
      */
-    protected abstract void performGLOperations();
+    protected abstract void performGLOperations() throws SlickException;
 }

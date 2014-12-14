@@ -24,42 +24,42 @@ import javax.annotation.Nonnull;
 /**
  * Holds the settings needed to configure a UnicodeFont.
  * 
- * @author Nathan Sweet <misc@n4te.com>
+ * @author Nathan Sweet &lt;misc@n4te.com&gt;
  */
 public class HieroSettings {
-    /** The size of the font to be generated */
+    /** The size of the font to be generated. */
     private int fontSize = 12;
-    /** True if the font is rendered bold */
+    /** True if the font is rendered bold. */
     private boolean bold = false;
-    /** True fi the font if rendered italic */
+    /** True fi the font if rendered italic. */
     private boolean italic = false;
-    /** The padding applied in pixels to the top of the glyph rendered area */
+    /** The padding applied in pixels to the top of the glyph rendered area. */
     private int paddingTop;
-    /** The padding applied in pixels to the left of the glyph rendered area */
+    /** The padding applied in pixels to the left of the glyph rendered area. */
     private int paddingLeft;
-    /** The padding applied in pixels to the bottom of the glyph rendered area */
+    /** The padding applied in pixels to the bottom of the glyph rendered area. */
     private int paddingBottom;
-    /** The padding applied in pixels to the right of the glyph rendered area */
+    /** The padding applied in pixels to the right of the glyph rendered area. */
     private int paddingRight;
-    /** The padding applied in pixels to horizontal advance for each glyph */
+    /** The padding applied in pixels to horizontal advance for each glyph. */
     private int paddingAdvanceX;
-    /** The padding applied in pixels to vertical advance for each glyph */
+    /** The padding applied in pixels to vertical advance for each glyph. */
     private int paddingAdvanceY;
-    /** The width of the glyph page generated */
+    /** The width of the glyph page generated. */
     private int glyphPageWidth = 512;
-    /** The height of the glyph page generated */
+    /** The height of the glyph page generated. */
     private int glyphPageHeight = 512;
-    /** The list of effects applied */
+    /** The list of effects applied. */
     private final List<Effect> effects = new ArrayList<>();
 
     /**
-     * Default constructor for injection
+     * Default constructor for injection.
      */
     public HieroSettings() {
     }
 
     /**
-     * Create a new set of configuration from a file
+     * Create a new set of configuration from a file.
      *
      * @param hieroFileRef The file system or classpath location of the Hiero settings file.
      * @throws SlickException if the file could not be read.
@@ -354,6 +354,7 @@ public class HieroSettings {
      *
      * @param file The file we're saving to
      * @throws IOException if the file could not be saved.
+     * @throws SlickException if effect from effects is not ConfigurableEffect
      */
     public void save(@Nonnull File file) throws SlickException, IOException {
         try(

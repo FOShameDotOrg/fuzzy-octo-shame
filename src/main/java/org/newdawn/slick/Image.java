@@ -295,7 +295,6 @@ public class Image implements Renderable {
      *
      * @param width The width of the image
      * @param height The height of the image
-     * @throws SlickException Indicates a failure to create the underlying resource
      */
     public Image(int width, int height) {
         this(width, height, FILTER_NEAREST);
@@ -307,7 +306,6 @@ public class Image implements Renderable {
      * @param width The width of the image
      * @param height The height of the image
      * @param f The filter to apply to scaling the new image
-     * @throws SlickException Indicates a failure to create the underlying resource
      */
     private Image(int width, int height, int f) {
         this(new EmptyImageData(width, height), f);
@@ -332,7 +330,6 @@ public class Image implements Renderable {
      * @param ref The name that should be assigned to the image
      * @param flipped True if the image should be flipped on the y-axis on load
      * @param filter The filter to use when scaling this image
-     * @throws SlickException Indicates a failure to load the image
      */
     private Image(@Nonnull InputStream in, String ref, boolean flipped, int filter) throws SlickException {
         load(in, ref, flipped, filter, null);
@@ -1126,7 +1123,7 @@ public class Image implements Renderable {
 
     /**
      * Set the angle to rotate this image to.  The angle will be normalized to
-     * be 0 <= angle < 360.  The image will be rotated around its center.
+     * be 0 &lt;= angle &lt; 360.  The image will be rotated around its center.
      *
      * @param angle The angle to be set (in degrees)
      */
@@ -1164,7 +1161,7 @@ public class Image implements Renderable {
 
     /**
      * Add the angle provided to the current rotation.  The angle will be normalized to
-     * be 0 <= angle < 360.  The image will be rotated around its center.
+     * be 0 &lt;= angle &lt; 360.  The image will be rotated around its center.
      *
      * @param angle The angle to add (in degrees)
      */
@@ -1597,7 +1594,6 @@ public class Image implements Renderable {
      * Destroy the image and release any native resources.
      * Calls on a destroyed image have undefined results
      *
-     * @throws SlickException Indicates a failure to release resources on the graphics card
      */
     public void destroy() {
         if (isDestroyed()) {

@@ -109,10 +109,10 @@ public class ImageBuffer implements ImageData {
      *
      * @param x The x position of the pixel to set
      * @param y The y position of the pixel to set
-     * @param r The red component to set (0->255)
-     * @param g The green component to set (0->255)
-     * @param b The blue component to set (0->255)
-     * @param a The alpha component to set (0->255)
+     * @param r The red component to set (0-&gt;255)
+     * @param g The green component to set (0-&gt;255)
+     * @param b The blue component to set (0-&gt;255)
+     * @param a The alpha component to set (0-&gt;255)
      */
     public void setRGBA(int x, int y, int r, int g, int b, int a) {
         if ((x < 0) || (x >= width) || (y < 0) || (y >= height)) {

@@ -1,9 +1,17 @@
 
 package org.newdawn.slick.font;
 
-import java.awt.AlphaComposite;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.UnicodeFont;
+import org.newdawn.slick.font.effects.Effect;
+import org.newdawn.slick.opengl.TextureImpl;
+import org.newdawn.slick.opengl.renderer.Renderer;
+import org.newdawn.slick.opengl.renderer.SGL;
+
+import javax.annotation.Nonnull;
+import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
@@ -15,21 +23,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.UnicodeFont;
-import org.newdawn.slick.font.effects.Effect;
-import org.newdawn.slick.opengl.TextureImpl;
-import org.newdawn.slick.opengl.renderer.Renderer;
-import org.newdawn.slick.opengl.renderer.SGL;
-
-import javax.annotation.Nonnull;
-
 /**
  * Stores a number of glyphs on a single texture.
  * 
- * @author Nathan Sweet <misc@n4te.com>
+ * @author Nathan Sweet &lt;misc@n4te.com&gt;
  */
 public class GlyphPage {
     /** The interface to OpenGL */
@@ -102,7 +99,6 @@ public class GlyphPage {
      * @param unicodeFont The font this page forms part of
      * @param pageWidth The width of the backing texture.
      * @param pageHeight The height of the backing texture.
-     * @throws SlickException if the backing texture could not be created.
      */
     public GlyphPage(UnicodeFont unicodeFont, int pageWidth, int pageHeight) {
         this.unicodeFont = unicodeFont;
@@ -122,7 +118,6 @@ public class GlyphPage {
      * @param maxGlyphsToLoad This is the maximum number of glyphs to load from the list. Set to -1 to attempt to load all the
      *           glyphs.
      * @return The number of glyphs that were actually loaded.
-     * @throws SlickException if the glyph could not be rendered.
      */
     public int loadGlyphs (@Nonnull List<Glyph> glyphs, int maxGlyphsToLoad) {
         if (rowHeight != 0 && maxGlyphsToLoad == -1) {
