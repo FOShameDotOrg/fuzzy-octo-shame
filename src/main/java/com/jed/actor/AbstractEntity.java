@@ -159,5 +159,27 @@ public abstract class AbstractEntity implements Displayable, State, Collidable {
         this.movement = movement;
     }
 
-    //TODO Implement Equals/hashCode
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AbstractEntity that = (AbstractEntity) o;
+
+        if (Float.compare(that.acceleration, acceleration) != 0) return false;
+        if (!bounds.equals(that.bounds)) return false;
+        if (movement != null ? !movement.equals(that.movement) : that.movement != null) return false;
+        if (position != null ? !position.equals(that.position) : that.position != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = position != null ? position.hashCode() : 0;
+        result = 31 * result + bounds.hashCode();
+        result = 31 * result + (movement != null ? movement.hashCode() : 0);
+        result = 31 * result + (acceleration != +0.0f ? Float.floatToIntBits(acceleration) : 0);
+        return result;
+    }
 }

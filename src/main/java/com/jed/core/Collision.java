@@ -63,7 +63,22 @@ public class Collision implements Comparable<Collision> {
     /**
      * 
      */
-    private MinMax xEntityMinMax, xSEntityMinMax, yEntityMinMax, ySEntityMinMax;
+    private MinMax xEntityMinMax;
+
+    /**
+     *
+     */
+    private MinMax xSEntityMinMax;
+
+    /**
+     *
+     */
+    private MinMax yEntityMinMax;
+
+    /**
+     *
+     */
+    private MinMax ySEntityMinMax;
     
     /**
      * 
@@ -245,12 +260,17 @@ public class Collision implements Comparable<Collision> {
      * @author jlinde, Peter Colapietro
      *
      */
-    private class MinMax {
+    private static class MinMax {
 
         /**
          * 
          */
-        public double min, max;
+        private double min;
+
+        /**
+         *
+         */
+        private double max;
 
         /**
          * 
@@ -287,6 +307,29 @@ public class Collision implements Comparable<Collision> {
             }
         }
 
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            MinMax minMax = (MinMax) o;
+
+            if (Double.compare(minMax.max, max) != 0) return false;
+            if (Double.compare(minMax.min, min) != 0) return false;
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            int result;
+            long temp;
+            temp = Double.doubleToLongBits(min);
+            result = (int) (temp ^ (temp >>> 32));
+            temp = Double.doubleToLongBits(max);
+            result = 31 * result + (int) (temp ^ (temp >>> 32));
+            return result;
+        }
     }
 
     @Override
@@ -321,4 +364,52 @@ public class Collision implements Comparable<Collision> {
         }
         return 0;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Collision collision = (Collision) o;
+
+        if (collisionType != collision.collisionType) return false;
+        if (isDebugViewEnabled != collision.isDebugViewEnabled) return false;
+        if (Double.compare(collision.minXDistance, minXDistance) != 0) return false;
+        if (Double.compare(collision.minYDistance, minYDistance) != 0) return false;
+        if (Double.compare(collision.smallestDisplacement, smallestDisplacement) != 0) return false;
+        if (a != null ? !a.equals(collision.a) : collision.a != null) return false;
+        if (b != null ? !b.equals(collision.b) : collision.b != null) return false;
+        if (xEntityMinMax != null ? !xEntityMinMax.equals(collision.xEntityMinMax) : collision.xEntityMinMax != null)
+            return false;
+        if (xSEntityMinMax != null ? !xSEntityMinMax.equals(collision.xSEntityMinMax) : collision.xSEntityMinMax != null)
+            return false;
+        if (yEntityMinMax != null ? !yEntityMinMax.equals(collision.yEntityMinMax) : collision.yEntityMinMax != null)
+            return false;
+        if (ySEntityMinMax != null ? !ySEntityMinMax.equals(collision.ySEntityMinMax) : collision.ySEntityMinMax != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = collisionType;
+        result = 31 * result + (a != null ? a.hashCode() : 0);
+        result = 31 * result + (b != null ? b.hashCode() : 0);
+        temp = Double.doubleToLongBits(minXDistance);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(minYDistance);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(smallestDisplacement);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (xEntityMinMax != null ? xEntityMinMax.hashCode() : 0);
+        result = 31 * result + (xSEntityMinMax != null ? xSEntityMinMax.hashCode() : 0);
+        result = 31 * result + (yEntityMinMax != null ? yEntityMinMax.hashCode() : 0);
+        result = 31 * result + (ySEntityMinMax != null ? ySEntityMinMax.hashCode() : 0);
+        result = 31 * result + (isDebugViewEnabled ? 1 : 0);
+        return result;
+    }
+
 }

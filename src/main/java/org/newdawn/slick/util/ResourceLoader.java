@@ -54,9 +54,9 @@ public class ResourceLoader {
      *
      * @param ref The reference to the resource to retrieve
      * @return A stream from which the resource can be read
+     * @throws RuntimeException If resource not found.
      */
-    @Nullable
-    public static InputStream getResourceAsStream(String ref) {
+    public static InputStream getResourceAsStream(String ref) throws RuntimeException {
         InputStream in = null;
 
         for (ResourceLocation location : locations) {

@@ -168,6 +168,8 @@ public class Player extends AbstractEntity {
         this.idleState = new Idle();
         this.walkingState = new Walking();
         this.jumpingState = new Jumping();
+
+        this.currentState = this.idleState;
     }
 
     /**
@@ -250,6 +252,16 @@ public class Player extends AbstractEntity {
 
     /**
      *
+     * @author jlinde, Peter Colapietro
+     *
+     */
+    private abstract class AbstractAnimatablePlayerState extends AbstractPlayerState {
+
+
+    }
+
+    /**
+     * @author jlinde, Peter Colapietro
      */
     private abstract class AbstractNonEnterablePlayerState extends AbstractPlayerState {
 
@@ -358,17 +370,22 @@ public class Player extends AbstractEntity {
         /**
          *
          */
-        final float[] animation = {.0625f, .125f, .1875f, .25f, .3125f, .375f, .4375f};
+        private final float[] animation = {.0625f, .125f, .1875f, .25f, .3125f, .375f, .4375f};
 
         /**
          *
          */
-        final float frameWidth = .0625f;
+        private static final float frameWidth = .0625f;
 
         /**
          *
          */
-        int frame, ticks;
+        private int frame;
+
+        /**
+         *
+         */
+        private int ticks;
 
         /**
          *
@@ -488,17 +505,22 @@ public class Player extends AbstractEntity {
         /**
          *
          */
-        final float[] animation = {.125f, .1875f, .25f, .3125f, .375f, .4375f, .5f, .5625f, .625f, .6875f, .75f};
+        private final float[] animation = {.125f, .1875f, .25f, .3125f, .375f, .4375f, .5f, .5625f, .625f, .6875f, .75f};
 
         /**
          *
          */
-        final float frameWidth = .0625f;
+        private static final float frameWidth = .0625f;
 
         /**
          *
          */
-        int frame, ticks;
+        private int frame;
+
+        /**
+         *
+         */
+        private int ticks;
 
         @Override
         public void entered() {
@@ -562,13 +584,14 @@ public class Player extends AbstractEntity {
      *
      */
     private void jump() {
-            boolean isJumpCountLessThanTwo = jumpCount < 2;
-            int heightOffsetWithYPosition = Math.round(getPosition().y) + height; //TODO Test me.
-            if (isJumpCountLessThanTwo || heightOffsetWithYPosition == map.getHeight() * map.getTileHeight()) {
-                getMovement().y = -8;
-                jumpCount++;
-                changeState(jumpingState);
-            }
+        boolean isJumpCountLessThanTwo = jumpCount < 2;
+        //int heightOffsetWithYPosition = Math.round(getPosition().y) + height; //TODO Test me.
+        int heightOffsetWithYPosition = (int) (getPosition().y + height);
+        if (isJumpCountLessThanTwo || heightOffsetWithYPosition == map.getHeight() * map.getTileHeight()) {
+            getMovement().y = -8;
+            jumpCount++;
+            changeState(jumpingState);
+        }
         isJumping = false;
     }
 

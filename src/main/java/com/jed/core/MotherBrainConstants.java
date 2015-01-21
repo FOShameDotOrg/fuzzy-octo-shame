@@ -48,7 +48,7 @@ public class MotherBrainConstants {
     /**
      * 
      */
-    public static final boolean IS_DEBUG_VIEW_ENABLED = true;
+    public static final boolean IS_DEBUG_VIEW_ENABLED = false;
     /**
      *
      */
