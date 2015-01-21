@@ -227,15 +227,16 @@ final class MotherBrain extends AbstractLwjglGameLoopable implements Startable, 
 
     /**
      *
+     * @throws RuntimeException If unable to create Display
      */
-    private void initializeDisplay() {
+    private void initializeDisplay() throws RuntimeException {
         try {
             Display.setDisplayMode(new DisplayMode(MotherBrainConstants.WIDTH, MotherBrainConstants.HEIGHT));
             Display.setFullscreen(MotherBrainConstants.IS_DISPLAY_FULLSCREEN);
             Display.create();
         } catch (LWJGLException e) {
             LOGGER.error("An exception occurred while creating the display", e);
-            System.exit(ExitStatusCode.ERROR.getStatusCode());
+            throw new RuntimeException(String.valueOf(ExitStatusCode.ERROR.getStatusCode()));
         }
     }
 
