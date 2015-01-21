@@ -5,7 +5,7 @@
   <!-- START: The Basics -->
   <groupId>com.jed</groupId>
   <artifactId>fuzzy-octo-shame</artifactId>
-  <version>0.1.10</version>
+  <version>0.1.11</version>
   <packaging>jar</packaging>
   <dependencies>
     <dependency>
@@ -88,7 +88,7 @@
     <!-- END: Plugin Versions -->
     <!-- START: Dependencies Versions -->
     <junit.version>4.12-beta-3</junit.version>
-    <lwjgl.version>2.9.1</lwjgl.version>
+    <lwjgl.version>2.9.2</lwjgl.version>
     <jinput.version>2.0.6</jinput.version>
     <slf4j.version>1.7.7</slf4j.version>
     <guice.version>4.0-beta5</guice.version>
@@ -414,6 +414,11 @@
   </build>
   <reporting>
     <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>3.0.0</version>
+      </plugin>
       <plugin>
         <artifactId>maven-jxr-plugin</artifactId>
         <version>${maven-jxr-plugin.version}</version>

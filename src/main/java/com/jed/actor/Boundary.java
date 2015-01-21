@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 
 /**
  * Abstract class who associates another {@link com.jed.actor.AbstractEntity} as an "owner." The owner's
@@ -137,5 +138,27 @@ public abstract class Boundary implements Displayable {
     @Override
     public void drawChildVertex2f(float x, float y) throws NotImplementedException {
         throw new NotImplementedException(LangConstants.NOT_IMPLEMENTED_YET_MESSAGE);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Boundary boundary = (Boundary) o;
+
+        if (owner != null ? !owner.equals(boundary.owner) : boundary.owner != null) return false;
+        if (position != null ? !position.equals(boundary.position) : boundary.position != null) return false;
+        if (!Arrays.equals(vertices, boundary.vertices)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = owner != null ? owner.hashCode() : 0;
+        result = 31 * result + (position != null ? position.hashCode() : 0);
+        result = 31 * result + (vertices != null ? Arrays.hashCode(vertices) : 0);
+        return result;
     }
 }

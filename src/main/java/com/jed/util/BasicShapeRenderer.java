@@ -20,7 +20,7 @@ public class BasicShapeRenderer {
      * @param b blue.
      */
     public static void drawFilledCircle(float cx, float cy, float r, int segments, float red, float g, float b) {
-        double theta = 2 * 3.1415926 / (double) segments;
+        double theta = 2 * Math.PI / (double) segments;
         double c = Math.cos(theta);
         double s = Math.sin(theta);
         double t;

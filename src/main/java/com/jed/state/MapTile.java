@@ -13,7 +13,7 @@ import javax.annotation.Nonnull;
  * @author jlinde, Peter Colapietro
  *
  */
-public class MapTile extends AbstractEntity {
+public final class MapTile extends AbstractEntity {
 
     /**
      * 

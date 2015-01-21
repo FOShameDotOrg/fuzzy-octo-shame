@@ -12,7 +12,6 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
-import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -64,7 +63,6 @@ public final class GameMap extends AbstractDisplayableState {
     /**
      * 
      */
-    @Nonnull
     private Texture texture;
 
     /**
@@ -134,7 +132,7 @@ public final class GameMap extends AbstractDisplayableState {
      * FIXME.
      */
     private void scrollMap() {
-        final float playerHeightMinusInitialPosition = (player.getHeight() / 2) - INITIAL_POSITION.y;
+        final float playerHeightMinusInitialPosition = (float) player.getHeight() / 2.0f - INITIAL_POSITION.y;
         if (player.getMovement().y > 0) {
             if ((player.getPosition().y + playerHeightMinusInitialPosition) > MotherBrainConstants.HEIGHT / 2) {
                 if (INITIAL_POSITION.y + player.getMovement().y > height * tileHeight - MotherBrainConstants.HEIGHT) {
@@ -152,7 +150,7 @@ public final class GameMap extends AbstractDisplayableState {
                 }
             }
         }
-        final float playerWidthMinusInitialPosition = (player.getWidth() / 2) - INITIAL_POSITION.x;
+        final float playerWidthMinusInitialPosition = (float) player.getWidth() / 2.0f - INITIAL_POSITION.x;
         if (player.getMovement().x > 0) {
             if ((player.getPosition().x + playerWidthMinusInitialPosition) > MotherBrainConstants.WIDTH / 2) {
                 if (INITIAL_POSITION.x + player.getMovement().x > width * tileWidth - MotherBrainConstants.WIDTH) {
