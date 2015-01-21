@@ -1,12 +1,12 @@
 package org.newdawn.slick;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-
 import org.lwjgl.BufferUtils;
 import org.newdawn.slick.opengl.ImageData;
 
 import javax.annotation.Nonnull;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.Arrays;
 
 /**
  * A utility for creating images from pixel operations
@@ -54,7 +54,7 @@ public class ImageBuffer implements ImageData {
      * @return The raw data in RGBA packed format from within the image buffer
      */
     public byte[] getRGBA() {
-        return rawData;
+        return Arrays.copyOf(rawData, rawData.length);
     }
 
     /**

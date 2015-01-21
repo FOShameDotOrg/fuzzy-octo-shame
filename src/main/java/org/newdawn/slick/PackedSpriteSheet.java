@@ -1,16 +1,14 @@
 package org.newdawn.slick;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.newdawn.slick.util.Log;
 import org.newdawn.slick.util.ResourceLoader;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A sprite sheet packed and defined by the Pacific Software Image Packer available
@@ -132,9 +130,10 @@ class PackedSpriteSheet {
      * or referenced image.
      */
     private void loadDefinition(String def, @Nullable Color trans) throws SlickException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceLoader.getResourceAsStream(def)));
-
-        try {
+        try (
+                final InputStream resourceAsStream = ResourceLoader.getResourceAsStream(def);
+                final Reader inputStreamReader = new InputStreamReader(resourceAsStream, StandardCharsets.UTF_8);
+                final BufferedReader reader = new BufferedReader(inputStreamReader)) {
             image = new Image(basePath+reader.readLine(), false, filter, trans);
             while (reader.ready()) {
                 if (reader.readLine() == null) {

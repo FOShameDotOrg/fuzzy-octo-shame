@@ -26,8 +26,9 @@ public abstract class AbstractInputListener implements InputListener {
     protected final boolean[] controllerDown = new boolean[MAX_CONTROLLERS];
     /** The state of the button controls. */
     protected final boolean[][] controllerButton = new boolean[MAX_CONTROLLERS][MAX_CONTROLLER_BUTTONS];
+
     /** */
-    protected Input input;
+    private Input input;
 
     @Override
     public void controllerLeftPressed(int controller) {
@@ -122,6 +123,14 @@ public abstract class AbstractInputListener implements InputListener {
     @Override
     public void setInput(Input input) {
         this.input = input;
+    }
+
+    /**
+     *
+     * @return input
+     */
+    public Input getInput() {
+        return input;
     }
 
     @Override

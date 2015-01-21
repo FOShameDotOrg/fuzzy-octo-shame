@@ -1,17 +1,5 @@
 package org.newdawn.slick;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.StringTokenizer;
-
 import org.newdawn.slick.opengl.renderer.Renderer;
 import org.newdawn.slick.opengl.renderer.SGL;
 import org.newdawn.slick.util.Log;
@@ -19,6 +7,10 @@ import org.newdawn.slick.util.ResourceLoader;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * A font implementation that will parse BMFont format font files. The font files can be output
@@ -219,21 +211,20 @@ public class AngelCodeFont implements Font {
             if (baseDisplayListID == 0) displayListCaching = false;
         }
 
-        try {
+        try (
+                final Reader inputStreamReader = new InputStreamReader(fntFile, StandardCharsets.UTF_8);
+                final BufferedReader in = new BufferedReader(inputStreamReader)) {
             // now parse the font file
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                    fntFile));
             in.readLine();
             String common = in.readLine();
-            ascent = parseMetric(common, "base="); //not used apparently ?
-            //ascent = parseMetric(common, "ascent=");
-            descent = parseMetric(common, "descent=");
-            parseMetric(common, "leading=");
-
+            if(common != null) {
+                descent = parseMetric(common, "descent=");
+                parseMetric(common, "leading=");
+            }
             in.readLine();
 
-            Map<Short, List<Short>> kerning = new HashMap<>(64);
-            List<Glyph> charDefs = new ArrayList<>(MAX_CHAR);
+            final Map<Short, List<Short>> kerning = new HashMap<>(64);
+            final List<Glyph> charDefs = new ArrayList<>(MAX_CHAR);
             int maxChar = 0;
             boolean done = false;
             while (!done) {
@@ -631,7 +622,7 @@ public class AngelCodeFont implements Font {
      */
     @Nullable
     Glyph getGlyph(char c) {
-        Glyph g = c<0 || c>= chars.length ? null : chars[c];
+        Glyph g = c >= chars.length ? null : chars[c];
         if (g!=null)
             return g;
         if (singleCase) {
@@ -640,7 +631,7 @@ public class AngelCodeFont implements Font {
             else if (c>=97 && c<=122)
                 c -= 32;
         }
-        return c<0 || c>= chars.length ? null : chars[c];
+        return c>= chars.length ? null : chars[c];
     }
 
     /**
@@ -668,8 +659,6 @@ public class AngelCodeFont implements Font {
         public final short xadvance;
         /** The sub-image containing the character. */
         public final Image image;
-        /** The display list index for this character. */
-        protected short dlIndex;
         /** The kerning info for this character. */
         short[] kerning;
 
