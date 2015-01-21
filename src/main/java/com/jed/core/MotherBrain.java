@@ -227,6 +227,7 @@ final class MotherBrain extends AbstractLwjglGameLoopable implements Startable, 
 
     /**
      *
+     * @throws RuntimeException If unable to create Display
      */
     private void initializeDisplay() throws RuntimeException {
         try {

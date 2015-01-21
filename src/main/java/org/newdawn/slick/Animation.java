@@ -727,13 +727,17 @@ public class Animation implements Renderable {
      */
     @Nonnull
     public String toString() {
-        String res = "[Animation ("+frames.size()+") ";
+        final StringBuffer buf = new StringBuffer();
+        buf.append("[Animation (");
+        buf.append(frames.size());
+        buf.append(") ");
         for (Frame frame : frames) {
-            res += frame.duration + ",";
+            buf.append(frame.duration);
+            buf.append(",");
         }
 
-        res += "]";
-        return res;
+        buf.append("]");
+        return buf.toString();
     }
 
     /**

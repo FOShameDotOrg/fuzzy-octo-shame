@@ -9,6 +9,7 @@ import java.nio.ByteBuffer;
 import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.Arrays;
 
 /**
  * The default OpenGL renderer, uses immediate mode for everything.
@@ -249,7 +250,7 @@ public class ImmediateModeOGLRenderer implements SGL {
     @Override
     @Nonnull
     public float[] getCurrentColor() {
-        return current;
+        return Arrays.copyOf(current, current.length);
     }
 
     @Override

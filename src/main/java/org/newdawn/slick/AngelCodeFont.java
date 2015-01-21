@@ -217,15 +217,14 @@ public class AngelCodeFont implements Font {
             // now parse the font file
             in.readLine();
             String common = in.readLine();
-            ascent = parseMetric(common, "base="); //not used apparently ?
-            //ascent = parseMetric(common, "ascent=");
-            descent = parseMetric(common, "descent=");
-            parseMetric(common, "leading=");
-
+            if(common != null) {
+                descent = parseMetric(common, "descent=");
+                parseMetric(common, "leading=");
+            }
             in.readLine();
 
-            Map<Short, List<Short>> kerning = new HashMap<>(64);
-            List<Glyph> charDefs = new ArrayList<>(MAX_CHAR);
+            final Map<Short, List<Short>> kerning = new HashMap<>(64);
+            final List<Glyph> charDefs = new ArrayList<>(MAX_CHAR);
             int maxChar = 0;
             boolean done = false;
             while (!done) {
@@ -660,8 +659,6 @@ public class AngelCodeFont implements Font {
         public final short xadvance;
         /** The sub-image containing the character. */
         public final Image image;
-        /** The display list index for this character. */
-        protected short dlIndex;
         /** The kerning info for this character. */
         short[] kerning;
 
