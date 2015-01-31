@@ -380,7 +380,7 @@ public final class GameMap extends AbstractDisplayableState {
      * 
      * @return isDebugViewEnabled
      */
-    boolean isDebugViewEnabled() {
+    public boolean isDebugViewEnabled() {
         return isDebugViewEnabled;
     }
 
