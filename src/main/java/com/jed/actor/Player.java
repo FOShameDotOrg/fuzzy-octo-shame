@@ -207,7 +207,9 @@ public class Player extends AbstractEntity {
     @Override
     public void render() {
         currentState.render();
-        getBounds().render();
+        if(map.isDebugViewEnabled()) {
+            getBounds().render();
+        }
     }
 
     /**
