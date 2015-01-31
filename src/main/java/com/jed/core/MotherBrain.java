@@ -165,6 +165,7 @@ final class MotherBrain extends AbstractLwjglGameLoopable implements Startable, 
         inputProvider.bindCommand(new ControllerButtonControl(0,valueOf(DPAD_RIGHT, true)), moveRight);
         inputProvider.bindCommand(new KeyControl(Keyboard.KEY_RIGHT), moveRight);
 
+        inputProvider.bindCommand(new ControllerButtonControl(0, valueOf(BACK, true)), toggleDebugView);
         inputProvider.bindCommand(new KeyControl(Keyboard.KEY_D), toggleDebugView);
 
         inputListener.setInput(input);
