@@ -114,6 +114,13 @@ final class MotherBrain extends AbstractLwjglGameLoopable implements Startable, 
      */
     private final Command moveRight = new BasicCommand(BasicCommandConstants.MOVE_RIGHT);
 
+
+    /**
+     *
+     */
+    private final Command toggleDebugView = new BasicCommand("toggleDebugView");
+
+
     /**
      * 
      */
@@ -157,6 +164,8 @@ final class MotherBrain extends AbstractLwjglGameLoopable implements Startable, 
                 valueOf(DPAD_RIGHT, true)), moveRight);
         inputProvider.bindCommand(new ControllerButtonControl(0,valueOf(DPAD_RIGHT, true)), moveRight);
         inputProvider.bindCommand(new KeyControl(Keyboard.KEY_RIGHT), moveRight);
+
+        inputProvider.bindCommand(new KeyControl(Keyboard.KEY_D), toggleDebugView);
 
         inputListener.setInput(input);
 

@@ -39,8 +39,7 @@ public class PlayState extends AbstractGameState implements InputProviderListene
     /**
      * 
      */
-    @SuppressWarnings("unused")
-    private final boolean isDebugViewEnabled;
+    private boolean isDebugViewEnabled;
     
     /**
      * @since 0.1.8
@@ -100,6 +99,9 @@ public class PlayState extends AbstractGameState implements InputProviderListene
             currentMap.getPlayer().setMovingRight(false);
         } else if(command.getName().equals(BasicCommandConstants.MOVE_LEFT)) {
             currentMap.getPlayer().setMovingLeft(false);
+        } else if(command.getName().equals("toggleDebugView")) {
+            isDebugViewEnabled = !isDebugViewEnabled;
+            currentMap.setDebugViewEnabled(isDebugViewEnabled);
         }
     }
 
