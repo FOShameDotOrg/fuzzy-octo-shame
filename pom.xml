@@ -59,7 +59,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- START: Environment Requirements -->
     <java.version>1.8</java.version>
-    <maven.version>2.2.1</maven.version>
+    <maven.version>3.0.1</maven.version>
     <!-- END: Environment Requirements -->
     <!-- START: Plugin Versions -->
     <maven-assembly-plugin.version>2.5.2</maven-assembly-plugin.version>
