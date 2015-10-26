@@ -87,11 +87,11 @@
     <jgitflow-maven-plugin.version>1.0-m4.3</jgitflow-maven-plugin.version>
     <!-- END: Plugin Versions -->
     <!-- START: Dependencies Versions -->
-    <junit.version>4.12-beta-3</junit.version>
-    <lwjgl.version>2.9.2</lwjgl.version>
+    <junit.version>4.12</junit.version>
+    <lwjgl.version>2.9.3</lwjgl.version>
     <jinput.version>2.0.6</jinput.version>
-    <slf4j.version>1.7.7</slf4j.version>
-    <guice.version>4.0-beta5</guice.version>
+    <slf4j.version>1.7.12</slf4j.version>
+    <guice.version>4.0</guice.version>
     <annotations.version>3.0.0</annotations.version>
     <checkstyle.verion>6.1</checkstyle.verion>
     <!-- END: Dependencies Versions -->
@@ -190,7 +190,7 @@
           <version>${versions-maven-plugin.version}</version>
         </plugin>
         <plugin>
-          <!-- 
+          <!--
             org.eclipse.m2e:lifecycle-mapping's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself if run from the command line. Because there is no m2e connector for maven-checkstyle-plugin we ignore it so that Eclipse does not show an error. If/Once a connector is available, the org.eclipse.m2e:lifecycle-mapping plugin can be removed from the plugins element. See: http://wiki.eclipse.org/M2E_plugin_execution_not_covered
           -->
           <groupId>org.eclipse.m2e</groupId>
