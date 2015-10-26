@@ -92,8 +92,8 @@
     <jinput.version>2.0.6</jinput.version>
     <slf4j.version>1.7.12</slf4j.version>
     <guice.version>4.0</guice.version>
-    <annotations.version>3.0.0</annotations.version>
-    <checkstyle.verion>6.1</checkstyle.verion>
+    <annotations.version>3.0.1u2</annotations.version>
+    <checkstyle.verion>6.11.2</checkstyle.verion>
     <!-- END: Dependencies Versions -->
     <!-- START: Build specific variables, probably should be associated with profiles. -->
     <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>true</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>
@@ -417,7 +417,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.2</version>
       </plugin>
       <plugin>
         <artifactId>maven-jxr-plugin</artifactId>
