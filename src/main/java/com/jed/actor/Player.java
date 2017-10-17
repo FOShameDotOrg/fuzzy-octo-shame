@@ -52,7 +52,7 @@ public class Player extends AbstractEntity {
     /**
      *
      */
-    private static final String TEXTURE_PATH = "MEGA_MAN_SH.png";
+    private static final String TEXTURE_PATH = "MEGA_MAN_SH.PNG";
 
     /**
      *
