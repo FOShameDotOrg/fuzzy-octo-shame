@@ -1,13 +1,16 @@
 # see https://github.com/github/gitignore
 
-# START FROM: https://github.com/github/gitignore/blob/3244810432d214f85791b5dced07d3ab0aca7435/Maven.gitignore
+# START FROM: https://github.com/github/gitignore/blob/f457b6a1cb232a072e2cdd22494876545a603a7f/Maven.gitignore
 target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
 pom.xml.next
 release.properties
-# END FROM: https://github.com/github/gitignore/blob/3244810432d214f85791b5dced07d3ab0aca7435/Maven.gitignore
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+# END FROM: https://github.com/github/gitignore/blob/f457b6a1cb232a072e2cdd22494876545a603a7f/Maven.gitignore
 # START FROM: https://github.com/github/gitignore/blob/ca4a3db967a3bd4070a1b7ff2a58f88e406afc24/Global/Eclipse.gitignore
 *.pydevproject
 .metadata
@@ -116,5 +119,5 @@ reports/
 .pmd
 # End from pc rando
 
-# Ignore Maven wrapper
-!maven/wrapper/maven-wrapper.jar
+# Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
+!/.mvn/wrapper/maven-wrapper.jar
