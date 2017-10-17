@@ -85,6 +85,7 @@
     <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
     <versions-maven-plugin.version>2.1</versions-maven-plugin.version>
     <jgitflow-maven-plugin.version>1.0-m4.3</jgitflow-maven-plugin.version>
+    <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
     <!-- END: Plugin Versions -->
     <!-- START: Dependencies Versions -->
     <junit.version>4.12</junit.version>
@@ -421,6 +422,30 @@
         <configuration>
           <forkMode>once</forkMode>
           <argLine>-Djava.library.path=${project.build.directory}/natives</argLine>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>${exec-maven-plugin.version}</version>
+        <configuration>
+          <executable>java</executable>
+          <mainClass>com.jed.core.FuzzyOctoShame</mainClass>
+          <arguments>
+            <argument>-Djava.library.path=${project.build.directory}/natives</argument>
+            <argument>-classpath</argument>
+            <classpath />
+            <argument>com.jed.core.FuzzyOctoShame</argument>
+          </arguments>
+          <classpathScope>compile</classpathScope>
+          <executions>
+            <execution>
+              <id>exec-fuzzy-octo-shame</id>
+              <goals>
+                <goal>java</goal>
+              </goals>
+            </execution>
+          </executions>
         </configuration>
       </plugin>
     </plugins>
