@@ -59,7 +59,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- START: Environment Requirements -->
     <java.version>1.8</java.version>
-    <maven.version>3.0.1</maven.version>
+    <maven.version>3.5.0</maven.version>
     <!-- END: Environment Requirements -->
     <!-- START: Plugin Versions -->
     <maven-assembly-plugin.version>2.5.2</maven-assembly-plugin.version>
@@ -393,6 +393,19 @@
               </rules>
             </configuration>
           </execution>
+          <execution>
+            <id>enforce-maven</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>${maven.version}</version>
+                </requireMavenVersion>
+              </rules>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
       <plugin>
@@ -515,9 +528,6 @@
     <tag>develop</tag>
     <url>scm:git:git://github.com/Hornswaggler/fuzzy-octo-shame.git</url>
   </scm>
-  <prerequisites>
-    <maven>${maven.version}</maven>
-  </prerequisites>
   <profiles>
     <profile>
       <repositories>
