@@ -241,6 +241,11 @@
           <artifactId>jgitflow-maven-plugin</artifactId>
           <version>${jgitflow-maven-plugin.version}</version>
         </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>${exec-maven-plugin.version}</version>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
@@ -429,7 +434,6 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>${exec-maven-plugin.version}</version>
         <configuration>
           <executable>java</executable>
           <mainClass>com.jed.core.FuzzyOctoShame</mainClass>
