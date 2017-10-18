@@ -5,4 +5,6 @@ cache:
 jdk:
   - oraclejdk8
 sudo: false
+install:
+  - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -Dtravis=true
 script: ./mvnw test -B -Dmaven.javadoc.skip=true -Dtravis=true
