@@ -434,6 +434,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
+        <version>${exec-maven-plugin.version}</version>
         <configuration>
           <executable>java</executable>
           <mainClass>com.jed.core.FuzzyOctoShame</mainClass>
@@ -448,7 +449,7 @@
         <executions>
           <execution>
             <id>exec-fuzzy-octo-shame</id>
-            <phase>post-integration-test</phase>
+            <phase>none</phase>
             <goals>
               <goal>exec</goal>
               <goal>java</goal>
@@ -623,16 +624,6 @@
                 <exclude>**/FuzzyOctoShameTest.java</exclude>
               </excludes>
             </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>exec-fuzzy-octo-shame</id>
-                <phase>none</phase>
-              </execution>
-            </executions>
           </plugin>
         </plugins>
       </build>
