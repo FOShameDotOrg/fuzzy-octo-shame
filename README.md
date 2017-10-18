@@ -12,5 +12,9 @@ Visit the [wiki](https://github.com/virtuoushub/fuzzy-octo-shame/wiki) for more 
 
 * `-Dorg.slf4j.simpleLogger.defaultLogLevel=debug`
 
+* `./mvnw versions:display-dependency-updates`
+
+* `./mvnw versions:display-plugin-updates`
+
 #### "How to configure slf4j-simple"
 * http://stackoverflow.com/a/14545138

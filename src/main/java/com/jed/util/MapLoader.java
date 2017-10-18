@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.newdawn.slick.util.ResourceLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -33,7 +34,7 @@ public class MapLoader {
     /**
      *
      */
-    private static final String LEVEL_ONE_PATH = "/POC_MAP.tmx";
+    public static final String LEVEL_ONE_PATH = "POC_MAP.tmx";
 
     /**
      * 
@@ -44,7 +45,7 @@ public class MapLoader {
         final GameMap map = new GameMap();
 
         Document doc = null;
-        try (final InputStream resourceAsStream = MapLoader.class.getResourceAsStream(LEVEL_ONE_PATH)) {
+        try (final InputStream resourceAsStream = ResourceLoader.getResourceAsStream(LEVEL_ONE_PATH)) {
             final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             doc = dBuilder.parse(resourceAsStream);
