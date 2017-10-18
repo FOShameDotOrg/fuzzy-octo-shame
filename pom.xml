@@ -600,6 +600,29 @@
       </build>
       <id>eclipse</id>
     </profile>
+    <profile>
+      <id>travis</id>
+      <activation>
+        <property>
+          <name>travis</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${maven-surefire-plugin.version}</version>
+            <configuration>
+              <excludes>
+                <exclude>**/UtilTest.java</exclude>
+                <exclude>**/FuzzyOctoShameTest.java</exclude>
+              </excludes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
   <!-- END: Environment Settings -->
 
