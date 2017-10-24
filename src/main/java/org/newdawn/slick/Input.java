@@ -561,7 +561,7 @@ public final class Input {
     /**
      * Remove all the mouse listeners from this input.
      */
-    void removeAllMouseListeners() {
+    public void removeAllMouseListeners() {
         allListeners.removeAll(mouseListeners);
         mouseListeners.clear();
     }

@@ -15,6 +15,7 @@ import org.lwjgl.Sys;
 import org.lwjgl.input.Controller;
 import org.lwjgl.input.Controllers;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
@@ -173,6 +174,9 @@ final class MotherBrain extends AbstractLwjglGameLoopable implements Startable, 
         input.addPrimaryListener(inputListener);
 
         logAllControllers();
+
+        Mouse.destroy();
+        input.removeAllMouseListeners();
     }
 
     /**
