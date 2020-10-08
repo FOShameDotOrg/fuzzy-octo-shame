@@ -3,7 +3,11 @@
 <module name="Checker">
   <module name="JavadocPackage"/>
     <module name="TreeWalker">
-        <property name="cacheFile" value="${checkstyle.cache.file}"/>
+        <!-- https://github.com/checkstyle/checkstyle/issues/7275#issuecomment-557212138 -->
+        <!-- Remove `cache` field from TreeWalker in Checkstyle 8.0. Author: rnveach #2883 -->
+        <!-- https://checkstyle.org/releasenotes.html#Release_8.19 -->
+        <!-- https://github.com/checkstyle/checkstyle/issues/2883 -->
+        <!-- <property name="cacheFile" value="${checkstyle.cache.file}"/> -->
 
         <!-- Checks for Javadoc comments.                     -->
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
