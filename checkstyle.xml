@@ -3,7 +3,11 @@
 <module name="Checker">
   <module name="JavadocPackage"/>
     <module name="TreeWalker">
-        <property name="cacheFile" value="${checkstyle.cache.file}"/>
+        <!-- https://github.com/checkstyle/checkstyle/issues/7275#issuecomment-557212138 -->
+        <!-- Remove `cache` field from TreeWalker in Checkstyle 8.0. Author: rnveach #2883 -->
+        <!-- https://checkstyle.org/releasenotes.html#Release_8.19 -->
+        <!-- https://github.com/checkstyle/checkstyle/issues/2883 -->
+        <!-- <property name="cacheFile" value="${checkstyle.cache.file}"/> -->
 
         <!-- Checks for Javadoc comments.                     -->
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
@@ -15,17 +19,17 @@
     <module name="GenericWhitespace"/>
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
-    <module name="LineLength">
-      <!-- Configuring the check to accept lines up to 160 characters long -->
-          <property name="max" value="160"/>
-      <!-- 
-            Ignore Javadoc comments since references to other elements (@see
-            tag, etc.) may get rather long and should not be truncated.
-            
-            source: http://www.smartics.eu/config-smartics-checkstyle/checkstyle-documentation.html
-        -->
-          <property name="ignorePattern" value="^\s*\*\s*[^\s]+.+$"/>
-    </module>
+  </module>
+  <module name="LineLength">
+    <!-- Configuring the check to accept lines up to 160 characters long -->
+        <property name="max" value="160"/>
+    <!-- 
+          Ignore Javadoc comments since references to other elements (@see
+          tag, etc.) may get rather long and should not be truncated.
+          
+          source: http://www.smartics.eu/config-smartics-checkstyle/checkstyle-documentation.html
+      -->
+        <property name="ignorePattern" value="^\s*\*\s*[^\s]+.+$"/>
   </module>
   <module name="FileTabCharacter">
     <property name="eachLine" value="true"/>

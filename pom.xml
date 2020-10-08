@@ -58,13 +58,13 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- START: Environment Requirements -->
-    <java.version>1.8</java.version>
+    <java.version>11</java.version>
     <maven.version>3.5.0</maven.version>
     <!-- END: Environment Requirements -->
     <!-- START: Plugin Versions -->
     <maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
     <maven-assembly-plugin.version>3.1.0</maven-assembly-plugin.version>
-    <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version><!-- 2.14 -->
+    <maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
     <maven-clean-plugin.version>3.0.0</maven-clean-plugin.version>
     <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
     <maven-dependency-plugin.version>3.0.2</maven-dependency-plugin.version>
@@ -95,7 +95,7 @@
     <slf4j.version>1.7.25</slf4j.version>
     <guice.version>4.1.0</guice.version>
     <annotations.version>3.0.1u2</annotations.version>
-    <checkstyle.verion>6.11.2</checkstyle.verion>
+    <checkstyle.verion>8.29</checkstyle.verion>
     <!-- END: Dependencies Versions -->
     <!-- START: Build specific variables, probably should be associated with profiles. -->
     <build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>true</build.plugins.plugin.maven-checkstyle-plugin.configuration.failOnViolation>
@@ -293,8 +293,8 @@
             <id>validate</id>
             <phase>validate</phase>
             <configuration>
-              <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
-              <testSourceDirectory>${project.build.testSourceDirectory}</testSourceDirectory>
+              <sourceDirectories>${project.build.sourceDirectory}</sourceDirectories>
+              <testSourceDirectories>${project.build.testSourceDirectory}</testSourceDirectories>
               <configLocation>${project.basedir}/checkstyle.xml</configLocation>
               <!-- see http://maven.apache.org/plugins/maven-checkstyle-plugin/examples/suppressions-filter.html -->
               <suppressionsLocation>${project.basedir}/suppressions.xml</suppressionsLocation>
