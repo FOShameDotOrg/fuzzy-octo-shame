@@ -293,8 +293,8 @@
             <id>validate</id>
             <phase>validate</phase>
             <configuration>
-              <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
-              <testSourceDirectory>${project.build.testSourceDirectory}</testSourceDirectory>
+              <sourceDirectories>${project.build.sourceDirectory}</sourceDirectories>
+              <testSourceDirectories>${project.build.testSourceDirectory}</testSourceDirectories>
               <configLocation>${project.basedir}/checkstyle.xml</configLocation>
               <!-- see http://maven.apache.org/plugins/maven-checkstyle-plugin/examples/suppressions-filter.html -->
               <suppressionsLocation>${project.basedir}/suppressions.xml</suppressionsLocation>
