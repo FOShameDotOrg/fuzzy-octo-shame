@@ -89,7 +89,7 @@
     <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
     <!-- END: Plugin Versions -->
     <!-- START: Dependencies Versions -->
-    <junit.version>4.12</junit.version>
+    <junit.version>4.13.1</junit.version>
     <lwjgl.version>2.9.3</lwjgl.version>
     <jinput.version>2.0.7</jinput.version>
     <slf4j.version>1.7.25</slf4j.version>
